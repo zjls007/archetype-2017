@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cy.dao.UserInfoDAO" >
+    <resultMap id="userInfoMap" type="userInfo" >
+        <id column="id" property="id" />
+        <result column="user_name" property="userName" />
+        <result column="password" property="password" />
+    </resultMap>
+
+    <sql id="allColumns" >
+        id, user_name, password
+    </sql>
+
+    <sql id="allColumnsExcludePassword" >
+        id, user_name
+    </sql>
+
+    <insert id="insert" parameterType="userInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO t_user_info(user_name, password) VALUES (#{userName}, #{password})
+    </insert>
+
+    <select id="selectById" resultMap="userInfoMap">
+        SELECT
+        <include refid="allColumnsExcludePassword"/>
+        FROM t_user_info
+        WHERE id = #{id}
+    </select>
+</mapper>
