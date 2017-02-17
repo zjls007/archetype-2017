@@ -23,6 +23,11 @@ public class UserInfo {
      */
     private String password;
 
+    /**
+     * 账户是否锁定 0 未锁定 1锁定
+     */
+    private Byte accountLocked;
+
     public Long getId() {
         return id;
     }
@@ -45,6 +50,14 @@ public class UserInfo {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Byte getAccountLocked() {
+        return accountLocked;
+    }
+
+    public void setAccountLocked(Byte accountLocked) {
+        this.accountLocked = accountLocked;
     }
 }
 

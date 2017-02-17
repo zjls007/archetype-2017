@@ -17,7 +17,7 @@ public class UserInfoTest extends JunitSpringContext {
     public void insert() {
         UserInfo userInfo = new UserInfo();
         userInfo.setUserName("a");
-        userInfo.setPassword("a");
+        userInfo.setPassword("a73fcf339640929207281fb8e038884806e2eb0840f2245694dbba1d5cc89e65");
         int result = userInfoDAO.insert(userInfo);
         System.out.println(result);
     }

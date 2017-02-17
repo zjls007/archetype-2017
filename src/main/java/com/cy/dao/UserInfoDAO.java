@@ -13,4 +13,6 @@ public interface UserInfoDAO {
 
     UserInfo selectById(Long id);
 
+    UserInfo selectByUserName(String userName);
+
 }

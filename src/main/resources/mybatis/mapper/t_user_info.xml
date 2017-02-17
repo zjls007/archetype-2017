@@ -5,14 +5,11 @@
         <id column="id" property="id" />
         <result column="user_name" property="userName" />
         <result column="password" property="password" />
+        <result column="account_locked" property="accountLocked" />
     </resultMap>
 
     <sql id="allColumns" >
-        id, user_name, password
-    </sql>
-
-    <sql id="allColumnsExcludePassword" >
-        id, user_name
+        id, user_name, password, account_locked
     </sql>
 
     <insert id="insert" parameterType="userInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
@@ -21,8 +18,15 @@
 
     <select id="selectById" resultMap="userInfoMap">
         SELECT
-        <include refid="allColumnsExcludePassword"/>
+        <include refid="allColumns"/>
         FROM t_user_info
         WHERE id = #{id}
+    </select>
+
+    <select id="selectByUserName" resultMap="userInfoMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM t_user_info
+        WHERE user_name = #{userName}
     </select>
 </mapper>

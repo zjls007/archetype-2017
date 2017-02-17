@@ -9,6 +9,7 @@
   <url>http://maven.apache.org</url>
   <properties>
     <spring.version>4.3.4.RELEASE</spring.version>
+    <shiro.version>1.3.2</shiro.version>
     <mybatis.version>3.3.1</mybatis.version>
     <mybatis-spring.version>1.2.5</mybatis-spring.version>
     <log4j2.version>2.7</log4j2.version>
@@ -45,6 +46,19 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-spring</artifactId>
+      <version>${shiro.version}</version>
+      <!-- 排除依赖slf4j-api: shiro-core 1.3.2中使用 slf4j-api 1.6.4，项目中引用更新的slf4j-->
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>5.1.30</version>
@@ -56,6 +70,13 @@
       <version>1.0.27</version>
     </dependency>
 
+    <!-- 日志部分 -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.23</version>
+    </dependency>
+
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
@@ -64,6 +85,18 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+    <!-- 桥接：告诉slf4j使用log4j2 -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+    <!-- 桥接：告诉common loggin使用log4j2 -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jcl</artifactId>
       <version>${log4j2.version}</version>
     </dependency>
 
