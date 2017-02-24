@@ -1,26 +1,26 @@
 package com.cy.controller;
 
+import com.cy.controller.dto.UserLoginDTO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by zxj on 2017/2/17.
  */
-@Controller
+@RestController
 public class LoginController {
 
     Logger log = LoggerFactory.getLogger(LoginController.class);
 
     @RequestMapping("/login")
-    public ModelAndView login(ModelAndView mav) {
-        String principal = "a";
-        String credentials = "1";
+    public Object login(UserLoginDTO userLoginDTO) {
+        String principal = userLoginDTO.getPrincipal();
+        String credentials = userLoginDTO.getCredentials();
 
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(principal, credentials);
@@ -39,8 +39,7 @@ public class LoginController {
             log.info("登录异常!");
         }
 
-        mav.setViewName("index");
-        return mav;
+        return "a";
     }
 
 }

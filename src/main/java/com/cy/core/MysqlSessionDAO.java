@@ -46,7 +46,7 @@ public class MysqlSessionDAO extends CachingSessionDAO {
     }
 
     /**
-     * 更新
+     * 更新 - 每次都会更新lastAccessTime
      * @param session
      */
     protected void doUpdate(Session session) {

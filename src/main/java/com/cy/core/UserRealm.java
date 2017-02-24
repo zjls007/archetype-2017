@@ -59,8 +59,8 @@ public class UserRealm extends AuthorizingRealm {
         // 下面为比较明文密码
         // return new SimpleAuthenticationInfo(principal, user.getPassword(), getName());
         return new SimpleAuthenticationInfo(principal,
-//                new Sha256Hash(principal, authenticationToken.getCredentials()).toString(),
-                "a73fcf339640929207281fb8e038884806e2eb0840f2245694dbba1d5cc89e65",
+                new Sha256Hash(principal, authenticationToken.getCredentials()).toString(),
+//                "a73fcf339640929207281fb8e038884806e2eb0840f2245694dbba1d5cc89e65",
                 getName());
     }
 
