@@ -24,9 +24,22 @@ public class UserInfo {
     private String password;
 
     /**
+     * 盐
+     */
+    private String salt;
+
+    /**
      * 账户是否锁定 0 未锁定 1锁定
      */
     private Byte accountLocked;
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 
     public Long getId() {
         return id;

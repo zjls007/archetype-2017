@@ -1,21 +1,36 @@
 package com.cy.controller;
 
 import com.cy.controller.dto.UserLoginDTO;
+import com.cy.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * Created by zxj on 2017/2/17.
  */
 @RestController
-public class LoginController {
+public class UserController {
 
-    Logger log = LoggerFactory.getLogger(LoginController.class);
+    Logger log = LoggerFactory.getLogger(UserController.class);
+
+    @Resource
+    private UserService userService;
+
+    @RequestMapping("/register")
+    public Object register(UserLoginDTO userLoginDTO) {
+        userService.regeist(userLoginDTO);
+
+        return null;
+    }
+
 
     @RequestMapping("/login")
     public Object login(UserLoginDTO userLoginDTO) {
@@ -40,6 +55,14 @@ public class LoginController {
         }
 
         return "a";
+    }
+
+
+    @RequestMapping("/logout")
+    public Object logout() {
+//        SecurityUtils.getSubject().isAuthenticated()
+        SecurityUtils.getSubject().logout();
+        return null;
     }
 
 }

@@ -6,10 +6,9 @@ import com.cy.entity.UserInfo;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 
 import javax.annotation.Resource;
 
@@ -59,14 +58,9 @@ public class UserRealm extends AuthorizingRealm {
         // 下面为比较明文密码
         // return new SimpleAuthenticationInfo(principal, user.getPassword(), getName());
         return new SimpleAuthenticationInfo(principal,
-                new Sha256Hash(principal, authenticationToken.getCredentials()).toString(),
-//                "a73fcf339640929207281fb8e038884806e2eb0840f2245694dbba1d5cc89e65",
+                user.getPassword(),
+                ByteSource.Util.bytes(user.getUserName() + user.getSalt()),
                 getName());
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Md5Hash("a", "1").toString());
-        System.out.println(new Sha256Hash("a", "1").toString());
     }
 
 }

@@ -53,10 +53,10 @@ public class MysqlSessionDAO extends CachingSessionDAO {
         if(session instanceof ValidatingSession && !((ValidatingSession)session).isValid()) {
             return; //如果会话过期/停止 没必要再更新了
         }
-        WebSession ws = new WebSession();
-        ws.setSessionId(session.getId().toString());
-        ws.setSessionSerVal(SerializableUtil.serialize(session));
-        webSessionDAO.updateBySessionId(ws);
+//        WebSession ws = new WebSession();
+//        ws.setSessionId(session.getId().toString());
+//        ws.setSessionSerVal(SerializableUtil.serialize(session));
+//        webSessionDAO.updateBySessionId(ws);
     }
 
     /**
