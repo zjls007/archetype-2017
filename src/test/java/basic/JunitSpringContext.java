@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({
         "classpath:spring/spring-application-context.xml",
-        "classpath:spring/spring-application-dao.xml"})
+        "classpath:spring/spring-application-dao.xml",
+        "classpath:spring/spring-application-redis.xml"})
 public class JunitSpringContext {
 }

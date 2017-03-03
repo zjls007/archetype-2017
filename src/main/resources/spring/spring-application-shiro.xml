@@ -52,6 +52,7 @@
         <property name="globalSessionTimeout" value="1800000"/>
         <property name="sessionDAO" ref="sessionDAO"/>
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
+        <property name="sessionIdUrlRewritingEnabled" value="false"/>
     </bean>
 
     <!-- 不必须配置，shiro有默认值 ，这里只是测试 -->
@@ -70,7 +71,7 @@
     </bean>
     -->
 
-    <bean id="sessionDAO" class="com.cy.core.MysqlSessionDAO">
+    <bean id="sessionDAO" class="com.cy.core.RedisSessionDAO">
         <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
     </bean>

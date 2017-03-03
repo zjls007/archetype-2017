@@ -1,13 +1,11 @@
 package com.cy.service.impl;
 
 import com.cy.controller.dto.UserLoginDTO;
-import com.cy.core.PasswordUtil;
 import com.cy.dao.UserInfoDAO;
 import com.cy.entity.UserInfo;
 import com.cy.service.UserService;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
