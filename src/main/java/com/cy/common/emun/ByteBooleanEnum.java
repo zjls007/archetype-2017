@@ -1,4 +1,4 @@
-package com.cy.common;
+package com.cy.common.emun;
 
 /**
  * Created by zxj on 2017/2/17.

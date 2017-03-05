@@ -1,13 +1,12 @@
-package com.cy.controller;
+package com.cy.web.controller;
 
-import com.cy.controller.dto.UserLoginDTO;
 import com.cy.service.UserService;
+import com.cy.web.dto.UserLoginDTO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,13 +26,13 @@ public class UserController {
     @RequestMapping("/register")
     public Object register(UserLoginDTO userLoginDTO) {
         userService.regeist(userLoginDTO);
-
         return null;
     }
 
 
     @RequestMapping("/login")
     public Object login(UserLoginDTO userLoginDTO) {
+        userService.login(userLoginDTO);
         String principal = userLoginDTO.getPrincipal();
         String credentials = userLoginDTO.getCredentials();
 

@@ -1,5 +1,6 @@
-package com.cy.controller.dto;
+package com.cy.web.dto;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -12,11 +13,13 @@ public class UserLoginDTO implements Serializable {
     /**
      * 身份
      */
+    @NotNull(message = "用户名不能为空!")
     private String principal;
 
     /**
      * 凭证
      */
+    @NotNull(message = "密码不能为空!")
     private String credentials;
 
     public String getCredentials() {

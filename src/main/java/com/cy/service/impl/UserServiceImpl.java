@@ -1,14 +1,18 @@
 package com.cy.service.impl;
 
-import com.cy.controller.dto.UserLoginDTO;
 import com.cy.dao.UserInfoDAO;
 import com.cy.entity.UserInfo;
 import com.cy.service.UserService;
+import com.cy.util.ValidateUtil;
+import com.cy.web.dto.UserLoginDTO;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.validation.ConstraintViolation;
+import javax.validation.ValidationException;
+import java.util.Set;
 
 /**
  * Created by zxj on 2017/2/25.
@@ -18,6 +22,11 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserInfoDAO userInfoDAO;
+
+    public UserInfo login(UserLoginDTO userLoginDTO) {
+        ValidateUtil.validate(userLoginDTO);
+        return null;
+    }
 
     public void regeist(UserLoginDTO userLoginDTO) {
         UserInfo userInfo = new UserInfo();
