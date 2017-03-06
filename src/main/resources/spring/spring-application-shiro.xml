@@ -16,8 +16,8 @@
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <!-- 登陆页面 -->
-        <property name="loginUrl" value="/login_.jsp"/>
-        <property name="successUrl" value="/home.jsp"/>
+        <property name="loginUrl" value="/index"/>
+        <property name="successUrl" value="/index"/>
         <!-- 没权限跳转的页面 -->
         <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
         <property name="filters">
@@ -33,7 +33,7 @@
                 /admin/** = authc, roles[admin]
                 /docs/** = authc, perms[document:read]
                 /login = anon
-                /** = authc
+                /** = anon
             </value>
         </property>
     </bean>
@@ -52,6 +52,7 @@
         <property name="globalSessionTimeout" value="1800000"/>
         <property name="sessionDAO" ref="sessionDAO"/>
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
+        <property name="sessionValidationSchedulerEnabled" value="false"/>
         <property name="sessionIdUrlRewritingEnabled" value="false"/>
     </bean>
 
