@@ -5,6 +5,7 @@ import com.cy.entity.UserInfo;
 import com.cy.service.UserService;
 import com.cy.util.ValidateUtil;
 import com.cy.web.dto.UserLoginDTO;
+import com.github.pagehelper.PageHelper;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.validation.ConstraintViolation;
 import javax.validation.ValidationException;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -50,5 +52,10 @@ public class UserServiceImpl implements UserService {
         userInfo.setUserName(username);
         userInfo.setPassword(encodedPassword);
         userInfo.setSalt(salt2);
+    }
+
+    public void a() {
+        PageHelper.startPage(1, 1);
+        userInfoDAO.selectAll();
     }
 }

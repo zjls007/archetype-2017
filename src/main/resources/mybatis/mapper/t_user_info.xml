@@ -30,4 +30,10 @@
         FROM t_user_info
         WHERE user_name = #{userName}
     </select>
+
+    <select id="selectAll" resultMap="userInfoMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM t_user_info
+    </select>
 </mapper>

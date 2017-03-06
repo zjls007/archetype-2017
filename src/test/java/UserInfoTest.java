@@ -1,8 +1,12 @@
 import basic.JunitSpringContext;
 import com.cy.dao.UserInfoDAO;
 import com.cy.entity.UserInfo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * Created by zxj on 2017/2/7.
@@ -26,6 +30,16 @@ public class UserInfoTest extends JunitSpringContext {
     public void selectById() {
         UserInfo userInfo = userInfoDAO.selectById(1L);
         System.out.println(userInfo);
+    }
+
+    @Test
+    public void selectAll() {
+        PageHelper.startPage(1, 1);
+        List<UserInfo> list = userInfoDAO.selectAll();
+        if (list instanceof Page) {
+            Page page = ((Page) list);
+            System.out.println(page);
+        }
     }
 
 }
