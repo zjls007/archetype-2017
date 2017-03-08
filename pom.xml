@@ -18,5 +18,6 @@
     <mybatis-spring.version>1.2.5</mybatis-spring.version>
     <log4j2.version>2.7</log4j2.version>
     <junit.version>4.12</junit.version>
+    <freemarker.version>2.3.23</freemarker.version>
   </properties>
 </project>

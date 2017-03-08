@@ -110,6 +110,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.cy</groupId>
+            <artifactId>generate</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
             <version>1.7.7.RELEASE</version>
