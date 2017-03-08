@@ -1,3 +1,7 @@
 /target/
 /.idea
 /archetype-2017.iml
+/generate/target/
+/generate/generate.iml
+/web/target/
+/web/web.iml
