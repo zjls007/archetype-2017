@@ -1,4 +1,5 @@
 
+import basic.JunitSpringContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.jms.core.JmsTemplate;
@@ -15,10 +16,7 @@ import javax.jms.Session;
  * Created by zxj on 2017/2/7.
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({
-        "classpath:spring/spring-application-jms.xml"})
-public class JmsTest1 {
+public class JmsTest1 extends JunitSpringContext {
 
     @Resource
     private JmsTemplate jmsQueueTemplate;

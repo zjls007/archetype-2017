@@ -8,12 +8,30 @@
 
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring/spring-application-*.xml</param-value>
+    <param-value>WEB-INF/config/spring-application-*.xml</param-value>
   </context-param>
 
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+
+  <!-- filter-name的名称要和spring-application-shiro.xml中id对应 -->
+  <filter>
+    <filter-name>shiroFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    <init-param>
+      <param-name>targetFilterLifecycle</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+
+  <!-- Make sure any request you want accessible to Shiro is filtered. /* catches all -->
+  <!-- requests.  Usually this filter mapping is defined first (before all others) to -->
+  <!-- ensure that Shiro works in subsequent filters in the filter chain:             -->
+  <filter-mapping>
+    <filter-name>shiroFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 
   <!-- 设置编码UTF-8 -->
   <filter>
@@ -34,7 +52,7 @@
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/spring-application-webmvc.xml</param-value>
+      <param-value>/WEB-INF/spring-servlet.xml</param-value>
     </init-param>
   </servlet>
 
@@ -48,23 +66,4 @@
      2.还可以有其他配置方法,配置多个servlet-mapping  url-pattern值为*.jsp, *.json, *.htm, *.xml 区分请求类型
     -->
   </servlet-mapping>
-
-  <!-- filter-name的名称要和spring-application-shiro.xml中id对应 -->
-  <filter>
-    <filter-name>shiroFilter</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    <init-param>
-      <param-name>targetFilterLifecycle</param-name>
-      <param-value>true</param-value>
-    </init-param>
-  </filter>
-
-  <!-- Make sure any request you want accessible to Shiro is filtered. /* catches all -->
-  <!-- requests.  Usually this filter mapping is defined first (before all others) to -->
-  <!-- ensure that Shiro works in subsequent filters in the filter chain:             -->
-  <filter-mapping>
-    <filter-name>shiroFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
 </web-app>
