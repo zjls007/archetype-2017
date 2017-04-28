@@ -9,6 +9,9 @@
     <classPathEntry location="${jdbc.driverLocation}" />
 
     <context id="MySqlTables" targetRuntime="MyBatis3">
+        <commentGenerator type="com.cy.common.TableCommentGenerator">
+        </commentGenerator>
+
         <jdbcConnection driverClass="${jdbc.driverClass}"
                         connectionURL="${jdbc.connectionURL}"
                         userId="${jdbc.userId}"
@@ -42,8 +45,7 @@
                enableInsert="true"
                enableSelectByPrimaryKey="true"
                enableUpdateByPrimaryKey="true"
-               enableDeleteByPrimaryKey="true"
-        >
+               enableDeleteByPrimaryKey="true">
         </table>
 
     </context>
