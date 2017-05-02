@@ -3,3 +3,5 @@
 /archetype-2017.iml
 /generate/target/
 /generate/generate.iml
+/code-generate-maven-plugin/code-generate-maven-plugin.iml
+/code-generate-maven-plugin/target/

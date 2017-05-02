@@ -1,4 +1,4 @@
-package com.cy.common;
+package com.cy.com.cy.common;
 
 import java.util.Locale;
 import java.util.PropertyResourceBundle;
