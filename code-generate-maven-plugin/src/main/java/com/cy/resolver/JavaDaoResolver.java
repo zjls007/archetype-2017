@@ -1,6 +1,7 @@
 package com.cy.resolver;
 
 import com.cy.api.GenerateConfig;
+import com.cy.dto.JavaDaoDTO;
 import com.cy.dto.JavaModelDTO;
 import com.cy.model.Table;
 import com.cy.util.FreeMarkerUtil;
@@ -16,7 +17,7 @@ import java.util.Map;
 /**
  * Created by zxj on 2017/5/2.
  */
-public class JavaModelResolver extends AbstractResolver {
+public class JavaDaoResolver extends AbstractResolver {
 
     private Table table;
     private String path;
@@ -25,7 +26,7 @@ public class JavaModelResolver extends AbstractResolver {
         this.table = table;
         this.path = path;
         Configuration cfg = FreeMarkerUtil.getConfig();
-        Template temp = cfg.getTemplate("javaModel.ftl");
+        Template temp = cfg.getTemplate("javaDao.ftl");
         FileWriter out = new FileWriter(path);
         temp.process(getDataModel(), out);
         out.flush();
@@ -35,14 +36,13 @@ public class JavaModelResolver extends AbstractResolver {
     @Override
     protected void dataModel(Map<String, Object> root) {
         GenerateConfig generateConfig = GenerateConfig.getInstance();
-        JavaModelDTO dto = new JavaModelDTO();
-        dto.setPackageName(generateConfig.modelPackage);
-        dto.setImportList(JavaTypeResolver.getImportList(table.getColumnList()));
+        JavaDaoDTO dto = new JavaDaoDTO();
+        dto.setModelPackage(generateConfig.modelPackage);
+        dto.setDaoPackage(generateConfig.daoPackage);
         dto.setAuth("zxj");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dto.setDate(dateFormat.format(new Date()));
-        dto.setModelName(table.getName());
-        dto.setColumnList(table.getColumnList());
+        dto.setModelName(NameResolver.getJavaClassName(table.getName()));
 
         root.put("dto", dto);
     }

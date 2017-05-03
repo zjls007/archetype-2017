@@ -1,4 +1,4 @@
-package com.cy;
+package com.cy.dto;
 
 import com.cy.model.Column;
 

@@ -11,8 +11,6 @@ import java.lang.reflect.Field;
  */
 public class PathUtil {
 
-
-
     public static String getModelPath(String basePath) {
         GenerateConfig generateConfig = GenerateConfig.getInstance();
         StringBuilder path = new StringBuilder();
@@ -26,6 +24,22 @@ public class PathUtil {
         path.append(File.separator);
         path.append(NameResolver.getJavaClassName(generateConfig.tableName));
         path.append(".java");
+        return path.toString();
+    }
+
+    public static String getDaoPath(String basePath) {
+        GenerateConfig generateConfig = GenerateConfig.getInstance();
+        StringBuilder path = new StringBuilder();
+        path.append(basePath);
+        if (generateConfig.daoTargetProject != null && !generateConfig.daoTargetProject.isEmpty()) {
+            path.append(File.separator);
+            path.append(generateConfig.daoTargetProject.replaceAll("\\.", "/"));
+        }
+        path.append(File.separator);
+        path.append(generateConfig.daoPackage.replaceAll("\\.", "/"));
+        path.append(File.separator);
+        path.append(NameResolver.getJavaClassName(generateConfig.tableName));
+        path.append("DAO.java");
         return path.toString();
     }
 

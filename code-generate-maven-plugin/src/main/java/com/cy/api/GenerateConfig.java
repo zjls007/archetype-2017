@@ -9,11 +9,17 @@ public class GenerateConfig {
 
     public String modelPackage;
 
+    public String daoPackage;
+
     public Boolean genModel = true;
+
+    public Boolean genDao = true;
 
     public String tableName;
 
     public String modelTargetProject;
+
+    public String daoTargetProject;
 
     public static GenerateConfig generateConfig;
 
@@ -22,11 +28,14 @@ public class GenerateConfig {
     private GenerateConfig(Properties p) {
         this.p = p;
         genModel = !"false".equalsIgnoreCase((String) p.get("gen.model"));
+        genDao = !"false".equalsIgnoreCase((String) p.get("gen.dao"));
         p.get("gen.dao");
         p.get("gen.mapperxml");
         tableName = (String) p.get("table.name");
         modelPackage = (String) p.get("model.package");
+        daoPackage = (String) p.get("dao.package");
         modelTargetProject = (String) p.get("model.targetProject");
+        daoTargetProject = (String) p.get("dao.targetProject");
     }
 
     public static void init(Properties p) {
