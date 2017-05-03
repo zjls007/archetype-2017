@@ -1,12 +1,12 @@
-package com.cy.api;
+package com.cy.resolver;
 
 import com.cy.MysqlRead;
+import com.cy.api.GenerateConfig;
+import com.cy.api.JdbcConnectionFactory;
 import com.cy.model.Table;
-import com.cy.resolver.JavaModelResolver;
-import javafx.scene.control.Tab;
+import com.cy.util.PathUtil;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -29,11 +29,13 @@ public class CodeGenerateResolver {
     public void generate() {
         try {
             GenerateConfig generateConfig = GenerateConfig.getInstance(p);
-            System.out.println(generateConfig.genModel.getClass());
-            MysqlRead mysqlRead = new MysqlRead(jdbcConnectionFactory);
-            Table table = mysqlRead.getTable("t_why_table");
-            JavaModelResolver javaModelResolver = new JavaModelResolver();
-            javaModelResolver.gen(table, p, baseDir.getAbsolutePath() + File.separator + "aa.txt");
+            if (generateConfig.genModel) {
+                MysqlRead mysqlRead = new MysqlRead(jdbcConnectionFactory);
+                Table table = mysqlRead.getTable(generateConfig.tableName);
+                JavaModelResolver javaModelResolver = new JavaModelResolver();
+                javaModelResolver.gen(table, p,
+                        PathUtil.getModelPath(baseDir.getAbsolutePath(), generateConfig.modelPackage, generateConfig.tableName));
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);

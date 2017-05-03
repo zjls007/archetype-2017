@@ -9,7 +9,9 @@ public class GenerateConfig {
 
     public String modelPackage;
 
-    public Object genModel;
+    public Boolean genModel = true;
+
+    public String tableName;
 
     public static GenerateConfig generateConfig;
 
@@ -17,9 +19,10 @@ public class GenerateConfig {
 
     private GenerateConfig(Properties p) {
         this.p = p;
-        genModel = p.get("gen.model");
+        genModel = !"false".equalsIgnoreCase((String) p.get("gen.model"));
         p.get("gen.dao");
         p.get("gen.mapperxml");
+        tableName = (String) p.get("table.name");
         modelPackage = (String) p.get("model.package");
     }
 

@@ -1,7 +1,6 @@
 package com.cy.plugin;
 
-import com.cy.api.CodeGenerateResolver;
-import com.cy.api.JdbcConnectionFactory;
+import com.cy.resolver.CodeGenerateResolver;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -13,7 +12,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.PropertyResourceBundle;
 
 
 @Mojo( name = "touch", defaultPhase = LifecyclePhase.GENERATE_SOURCES )

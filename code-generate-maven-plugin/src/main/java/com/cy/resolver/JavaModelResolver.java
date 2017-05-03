@@ -4,8 +4,11 @@ import com.cy.JavaModelDTO;
 import com.cy.api.GenerateConfig;
 import com.cy.model.Table;
 import com.cy.util.FreeMarkerUtil;
+import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import freemarker.template.TemplateHashModel;
+import freemarker.template.TemplateModelException;
 
 import java.io.FileWriter;
 import java.text.DateFormat;
@@ -18,27 +21,38 @@ import java.util.Properties;
 /**
  * Created by zxj on 2017/5/2.
  */
-public class JavaModelResolver {
+public class JavaModelResolver extends AbstractResolver {
+
+    private Table table;
+    private Properties p;
+    private String path;
 
     public void gen(Table table, Properties p, String path) throws Exception {
+        this.table = table;
+        this.p = p;
+        this.path = path;
+        Configuration cfg = FreeMarkerUtil.getConfig();
+        Template temp = cfg.getTemplate("javaModel.ftl");
+        FileWriter out = new FileWriter(path);
+        temp.process(getDataModel(), out);
+        out.flush();
+        out.close();
+    }
+
+    @Override
+    protected void dataModel(Map<String, Object> root) {
         GenerateConfig generateConfig = GenerateConfig.getInstance(p);
         JavaModelDTO dto = new JavaModelDTO();
         dto.setPackageName(generateConfig.modelPackage);
+        dto.setImportList(JavaTypeResolver.getImportList(table.getColumnList()));
         dto.setAuth("zxj");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dto.setDate(dateFormat.format(new Date()));
         dto.setModelName(table.getName());
         dto.setColumnList(table.getColumnList());
 
-        Configuration cfg = FreeMarkerUtil.getConfig();
-        Template temp = cfg.getTemplate("javaModel.ftl");
-
-        Map<String, Object> root = new HashMap<String, Object>();
         root.put("dto", dto);
-        FileWriter out = new FileWriter(path);
-        temp.process(root, out);
-        out.flush();
-        out.close();
     }
+
 
 }

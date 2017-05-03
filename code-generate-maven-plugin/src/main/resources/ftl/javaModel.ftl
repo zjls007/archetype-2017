@@ -1,29 +1,35 @@
-package ${packageName!};
+package ${dto.packageName!};
 
-<#list importList as item>
+<#if dto.importList?? && (dto.importList?size > 0)>
+<#list dto.importList as item>
 ${item}
 </#list>
 
+</#if>
 /**
-* Created by ${auth!} on ${date!}.
-*/
-public class ${modelName!} {
+ * Created by ${dto.auth!} on ${dto.date!}.
+ */
+public class ${nameResolver.getFieldName(dto.modelName)} {
 
-<#list columnList as item>
+<#if dto.columnList?? && (dto.columnList?size > 0)>
+<#list dto.columnList as item>
+    <#if item.remark?? && (item.remark?length > 0)>
     /** ${item.remark} */
-    private ${item.type} ${item.name};
+    </#if>
+    private ${javaTypeResolver.getType(item.type)} ${nameResolver.getFieldName(item.name)};
+
 </#list>
+</#if>
+<#if dto.columnList?? && (dto.columnList?size > 0)>
+<#list dto.columnList as item>
+    public ${javaTypeResolver.getType(item.type)} ${nameResolver.getGetMethodName(item.name)}() {
+        return ${item.name};
+    }
 
-<#list columnList as item>
-public ${item.type} get${item.name}() {
-return ${item.name};
-}
-
-public void setName(${item.type} ${item.name}) {
-this.${item.name} = ${item.name};
-}
+    public void ${nameResolver.getSetMethodName(item.name)}(${javaTypeResolver.getType(item.type)} ${item.name}) {
+        this.${item.name} = ${item.name};
+    }
 </#list>
-
-
+</#if>
 
 }
