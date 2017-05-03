@@ -32,9 +32,7 @@ public class CodeGenerateMojo extends AbstractMojo {
         } catch (IOException e) {
             throw new RuntimeException("加载配置文件出错", e);
         }
-        CodeGenerateResolver resolver = new CodeGenerateResolver(
-                new JdbcConnectionFactory(p),
-                baseDir);
+        CodeGenerateResolver resolver = new CodeGenerateResolver(p, baseDir);
         resolver.generate();
     }
 
