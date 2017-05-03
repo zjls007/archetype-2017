@@ -13,6 +13,8 @@ public class GenerateConfig {
 
     public String tableName;
 
+    public String modelTargetProject;
+
     public static GenerateConfig generateConfig;
 
     private Properties p;
@@ -24,12 +26,16 @@ public class GenerateConfig {
         p.get("gen.mapperxml");
         tableName = (String) p.get("table.name");
         modelPackage = (String) p.get("model.package");
+        modelTargetProject = (String) p.get("model.targetProject");
     }
 
-    public static GenerateConfig getInstance(Properties p) {
+    public static void init(Properties p) {
         if (generateConfig == null) {
             generateConfig = new GenerateConfig(p);
         }
+    }
+
+    public static GenerateConfig getInstance() {
         return generateConfig;
     }
 

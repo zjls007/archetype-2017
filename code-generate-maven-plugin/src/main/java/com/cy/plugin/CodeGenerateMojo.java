@@ -1,5 +1,6 @@
 package com.cy.plugin;
 
+import com.cy.api.GenerateConfig;
 import com.cy.resolver.CodeGenerateResolver;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -30,6 +31,7 @@ public class CodeGenerateMojo extends AbstractMojo {
         } catch (IOException e) {
             throw new RuntimeException("加载配置文件出错", e);
         }
+        GenerateConfig.init(p);
         CodeGenerateResolver resolver = new CodeGenerateResolver(p, baseDir);
         resolver.generate();
     }

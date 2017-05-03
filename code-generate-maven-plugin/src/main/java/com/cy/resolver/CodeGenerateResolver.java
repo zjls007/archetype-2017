@@ -14,6 +14,8 @@ import java.util.Properties;
  */
 public class CodeGenerateResolver {
 
+    GenerateConfig generateConfig = GenerateConfig.getInstance();
+
     private Properties p;
 
     private JdbcConnectionFactory jdbcConnectionFactory;
@@ -28,13 +30,13 @@ public class CodeGenerateResolver {
 
     public void generate() {
         try {
-            GenerateConfig generateConfig = GenerateConfig.getInstance(p);
             if (generateConfig.genModel) {
                 MysqlRead mysqlRead = new MysqlRead(jdbcConnectionFactory);
                 Table table = mysqlRead.getTable(generateConfig.tableName);
                 JavaModelResolver javaModelResolver = new JavaModelResolver();
-                javaModelResolver.gen(table, p,
-                        PathUtil.getModelPath(baseDir.getAbsolutePath(), generateConfig.modelPackage, generateConfig.tableName));
+                javaModelResolver.gen(
+                        table,
+                        PathUtil.getModelPath(baseDir.getAbsolutePath()));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

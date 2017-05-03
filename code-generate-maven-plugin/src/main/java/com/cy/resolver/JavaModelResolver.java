@@ -24,12 +24,10 @@ import java.util.Properties;
 public class JavaModelResolver extends AbstractResolver {
 
     private Table table;
-    private Properties p;
     private String path;
 
-    public void gen(Table table, Properties p, String path) throws Exception {
+    public void gen(Table table, String path) throws Exception {
         this.table = table;
-        this.p = p;
         this.path = path;
         Configuration cfg = FreeMarkerUtil.getConfig();
         Template temp = cfg.getTemplate("javaModel.ftl");
@@ -41,7 +39,7 @@ public class JavaModelResolver extends AbstractResolver {
 
     @Override
     protected void dataModel(Map<String, Object> root) {
-        GenerateConfig generateConfig = GenerateConfig.getInstance(p);
+        GenerateConfig generateConfig = GenerateConfig.getInstance();
         JavaModelDTO dto = new JavaModelDTO();
         dto.setPackageName(generateConfig.modelPackage);
         dto.setImportList(JavaTypeResolver.getImportList(table.getColumnList()));

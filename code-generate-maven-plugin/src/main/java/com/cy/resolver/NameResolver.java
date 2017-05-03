@@ -5,6 +5,10 @@ package com.cy.resolver;
  */
 public class NameResolver {
 
+    public static String getJavaClassName(String name) {
+        return getTFStr(name, true);
+    }
+
     public static String getFieldName(String name) {
         return getTFStr(name, false);
     }

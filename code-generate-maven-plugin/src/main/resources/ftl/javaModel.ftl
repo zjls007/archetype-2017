@@ -9,7 +9,7 @@ ${item}
 /**
  * Created by ${dto.auth!} on ${dto.date!}.
  */
-public class ${nameResolver.getFieldName(dto.modelName)} {
+public class ${nameResolver.getJavaClassName(dto.modelName)} {
 
 <#if dto.columnList?? && (dto.columnList?size > 0)>
 <#list dto.columnList as item>
@@ -29,7 +29,7 @@ public class ${nameResolver.getFieldName(dto.modelName)} {
     public void ${nameResolver.getSetMethodName(item.name)}(${javaTypeResolver.getType(item.type)} ${item.name}) {
         this.${item.name} = ${item.name};
     }
+
 </#list>
 </#if>
-
 }
