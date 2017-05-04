@@ -34,6 +34,9 @@ public class JavaTypeResolver {
         Set<String> set = new LinkedHashSet<String>();
         for (Column column : list) {
             String[] val = map.get(column.getType().toLowerCase());
+            if (val == null) {
+                throw new RuntimeException(String.format("JavaTypeResolver不支持解析【%s】类型", column.getType()));
+            }
             if (val.length == 2) {
                 set.add(val[1]);
             }

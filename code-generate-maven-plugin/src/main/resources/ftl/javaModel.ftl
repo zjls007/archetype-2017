@@ -26,8 +26,8 @@ public class ${nameResolver.getJavaClassName(dto.modelName)} {
         return ${nameResolver.getFieldName(item.name)};
     }
 
-    public void ${nameResolver.getSetMethodName(item.name)}(${javaTypeResolver.getType(item.type)} ${item.name}) {
-        this.${nameResolver.getFieldName(item.name)} = ${item.name};
+    public void ${nameResolver.getSetMethodName(item.name)}(${javaTypeResolver.getType(item.type)} ${nameResolver.getFieldName(item.name)}) {
+        this.${nameResolver.getFieldName(item.name)} = ${nameResolver.getFieldName(item.name)};
     }
 
 </#list>
