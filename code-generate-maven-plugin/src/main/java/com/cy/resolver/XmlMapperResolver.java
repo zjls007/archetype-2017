@@ -30,6 +30,7 @@ public class XmlMapperResolver extends AbstractResolver {
         temp.process(getDataModel(), out);
         out.flush();
         out.close();
+        System.out.println(String.format("生成: %s", path));
     }
 
     @Override
