@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.util.Properties;
 
 
-@Mojo( name = "genCode", defaultPhase = LifecyclePhase.GENERATE_SOURCES )
-public class CodeGenerateMojo extends AbstractMojo {
+@Mojo( name = "touch", defaultPhase = LifecyclePhase.GENERATE_SOURCES )
+public class CodeGenerateMojo1 extends AbstractMojo {
 
     @Parameter( defaultValue = "${project.basedir}/src/main/resources/code-generate.properties", property = "configFile", required = true )
     private File configFile;

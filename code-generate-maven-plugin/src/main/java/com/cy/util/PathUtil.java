@@ -16,11 +16,12 @@ public class PathUtil {
         StringBuilder path = new StringBuilder();
         path.append(basePath);
         if (generateConfig.modelTargetProject != null && !generateConfig.modelTargetProject.isEmpty()) {
-            path.append(File.separator);
-            path.append(generateConfig.modelTargetProject.replaceAll("\\.", "/"));
+            backDir(path, generateConfig.modelTargetProject);
         }
-        path.append(File.separator);
-        path.append(generateConfig.modelPackage.replaceAll("\\.", "/"));
+        if (generateConfig.modelPackage != null && !generateConfig.modelPackage.isEmpty()) {
+            backDir(path, generateConfig.modelPackage.replaceAll("\\.", "/"));
+        }
+        System.out.println(path);
         path.append(File.separator);
         path.append(NameResolver.getJavaClassName(generateConfig.tableName));
         path.append(".java");
@@ -32,11 +33,11 @@ public class PathUtil {
         StringBuilder path = new StringBuilder();
         path.append(basePath);
         if (generateConfig.daoTargetProject != null && !generateConfig.daoTargetProject.isEmpty()) {
-            path.append(File.separator);
-            path.append(generateConfig.daoTargetProject.replaceAll("\\.", "/"));
+            backDir(path, generateConfig.daoTargetProject);
         }
-        path.append(File.separator);
-        path.append(generateConfig.daoPackage.replaceAll("\\.", "/"));
+        if (generateConfig.daoPackage != null && !generateConfig.daoPackage.isEmpty()) {
+            backDir(path, generateConfig.daoPackage.replaceAll("\\.", "/"));
+        }
         path.append(File.separator);
         path.append(NameResolver.getJavaClassName(generateConfig.tableName));
         path.append("DAO.java");
@@ -48,17 +49,45 @@ public class PathUtil {
         StringBuilder path = new StringBuilder();
         path.append(basePath);
         if (generateConfig.mapperTargetProject != null && !generateConfig.mapperTargetProject.isEmpty()) {
-            path.append(File.separator);
-            path.append(generateConfig.mapperTargetProject.replaceAll("\\.", "/"));
+            backDir(path, generateConfig.mapperTargetProject);
         }
         if (generateConfig.mapperPackage != null && !generateConfig.mapperPackage.isEmpty()) {
-            path.append(File.separator);
-            path.append(generateConfig.mapperPackage.replaceAll("\\.", "/"));
+            backDir(path, generateConfig.mapperPackage.replaceAll("\\.", "/"));
         }
         path.append(File.separator);
         path.append(generateConfig.tableName);
         path.append(".xml");
         return path.toString();
+    }
+
+    /**
+     * 目录..的时候退掉一个目录
+     * @param path
+     * @param add
+     */
+    private static void backDir(StringBuilder path, String add) {
+        String temp = path.toString();
+        if (temp.endsWith("\\")) {
+            temp = temp.substring(0, temp.length() - 1);
+        }
+        if (add.startsWith("/")) {
+            add = add.substring(1);
+        }
+        if (add != null && add.startsWith("../")) {
+            add = add.replace("../", "");
+            if (temp.lastIndexOf("\\") != -1) {
+                temp = temp.substring(0, temp.lastIndexOf("\\"));
+            }
+        }
+        path.delete(0, path.length());
+        path.append(String.format("%s/%s", temp, add));
+    }
+
+    public static void main(String[] args) {
+        StringBuilder path = new StringBuilder("E:\\56top\\saas\\saas-basic");
+        backDir(path, "../saas-basic-model/src/main/java");
+        backDir(path, "com/cy/saas/basic/model/po");
+        System.out.println(path.toString());
     }
 
 }
