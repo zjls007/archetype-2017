@@ -17,7 +17,7 @@
         <#nt><@columnList/>
     </sql>
 
-    <insert id="insert" parameterType="${dto.modelFullName!}">
+    <insert id="insert" parameterType="${dto.modelFullName!}" useGeneratedKeys="true" keyColumn="${dto.primaryKeyName!}" keyProperty="${nameResolver.getFieldName(dto.primaryKeyName!)}">
         INSERT INTO ${dto.tableName}
         <#nt>(<@noIdColunmList/>)
         VALUES
@@ -56,7 +56,7 @@
             <#if dto.noIdColunmList?? && (dto.noIdColunmList?size > 0)>
             <#list dto.noIdColunmList as item>
             <if test="${nameResolver.getFieldName(item)} != null" >
-                ${item} = ${nameResolver.getFieldName(item)},
+                ${item} = ${'#'}{${nameResolver.getFieldName(item)}},
             </if>
             </#list>
             </#if>

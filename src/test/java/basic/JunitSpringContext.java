@@ -20,12 +20,5 @@ import javax.annotation.Resource;
 //@ContextConfiguration({"classpath:spring/spring-application-*.xml"})
 public class JunitSpringContext {
 
-    @Resource
-    private UserInfoDAO userInfoDAO;
-
-    @Test
-    public void a() {
-        System.out.println(userInfoDAO);
-    }
 }
 
