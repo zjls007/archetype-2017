@@ -22,6 +22,7 @@ public class JavaTypeResolver {
             put("date", new String[] {"Date", "import java.util.Date;"});
             put("decimal", new String[] {"BigDecimal", "import java.math.BigDecimal;"});
             put("varchar", new String[] {"String"});
+            put("mediumtext", new String[] {"String"});
         }
     };
 

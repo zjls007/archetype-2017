@@ -31,18 +31,20 @@ public class CodeGenerateResolver {
     public void generate() {
         try {
             MysqlRead mysqlRead = new MysqlRead(jdbcConnectionFactory);
-            Table table = mysqlRead.getTable(generateConfig.tableName);
-            if (generateConfig.genModel) {
-                JavaModelResolver resolver = new JavaModelResolver();
-                resolver.gen(table, PathUtil.getModelPath(baseDir.getAbsolutePath()));
-            }
-            if (generateConfig.genDao) {
-                JavaDaoResolver resolver = new JavaDaoResolver();
-                resolver.gen(table, PathUtil.getDaoPath(baseDir.getAbsolutePath()));
-            }
-            if (generateConfig.genMapper) {
-                XmlMapperResolver resolver = new XmlMapperResolver();
-                resolver.gen(table, PathUtil.getMapperPath(baseDir.getAbsolutePath()));
+            for (String tableName : generateConfig.tableName.split(",")) {
+                Table table = mysqlRead.getTable(tableName);
+                if (generateConfig.genModel) {
+                    JavaModelResolver resolver = new JavaModelResolver();
+                    resolver.gen(table, PathUtil.getModelPath(baseDir.getAbsolutePath(), tableName));
+                }
+                if (generateConfig.genDao) {
+                    JavaDaoResolver resolver = new JavaDaoResolver();
+                    resolver.gen(table, PathUtil.getDaoPath(baseDir.getAbsolutePath(), tableName));
+                }
+                if (generateConfig.genMapper) {
+                    XmlMapperResolver resolver = new XmlMapperResolver();
+                    resolver.gen(table, PathUtil.getMapperPath(baseDir.getAbsolutePath(), tableName));
+                }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

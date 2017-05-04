@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
  */
 public class PathUtil {
 
-    public static String getModelPath(String basePath) {
+    public static String getModelPath(String basePath, String tableName) {
         GenerateConfig generateConfig = GenerateConfig.getInstance();
         StringBuilder path = new StringBuilder();
         path.append(basePath);
@@ -21,14 +21,13 @@ public class PathUtil {
         if (generateConfig.modelPackage != null && !generateConfig.modelPackage.isEmpty()) {
             backDir(path, generateConfig.modelPackage.replaceAll("\\.", "/"));
         }
-        System.out.println(path);
         path.append(File.separator);
-        path.append(NameResolver.getJavaClassName(generateConfig.tableName));
+        path.append(NameResolver.getJavaClassName(tableName));
         path.append(".java");
         return path.toString();
     }
 
-    public static String getDaoPath(String basePath) {
+    public static String getDaoPath(String basePath, String tableName) {
         GenerateConfig generateConfig = GenerateConfig.getInstance();
         StringBuilder path = new StringBuilder();
         path.append(basePath);
@@ -39,12 +38,12 @@ public class PathUtil {
             backDir(path, generateConfig.daoPackage.replaceAll("\\.", "/"));
         }
         path.append(File.separator);
-        path.append(NameResolver.getJavaClassName(generateConfig.tableName));
+        path.append(NameResolver.getJavaClassName(tableName));
         path.append("DAO.java");
         return path.toString();
     }
 
-    public static String getMapperPath(String basePath) {
+    public static String getMapperPath(String basePath, String tableName) {
         GenerateConfig generateConfig = GenerateConfig.getInstance();
         StringBuilder path = new StringBuilder();
         path.append(basePath);
@@ -55,7 +54,7 @@ public class PathUtil {
             backDir(path, generateConfig.mapperPackage.replaceAll("\\.", "/"));
         }
         path.append(File.separator);
-        path.append(generateConfig.tableName);
+        path.append(tableName);
         path.append(".xml");
         return path.toString();
     }
