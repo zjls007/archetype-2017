@@ -13,6 +13,10 @@ public class JavaTypeResolver {
         {
             put("int", new String[] {"Integer"});
             put("bigint", new String[] {"Long"});
+            put("tinyint", new String[] {"Byte"});
+            put("smallint", new String[] {"Byte"});
+            put("datetime", new String[] {"Date", "import java.util.Date;"});
+            put("date", new String[] {"Date", "import java.util.Date;"});
             put("decimal", new String[] {"BigDecimal", "import java.math.BigDecimal;"});
             put("varchar", new String[] {"String"});
         }

@@ -23,11 +23,11 @@ public class ${nameResolver.getJavaClassName(dto.modelName)} {
 <#if dto.columnList?? && (dto.columnList?size > 0)>
 <#list dto.columnList as item>
     public ${javaTypeResolver.getType(item.type)} ${nameResolver.getGetMethodName(item.name)}() {
-        return ${item.name};
+        return ${nameResolver.getFieldName(item.name)};
     }
 
     public void ${nameResolver.getSetMethodName(item.name)}(${javaTypeResolver.getType(item.type)} ${item.name}) {
-        this.${item.name} = ${item.name};
+        this.${nameResolver.getFieldName(item.name)} = ${item.name};
     }
 
 </#list>
