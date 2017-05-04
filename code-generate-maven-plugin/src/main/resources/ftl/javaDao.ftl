@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
-* Created by zxj on 2017/5/3.
-*/
+ * Created by ${dto.auth!} on ${dto.date!}.
+ */
 @Repository
 public interface ${dto.modelName!}DAO {
 

@@ -9,6 +9,7 @@
     <classPathEntry location="${jdbc.driverLocation}" />
 
     <context id="MySqlTables" targetRuntime="MyBatis3">
+
         <commentGenerator type="com.cy.common.TableCommentGenerator">
         </commentGenerator>
 
@@ -35,7 +36,7 @@
         </javaClientGenerator>
 
         <table schema=""
-               tableName="t_why_table"
+               tableName="t_resources"
                domainObjectName="Why"
                mapperName="WhyDao"
                enableCountByExample="false"

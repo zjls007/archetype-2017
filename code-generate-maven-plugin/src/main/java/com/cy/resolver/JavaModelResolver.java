@@ -38,7 +38,7 @@ public class JavaModelResolver extends AbstractResolver {
         JavaModelDTO dto = new JavaModelDTO();
         dto.setPackageName(generateConfig.modelPackage);
         dto.setImportList(JavaTypeResolver.getImportList(table.getColumnList()));
-        dto.setAuth("zxj");
+        dto.setAuth(generateConfig.auth);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dto.setDate(dateFormat.format(new Date()));
         dto.setModelName(table.getName());

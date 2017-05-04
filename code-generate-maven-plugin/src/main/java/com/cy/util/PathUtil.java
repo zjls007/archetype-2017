@@ -43,4 +43,22 @@ public class PathUtil {
         return path.toString();
     }
 
+    public static String getMapperPath(String basePath) {
+        GenerateConfig generateConfig = GenerateConfig.getInstance();
+        StringBuilder path = new StringBuilder();
+        path.append(basePath);
+        if (generateConfig.mapperTargetProject != null && !generateConfig.mapperTargetProject.isEmpty()) {
+            path.append(File.separator);
+            path.append(generateConfig.mapperTargetProject.replaceAll("\\.", "/"));
+        }
+        if (generateConfig.mapperPackage != null && !generateConfig.mapperPackage.isEmpty()) {
+            path.append(File.separator);
+            path.append(generateConfig.mapperPackage.replaceAll("\\.", "/"));
+        }
+        path.append(File.separator);
+        path.append(generateConfig.tableName);
+        path.append(".xml");
+        return path.toString();
+    }
+
 }

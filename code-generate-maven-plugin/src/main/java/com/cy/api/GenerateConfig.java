@@ -7,6 +7,8 @@ import java.util.Properties;
  */
 public class GenerateConfig {
 
+    public String auth;
+
     public String modelPackage;
 
     public String daoPackage;
@@ -15,11 +17,17 @@ public class GenerateConfig {
 
     public Boolean genDao = true;
 
+    public Boolean genMapper = true;
+
     public String tableName;
 
     public String modelTargetProject;
 
     public String daoTargetProject;
+
+    public String mapperTargetProject;
+
+    public String mapperPackage;
 
     public static GenerateConfig generateConfig;
 
@@ -29,13 +37,15 @@ public class GenerateConfig {
         this.p = p;
         genModel = !"false".equalsIgnoreCase((String) p.get("gen.model"));
         genDao = !"false".equalsIgnoreCase((String) p.get("gen.dao"));
-        p.get("gen.dao");
-        p.get("gen.mapperxml");
+        genMapper = !"false".equalsIgnoreCase((String) p.get("gen.mapper"));
         tableName = (String) p.get("table.name");
         modelPackage = (String) p.get("model.package");
         daoPackage = (String) p.get("dao.package");
         modelTargetProject = (String) p.get("model.targetProject");
         daoTargetProject = (String) p.get("dao.targetProject");
+        mapperTargetProject = (String) p.get("mapper.targetProject");
+        mapperPackage = (String) p.get("mapper.package");
+        auth = (String) p.get("auth");
     }
 
     public static void init(Properties p) {

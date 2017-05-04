@@ -39,7 +39,7 @@ public class JavaDaoResolver extends AbstractResolver {
         JavaDaoDTO dto = new JavaDaoDTO();
         dto.setModelPackage(generateConfig.modelPackage);
         dto.setDaoPackage(generateConfig.daoPackage);
-        dto.setAuth("zxj");
+        dto.setAuth(generateConfig.auth);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dto.setDate(dateFormat.format(new Date()));
         dto.setModelName(NameResolver.getJavaClassName(table.getName()));

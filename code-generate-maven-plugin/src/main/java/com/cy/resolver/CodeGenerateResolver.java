@@ -33,14 +33,16 @@ public class CodeGenerateResolver {
             MysqlRead mysqlRead = new MysqlRead(jdbcConnectionFactory);
             Table table = mysqlRead.getTable(generateConfig.tableName);
             if (generateConfig.genModel) {
-                JavaModelResolver javaModelResolver = new JavaModelResolver();
-                javaModelResolver.gen(
-                        table,
-                        PathUtil.getModelPath(baseDir.getAbsolutePath()));
+                JavaModelResolver resolver = new JavaModelResolver();
+                resolver.gen(table, PathUtil.getModelPath(baseDir.getAbsolutePath()));
             }
             if (generateConfig.genDao) {
-                JavaDaoResolver javaDaoResolver = new JavaDaoResolver();
-                javaDaoResolver.gen(table, PathUtil.getDaoPath(baseDir.getAbsolutePath()));
+                JavaDaoResolver resolver = new JavaDaoResolver();
+                resolver.gen(table, PathUtil.getDaoPath(baseDir.getAbsolutePath()));
+            }
+            if (generateConfig.genMapper) {
+                XmlMapperResolver resolver = new XmlMapperResolver();
+                resolver.gen(table, PathUtil.getMapperPath(baseDir.getAbsolutePath()));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
