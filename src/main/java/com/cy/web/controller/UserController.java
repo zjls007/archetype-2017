@@ -1,6 +1,6 @@
 package com.cy.web.controller;
 
-import com.cy.service.UserService;
+import com.cy.service.UserInfoService;
 import com.cy.web.dto.UserLoginDTO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -21,7 +21,7 @@ public class UserController {
     Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Resource
-    private UserService userService;
+    private UserInfoService userService;
 
     @RequestMapping("/register")
     public Object register(UserLoginDTO userLoginDTO) {

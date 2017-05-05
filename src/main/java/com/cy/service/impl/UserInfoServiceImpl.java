@@ -2,25 +2,21 @@ package com.cy.service.impl;
 
 import com.cy.dao.UserInfoDAO;
 import com.cy.entity.UserInfo;
-import com.cy.service.UserService;
+import com.cy.service.UserInfoService;
 import com.cy.util.ValidateUtil;
 import com.cy.web.dto.UserLoginDTO;
-import com.github.pagehelper.PageHelper;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.validation.ConstraintViolation;
-import javax.validation.ValidationException;
-import java.util.List;
-import java.util.Set;
+import java.util.Date;
 
 /**
  * Created by zxj on 2017/2/25.
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserInfoServiceImpl implements UserInfoService {
 
     @Resource
     private UserInfoDAO userInfoDAO;
@@ -30,12 +26,19 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    public void regeist(UserLoginDTO userLoginDTO) {
+    public Long regeist(UserLoginDTO userLoginDTO) {
         UserInfo userInfo = new UserInfo();
         userInfo.setUserName(userLoginDTO.getPrincipal());
         userInfo.setPassword(userLoginDTO.getCredentials());
         encryptPassword(userInfo);
-        userInfoDAO.insert(userInfo);
+        Date now = new Date();
+        userInfo.setCreateTime(now);
+        userInfo.setModifyTime(now);
+        int result = userInfoDAO.insert(userInfo);
+        if (result != 1) {
+            throw new RuntimeException("sql影响行数不正确!");
+        }
+        return userInfo.getId();
     }
 
     private void encryptPassword(UserInfo userInfo) {
