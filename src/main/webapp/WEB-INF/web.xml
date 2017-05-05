@@ -15,6 +15,11 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
+  <listener>
+    <!-- 在普通类中获取request： HttpServletRequest request =  ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest()-->
+    <listener-class>org.springframework.web.context.request.RequestContextListener </listener-class>
+  </listener>
+
   <!-- filter-name的名称要和spring-application-shiro.xml中id对应 -->
   <filter>
     <filter-name>shiroFilter</filter-name>

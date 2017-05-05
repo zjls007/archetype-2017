@@ -73,7 +73,7 @@
     -->
 
     <bean id="sessionDAO" class="com.cy.core.RedisSessionDAO">
-        <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
+        <!--<property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>-->
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
     </bean>
 

@@ -10,9 +10,6 @@
 
     <context id="MySqlTables" targetRuntime="MyBatis3">
 
-        <commentGenerator type="com.cy.common.TableCommentGenerator">
-        </commentGenerator>
-
         <jdbcConnection driverClass="${jdbc.driverClass}"
                         connectionURL="${jdbc.connectionURL}"
                         userId="${jdbc.userId}"

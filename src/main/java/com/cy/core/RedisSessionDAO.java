@@ -1,19 +1,25 @@
 package com.cy.core;
 
 import org.apache.shiro.session.Session;
+import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.ValidatingSession;
 import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
 import org.apache.shiro.session.mgt.eis.CachingSessionDAO;
+import org.apache.shiro.session.mgt.eis.MemorySessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zxj on 2017/3/1.
  */
-public class RedisSessionDAO extends CachingSessionDAO {
+public class RedisSessionDAO extends AbstractSessionDAO {
 
     @Autowired
     private RedisTemplate<String, Session> redisTemplate;
@@ -41,6 +47,8 @@ public class RedisSessionDAO extends CachingSessionDAO {
      * @return
      */
     protected Session doReadSession(Serializable serializable) {
+        HttpServletRequest request =  ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        System.out.println(request.getRequestURL());
         System.out.println("读取" + serializable);
         String key = KEY_PREFIX + serializable.toString();
         return redisTemplate.opsForValue().get(key);
@@ -71,4 +79,18 @@ public class RedisSessionDAO extends CachingSessionDAO {
         redisTemplate.delete(key);
     }
 
+    @Override
+    public void update(Session session) throws UnknownSessionException {
+
+    }
+
+    @Override
+    public void delete(Session session) {
+
+    }
+
+    @Override
+    public Collection<Session> getActiveSessions() {
+        return null;
+    }
 }
