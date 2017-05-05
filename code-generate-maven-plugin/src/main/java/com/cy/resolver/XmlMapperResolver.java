@@ -51,6 +51,7 @@ public class XmlMapperResolver extends AbstractResolver {
         noIdColunmList.remove(table.getPrimaryKeyName());
         dto.setNoIdColunmList(noIdColunmList);
         root.put("dto", dto);
+        root.put("uniKeyList", table.getUniKeyList());
     }
 
 

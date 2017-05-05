@@ -23,4 +23,10 @@ public interface ${dto.modelName!}DAO {
 
     ${dto.modelName!} selectById(Long id);
 
+<#if uniKeyList?? && (uniKeyList?size>0)>
+    <#list uniKeyList as item>
+    ${dto.modelName!} selectBy${nameResolver.getJavaClassName(item.name)}(${javaTypeResolver.getType(item.type)} ${nameResolver.getFieldName(item.name)});
+
+    </#list>
+</#if>
 }

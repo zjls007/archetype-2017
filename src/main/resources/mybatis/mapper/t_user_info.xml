@@ -1,39 +1,101 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cy.dao.UserInfoDAO" >
-    <resultMap id="userInfoMap" type="userInfo" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.dao.UserInfoDAO">
+
+    <resultMap id="BaseResultMap" type="com.cy.entity.UserInfo">
         <id column="id" property="id" />
         <result column="user_name" property="userName" />
         <result column="password" property="password" />
         <result column="salt" property="salt" />
+        <result column="full_name" property="fullName" />
+        <result column="tel_no" property="telNo" />
+        <result column="mobile_no" property="mobileNo" />
+        <result column="sign_no" property="signNo" />
         <result column="account_locked" property="accountLocked" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
     </resultMap>
 
-    <sql id="allColumns" >
-        id, user_name, password, salt, account_locked
+    <sql id="Base_Column_List">
+        id, user_name, password, salt, full_name, tel_no, mobile_no, sign_no, account_locked, create_time, 
+        modify_time
     </sql>
 
-    <insert id="insert" parameterType="userInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO t_user_info(user_name, password, salt) VALUES (#{userName}, #{password}, #{salt})
+    <insert id="insert" parameterType="com.cy.entity.UserInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO t_user_info
+        (user_name, password, salt, full_name, tel_no, mobile_no, sign_no, account_locked, create_time, modify_time)
+        VALUES
+        (#{userName}, #{password}, #{salt}, #{fullName}, #{telNo}, #{mobileNo}, #{signNo}, #{accountLocked}, #{createTime}, #{modifyTime})
     </insert>
 
-    <select id="selectById" resultMap="userInfoMap">
+    <insert id="batchInsert">
+        INSERT INTO t_user_info
+        (user_name, password, salt, full_name, tel_no, mobile_no, sign_no, account_locked, create_time, modify_time)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+           (#{item.userName}, #{item.password}, #{item.salt}, #{item.fullName}, #{item.telNo}, #{item.mobileNo}, #{item.signNo}, #{item.accountLocked}, #{item.createTime}, #{item.modifyTime})
+        </foreach>
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM t_user_info where id = #{id}
+    </delete>
+
+    <delete id="batchDelete">
+        DELETE FROM t_user_info where id in
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+        #{item}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="com.cy.entity.UserInfo" >
+        update t_user_info
+        <set>
+            <if test="userName != null" >
+                user_name = #{userName},
+            </if>
+            <if test="password != null" >
+                password = #{password},
+            </if>
+            <if test="salt != null" >
+                salt = #{salt},
+            </if>
+            <if test="fullName != null" >
+                full_name = #{fullName},
+            </if>
+            <if test="telNo != null" >
+                tel_no = #{telNo},
+            </if>
+            <if test="mobileNo != null" >
+                mobile_no = #{mobileNo},
+            </if>
+            <if test="signNo != null" >
+                sign_no = #{signNo},
+            </if>
+            <if test="accountLocked != null" >
+                account_locked = #{accountLocked},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime},
+            </if>
+            <if test="modifyTime != null" >
+                modify_time = #{modifyTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="com.cy.entity.UserInfo">
         SELECT
-        <include refid="allColumns"/>
-        FROM t_user_info
-        WHERE id = #{id}
+        <include refid="Base_Column_List"/>
+        FROM t_user_info WHERE id = #{id}
     </select>
 
-    <select id="selectByUserName" resultMap="userInfoMap">
+    <select id="selectByUserName" resultMap="BaseResultMap" parameterType="com.cy.entity.UserInfo">
         SELECT
-        <include refid="allColumns"/>
-        FROM t_user_info
-        WHERE user_name = #{userName}
+        <include refid="Base_Column_List"/>
+        FROM t_user_info WHERE user_name = #{userName}
     </select>
 
-    <select id="selectAll" resultMap="userInfoMap">
-        SELECT
-        <include refid="allColumns"/>
-        FROM t_user_info
-    </select>
 </mapper>
+

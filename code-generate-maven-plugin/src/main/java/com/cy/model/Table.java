@@ -17,6 +17,11 @@ public class Table {
      */
     private String primaryKeyName;
 
+    /**
+     * 唯一单列索引集合的字段名
+     */
+    private List<Column> uniKeyList;
+
     private List<Column> columnList;
 
     public String getName() {
@@ -41,5 +46,13 @@ public class Table {
 
     public void setPrimaryKeyName(String primaryKeyName) {
         this.primaryKeyName = primaryKeyName;
+    }
+
+    public List<Column> getUniKeyList() {
+        return uniKeyList;
+    }
+
+    public void setUniKeyList(List<Column> uniKeyList) {
+        this.uniKeyList = uniKeyList;
     }
 }

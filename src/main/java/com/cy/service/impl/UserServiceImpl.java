@@ -54,8 +54,4 @@ public class UserServiceImpl implements UserService {
         userInfo.setSalt(salt2);
     }
 
-    public void a() {
-        PageHelper.startPage(1, 1);
-        userInfoDAO.selectAll();
-    }
 }

@@ -42,6 +42,7 @@ public class MysqlRead {
         table.setName(tableName);
         table.setPrimaryKeyName(getPrimaryKey(conn, dbmd, tableName));
         table.setColumnList(getColumns(dbmd, tableName));
+        table.setUniKeyList(getUniColumn(table.getColumnList(), getUniKeySingleList(dbmd, tableName)));
         return table;
     }
 
@@ -59,6 +60,50 @@ public class MysqlRead {
         return list;
     }
 
+    private List<Column> getUniColumn(List<Column> columnList, List<String> uniKeyList) {
+        List<Column> result = new ArrayList<Column>();
+        for (String key : uniKeyList) {
+            for (Column column : columnList) {
+                if (column.getName().equalsIgnoreCase(key)) {
+                    result.add(column);
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * 获取单列唯一索引，排除主键，排除唯一索引中有多个字段
+     * @return
+     */
+    private List<String> getUniKeySingleList(DatabaseMetaData dbmd, String tableName) throws Exception {
+        List<String> result = new ArrayList<String>();
+
+        List<String> temp = new ArrayList<String>();
+        ResultSet rs =  dbmd.getIndexInfo(null, null, tableName, true, false );
+        while (rs.next()) {
+            String indexName = rs.getString("INDEX_NAME");
+            if (!"PRIMARY".equalsIgnoreCase(indexName)) {
+                String colunmName = rs.getString("COLUMN_NAME");
+                temp.add(String.format("%s:%s", indexName, colunmName));
+            }
+        }
+        for (String i : temp) {
+            int count = 0;
+            for (String j : temp) {
+                if (i.substring(0, i.indexOf(":")).equals(j.substring(0, j.indexOf(":")))) {
+                    count++;
+                }
+            }
+            if (count == 1) {
+                result.add(i.substring(i.indexOf(":") + 1));
+            }
+        }
+        return result;
+    }
+
     public String getPrimaryKey(Connection conn, DatabaseMetaData dbmd, String tableName) throws Exception {
         ResultSet primaryKeyResultSet = dbmd.getPrimaryKeys(conn.getCatalog(), null, tableName);
         while(primaryKeyResultSet.next()){
@@ -66,6 +111,11 @@ public class MysqlRead {
             return primaryKeyColumnName;
         }
         return null;
+    }
+
+    public static void main(String[] args) throws Exception {
+        MysqlRead mysqlRead = new MysqlRead(new JdbcConnectionFactory());
+        mysqlRead.getTable("t_user_info");
     }
 
 }

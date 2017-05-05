@@ -44,12 +44,6 @@
         </foreach>
     </delete>
 
-    <select id="selectById" resultMap="BaseResultMap" parameterType="${dto.modelFullName!}">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM ${dto.tableName} WHERE <@idEqual/>
-    </select>
-
     <update id="update" parameterType="${dto.modelFullName!}" >
         update ${dto.tableName}
         <set>
@@ -64,6 +58,22 @@
         <#nt>where <@idEqual/>
     </update>
 
+    <select id="selectById" resultMap="BaseResultMap" parameterType="${dto.modelFullName!}">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ${dto.tableName} WHERE <@idEqual/>
+    </select>
+
+<#if uniKeyList?? && (uniKeyList?size>0)>
+    <#list uniKeyList as item>
+    <select id="selectBy${nameResolver.getJavaClassName(item.name)}" resultMap="BaseResultMap" parameterType="${dto.modelFullName!}">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ${dto.tableName} WHERE ${item.name} = ${'#'}{${nameResolver.getFieldName(item.name)}}
+    </select>
+
+    </#list>
+</#if>
 </mapper>
 
 <#macro columnList>

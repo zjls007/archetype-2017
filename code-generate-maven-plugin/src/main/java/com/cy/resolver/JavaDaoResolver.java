@@ -46,6 +46,7 @@ public class JavaDaoResolver extends AbstractResolver {
         dto.setModelName(NameResolver.getJavaClassName(table.getName()));
 
         root.put("dto", dto);
+        root.put("uniKeyList", table.getUniKeyList());
     }
 
 
