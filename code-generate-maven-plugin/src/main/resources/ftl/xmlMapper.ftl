@@ -14,22 +14,22 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        <#nt><@columnList/>
+        <@columnList/>
     </sql>
 
     <insert id="insert" parameterType="${dto.modelFullName!}" useGeneratedKeys="true" keyColumn="${dto.primaryKeyName!}" keyProperty="${nameResolver.getFieldName(dto.primaryKeyName!)}">
         INSERT INTO ${dto.tableName}
-        <#nt>(<@noIdColunmList/>)
+        <@noIdColunmList/>
         VALUES
-        <#nt>(<@noIdColunmListValue prefix=""/>)
+        <@noIdColunmListValue prefix=""/>
     </insert>
 
     <insert id="batchInsert">
         INSERT INTO ${dto.tableName}
-        <#nt>(<@noIdColunmList/>)
+        <@noIdColunmList/>
         VALUES
         <foreach collection="list" item="item" separator=",">
-            <#nt>(<@noIdColunmListValue prefix="item"/>)
+            <@noIdColunmListValue prefix="item"/>
         </foreach>
     </insert>
 
@@ -69,31 +69,21 @@
 <#macro columnList>
     <#if dto.columnList?? && (dto.columnList?size > 0)>
         <#list dto.columnList?chunk(10) as row>
-            <#list row as item>
-                <#t>${item}
-                <#t><#if item_has_next || row_has_next>, </#if>
-            </#list>
+        <#list row as item>${item}<#if item_has_next || row_has_next>, </#if></#list>
         </#list>
     </#if>
 </#macro>
 <#macro noIdColunmList>
     <#if dto.noIdColunmList?? && (dto.noIdColunmList?size > 0)>
         <#list dto.noIdColunmList?chunk(10) as row>
-            <#list row as item>
-                <#t>${item}
-                <#t><#if item_has_next || row_has_next>, </#if>
-            </#list>
+        <#if row_index=0>(</#if><#list row as item>${item}<#if item_has_next || row_has_next>, </#if></#list><#if !row_has_next>)</#if>
         </#list>
     </#if>
 </#macro>
 <#macro noIdColunmListValue prefix>
     <#if dto.noIdColunmList?? && (dto.noIdColunmList?size > 0)>
         <#list dto.noIdColunmList?chunk(10) as row>
-            <#list row as item>
-                <#t>${'#'}{<#if prefix?? && (prefix?length > 0)>${prefix}.</#if>
-                <#t>${nameResolver.getFieldName(item)}}
-                <#t><#if item_has_next || row_has_next>, </#if>
-            </#list>
+        <#if prefix!=''>   </#if><#if row_index=0>(</#if><#list row as item>${'#'}{<#if prefix?? && (prefix?length > 0)>${prefix}.</#if>${nameResolver.getFieldName(item)}}<#if item_has_next || row_has_next>, </#if></#list><#if !row_has_next>)</#if>
         </#list>
     </#if>
 </#macro>
