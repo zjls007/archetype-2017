@@ -1,5 +1,7 @@
 package com.cy.common.resolver;
 
+import com.cy.common.Response;
+import com.cy.common.constant.ResponseStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ValidationException;
 
 /**
  * Created by zxj on 2017/3/31.
@@ -33,6 +36,14 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver, Ordere
         boolean responseBody = handlerMethod.getMethod().getAnnotation(ResponseBody.class) != null;
         if (!responseBody) {
             responseBody = handlerMethod.getBeanType().getAnnotation(RestController.class) != null;
+        }
+        if (e instanceof ValidationException) {
+            new Response(ResponseStatus.PARAM_ERROR, e.getMessage()).send(httpServletResponse);
+        }
+        if (responseBody) {
+
+        } else {
+
         }
         LOG.error("", e);
         return null;

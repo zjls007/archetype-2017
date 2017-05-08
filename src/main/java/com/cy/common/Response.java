@@ -1,5 +1,15 @@
 package com.cy.common;
 
+
+import com.cy.common.constant.ResponseStatus;
+import com.cy.common.exception.SystemException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 /**
  * Created by zxj on 2017/5/8.
  */
@@ -9,6 +19,36 @@ public class Response {
         this.code = 0;
         this.message = "成功";
         this.data = data;
+    }
+
+    public Response(ResponseStatus responseStatus) {
+        this.code = responseStatus.getCode();
+        this.message = responseStatus.getMessage();
+    }
+
+    public Response(ResponseStatus responseStatus, String message) {
+        this.code = responseStatus.getCode();
+        this.message = message;
+    }
+
+    public void send(HttpServletResponse response) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = "";
+        try {
+            json = objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+           throw new SystemException("解析json出错", e);
+        }
+        response.setCharacterEncoding("utf-8");
+        response.setHeader("Content-Type", "application/json");
+        try {
+            PrintWriter out = response.getWriter();
+            out.write(json);
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            throw new SystemException("写json数据失败", e);
+        }
     }
 
     /**

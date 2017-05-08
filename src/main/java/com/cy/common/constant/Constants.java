@@ -1,4 +1,4 @@
-package com.cy.common;
+package com.cy.common.constant;
 
 /**
  * Created by zxj on 2017/5/8.

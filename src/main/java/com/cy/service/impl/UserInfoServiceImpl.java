@@ -25,42 +25,6 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Resource
     private UserInfoDAO userInfoDAO;
 
-    public UserInfo login(UserLoginParamDTO userLoginDTO) {
-        ValidateUtil.validate(userLoginDTO);
-        return null;
-    }
-
-    public Long regeist(UserLoginParamDTO userLoginDTO) {
-        UserInfo userInfo = new UserInfo();
-        userInfo.setUserName(userLoginDTO.getPrincipal());
-        userInfo.setPassword(userLoginDTO.getCredentials());
-        encryptPassword(userInfo);
-        Date now = new Date();
-        userInfo.setCreateTime(now);
-        userInfo.setModifyTime(now);
-        int result = userInfoDAO.insert(userInfo);
-        if (result != 1) {
-            throw new RuntimeException("sql影响行数不正确!");
-        }
-        return userInfo.getId();
-    }
-
-    private void encryptPassword(UserInfo userInfo) {
-        String algorithmName = "md5";
-        String username = userInfo.getUserName();
-        String password = userInfo.getPassword();
-        String salt1 = username;
-        String salt2 = new SecureRandomNumberGenerator().nextBytes().toHex();
-        int hashIterations = 2;
-
-        SimpleHash hash = new SimpleHash(algorithmName, password, salt1 + salt2, hashIterations);
-        String encodedPassword = hash.toHex();
-
-        userInfo.setUserName(username);
-        userInfo.setPassword(encodedPassword);
-        userInfo.setSalt(salt2);
-    }
-
     @Override
     public PageResult data(PageInfo pageInfo) {
         PageHelper.startPage(pageInfo.getPage().intValue(), pageInfo.getRows().intValue());

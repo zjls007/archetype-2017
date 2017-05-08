@@ -1,6 +1,7 @@
 package com.cy.service;
 
 import com.cy.common.exception.SystemException;
+import com.cy.web.dto.param.RegistParamDTO;
 import com.cy.web.dto.param.UserLoginParamDTO;
 
 /**
@@ -15,5 +16,13 @@ public interface UserService {
      * @throws {@link SystemException}
      */
     Long login(UserLoginParamDTO userLoginDTO);
+
+    /**
+     * 注册
+     * @param paramDTO
+     * @return 用户id
+     * @throws
+     */
+    Long regist(RegistParamDTO paramDTO);
 
 }
