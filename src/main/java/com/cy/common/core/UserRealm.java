@@ -1,4 +1,4 @@
-package com.cy.core;
+package com.cy.common.core;
 
 import com.cy.common.constant.Constants;
 import com.cy.common.emun.ByteBooleanEnum;

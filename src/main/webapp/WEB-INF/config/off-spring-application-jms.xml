@@ -43,7 +43,7 @@
         <property name="pubSubDomain" value="true" />
     </bean>
 
-    <bean id="simpleMessageListener" class="com.cy.core.SimpleMessageListener"/>
+    <bean id="simpleMessageListener" class="com.cy.common.core.SimpleMessageListener"/>
 
     <!-- 定义消费者 -->
     <jms:listener-container destination-type="queue" container-type="default" connection-factory="amqConnectionFactory" acknowledge="auto">

@@ -1,8 +1,8 @@
-package com.cy.core;
+package com.cy.common.core;
 
+import com.cy.common.util.SerializableUtil;
 import com.cy.dao.WebSessionDAO;
 import com.cy.entity.WebSession;
-import com.cy.util.SerializableUtil;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.ValidatingSession;
 import org.apache.shiro.session.mgt.eis.CachingSessionDAO;

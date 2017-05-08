@@ -1,4 +1,4 @@
-package com.cy.util;
+package com.cy.common.util;
 
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.session.Session;

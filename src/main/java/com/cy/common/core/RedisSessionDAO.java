@@ -1,4 +1,4 @@
-package com.cy.core;
+package com.cy.common.core;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;

@@ -1,4 +1,4 @@
-package com.cy.core;
+package com.cy.common.core;
 
 import javax.jms.Message;
 import javax.jms.MessageListener;
