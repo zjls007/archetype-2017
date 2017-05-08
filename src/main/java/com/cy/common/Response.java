@@ -3,6 +3,7 @@ package com.cy.common;
 
 import com.cy.common.constant.ResponseStatus;
 import com.cy.common.exception.SystemException;
+import com.cy.common.util.JsonUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -32,18 +33,11 @@ public class Response {
     }
 
     public void send(HttpServletResponse response) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = "";
-        try {
-            json = objectMapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-           throw new SystemException("解析json出错", e);
-        }
         response.setCharacterEncoding("utf-8");
         response.setHeader("Content-Type", "application/json");
         try {
             PrintWriter out = response.getWriter();
-            out.write(json);
+            out.write(JsonUtil.toJsonStr(this));
             out.flush();
             out.close();
         } catch (IOException e) {
