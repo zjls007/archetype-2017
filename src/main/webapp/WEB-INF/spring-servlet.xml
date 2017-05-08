@@ -12,7 +12,10 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- 扫描springMvc的controller -->
-    <context:component-scan base-package="com.cy"/>
+    <context:component-scan base-package="com.cy">
+        <!-- 如果使用aop代理service必须不能在这里扫描Service注解，因为servlet.xml和application.xml启动是不同时间的，且这里没有开启代理，如果把service扫描进来了那么application会判断service已经存在则不生成代理类，使service的aop不起作用 -->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
 
     <mvc:annotation-driven />
     <mvc:default-servlet-handler/>

@@ -20,7 +20,7 @@ import java.util.Arrays;
 @Order(1) // 这里的order要比 dao.xml中transactionManager的order要大
 public class ParamValidProxy {
 
-    @Pointcut("execution(* com.cy.service.*.*(..))")
+    @Pointcut("execution(* com.cy.service.impl.*.*(..))")
     public void pointcut() {
 
     }
@@ -36,14 +36,6 @@ public class ParamValidProxy {
             }
         }
         point.proceed();
-    }
-
-    @Before("pointcut()")
-    public void before() {
-    }
-
-    @After("pointcut()")
-    public void after() {
     }
 
 }

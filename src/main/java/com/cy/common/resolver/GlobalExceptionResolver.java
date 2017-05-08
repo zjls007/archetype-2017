@@ -31,7 +31,9 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver, Ordere
         // 通过controller方法上有没有@ResponseBody判断是否为ajax请求
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         boolean responseBody = handlerMethod.getMethod().getAnnotation(ResponseBody.class) != null;
-        responseBody = handlerMethod.getBeanType().getAnnotation(RestController.class) != null;
+        if (!responseBody) {
+            responseBody = handlerMethod.getBeanType().getAnnotation(RestController.class) != null;
+        }
         LOG.error("", e);
         return null;
     }
