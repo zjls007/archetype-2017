@@ -16,6 +16,18 @@
         <result column="modify_time" property="modifyTime" />
     </resultMap>
 
+    <resultMap id="UserInfoListDTOMap" type="com.cy.web.dto.UserInfoListDTO">
+        <id column="id" property="id" />
+        <result column="user_name" property="userName" />
+        <result column="full_name" property="fullName" />
+        <result column="tel_no" property="telNo" />
+        <result column="mobile_no" property="mobileNo" />
+        <result column="sign_no" property="signNo" />
+        <result column="account_locked" property="accountLocked" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+    </resultMap>
+
     <sql id="Base_Column_List">
         id, user_name, password, salt, full_name, tel_no, mobile_no, sign_no, account_locked, create_time, 
         modify_time
@@ -95,6 +107,12 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_user_info WHERE user_name = #{userName}
+    </select>
+
+    <select id="listUserInfo" resultMap="UserInfoListDTOMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user_info
     </select>
 
 </mapper>

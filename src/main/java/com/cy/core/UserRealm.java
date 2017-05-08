@@ -1,8 +1,10 @@
 package com.cy.core;
 
+import com.cy.common.Constants;
 import com.cy.common.emun.ByteBooleanEnum;
 import com.cy.dao.UserInfoDAO;
 import com.cy.entity.UserInfo;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -57,10 +59,12 @@ public class UserRealm extends AuthorizingRealm {
         // 密码不正确会在 SimpleAuthenticationInfo验证
         // 下面为比较明文密码
         // return new SimpleAuthenticationInfo(principal, user.getPassword(), getName());
-        return new SimpleAuthenticationInfo(principal,
+        AuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(principal,
                 user.getPassword(),
                 ByteSource.Util.bytes(user.getUserName() + user.getSalt()),
                 getName());
+        SecurityUtils.getSubject().getSession().setAttribute(Constants.CURRENT_USER, user);
+        return authenticationInfo;
     }
 
 }

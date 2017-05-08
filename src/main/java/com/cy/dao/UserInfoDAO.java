@@ -1,6 +1,7 @@
 package com.cy.dao;
 
 import com.cy.entity.UserInfo;
+import com.cy.web.dto.UserInfoListDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,5 +25,7 @@ public interface UserInfoDAO {
     UserInfo selectById(Long id);
 
     UserInfo selectByUserName(String userName);
+
+    List<UserInfoListDTO> listUserInfo();
 
 }
