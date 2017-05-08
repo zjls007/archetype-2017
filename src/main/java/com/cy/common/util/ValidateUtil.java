@@ -1,4 +1,4 @@
-package com.cy.util;
+package com.cy.common.util;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

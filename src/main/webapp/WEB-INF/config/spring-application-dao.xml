@@ -61,7 +61,7 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <tx:annotation-driven transaction-manager="transactionManager" order="0"/>
 
     <bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
         <property name="transactionManager">

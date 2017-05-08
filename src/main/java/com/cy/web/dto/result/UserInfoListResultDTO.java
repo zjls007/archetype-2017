@@ -1,4 +1,4 @@
-package com.cy.web.dto;
+package com.cy.web.dto.result;
 
 import com.cy.entity.UserInfo;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by zxj on 2017/5/8.
  */
-public class UserInfoListDTO implements Serializable {
+public class UserInfoListResultDTO implements Serializable {
 
     private static final long serialVersionUID = 5531963892055200807L;
 

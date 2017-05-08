@@ -64,6 +64,7 @@ public class UserRealm extends AuthorizingRealm {
                 ByteSource.Util.bytes(user.getUserName() + user.getSalt()),
                 getName());
         SecurityUtils.getSubject().getSession().setAttribute(Constants.CURRENT_USER, user);
+        SecurityUtils.getSubject().getSession().setAttribute(Constants.CURRENT_USER_ID, user);
         return authenticationInfo;
     }
 

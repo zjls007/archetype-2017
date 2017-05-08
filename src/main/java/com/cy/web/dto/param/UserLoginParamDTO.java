@@ -1,4 +1,6 @@
-package com.cy.web.dto;
+package com.cy.web.dto.param;
+
+import com.cy.common.annotation.ParamValid;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -6,7 +8,8 @@ import java.io.Serializable;
 /**
  * Created by zxj on 2017/2/22.
  */
-public class UserLoginDTO implements Serializable {
+@ParamValid
+public class UserLoginParamDTO implements Serializable {
 
     private static final long serialVersionUID = 7711385153569949368L;
 

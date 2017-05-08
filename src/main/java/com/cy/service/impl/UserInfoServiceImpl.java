@@ -2,11 +2,11 @@ package com.cy.service.impl;
 
 import com.cy.common.PageInfo;
 import com.cy.common.PageResult;
+import com.cy.common.util.ValidateUtil;
 import com.cy.dao.UserInfoDAO;
 import com.cy.entity.UserInfo;
 import com.cy.service.UserInfoService;
-import com.cy.util.ValidateUtil;
-import com.cy.web.dto.UserLoginDTO;
+import com.cy.web.dto.param.UserLoginParamDTO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
@@ -15,8 +15,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by zxj on 2017/2/25.
@@ -27,12 +25,12 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Resource
     private UserInfoDAO userInfoDAO;
 
-    public UserInfo login(UserLoginDTO userLoginDTO) {
+    public UserInfo login(UserLoginParamDTO userLoginDTO) {
         ValidateUtil.validate(userLoginDTO);
         return null;
     }
 
-    public Long regeist(UserLoginDTO userLoginDTO) {
+    public Long regeist(UserLoginParamDTO userLoginDTO) {
         UserInfo userInfo = new UserInfo();
         userInfo.setUserName(userLoginDTO.getPrincipal());
         userInfo.setPassword(userLoginDTO.getCredentials());
