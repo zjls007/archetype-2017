@@ -1,6 +1,6 @@
 package com.cy.core;
 
-import com.cy.common.Constants;
+import com.cy.common.constant.Constants;
 import com.cy.common.emun.ByteBooleanEnum;
 import com.cy.dao.UserInfoDAO;
 import com.cy.entity.UserInfo;
