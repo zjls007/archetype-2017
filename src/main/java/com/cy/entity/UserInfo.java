@@ -1,11 +1,14 @@
 package com.cy.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by zxj on 2017-05-05 16:29:06.
  */
-public class UserInfo {
+public class UserInfo implements Serializable {
+
+    private static final long serialVersionUID = 1222715330523141490L;
 
     private Long id;
 

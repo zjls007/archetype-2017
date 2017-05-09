@@ -1,5 +1,6 @@
 package com.cy.common.core;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.ValidatingSession;
@@ -81,7 +82,16 @@ public class RedisSessionDAO extends AbstractSessionDAO {
 
     @Override
     public void update(Session session) throws UnknownSessionException {
-
+        System.out.println("更新" + session);
+        if(session instanceof ValidatingSession && !((ValidatingSession)session).isValid()) {
+            return; //如果会话过期/停止 没必要再更新了
+        }
+        String key = KEY_PREFIX + session.getId().toString();
+        Integer unit = 5;
+        if (SecurityUtils.getSubject().isAuthenticated()) {
+            unit = 30;
+        }
+        redisTemplate.opsForValue().set(key, session, unit, TimeUnit.MINUTES);
     }
 
     @Override
