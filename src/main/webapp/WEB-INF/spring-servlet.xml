@@ -24,6 +24,16 @@
         <bean class="com.cy.common.interceptor.AllIntercept"/>
     </mvc:interceptors>
 
+    <!-- 全局异常处理 -->
+    <bean class="com.cy.common.resolver.GlobalExceptionResolver"/>
+
+    <!--form-data 数据解析器,文件上传等 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="200000000"/>
+        <property name="maxInMemorySize" value="4096" />
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="order" value="1"/>
         <property name="prefix" value="/WEB-INF/jsp/"/>
@@ -31,15 +41,9 @@
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
     </bean>
 
-    <!--form-data 数据解析器 -->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="200000000"/>
-        <property name="maxInMemorySize" value="4096" />
-        <property name="defaultEncoding" value="UTF-8"/>
-    </bean>
-
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/ftl/"/>
+        <property name="defaultEncoding" value="utf-8"/>
     </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
@@ -48,9 +52,8 @@
         <property name="cache" value="true"/>
         <property name="prefix" value=""/>
         <property name="suffix" value=".ftl"/>
+        <!-- 处理页面编码问题 -->
+        <property name="contentType" value="text/html;charset=utf-8"/>
     </bean>
-
-    <!-- 全局异常处理 -->
-    <bean class="com.cy.common.resolver.GlobalExceptionResolver"/>
 
 </beans>
