@@ -23,21 +23,26 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    @RequestMapping("/register")
+    @RequestMapping("login")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping("register")
     public Object register(UserLoginParamDTO userLoginDTO) {
 //        userService.regeist(userLoginDTO);
         return null;
     }
 
 
-    @RequestMapping("/login")
+    @RequestMapping("signIn")
     @ResponseBody
-    public Response login(UserLoginParamDTO userLoginDTO) {
+    public Response signIn(UserLoginParamDTO userLoginDTO) {
         return new Response(userService.login(userLoginDTO));
     }
 
 
-    @RequestMapping("/logout")
+    @RequestMapping("logout")
     public Object logout() {
 //        SecurityUtils.getSubject().isAuthenticated()
         SecurityUtils.getSubject().logout();
