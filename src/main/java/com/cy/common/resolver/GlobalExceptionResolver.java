@@ -2,6 +2,7 @@ package com.cy.common.resolver;
 
 import com.cy.common.Response;
 import com.cy.common.constant.ResponseStatus;
+import com.cy.common.exception.SystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
@@ -37,11 +38,12 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver, Ordere
         if (!responseBody) {
             responseBody = handlerMethod.getBeanType().getAnnotation(RestController.class) != null;
         }
-        if (e instanceof ValidationException) {
-            new Response(ResponseStatus.PARAM_ERROR, e.getMessage()).send(httpServletResponse);
-        }
         if (responseBody) {
-
+            if (e instanceof ValidationException) {
+                new Response(ResponseStatus.PARAM_ERROR, e.getMessage()).send(httpServletResponse);
+            } else if (e instanceof SystemException) {
+                new Response(ResponseStatus.EXCEPTION, e.getMessage()).send(httpServletResponse);
+            }
         } else {
 
         }

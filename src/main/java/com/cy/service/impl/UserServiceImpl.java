@@ -80,4 +80,13 @@ public class UserServiceImpl implements UserService {
         userInfo.setSalt(salt2);
     }
 
+    public static void main(String[] args) {
+        UserServiceImpl userService = new UserServiceImpl();
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserName("zxj");
+        userInfo.setPassword("123");
+        userService.encryptPassword(userInfo);
+        System.out.println(userInfo);
+    }
+
 }

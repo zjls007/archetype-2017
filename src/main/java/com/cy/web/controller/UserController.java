@@ -6,16 +6,18 @@ import com.cy.web.dto.param.UserLoginParamDTO;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
 /**
  * Created by zxj on 2017/2/17.
  */
-@RestController
+@Controller
 public class UserController {
 
     Logger log = LoggerFactory.getLogger(UserController.class);

@@ -6,7 +6,8 @@ package com.cy.common.constant;
 public enum ResponseStatus {
 
     SUCCESS(0, "成功"),
-    PARAM_ERROR(1, "参数错误");
+    PARAM_ERROR(1, "参数错误"),
+    EXCEPTION(2, "失败");
 
     private Integer code;
 

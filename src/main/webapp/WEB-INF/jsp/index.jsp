@@ -5,6 +5,6 @@
     <title>Title</title>
 </head>
 <body>
-jsp页面
+jsp首页
 </body>
 </html>
