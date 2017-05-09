@@ -1,12 +1,11 @@
 package com.cy.common.core;
 
+import com.cy.common.util.SystemUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.ValidatingSession;
 import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
-import org.apache.shiro.session.mgt.eis.CachingSessionDAO;
-import org.apache.shiro.session.mgt.eis.MemorySessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -32,6 +31,7 @@ public class RedisSessionDAO extends AbstractSessionDAO {
      * @param session
      * @return
      */
+    @Override
     protected Serializable doCreate(Session session) {
         Serializable sessionId = generateSessionId(session);
         assignSessionId(session, sessionId);
@@ -47,6 +47,7 @@ public class RedisSessionDAO extends AbstractSessionDAO {
      * @param serializable
      * @return
      */
+    @Override
     protected Session doReadSession(Serializable serializable) {
         HttpServletRequest request =  ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         System.out.println(request.getRequestURL());
@@ -55,33 +56,9 @@ public class RedisSessionDAO extends AbstractSessionDAO {
         return redisTemplate.opsForValue().get(key);
     }
 
-    /**
-     * 更新 - 每次都会更新lastAccessTime
-     * @param session
-     */
-    protected void doUpdate(Session session) {
-        System.out.println("更新" + session);
-        if(session instanceof ValidatingSession && !((ValidatingSession)session).isValid()) {
-            return; //如果会话过期/停止 没必要再更新了
-        }
-//        WebSession ws = new WebSession();
-//        ws.setSessionId(session.getId().toString());
-//        ws.setSessionSerVal(SerializableUtil.serialize(session));
-//        webSessionDAO.updateBySessionId(ws);
-    }
-
-    /**
-     * 删除
-     * @param session
-     */
-    protected void doDelete(Session session) {
-        System.out.println("删除" + session);
-        String key = KEY_PREFIX + session.getId().toString();
-        redisTemplate.delete(key);
-    }
-
     @Override
     public void update(Session session) throws UnknownSessionException {
+        SystemUtil.getAllUrl();
         System.out.println("更新" + session);
         if(session instanceof ValidatingSession && !((ValidatingSession)session).isValid()) {
             return; //如果会话过期/停止 没必要再更新了
@@ -96,7 +73,9 @@ public class RedisSessionDAO extends AbstractSessionDAO {
 
     @Override
     public void delete(Session session) {
-
+        System.out.println("删除" + session);
+        String key = KEY_PREFIX + session.getId().toString();
+        redisTemplate.delete(key);
     }
 
     @Override
