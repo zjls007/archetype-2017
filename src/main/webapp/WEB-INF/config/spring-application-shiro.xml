@@ -29,8 +29,9 @@
         <!--</property>-->
         <property name="filterChainDefinitions">
             <value>
-                /statics = anon
-                /login = anon
+                # 参考枚举： org.apache.shiro.web.filter.mgt.DefaultFilter
+                /statics/** = anon
+                /signIn = anon
                 /admin/** = authc, roles[admin]
                 /docs/** = authc, perms[document:read]
                 /** = authc
