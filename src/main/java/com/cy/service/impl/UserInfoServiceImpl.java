@@ -31,4 +31,5 @@ public class UserInfoServiceImpl implements UserInfoService {
         Page page = (Page) userInfoDAO.listUserInfo();
         return new PageResult(page);
     }
+
 }

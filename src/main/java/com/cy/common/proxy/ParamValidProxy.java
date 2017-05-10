@@ -26,7 +26,7 @@ public class ParamValidProxy {
     }
 
     @Around("pointcut()")
-    public void around(ProceedingJoinPoint point) throws Throwable {
+    public Object around(ProceedingJoinPoint point) throws Throwable {
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();
         Object[] params = point.getArgs();
@@ -35,7 +35,7 @@ public class ParamValidProxy {
                 ValidateUtil.validate(param);
             }
         }
-        point.proceed();
+        return point.proceed();
     }
 
 }
