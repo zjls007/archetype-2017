@@ -59,8 +59,7 @@ public class UserController {
         if (SecurityUtils.getSubject().isAuthenticated()) {
             SecurityUtils.getSubject().logout();
         }
-        String a = "'<iframe src=\"userInfo/list\" allowTransparency=\"true\" style=\"border:0;width:100%;height:99%;\" frameBorder=\"0\"></iframe>'";
-        return "login";
+        return "redirect:/login";
     }
 
 }

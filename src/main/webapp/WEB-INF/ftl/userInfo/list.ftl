@@ -34,13 +34,23 @@
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除</a>
     <br>
     注册时间: <input class="easyui-datebox" style="width:110px">
-    ~: <input class="easyui-datebox" style="width:110px">
+    ~ <input class="easyui-datebox" style="width:110px">
     <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" onclick="query()">搜索</a>
 </div>
 
-<div id="w" class="easyui-window" title="文件上传" data-options="iconCls:'icon-save',closed:true,collapsible:false" style="width:500px;height:200px;padding:10px;">
-    <p><input type="file" id="file1" name="file" /></p>
-    <input type="button" value="上传" onclick="ajaxFileUpload()"/>
+<div id="w" class="easyui-window" title="注册用户" data-options="iconCls:'icon-save',closed:true,collapsible:false" style="width:500px;height:200px;padding:10px;">
+    <form id="ff" method="post">
+        <div style="margin-bottom:20px">
+            <input class="easyui-textbox" name="userName" style="width:200px" data-options="label:'用户名:',required:true">
+        </div>
+        <div style="margin-bottom:20px">
+            <input class="easyui-passwordbox"" name="password" style="width:200px" data-options="label:'密码:',required:true">
+        </div>
+    </form>
+    <div style="text-align:center;padding:5px 0">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">Submit</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">Clear</a>
+    </div>
 </div>
 
 <script type="text/javascript">

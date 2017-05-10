@@ -20,7 +20,6 @@ public class IndexController {
 
     @RequestMapping({"/", "/index"})
     public String index(ModelMap modelMap) {
-        modelMap.put("frameUrl", "<iframe src=\"userInfo/list\" allowTransparency=\"true\" style=\"border:0;width:100%;height:99%;\" frameBorder=\"0\"></iframe>");
         return "index";
     }
 }
