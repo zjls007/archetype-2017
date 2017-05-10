@@ -8,7 +8,7 @@
 <body>
 <div style="width: 400px;position: absolute;height: 185;left: 50%;top: 50%;margin-left: -200px;margin-top: -200px;">
 <div class="easyui-panel" title="登录" style="width:100%;max-width:400px;padding:30px 60px;">
-    <form id="ff" method="post" action="signIn">
+    <form id="ff" method="post" action="login">
         <div style="margin-bottom:20px">
             <input class="easyui-textbox" name="principal" style="width:100%" data-options="label:'用户名:',required:true">
         </div>

@@ -1,8 +1,11 @@
 package com.cy.common.interceptor;
 
+import com.cy.common.util.WebUtil;
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -26,6 +29,13 @@ public class AllIntercept implements HandlerInterceptor {
                 responseBody = handlerMethod.getBeanType().getAnnotation(RestController.class) != null;
             }
             if (responseBody) {
+                boolean isAuthenticated = SecurityUtils.getSubject().isAuthenticated();
+                String url = httpServletRequest.getRequestURL().toString();
+                if (!isAuthenticated && !url.endsWith("/login") && ! url.endsWith("/signIn")) {
+                    new com.cy.common.Response(com.cy.common.constant.ResponseStatus.ACCESS_DENIED).send(httpServletResponse);
+                    WebUtil.writeToJson(httpServletResponse, null);
+                    return false;
+                }
                 if (httpServletRequest.getAttribute("prem") != null) {
 //                    ObjectMapper objectMapper = new ObjectMapper();
 //                    logger.error("必须要有{}权限", objectMapper.writeValueAsString(httpServletRequest.getAttribute("prem")));
