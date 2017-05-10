@@ -11,4 +11,6 @@ public class Constants {
 
     public static final String AUTHC = "shiro.authc";
 
+    public static final String AJAX_ORIGIN_DATAGRID = "datagrid";
+
 }

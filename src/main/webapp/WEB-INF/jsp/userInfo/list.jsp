@@ -6,39 +6,6 @@
     <base href="<%=path%>">
     <link rel="stylesheet" type="text/css" href="/statics/js/easyui/easyui.css">
     <link rel="stylesheet" type="text/css" href="/statics/js/easyui/icon.css">
-    <script type="text/javascript" src="/statics/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/statics/js/ajaxFileUpload.js"></script>
-    <script type="text/javascript" src="/statics/js/easyui/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="/statics/js/easyui/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript">
-        function query() {
-            $('#dg').datagrid('load',{
-                createTimeBegin: '2017-3-27',
-                createTimeEnd: '2017-4-1'
-            });
-        }
-        function ajaxFileUpload() {
-            $.ajaxFileUpload
-            (
-                    {
-                        url: '/resources', //用于文件上传的服务器端请求地址
-                        secureuri: false, //是否需要安全协议，一般设置为false
-                        fileElementId: 'file1', //文件上传域的ID
-                        dataType: 'json', //返回值类型 一般设置为json
-                        type:'post',
-                        success: function (data, status)  //服务器成功响应处理函数
-                        {
-                            alert(data.resourceId);
-                        },
-                        error: function (data, status, e)//服务器响应失败处理函数
-                        {
-                            alert(e);
-                        }
-                    }
-            )
-            return false;
-        }
-    </script>
 </head>
 <body>
 <table class="easyui-datagrid" id="dg"
@@ -46,10 +13,12 @@
                      collapsible:false,
                      fit:true,
                      rownumbers:true,
+                     onLoadSuccess:onLoadSuccess,
                      noheader:true,
                      toolbar:'#tb',
                      pagination:true,
                      url:'userInfo/data',
+                     queryParams:{ajaxOrigin:'datagrid'},
                      method:'get'">
     <thead>
     <tr>
@@ -78,5 +47,18 @@
     <p><input type="file" id="file1" name="file" /></p>
     <input type="button" value="上传" onclick="ajaxFileUpload()"/>
 </div>
+
+<script type="text/javascript" src="/statics/js/jquery.min.js"></script>
+<script type="text/javascript" src="/statics/js/ajaxFileUpload.js"></script>
+<script type="text/javascript" src="/statics/js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/statics/js/easyui/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+    function onLoadSuccess(data) {
+        if (data.error) {
+            alert(data.error);
+            location.href="index";
+        }
+    }
+</script>
 </body>
 </html>

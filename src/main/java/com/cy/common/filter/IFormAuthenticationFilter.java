@@ -5,7 +5,9 @@ import com.cy.common.constant.Constants;
 import com.cy.common.constant.ResponseStatus;
 import com.cy.common.exception.SystemException;
 import com.cy.common.interceptor.AllIntercept;
+import com.cy.common.util.JsonUtil;
 import com.cy.common.util.SystemURL;
+import com.cy.common.util.WebUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -15,6 +17,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by zxj on 2017/5/10.
@@ -29,9 +34,19 @@ public class IFormAuthenticationFilter extends FormAuthenticationFilter {
                 return true;
             }
         } else {
-            String url = ((HttpServletRequest) request).getRequestURL().toString();
+            HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+            String url = httpServletRequest.getRequestURL().toString();
             if (SystemURL.isAjaxUrl(url)) {
-                new Response(ResponseStatus.ACCESS_DENIED, "请重新登录!").send((HttpServletResponse) response);
+                if (httpServletRequest.getParameter("ajaxOrigin").endsWith(Constants.AJAX_ORIGIN_DATAGRID)) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("error", "请重新登录!");
+                    map.put("total", 0);
+                    map.put("rows", new ArrayList<>());
+                    String json = JsonUtil.toJsonStr(map);
+                    WebUtil.writeToJson((HttpServletResponse) response, map);
+                    return false;
+                }
+                new Response(ResponseStatus.ACCESS_DENIED, "请重新登录!");
                 return false;
             }
             this.saveRequestAndRedirectToLogin(request, response);
