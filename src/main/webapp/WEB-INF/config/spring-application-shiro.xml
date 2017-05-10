@@ -35,10 +35,11 @@
             <value>
                 # 参考枚举： org.apache.shiro.web.filter.mgt.DefaultFilter
                 /statics/** = anon
-                # /signIn = anon 可以自己实现登录代码
-                /admin/** = authc, roles[admin]
-                /docs/** = authc, perms[document:read]
+                /logout = anon
                 /** = iAuthc
+                # /signIn = anon 可以自己实现登录代码
+                # /admin/** = authc, roles[admin]
+                # /docs/** = authc, perms[document:read]
             </value>
         </property>
     </bean>
