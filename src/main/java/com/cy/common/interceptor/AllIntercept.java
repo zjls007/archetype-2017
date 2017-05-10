@@ -1,5 +1,6 @@
 package com.cy.common.interceptor;
 
+import com.cy.common.constant.Constants;
 import com.cy.common.util.WebUtil;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
@@ -22,30 +23,6 @@ public class AllIntercept implements HandlerInterceptor {
     public Logger logger = LoggerFactory.getLogger(AllIntercept.class);
 
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler) throws Exception {
-        if (handler instanceof HandlerMethod) {
-            HandlerMethod handlerMethod = (HandlerMethod) handler;
-            boolean responseBody = handlerMethod.getMethod().getAnnotation(ResponseBody.class) != null;
-            if (!responseBody) {
-                responseBody = handlerMethod.getBeanType().getAnnotation(RestController.class) != null;
-            }
-            if (responseBody) {
-                boolean isAuthenticated = SecurityUtils.getSubject().isAuthenticated();
-                String url = httpServletRequest.getRequestURL().toString();
-                if (!isAuthenticated && !url.endsWith("/login") && ! url.endsWith("/signIn")) {
-                    new com.cy.common.Response(com.cy.common.constant.ResponseStatus.ACCESS_DENIED).send(httpServletResponse);
-                    WebUtil.writeToJson(httpServletResponse, null);
-                    return false;
-                }
-                if (httpServletRequest.getAttribute("prem") != null) {
-//                    ObjectMapper objectMapper = new ObjectMapper();
-//                    logger.error("必须要有{}权限", objectMapper.writeValueAsString(httpServletRequest.getAttribute("prem")));
-//                    HttpUtil.writeJson(httpServletResponse, "权限不足!");
-                    return false;
-                }
-            } else {
-
-            }
-        }
         return true;
     }
 

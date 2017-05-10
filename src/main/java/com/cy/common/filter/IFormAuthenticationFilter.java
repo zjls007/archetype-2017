@@ -5,6 +5,7 @@ import com.cy.common.constant.Constants;
 import com.cy.common.constant.ResponseStatus;
 import com.cy.common.exception.SystemException;
 import com.cy.common.interceptor.AllIntercept;
+import com.cy.common.util.SystemURL;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -12,6 +13,7 @@ import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -19,14 +21,24 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class IFormAuthenticationFilter extends FormAuthenticationFilter {
 
-    /**
-     * 重写shiro authc过滤器，采用spring Intercept进行拦截
-     * 参考: {@link AllIntercept}
-     * @param request
-     * @param response
-     * @param mappedValue
-     * @return
-     */
+    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
+        if(this.isLoginRequest(request, response)) {
+            if(this.isLoginSubmission(request, response)) {
+                return this.executeLogin(request, response);
+            } else {
+                return true;
+            }
+        } else {
+            String url = ((HttpServletRequest) request).getRequestURL().toString();
+            if (SystemURL.isAjaxUrl(url)) {
+                new Response(ResponseStatus.ACCESS_DENIED, "请重新登录!").send((HttpServletResponse) response);
+                return false;
+            }
+            this.saveRequestAndRedirectToLogin(request, response);
+            return false;
+        }
+    }
+
     protected final boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         return super.isAccessAllowed(request, response, mappedValue);
     }
