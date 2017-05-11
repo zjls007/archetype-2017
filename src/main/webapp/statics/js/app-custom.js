@@ -1,9 +1,12 @@
 function queryParams() {
     var param = {
         ajaxOrigin:'datagrid'
-
     };
+    onQueryParam(param);
     return param;
+}
+function onQueryParam(param) {
+
 }
 function onLoadSuccess(data) {
     if (data.error) {
@@ -11,7 +14,10 @@ function onLoadSuccess(data) {
         location.href="index";
     }
 }
-function submitForm(formId){
+function dgQuery(modelName) {
+    $('#dg-' + modelName).datagrid('load');
+}
+function submitForm(formId) {
     var form = $('#' + formId);
     if (form.form('validate')) {
         form.ajaxSubmit({
@@ -24,7 +30,8 @@ function submitForm(formId){
             }
         });
     }
+    // $('#dg-userInfo').datagrid('reload');
 }
-function clearForm(formId){
+function clearForm(formId) {
     $('#' + formId).form('clear');
 }

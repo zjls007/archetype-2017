@@ -30,26 +30,30 @@
     </thead>
 </table>
 <div id="tb-userInfo" style="padding:2px 5px;">
+    <form id="f-query-userInfo">
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="$('#w-userInfo').window('open')">注册新用户</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除</a>
     <br>
     注册时间: <input class="easyui-datebox" style="width:110px">
     ~ <input class="easyui-datebox" style="width:110px">
-    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" onclick="query()">搜索</a>
+    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" onclick="dgQuery('userInfo')">搜索</a>
+    </form>
 </div>
 
 <div id="w-userInfo" class="easyui-window" title="注册用户" data-options="iconCls:'icon-save',closed:true,collapsible:false" style="width:500px;height:200px;padding:10px;">
+    <div style="text-align:center;padding:5px 0">
     <form id="f-userInfo-regist" method="post" action="regist">
         <div style="margin-bottom:20px">
-            <input class="easyui-textbox" name="userName" style="width:200px" data-options="label:'用户名:',required:true">
+            <input class="easyui-textbox" name="userName" style="width:240px" data-options="label:'用户名:',required:true">
         </div>
         <div style="margin-bottom:20px">
-            <input class="easyui-passwordbox"" name="password" style="width:200px" data-options="label:'密码:',required:true">
+            <input class="easyui-passwordbox"" name="password" style="width:240px" data-options="label:'密码:',required:true">
         </div>
     </form>
+        </div>
     <div style="text-align:center;padding:5px 0">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm('f-userInfo-regist')" style="width:80px">Submit</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm('f-userInfo-regist')" style="width:80px">Clear</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm('f-userInfo-regist')" style="width:80px">提交</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm('f-userInfo-regist')" style="width:80px">重置</a>
     </div>
 </div>
 </body>

@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long regist(RegistParamDTO paramDTO) {
-        if (userInfoDAO.selectByUserName(paramDTO.getUserName()) == null) {
+        if (userInfoDAO.selectByUserName(paramDTO.getUserName()) != null) {
             throw new SystemException("用户已存在") ;
         }
         UserInfo userInfo = new UserInfo();

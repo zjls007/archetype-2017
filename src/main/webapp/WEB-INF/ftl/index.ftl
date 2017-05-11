@@ -34,20 +34,6 @@
             closable: true
         });
     }
-    function submitForm(){
-        $("#ff").ajaxSubmit({
-            success : function(data) {
-                if (data.code == 0) {
-                    location.href="index";
-                    return;
-                }
-                alert(data.message);
-            }
-        });
-    }
-    function clearForm(){
-        $('#ff').form('clear');
-    }
 </script>
 </body>
 </html>
