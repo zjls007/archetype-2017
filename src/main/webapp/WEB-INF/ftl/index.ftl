@@ -22,6 +22,7 @@
 <script type="text/javascript" src="/statics/js/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="/statics/js/easyui/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="/statics/js/jquery.form.js"></script>
+<script type="text/javascript" src="/statics/js/app-custom.js"></script>
 <script>
     var index = 0;
     function addPanel(){

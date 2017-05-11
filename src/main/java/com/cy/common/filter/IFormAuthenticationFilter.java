@@ -75,6 +75,8 @@ public class IFormAuthenticationFilter extends FormAuthenticationFilter {
             message = "密码不正确";
         } else if (e instanceof LockedAccountException) {
             message = "账号被锁定";
+        } else {
+            message = "参数错误";
         }
         new Response(ResponseStatus.PARAM_ERROR, message).send((HttpServletResponse) response);
         return false;

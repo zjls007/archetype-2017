@@ -3,14 +3,14 @@
     <title>列表</title>
 </head>
 <body>
-<table class="easyui-datagrid" id="dg"
+<table class="easyui-datagrid" id="dg-userInfo"
        data-options="singleSelect:true,
                      collapsible:false,
                      fit:true,
                      rownumbers:true,
                      onLoadSuccess:onLoadSuccess,
                      noheader:true,
-                     toolbar:'#tb',
+                     toolbar:'#tb-userInfo',
                      pagination:true,
                      url:'userInfo/data',
                      queryParams:queryParams(),
@@ -29,8 +29,8 @@
     </tr>
     </thead>
 </table>
-<div id="tb" style="padding:2px 5px;">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="$('#w').window('open')">上传</a>
+<div id="tb-userInfo" style="padding:2px 5px;">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="$('#w-userInfo').window('open')">注册新用户</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除</a>
     <br>
     注册时间: <input class="easyui-datebox" style="width:110px">
@@ -38,8 +38,8 @@
     <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" onclick="query()">搜索</a>
 </div>
 
-<div id="w" class="easyui-window" title="注册用户" data-options="iconCls:'icon-save',closed:true,collapsible:false" style="width:500px;height:200px;padding:10px;">
-    <form id="ff" method="post">
+<div id="w-userInfo" class="easyui-window" title="注册用户" data-options="iconCls:'icon-save',closed:true,collapsible:false" style="width:500px;height:200px;padding:10px;">
+    <form id="f-userInfo-regist" method="post" action="regist">
         <div style="margin-bottom:20px">
             <input class="easyui-textbox" name="userName" style="width:200px" data-options="label:'用户名:',required:true">
         </div>
@@ -48,25 +48,9 @@
         </div>
     </form>
     <div style="text-align:center;padding:5px 0">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">Submit</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">Clear</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm('f-userInfo-regist')" style="width:80px">Submit</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm('f-userInfo-regist')" style="width:80px">Clear</a>
     </div>
 </div>
-
-<script type="text/javascript">
-    function queryParams() {
-        var param = {
-            ajaxOrigin:'datagrid'
-
-        };
-        return param;
-    }
-    function onLoadSuccess(data) {
-        if (data.error) {
-            alert(data.error);
-            location.href="index";
-        }
-    }
-</script>
 </body>
 </html>

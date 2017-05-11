@@ -17,8 +17,8 @@
         </div>
     </form>
     <div style="text-align:center;padding:5px 0">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">登录</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">重置</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm('ff')" style="width:80px">登录</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm('ff')" style="width:80px">重置</a>
     </div>
 </div>
 </div>
@@ -27,21 +27,6 @@
 <script type="text/javascript" src="/statics/js/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="/statics/js/easyui/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="/statics/js/jquery.form.js"></script>
-<script>
-    function submitForm(){
-        $("#ff").ajaxSubmit({
-            success : function(data) {
-                if (data.code == 0) {
-                    location.href="index";
-                    return;
-                }
-                alert(data.message);
-            }
-        });
-    }
-    function clearForm(){
-        $('#ff').form('clear');
-    }
-</script>
+<script type="text/javascript" src="/statics/js/app-custom.js"></script>
 </body>
 </html>

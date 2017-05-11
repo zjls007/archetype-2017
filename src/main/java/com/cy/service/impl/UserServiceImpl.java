@@ -1,6 +1,7 @@
 package com.cy.service.impl;
 
 import com.cy.common.constant.Constants;
+import com.cy.common.emun.ByteBooleanEnum;
 import com.cy.common.exception.SystemException;
 import com.cy.dao.UserInfoDAO;
 import com.cy.entity.UserInfo;
@@ -51,13 +52,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long regist(RegistParamDTO paramDTO) {
+        if (userInfoDAO.selectByUserName(paramDTO.getUserName()) == null) {
+            throw new SystemException("用户已存在") ;
+        }
         UserInfo userInfo = new UserInfo();
         userInfo.setUserName(paramDTO.getUserName());
         userInfo.setPassword(paramDTO.getPassword());
+        userInfo.setFullName(paramDTO.getFullName());
+        userInfo.setTelNo(paramDTO.getTelNo());
+        userInfo.setMobileNo(paramDTO.getMobileNo());
         encryptPassword(userInfo);
         Date now = new Date();
         userInfo.setCreateTime(now);
         userInfo.setModifyTime(now);
+        userInfo.setAccountLocked(ByteBooleanEnum.FAILED.getCode());
         int result = userInfoDAO.insert(userInfo);
         if (result != 1) {
             throw new RuntimeException("sql影响行数不正确!");

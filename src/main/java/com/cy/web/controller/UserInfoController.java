@@ -19,7 +19,7 @@ public class UserInfoController extends BaseController {
 
     @RequestMapping("list")
     public String list() {
-        return "userInfo/list";
+        return "userInfo/userInfoList";
     }
 
     @RequestMapping("data")
