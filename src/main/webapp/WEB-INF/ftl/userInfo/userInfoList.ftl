@@ -4,7 +4,7 @@
 </head>
 <body>
 <table class="easyui-datagrid" id="dg-userInfo"
-       data-options="singleSelect:true,
+       data-options="singleSelect:false,
                      collapsible:false,
                      fit:true,
                      rownumbers:true,
@@ -52,7 +52,7 @@
     </form>
         </div>
     <div style="text-align:center;padding:5px 0">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm('f-userInfo-regist')" style="width:80px">提交</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm('f-userInfo-regist', 'userInfo')" style="width:80px">提交</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm('f-userInfo-regist')" style="width:80px">重置</a>
     </div>
 </div>
