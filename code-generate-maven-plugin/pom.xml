@@ -50,6 +50,12 @@
       <version>4.8.2</version>
       <scope>test</scope>
     </dependency>
+    <!-- https://github.com/michaelliao/compiler -->
+    <dependency>
+      <groupId>com.itranswarp</groupId>
+      <artifactId>compiler</artifactId>
+      <version>1.0</version>
+    </dependency>
   </dependencies>
 
   <build>

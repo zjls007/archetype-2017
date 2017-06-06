@@ -4,10 +4,12 @@ import com.cy.api.GenerateConfig;
 import com.cy.dto.JavaModelDTO;
 import com.cy.model.Table;
 import com.cy.util.FreeMarkerUtil;
+import com.cy.util.SerializableUtil;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 import java.io.FileWriter;
+import java.io.StringWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,8 +28,21 @@ public class JavaModelResolver extends AbstractResolver {
         this.path = path;
         Configuration cfg = FreeMarkerUtil.getConfig();
         Template temp = cfg.getTemplate("javaModel.ftl");
+        StringWriter result = new StringWriter();
+        Map<String, Object> dataModel = getDataModel();
+        temp.process(dataModel, result);
+        GenerateConfig generateConfig = GenerateConfig.getInstance();
+        Long serialVersionUID = SerializableUtil.getSerialVersionUID(
+                NameResolver.getJavaClassName(table.getName()) + ".java",
+                result.toString(),
+                generateConfig.modelPackage + "." + NameResolver.getJavaClassName(table.getName()));
+
+        dataModel.put("serialVersionUID", serialVersionUID + "L");
+
+        temp = cfg.getTemplate("javaModel-ser.ftl");
+        temp.process(dataModel, result);
         FileWriter out = new FileWriter(path);
-        temp.process(getDataModel(), out);
+        temp.process(dataModel, out);
         out.flush();
         out.close();
         System.out.println(String.format("生成: %s", path));

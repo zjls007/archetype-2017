@@ -8,8 +8,8 @@ import java.util.Date;
  */
 public class UserInfo implements Serializable {
 
-    private static final long serialVersionUID = 1222715330523141490L;
 
+    private static final long serialVersionUID = 1222715330523141490L;
     private Long id;
 
     /** 用户名 */

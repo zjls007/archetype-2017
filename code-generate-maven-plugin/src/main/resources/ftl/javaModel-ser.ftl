@@ -14,6 +14,8 @@ ${item}
  */
 public class ${nameResolver.getJavaClassName(dto.modelName)} implements Serializable {
 
+    private static final long serialVersionUID = ${serialVersionUID!};
+
 <#if dto.columnList?? && (dto.columnList?size > 0)>
 <#list dto.columnList as item>
     <#if item.remark?? && (item.remark?length > 0)>
