@@ -19,14 +19,12 @@ public class SerializableUtil {
      */
     public static Long getSerialVersionUID(String javaFileName, String source, String javafullName) {
         try {
-            System.out.println(source);
             JavaStringCompiler compiler = new JavaStringCompiler();
             Map<String, byte[]> results = compiler.compile(javaFileName, source);
             Class<?> clazz = compiler.loadClass(javafullName, results);
             ObjectStreamClass objectStreamClass = ObjectStreamClass.lookup(clazz);
             return objectStreamClass.getSerialVersionUID();
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RuntimeException("生成序列号id出错!", e);
         }
     }
