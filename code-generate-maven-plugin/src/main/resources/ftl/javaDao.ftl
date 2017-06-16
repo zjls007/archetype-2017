@@ -1,4 +1,6 @@
+<#if dto.daoPackage??>
 package ${dto.daoPackage!};
+</#if>
 
 import ${dto.modelPackage!}.${dto.modelName!};
 import org.springframework.stereotype.Repository;
