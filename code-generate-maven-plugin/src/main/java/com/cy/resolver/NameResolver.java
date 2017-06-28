@@ -23,31 +23,33 @@ public class NameResolver {
 
     private static String getTFStr(String str, boolean firstUpCase) {
         StringBuilder sb = new StringBuilder();
-        int length = str.length();
-        boolean pre = length >= 2 && String.valueOf(str.charAt(1)).equals("_");
-        if (pre) {
-            if (length >= 3) {
-                str = str.substring(2);
-            } else {
-                str = "";
+        if (str != null && !str.isEmpty()) {
+            int length = str.length();
+            boolean pre = length >= 2 && String.valueOf(str.charAt(1)).equals("_");
+            if (pre) {
+                if (length >= 3) {
+                    str = str.substring(2);
+                } else {
+                    str = "";
+                }
             }
-        }
-        boolean afterSplit = false;
-        for (int i = 0; i < str.length(); i++) {
-            String c = String.valueOf(str.charAt(i));
-            if (c.equals("_")) {
-                afterSplit = true;
-                continue;
-            }
-            if (firstUpCase && i == 0) {
-                sb.append(String.valueOf(str.charAt(i)).toUpperCase());
-                continue;
-            }
-            if (afterSplit) {
-                sb.append(String.valueOf(str.charAt(i)).toUpperCase());
-                afterSplit = false;
-            } else {
-                sb.append(String.valueOf(str.charAt(i)));
+            boolean afterSplit = false;
+            for (int i = 0; i < str.length(); i++) {
+                String c = String.valueOf(str.charAt(i));
+                if (c.equals("_")) {
+                    afterSplit = true;
+                    continue;
+                }
+                if (firstUpCase && i == 0) {
+                    sb.append(String.valueOf(str.charAt(i)).toUpperCase());
+                    continue;
+                }
+                if (afterSplit) {
+                    sb.append(String.valueOf(str.charAt(i)).toUpperCase());
+                    afterSplit = false;
+                } else {
+                    sb.append(String.valueOf(str.charAt(i)));
+                }
             }
         }
         return sb.toString();

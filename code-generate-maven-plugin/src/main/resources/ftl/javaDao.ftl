@@ -1,34 +1,29 @@
-<#if dto.daoPackage??>
-package ${dto.daoPackage!};
-</#if>
+<#include "stringUtil.ftl"/>
+<@strExist source=config['dao.package'] trueVal='package '/>${(config['dao.package'])!}<@strExist source=config['dao.package'] trueVal=';'/>
 
-import ${dto.modelPackage!}.${dto.modelName!};
+<#if (config['model.package'])?? && ((config['model.package'])?length gt 0)>
+import ${(config['model.package'])!}.${beanName!};
+</#if>
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
- * Created by ${dto.auth!} on ${dto.date!}.
+ * Created by ${auth!} on ${(date?string("yyyy-MM-dd HH:mm:ss"))!}.
  */
 @Repository
-public interface ${dto.modelName!}DAO {
+public interface ${beanName!}DAO {
 
-    int insert(${dto.modelName!} entity);
+    int insert(${beanName!} entity);
 
-    int batchInsert(List<${dto.modelName!}> list);
+    int batchInsert(List<${beanName!}> list);
 
     int delete(Long id);
 
     int batchDelete(List<Long> list);
 
-    int update(${dto.modelName!} entity);
+    int update(${beanName!} entity);
 
-    ${dto.modelName!} selectById(Long id);
+    ${beanName!} selectById(Long id);
 
-<#if uniKeyList?? && (uniKeyList?size>0)>
-    <#list uniKeyList as item>
-    ${dto.modelName!} selectBy${nameResolver.getJavaClassName(item.name)}(${javaTypeResolver.getType(item.type)} ${nameResolver.getFieldName(item.name)});
-
-    </#list>
-</#if>
 }

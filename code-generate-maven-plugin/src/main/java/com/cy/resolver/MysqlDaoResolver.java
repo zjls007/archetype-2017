@@ -1,30 +1,24 @@
-package com.cy;
+package com.cy.resolver;
 
 //import com.cy.common.MybatisConfig;
 
 import com.cy.api.JdbcConnectionFactory;
 import com.cy.model.Column;
 import com.cy.model.Table;
-import com.cy.util.FreeMarkerUtil;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
 
-import java.io.FileWriter;
-import java.io.OutputStreamWriter;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zxj on 2017/3/8.
  */
-public class MysqlRead {
+public class MysqlDaoResolver {
 
-    public MysqlRead(JdbcConnectionFactory jdbcConnectionFactory) {
+    public MysqlDaoResolver(JdbcConnectionFactory jdbcConnectionFactory) {
         this.jdbcConnectionFactory = jdbcConnectionFactory;
     }
 
@@ -40,10 +34,21 @@ public class MysqlRead {
 
         Table table = new Table();
         table.setName(tableName);
+        table.setRemark(getTableRemark(conn, tableName));
         table.setPrimaryKeyName(getPrimaryKey(conn, dbmd, tableName));
         table.setColumnList(getColumns(dbmd, tableName));
         table.setUniKeyList(getUniColumn(table.getColumnList(), getUniKeySingleList(dbmd, tableName)));
         return table;
+    }
+
+    private String getTableRemark(Connection conn, String tableName) throws Exception {
+        PreparedStatement pst = conn.prepareStatement("SELECT TABLE_COMMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = ?");
+        pst.setString(1, tableName);
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            return rs.getString(1);
+        }
+        return "";
     }
 
     private List<Column> getColumns(DatabaseMetaData dbmd, String tableName) throws Exception {
@@ -114,8 +119,8 @@ public class MysqlRead {
     }
 
     public static void main(String[] args) throws Exception {
-        MysqlRead mysqlRead = new MysqlRead(new JdbcConnectionFactory());
-        mysqlRead.getTable("t_user_info");
+        MysqlDaoResolver mysqlDaoResolver = new MysqlDaoResolver(new JdbcConnectionFactory());
+        mysqlDaoResolver.getTable("quote_price_section");
     }
 
 }

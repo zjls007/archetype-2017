@@ -20,7 +20,7 @@ public class JdbcConnectionFactory {
     public JdbcConnectionFactory() {
         Properties p = new Properties();
         p.put("jdbc.className", "com.mysql.jdbc.Driver");
-        p.put("jdbc.url", "jdbc:mysql://172.16.1.8:3306/test?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull");
+        p.put("jdbc.url", "jdbc:mysql://172.16.1.8:3306/saas?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull");
         p.put("jdbc.username", "root");
         p.put("jdbc.password", "123456");
         this.p = p;

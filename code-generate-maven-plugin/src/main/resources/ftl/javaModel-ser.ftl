@@ -1,40 +1,32 @@
-<#if dto.packageName??>
-package ${dto.packageName!};
-</#if>
+<#include "stringUtil.ftl"/>
+<@strExist source=config['model.package'] trueVal='package '/>${(config['model.package'])!}<@strExist source=config['model.package'] trueVal=';'/>
 
 import java.io.Serializable;
-<#if dto.importList?? && (dto.importList?size > 0)>
-<#list dto.importList as item>
-${item}
+<#list importTypeList as item>
+import ${item!};
 </#list>
 
-</#if>
 /**
- * Created by ${dto.auth!} on ${dto.date!}.
+ * Created by ${auth!} on ${(date?string("yyyy-MM-dd HH:mm:ss"))!}.
+ * ${tableName!}-${tableRemark!}
  */
-public class ${nameResolver.getJavaClassName(dto.modelName)} implements Serializable {
+public class ${beanName!} implements Serializable {
 
     private static final long serialVersionUID = ${serialVersionUID!};
 
-<#if dto.columnList?? && (dto.columnList?size > 0)>
-<#list dto.columnList as item>
-    <#if item.remark?? && (item.remark?length > 0)>
-    /** ${item.remark} */
-    </#if>
-    private ${javaTypeResolver.getType(item.type)} ${nameResolver.getFieldName(item.name)};
+<#list propertyList as item>
+    /** ${item.remark!} */
+    private ${item.typeName!} ${item.propertyName!};
 
 </#list>
-</#if>
-<#if dto.columnList?? && (dto.columnList?size > 0)>
-<#list dto.columnList as item>
-    public ${javaTypeResolver.getType(item.type)} ${nameResolver.getGetMethodName(item.name)}() {
-        return ${nameResolver.getFieldName(item.name)};
+<#list propertyList as item>
+    public ${item.typeName!} ${item.getMethodName!}() {
+        return ${item.propertyName!};
     }
 
-    public void ${nameResolver.getSetMethodName(item.name)}(${javaTypeResolver.getType(item.type)} ${nameResolver.getFieldName(item.name)}) {
-        this.${nameResolver.getFieldName(item.name)} = ${nameResolver.getFieldName(item.name)};
+    public void ${item.setMethodName!}(${item.typeName!} ${item.propertyName!}) {
+        this.${item.propertyName!} = ${item.propertyName!};
     }
 
 </#list>
-</#if>
 }
