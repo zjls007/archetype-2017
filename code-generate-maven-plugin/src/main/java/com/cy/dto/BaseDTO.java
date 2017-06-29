@@ -16,11 +16,6 @@ public class BaseDTO  {
     private Properties config;
 
     /**
-     * 作者
-     */
-    private String auth="";
-
-    /**
      * 序列化id(用户替换页面)
      */
     private String serialVersionUID = "1L";
@@ -119,14 +114,6 @@ public class BaseDTO  {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public String getAuth() {
-        return auth;
-    }
-
-    public void setAuth(String auth) {
-        this.auth = auth;
     }
 
     public LinkedHashSet<String> getImportTypeList() {

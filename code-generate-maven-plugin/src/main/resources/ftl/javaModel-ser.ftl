@@ -1,4 +1,6 @@
 <#include "stringUtil.ftl"/>
+<#assign auth=(config['auth'])!/>
+<#assign notNullStr=(config['model.notNull'])!/>
 <@strExist source=config['model.package'] trueVal='package '/>${(config['model.package'])!}<@strExist source=config['model.package'] trueVal=';'/>
 
 import java.io.Serializable;
@@ -15,7 +17,7 @@ public class ${beanName!} implements Serializable {
     private static final long serialVersionUID = ${serialVersionUID!};
 
 <#list propertyList as item>
-    /** ${item.remark!} */
+    /** ${item.remark!}<#if item.notNull>${notNullStr!}</#if> */
     private ${item.typeName!} ${item.propertyName!};
 
 </#list>

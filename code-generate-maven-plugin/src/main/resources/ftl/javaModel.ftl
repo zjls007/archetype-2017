@@ -1,4 +1,6 @@
 <#include "stringUtil.ftl"/>
+<#assign auth=(config['auth'])!/>
+<#assign notNullStr=(config['model.notNull'])!/>
 <@strExist source=config['model.package'] trueVal='package '/>${(config['model.package'])!}<@strExist source=config['model.package'] trueVal=';'/>
 
 import java.io.Serializable;
@@ -13,7 +15,7 @@ import ${item!};
 public class ${beanName!} implements Serializable {
 
 <#list propertyList as item>
-    /** ${item.remark!}<#if item.notNull>, 必填</#if>*/
+    /** ${item.remark!}<#if item.notNull>${notNullStr!}</#if> */
     private ${item.typeName!} ${item.propertyName!};
 
 </#list>

@@ -10,8 +10,9 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 
@@ -27,7 +28,7 @@ public class CodeGenerateMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         Properties p = new Properties();
         try {
-            p.load(new FileReader(configFile));
+            p.load(new InputStreamReader(new FileInputStream(configFile), "GBK"));
         } catch (IOException e) {
             throw new RuntimeException("加载配置文件出错", e);
         }

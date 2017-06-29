@@ -1,4 +1,5 @@
 <#include "stringUtil.ftl"/>
+<#assign auth=(config['auth'])!/>
 <@strExist source=config['dao.package'] trueVal='package '/>${(config['dao.package'])!}<@strExist source=config['dao.package'] trueVal=';'/>
 
 <#if (config['model.package'])?? && ((config['model.package'])?length gt 0)>

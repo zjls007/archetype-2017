@@ -5,9 +5,8 @@ import com.cy.api.JdbcConnectionFactory;
 import com.cy.model.Table;
 import com.cy.util.PathUtil;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.CharsetDecoder;
 import java.util.Properties;
 
 /**
@@ -54,7 +53,7 @@ public class CodeGenerateResolver {
     public static void main(String[] args) throws Exception {
         Properties p = new Properties();
         try {
-            p.load(new FileReader("E:\\56top\\code\\archetype-2017\\src\\main\\resources\\code-generate.properties"));
+            p.load(new InputStreamReader(new FileInputStream("E:\\56top\\code\\archetype-2017\\src\\main\\resources\\code-generate.properties"), "UTF-8"));
         } catch (IOException e) {
             throw new RuntimeException("加载配置文件出错", e);
         }
