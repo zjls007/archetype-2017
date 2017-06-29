@@ -28,7 +28,7 @@ public class CodeGenerateMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         Properties p = new Properties();
         try {
-            p.load(new InputStreamReader(new FileInputStream(configFile), "GBK"));
+            p.load(new InputStreamReader(new FileInputStream(configFile), "UTF-8"));
         } catch (IOException e) {
             throw new RuntimeException("加载配置文件出错", e);
         }
