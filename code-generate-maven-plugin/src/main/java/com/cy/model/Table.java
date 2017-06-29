@@ -24,6 +24,8 @@ public class Table {
 
     private List<Column> columnList;
 
+    private List<String> uniKeyNameList;
+
     /**
      * 表备注
      */
@@ -67,5 +69,13 @@ public class Table {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public List<String> getUniKeyNameList() {
+        return uniKeyNameList;
+    }
+
+    public void setUniKeyNameList(List<String> uniKeyNameList) {
+        this.uniKeyNameList = uniKeyNameList;
     }
 }

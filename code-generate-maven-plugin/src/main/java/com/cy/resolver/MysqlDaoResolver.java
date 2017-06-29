@@ -37,7 +37,9 @@ public class MysqlDaoResolver {
         table.setRemark(getTableRemark(conn, tableName));
         table.setPrimaryKeyName(getPrimaryKey(conn, dbmd, tableName));
         table.setColumnList(getColumns(dbmd, tableName));
-        table.setUniKeyList(getUniColumn(table.getColumnList(), getUniKeySingleList(dbmd, tableName)));
+        List<String> uniKeySingleList = getUniKeySingleList(dbmd, tableName);
+        table.setUniKeyList(getUniColumn(table.getColumnList(), uniKeySingleList));
+        table.setUniKeyNameList(uniKeySingleList);
         return table;
     }
 

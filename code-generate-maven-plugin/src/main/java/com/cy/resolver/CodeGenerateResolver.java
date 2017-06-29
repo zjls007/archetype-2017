@@ -41,7 +41,7 @@ public class CodeGenerateResolver {
                     resolver.gen(p, table, PathUtil.getDaoPath(baseDir.getAbsolutePath(), tableName), "javaDao.ftl", false);
                 }
                 if (generateConfig.genMapper) {
-                    resolver.gen(p, table, PathUtil.getMapperPath(baseDir.getAbsolutePath(), tableName), "xmlMapper1.ftl", false);
+                    resolver.gen(p, table, PathUtil.getMapperPath(baseDir.getAbsolutePath(), tableName), "xmlMapper.ftl", false);
                 }
             }
         } catch (Exception e) {
@@ -64,7 +64,7 @@ public class CodeGenerateResolver {
         ObjectResolver resolver = new ObjectResolver();
         resolver.gen(p, table, "D:/aaa/FinancePayReceive.java", "javaModel.ftl", true);
         resolver.gen(p, table, "D:/aaa/FinancePayReceiveDao.java", "javaDao.ftl", false);
-        resolver.gen(p, table, "D:/aaa/t_finance_pay_receive.xml", "xmlMapper1.ftl", false);
+        resolver.gen(p, table, "D:/aaa/t_finance_pay_receive.xml", "xmlMapper.ftl", false);
         System.out.println(table);
     }
 }

@@ -29,4 +29,10 @@ public interface ${beanName!}DAO {
 
     List<${beanName!}> getBy${primaryKeyPropertyName?cap_first!}List(List<${primaryKeyType!}> list);
 
+    <#list propertyList as item>
+    <#if item.singleUnqKey??>
+    ${beanName!} getBy${item.propertyName?cap_first!}(${item.typeName!} ${item.propertyName!});
+
+    </#if>
+    </#list>
 }

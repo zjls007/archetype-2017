@@ -70,6 +70,9 @@ public class ObjectResolver {
                 dataModel.setPrimaryKeyType(JavaTypeResolver.getType(item.getType())[0]);
             }
             PropertyDTO dto = new PropertyDTO();
+            if (table.getUniKeyNameList().contains(item.getName())) {
+                dto.setSingleUnqKey(true);
+            }
             String columnName = item.getName();
             dto.setColumnName(columnName);
             dto.setPropertyName(NameResolver.getFieldName(columnName));
