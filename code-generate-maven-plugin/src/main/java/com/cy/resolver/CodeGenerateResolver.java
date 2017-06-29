@@ -53,11 +53,11 @@ public class CodeGenerateResolver {
 
     public static void main(String[] args) throws Exception {
         Properties p = new Properties();
-//        try {
-//            p.load(new FileReader("E:\\56top\\code\\archetype-2017\\src\\main\\resources\\code-generate.properties"));
-//        } catch (IOException e) {
-//            throw new RuntimeException("加载配置文件出错", e);
-//        }
+        try {
+            p.load(new FileReader("E:\\56top\\code\\archetype-2017\\src\\main\\resources\\code-generate.properties"));
+        } catch (IOException e) {
+            throw new RuntimeException("加载配置文件出错", e);
+        }
 
         JdbcConnectionFactory jdbcConnectionFactory = new JdbcConnectionFactory();
         MysqlDaoResolver mysqlDaoResolver = new MysqlDaoResolver(jdbcConnectionFactory);

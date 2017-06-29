@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Created by zxj on 2017/5/2.
  */
-public class JavaTypeResolver1 {
+public class JavaTypeResolver {
 
     public static Map<String, String[]> map = new HashMap<String, String[]>() {
         {

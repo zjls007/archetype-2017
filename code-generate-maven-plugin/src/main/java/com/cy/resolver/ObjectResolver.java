@@ -1,6 +1,5 @@
 package com.cy.resolver;
 
-import com.cy.api.GenerateConfig;
 import com.cy.dto.BaseDTO;
 import com.cy.dto.PropertyDTO;
 import com.cy.model.Column;
@@ -14,7 +13,6 @@ import java.io.FileWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -75,7 +73,7 @@ public class ObjectResolver {
             dto.setGetMethodName(NameResolver.getGetMethodName(columnName));
             dto.setSetMethodName(NameResolver.getSetMethodName(columnName));
             dto.setRemark(item.getRemark());
-            String[] type = JavaTypeResolver1.getType(item.getType());
+            String[] type = JavaTypeResolver.getType(item.getType());
             dto.setTypeName(type[0]);
             dto.setTypeAllName(type[1]);
             if (!dto.getTypeAllName().equals("")) {
