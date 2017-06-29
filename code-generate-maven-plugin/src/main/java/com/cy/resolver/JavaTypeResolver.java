@@ -26,6 +26,19 @@ public class JavaTypeResolver {
         }
     };
 
+    public static void initConfig(Properties p) {
+        String value = p.getProperty("typeConvert");
+        if (value != null) {
+            for (String item : value.split(";")) {
+                if (item != null && !item.isEmpty()) {
+                    String[] t = item.split(":", 3);
+                    map.put(t[0], new String[] {t[1], t[2]});
+                }
+            }
+        }
+
+    }
+
     public static String[] getType(String type) {
         String[] val = map.get(type.toLowerCase());
         if (val == null) {

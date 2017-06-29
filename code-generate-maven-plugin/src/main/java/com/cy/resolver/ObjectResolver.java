@@ -56,6 +56,7 @@ public class ObjectResolver {
     }
 
     private void init(Properties config, BaseDTO dataModel, Table table) {
+        JavaTypeResolver.initConfig(config);
         dataModel.setConfig(config);
         String tableName = table.getName();
         dataModel.setTableName(tableName);
