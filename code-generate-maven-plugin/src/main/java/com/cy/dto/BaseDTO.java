@@ -51,6 +51,11 @@ public class BaseDTO  {
     private List<PropertyDTO> propertyList;
 
     /**
+     * 主键字段类型
+     */
+    private String primaryKeyType;
+
+    /**
      * 主键字段名
      */
     private String primaryKeyColumnName;
@@ -138,5 +143,13 @@ public class BaseDTO  {
 
     public void setConfig(Properties config) {
         this.config = config;
+    }
+
+    public String getPrimaryKeyType() {
+        return primaryKeyType;
+    }
+
+    public void setPrimaryKeyType(String primaryKeyType) {
+        this.primaryKeyType = primaryKeyType;
     }
 }

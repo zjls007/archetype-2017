@@ -19,12 +19,14 @@ public interface ${beanName!}DAO {
 
     int batchInsert(List<${beanName!}> list);
 
-    int delete(Long id);
+    int delete(${primaryKeyType!} ${primaryKeyPropertyName!});
 
-    int batchDelete(List<Long> list);
+    int batchDelete(List<${primaryKeyType!}> list);
 
     int update(${beanName!} entity);
 
-    ${beanName!} selectById(Long id);
+    ${beanName!} getBy${primaryKeyPropertyName?cap_first!}(${primaryKeyType!} ${primaryKeyPropertyName!});
+
+    List<${beanName!}> getBy${primaryKeyPropertyName?cap_first!}List(List<${primaryKeyType!}> list);
 
 }

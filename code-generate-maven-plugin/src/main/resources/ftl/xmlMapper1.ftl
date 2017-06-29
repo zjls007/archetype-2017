@@ -1,6 +1,7 @@
 <#include "stringUtil.ftl"/>
 <#assign daoPackage=config['dao.package']/>
 <#assign modelPackage=config['model.package']/>
+<#assign updateTime=(config['mapper.updateTime'])!/>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="<@daoFullName/>">
@@ -48,18 +49,32 @@
         update ${tableName!}
         <set>
         <#list propertyList as item>
+        <#if primaryKeyPropertyName?? && (item.propertyName == primaryKeyPropertyName)>
+        <#elseif updateTime?? && (updateTime?length gt 0) && (updateTime == item.columnName)>
+            ${item.columnName!} = ${'#'}{${item.propertyName!}}<#if item_has_next>,</#if>
+        <#else>
             <if test="${item.propertyName!} != null" >
                 ${item.columnName!} = ${'#'}{${item.propertyName!}},
             </if>
+        </#if>
         </#list>
         </set>
         where <@idEqual/>
     </update>
 
-    <select id="selectById" resultMap="BaseResultMap" parameterType="<@modelFullName/>">
+    <select id="getBy${primaryKeyPropertyName?cap_first!}" resultMap="BaseResultMap" parameterType="<@modelFullName/>">
         SELECT
         <include refid="Base_Column_List"/>
         FROM ${tableName!} WHERE <@idEqual/>
+    </select>
+
+    <select id="getBy${primaryKeyPropertyName?cap_first!}List" resultMap="BaseResultMap" parameterType="<@modelFullName/>">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ${tableName!} WHERE ${primaryKeyColumnName!} IN
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            ${"#"}{item}
+        </foreach>
     </select>
 
 </mapper>

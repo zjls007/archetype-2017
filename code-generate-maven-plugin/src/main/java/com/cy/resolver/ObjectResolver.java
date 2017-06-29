@@ -66,6 +66,9 @@ public class ObjectResolver {
         dataModel.setPrimaryKeyColumnName(primaryKeyName);
         dataModel.setPrimaryKeyPropertyName(NameResolver.getFieldName(primaryKeyName));
         for (Column item : table.getColumnList()) {
+            if (item.getName().equals(primaryKeyName)) {
+                dataModel.setPrimaryKeyType(JavaTypeResolver.getType(item.getType())[0]);
+            }
             PropertyDTO dto = new PropertyDTO();
             String columnName = item.getName();
             dto.setColumnName(columnName);
