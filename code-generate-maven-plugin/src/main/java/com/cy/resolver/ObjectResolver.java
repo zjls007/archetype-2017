@@ -4,6 +4,7 @@ import com.cy.dto.BaseDTO;
 import com.cy.dto.PropertyDTO;
 import com.cy.model.Column;
 import com.cy.model.Table;
+import com.cy.util.ClassUtil;
 import com.cy.util.FreeMarkerUtil;
 import com.cy.util.SerializableUtil;
 import freemarker.template.Configuration;
@@ -20,44 +21,50 @@ import java.util.Properties;
  */
 public class ObjectResolver {
 
-    public void gen(Properties config, Table table, String path, String ftlName, boolean serializable) throws Exception {
-        Configuration cfg = FreeMarkerUtil.getConfig();
-        if (serializable) {
-            Template temp = cfg.getTemplate(ftlName);
-            StringWriter out = new StringWriter();
-            BaseDTO dataModel = new BaseDTO();
-            init(config, dataModel, table);
-            temp.process(dataModel, out);
-            out.flush();
-            out.close();
+    static Class<?> modelClass;
 
-            temp = cfg.getTemplate(ftlName.replaceAll(".ftl", "-ser.ftl"));
-            Long serialVersionUID = SerializableUtil.getSerialVersionUID(
-                    NameResolver.getJavaClassName(table.getName()) + ".java",
-                    out.toString(),
-                    config.getProperty("model.package") + "." + NameResolver.getJavaClassName(table.getName()));
-            dataModel.setSerialVersionUID(serialVersionUID + "L");
-            FileWriter fileWriter = new FileWriter(path);
-            temp.process(dataModel, fileWriter);
-            fileWriter.flush();
-            fileWriter.close();
-            System.out.println(String.format("生成: %s", path));
-
-        } else {
-            Template temp = cfg.getTemplate(ftlName);
-            FileWriter out = new FileWriter(path);
-            BaseDTO dataModel = new BaseDTO();
-            init(config, dataModel, table);
-            temp.process(dataModel, out);
-            out.flush();
-            out.close();
-            System.out.println(String.format("生成: %s", path));
-        }
+    private String getSource(Configuration cfg, Properties config, Table table, String ftlName) throws Exception {
+        Template temp = cfg.getTemplate(ftlName);
+        StringWriter out = new StringWriter();
+        BaseDTO dataModel = new BaseDTO();
+        init(config, dataModel, table, null);
+        temp.process(dataModel, out);
+        out.flush();
+        out.close();
+        return out.toString();
     }
 
-    private void init(Properties config, BaseDTO dataModel, Table table) {
+    public void gen(Properties config, Table table, String path, String ftlName, boolean serializable) throws Exception {
+        Configuration cfg = FreeMarkerUtil.getConfig();
+
+        String javaFileName = NameResolver.getJavaClassName(table.getName()) + ".java";
+        String javafullName = config.getProperty("model.package") + "." + NameResolver.getJavaClassName(table.getName());
+        BaseDTO dataModel = new BaseDTO();
+        if (serializable) {
+            String modelSource = getSource(cfg, config, table, ftlName);
+            modelClass = SerializableUtil.getCalssBySource(javaFileName, modelSource, javafullName);
+
+            ftlName = ftlName.replaceAll(".ftl", "-ser.ftl");
+            Long serialVersionUID = SerializableUtil.getSerialVersionUID(modelClass);
+            dataModel.setSerialVersionUID(serialVersionUID + "L");
+        }
+        init(config, dataModel, table, modelClass);
+        Template temp = cfg.getTemplate(ftlName);
+        FileWriter out = new FileWriter(path);
+        temp.process(dataModel, out);
+        out.flush();
+        out.close();
+        System.out.println(String.format("生成: %s", path));
+    }
+
+    private void init(Properties config, BaseDTO dataModel, Table table, Class<?> clazz) {
         JavaTypeResolver.initConfig(config);
         dataModel.setConfig(config);
+
+        if (clazz != null) {
+            dataModel.setSetMethodInvokeStrList(ClassUtil.getSetMethodInvoke(clazz, "entity"));
+        }
+
         String tableName = table.getName();
         dataModel.setTableName(tableName);
         dataModel.setBeanName(NameResolver.getJavaClassName(tableName));
@@ -89,8 +96,6 @@ public class ObjectResolver {
             dto.setNotNull(item.getNotNull());
             if (primaryKeyName != null && primaryKeyName.equals(item.getName())) {
                 dto.setPrimaryKey(true);
-            } else {
-                dto.setPrimaryKey(false);
             }
             propertyDTOList.add(dto);
         }

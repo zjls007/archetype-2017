@@ -5,8 +5,10 @@ import com.cy.api.JdbcConnectionFactory;
 import com.cy.model.Table;
 import com.cy.util.PathUtil;
 
-import java.io.*;
-import java.nio.charset.CharsetDecoder;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 /**
@@ -42,6 +44,9 @@ public class CodeGenerateResolver {
                 }
                 if (generateConfig.genMapper) {
                     resolver.gen(p, table, PathUtil.getMapperPath(baseDir.getAbsolutePath(), tableName), "xmlMapper.ftl", false);
+                }
+                if (generateConfig.genTest) {
+                    resolver.gen(p, table, PathUtil.getTestPath(baseDir.getAbsolutePath(), tableName), "test.ftl", false);
                 }
             }
         } catch (Exception e) {

@@ -1,14 +1,16 @@
 package com.cy.dto;
 
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created by zxj on 2017/6/26.
  */
 public class BaseDTO  {
+
+    /**
+     * test
+     */
+    private List<String> setMethodInvokeStrList = new ArrayList<String>();
 
     /**
      * 配置文件信息
@@ -151,5 +153,13 @@ public class BaseDTO  {
 
     public void setPrimaryKeyType(String primaryKeyType) {
         this.primaryKeyType = primaryKeyType;
+    }
+
+    public List<String> getSetMethodInvokeStrList() {
+        return setMethodInvokeStrList;
+    }
+
+    public void setSetMethodInvokeStrList(List<String> setMethodInvokeStrList) {
+        this.setMethodInvokeStrList = setMethodInvokeStrList;
     }
 }

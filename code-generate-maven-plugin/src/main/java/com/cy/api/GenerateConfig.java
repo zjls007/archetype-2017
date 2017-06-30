@@ -19,6 +19,8 @@ public class GenerateConfig {
 
     public Boolean genMapper = true;
 
+    public Boolean genTest = true;
+
     public String tableName;
 
     public String modelTargetProject;
@@ -29,6 +31,10 @@ public class GenerateConfig {
 
     public String mapperPackage;
 
+    public String testTargetProject;
+
+    public String testPackage;
+
     public static GenerateConfig generateConfig;
 
     private Properties p;
@@ -38,6 +44,7 @@ public class GenerateConfig {
         genModel = !"false".equalsIgnoreCase((String) p.get("gen.model"));
         genDao = !"false".equalsIgnoreCase((String) p.get("gen.dao"));
         genMapper = !"false".equalsIgnoreCase((String) p.get("gen.mapper"));
+        genTest = !"false".equalsIgnoreCase((String) p.get("gen.test"));
         tableName = (String) p.get("table.name");
         modelPackage = (String) p.get("model.package");
         daoPackage = (String) p.get("dao.package");
@@ -45,6 +52,9 @@ public class GenerateConfig {
         daoTargetProject = (String) p.get("dao.targetProject");
         mapperTargetProject = (String) p.get("mapper.targetProject");
         mapperPackage = (String) p.get("mapper.package");
+        testTargetProject = (String) p.get("test.targetProject");
+        testPackage = (String) p.get("test.package");
+
         auth = (String) p.get("auth");
     }
 

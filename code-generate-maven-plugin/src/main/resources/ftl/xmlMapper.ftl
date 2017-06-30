@@ -98,7 +98,7 @@
 
 <#macro resultMap>
     <#list propertyList as item>
-        <#if item.primaryKey>
+        <#if item.primaryKey??>
         <id column="${item.columnName!}" property="${item.propertyName!}" />
         <#else>
         <result column="${item.columnName!}" property="${item.propertyName!}" />
@@ -112,12 +112,12 @@
 </#macro>
 <#macro noIdColunmList>
     <#list propertyList?chunk(10) as row>
-        <#if row_index=0>(</#if><#list row as item>${item.columnName!}<#if item_has_next || row_has_next>, </#if></#list><#if !row_has_next>)</#if>
+        <#if row_index=0>(</#if><#list row as item><#if !item.primaryKey??>${item.columnName!}<#if item_has_next || row_has_next>, </#if></#if></#list><#if !row_has_next>)</#if>
     </#list>
 </#macro>
 <#macro noIdColunmListValue prefix=''>
     <#list propertyList?chunk(10) as row>
-        <#if prefix!=''>   </#if><#if row_index=0>(</#if><#list row as item>${'#'}{${prefix!}<@strExist source=prefix trueVal='.'/>${item.propertyName!}}<#if item_has_next || row_has_next>, </#if></#list><#if !row_has_next>)</#if>
+        <#if prefix!=''>   </#if><#if row_index=0>(</#if><#list row as item><#if !item.primaryKey??>${'#'}{${prefix!}<@strExist source=prefix trueVal='.'/>${item.propertyName!}}<#if item_has_next || row_has_next>, </#if></#if></#list><#if !row_has_next>)</#if>
     </#list>
 </#macro>
 <#macro idEqual>

@@ -59,6 +59,22 @@ public class PathUtil {
         return path.toString();
     }
 
+    public static String getTestPath(String basePath, String tableName) {
+        GenerateConfig generateConfig = GenerateConfig.getInstance();
+        StringBuilder path = new StringBuilder();
+        path.append(basePath);
+        if (generateConfig.testTargetProject != null && !generateConfig.testTargetProject.isEmpty()) {
+            backDir(path, generateConfig.testTargetProject);
+        }
+        if (generateConfig.testPackage != null && !generateConfig.testPackage.isEmpty()) {
+            backDir(path, generateConfig.testPackage.replaceAll("\\.", "/"));
+        }
+        path.append(File.separator);
+        path.append(NameResolver.getJavaClassName(tableName));
+        path.append("ServiceTest.java");
+        return path.toString();
+    }
+
     /**
      * 目录..的时候退掉一个目录
      * @param path
