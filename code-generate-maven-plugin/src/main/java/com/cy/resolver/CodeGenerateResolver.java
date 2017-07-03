@@ -35,6 +35,9 @@ public class CodeGenerateResolver {
             MysqlDaoResolver mysqlDaoResolver = new MysqlDaoResolver(jdbcConnectionFactory);
             for (String tableName : generateConfig.tableName.split(",")) {
                 Table table = mysqlDaoResolver.getTable(tableName);
+                if (table.getPrimaryKeyName() == null || table.getPrimaryKeyName().equals("")) {
+                    throw new RuntimeException(String.format("表【%s】必须要有主键", tableName));
+                }
                 ObjectResolver resolver = new ObjectResolver();
                 if (generateConfig.genModel) {
                     resolver.gen(p, table, PathUtil.getModelPath(baseDir.getAbsolutePath(), tableName), "javaModel.ftl", true);

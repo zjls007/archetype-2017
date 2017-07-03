@@ -1,14 +1,24 @@
-import basic.JunitSpringContext;
-import com.cy.dao.FinancePayReceiveDAO;
-import com.cy.entity.FinancePayReceive;
+<#assign testPackage=config['test.package']!('') />
+<#assign testExtends=config['test.extends']!('') />
+<#if (!testExtends?contains(testPackage) && testPackage != '') || (testPackage == '' && testExtends?contains("."))>
+import ${testExtends};
+</#if>
+<#if (config['dao.package'])?? && ((config['dao.package'])?length gt 0)>
+import ${(config['dao.package'])!}.${beanName!}DAO;
+</#if>
+<#if (config['model.package'])?? && ((config['model.package'])?length gt 0)>
+import ${(config['model.package'])!}.${beanName!};
+</#if>
 import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+<#list importTypeList as item>
+import ${item!};
+</#list>
 
 /**
  * Created by ${auth!} on ${(date?string("yyyy-MM-dd HH:mm:ss"))!}.
@@ -44,32 +54,33 @@ public class ${beanName!}ServiceTest extends JunitSpringContext {
 
     @Test
     public void delete() {
-
+        int result = financePayReceiveDAO.delete(null);
+        Assert.assertEquals(result, 1);
     }
 
     @Test
     public void batchDelete() {
-
+        List<Long> ids = Arrays.asList(new Long[] {null});
+        int result = financePayReceiveDAO.batchDelete(ids);
+        Assert.assertEquals(result, 1);
     }
 
     @Test
     public void update() {
-
+        ${beanName!} entity = getEntity();
+        int result = financePayReceiveDAO.update(entity);
+        Assert.assertEquals(result, 1);
     }
 
     @Test
-    public void getById() {
-
+    public void getBy${primaryKeyPropertyName?cap_first!}() {
+        ${beanName!} entity = financePayReceiveDAO.getBy${primaryKeyPropertyName?cap_first!}(null);
     }
 
     @Test
-    public void getByIdList() {
-
-    }
-
-    @Test
-    public void getByOrderNum() {
-
+    public void getBy${primaryKeyPropertyName?cap_first!}List() {
+        List<Long> ids = Arrays.asList(new Long[] {null});
+        List<${beanName!}> list = financePayReceiveDAO.getBy${primaryKeyPropertyName?cap_first!}List(ids);
     }
 
 }
