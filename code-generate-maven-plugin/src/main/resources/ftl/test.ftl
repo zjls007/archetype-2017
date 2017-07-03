@@ -1,5 +1,6 @@
 <#assign testPackage=config['test.package']!('') />
 <#assign testExtends=config['test.extends']!('') />
+<#assign dao=(beanName?uncap_first!) + "DAO" />
 <#if (!testExtends?contains(testPackage) && testPackage != '') || (testPackage == '' && testExtends?contains("."))>
 import ${testExtends};
 </#if>
@@ -26,7 +27,7 @@ import ${item!};
 public class ${beanName!}ServiceTest extends JunitSpringContext {
 
     @Resource
-    private ${beanName!}DAO ${beanName?uncap_first!}DAO;
+    private ${beanName!}DAO ${dao!};
 
     private ${beanName!} getEntity() {
         ${beanName!} entity = new ${beanName!}();
@@ -40,7 +41,7 @@ public class ${beanName!}ServiceTest extends JunitSpringContext {
     @Test
     public void insert() {
         ${beanName!} entity = getEntity();
-        int result = financePayReceiveDAO.insert(entity);
+        int result = ${dao!}.insert(entity);
         Assert.assertEquals(result, 1);
     }
 
@@ -48,39 +49,39 @@ public class ${beanName!}ServiceTest extends JunitSpringContext {
     public void batchInsert() {
         List<${beanName!}> list = new ArrayList<${beanName!}>();
         list.add(getEntity());
-        int result = financePayReceiveDAO.batchInsert(list);
+        int result = ${dao!}.batchInsert(list);
         Assert.assertEquals(result, list.size());
     }
 
     @Test
     public void delete() {
-        int result = financePayReceiveDAO.delete(null);
+        int result = ${dao!}.delete(null);
         Assert.assertEquals(result, 1);
     }
 
     @Test
     public void batchDelete() {
         List<Long> ids = Arrays.asList(new Long[] {null});
-        int result = financePayReceiveDAO.batchDelete(ids);
+        int result = ${dao!}.batchDelete(ids);
         Assert.assertEquals(result, 1);
     }
 
     @Test
     public void update() {
         ${beanName!} entity = getEntity();
-        int result = financePayReceiveDAO.update(entity);
+        int result = ${dao!}.update(entity);
         Assert.assertEquals(result, 1);
     }
 
     @Test
     public void getBy${primaryKeyPropertyName?cap_first!}() {
-        ${beanName!} entity = financePayReceiveDAO.getBy${primaryKeyPropertyName?cap_first!}(null);
+        ${beanName!} entity = ${dao!}.getBy${primaryKeyPropertyName?cap_first!}(null);
     }
 
     @Test
     public void getBy${primaryKeyPropertyName?cap_first!}List() {
         List<Long> ids = Arrays.asList(new Long[] {null});
-        List<${beanName!}> list = financePayReceiveDAO.getBy${primaryKeyPropertyName?cap_first!}List(ids);
+        List<${beanName!}> list = ${dao!}.getBy${primaryKeyPropertyName?cap_first!}List(ids);
     }
 
 }
