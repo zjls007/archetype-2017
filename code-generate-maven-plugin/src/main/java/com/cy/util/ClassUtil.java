@@ -14,6 +14,14 @@ import java.util.List;
  */
 public class ClassUtil {
 
+    public static void main(String[] args) throws Exception {
+        Class clazz = Class.forName("com.cy.entity.UserInfo");
+        List<String> list = getSetMethodInvoke(clazz, "entity");
+        for (String s : list) {
+            System.out.println(s);
+        }
+    }
+
     public static List<String> getSetMethodInvoke(Class<?> clazz, String prefix) {
         List<String> list = new ArrayList<String>();
         // 可以获得有序的字段(method方法获取时是无序的)
@@ -45,6 +53,10 @@ public class ClassUtil {
                             sb.append("BigDecimal.ZERO");
                         } else if (c.equals(Date.class)) {
                             sb.append("new Date()");
+                        } else if (c.equals(Double.class)) {
+                            sb.append("0D");
+                        } else {
+                            sb.append(String.format("不支持的类型【%s】", c.getName()));
                         }
                     }
                     sb.append(");");
