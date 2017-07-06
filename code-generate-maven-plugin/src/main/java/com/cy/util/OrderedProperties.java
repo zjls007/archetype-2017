@@ -1,4 +1,4 @@
-package com.cy.com.cy.util;
+package com.cy.util;
 
 import java.util.Collections;
 import java.util.Enumeration;

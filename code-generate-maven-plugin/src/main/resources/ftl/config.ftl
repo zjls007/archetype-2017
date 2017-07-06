@@ -1,4 +1,4 @@
-package ${package};
+package ${package!};
 
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
@@ -10,7 +10,7 @@ public class Config {
 </#list>
 
     static {
-        ResourceBundle rb = PropertyResourceBundle.getBundle("config");
+        ResourceBundle rb = PropertyResourceBundle.getBundle("${fileName!}");
 
     <#list map?keys as key>
         ${key} = rb.getString("${map[key]}");

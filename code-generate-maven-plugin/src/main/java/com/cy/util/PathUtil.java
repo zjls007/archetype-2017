@@ -4,7 +4,6 @@ import com.cy.api.GenerateConfig;
 import com.cy.resolver.NameResolver;
 
 import java.io.File;
-import java.lang.reflect.Field;
 
 /**
  * Created by zxj on 2017/5/3.
@@ -80,7 +79,7 @@ public class PathUtil {
      * @param path
      * @param add
      */
-    private static void backDir(StringBuilder path, String add) {
+    public static void backDir(StringBuilder path, String add) {
         String temp = path.toString();
         if (temp.endsWith("\\")) {
             temp = temp.substring(0, temp.length() - 1);
