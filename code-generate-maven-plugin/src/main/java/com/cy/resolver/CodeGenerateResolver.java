@@ -1,8 +1,8 @@
 package com.cy.resolver;
 
-import com.cy.api.GenerateConfig;
-import com.cy.api.JdbcConnectionFactory;
 import com.cy.model.Table;
+import com.cy.util.GenerateConfig;
+import com.cy.util.JdbcConnectionFactory;
 import com.cy.util.PathUtil;
 
 import java.io.File;

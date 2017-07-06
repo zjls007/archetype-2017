@@ -2,9 +2,9 @@ package com.cy.resolver;
 
 //import com.cy.common.MybatisConfig;
 
-import com.cy.api.JdbcConnectionFactory;
 import com.cy.model.Column;
 import com.cy.model.Table;
+import com.cy.util.JdbcConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;

@@ -1,6 +1,5 @@
 package com.cy.util;
 
-import com.cy.api.GenerateConfig;
 import com.cy.resolver.NameResolver;
 
 import java.io.File;
