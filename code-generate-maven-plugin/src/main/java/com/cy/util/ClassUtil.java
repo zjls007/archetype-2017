@@ -22,6 +22,51 @@ public class ClassUtil {
         }
     }
 
+    public static List<String> setBySameGet(Class<?> originClazz, String originPrefix, Class<?> targetClazz, String targetPrefix) {
+        List<String> list = new ArrayList<String>();
+        // 可以获得有序的字段(method方法获取时是无序的)
+        Field[] fields = originClazz.getDeclaredFields();
+        for (Field f : fields) {
+            try {
+                PropertyDescriptor pd = new PropertyDescriptor(f.getName(), originClazz);
+                Method method = pd.getWriteMethod();
+                if (method != null) {
+                    Class<?>[] parameterTypes = method.getParameterTypes();
+                    StringBuilder sb = new StringBuilder();
+                    if (originPrefix != null && !originPrefix.isEmpty()) {
+                        sb.append(originPrefix).append(".");
+                    }
+                    sb.append(method.getName());
+                    sb.append("(");
+                    sb.append(targetPrefix);
+                    sb.append(".");
+                    sb.append(get(targetClazz, f));
+                    sb.append(");");
+                    list.add(sb.toString());
+                }
+            } catch (IntrospectionException e) {
+                // 没有get,set方法的字段跳过
+            }
+        }
+        return list;
+    }
+
+    private static String get(Class<?> clazz, Field f) {
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            if (field.getName().equals(f.getName())) {
+                String r = "get" + f.getName().substring(0, 1).toUpperCase() + f.getName().substring(1) + "()";
+                if (field.getType().equals(f.getType())) {
+                    return r;
+                } else {
+                    return r + "类型不匹配";
+                }
+            }
+        }
+        return "";
+    }
+
+
     public static List<String> getSetMethodInvoke(Class<?> clazz, String prefix) {
         List<String> list = new ArrayList<String>();
         // 可以获得有序的字段(method方法获取时是无序的)
@@ -45,6 +90,8 @@ public class ClassUtil {
                         }
                         if (c.equals(String.class)) {
                             sb.append("\"test\"");
+                        } else if (c.equals(Integer.class)) {
+                            sb.append("1");
                         } else if (c.equals(Long.class)) {
                             sb.append("1l");
                         } else if (c.equals(Byte.class)) {

@@ -55,7 +55,7 @@ public class PrintMethodInvokeMojo extends AbstractMojo {
         if (isEmpty(sourceAlias)) {
             sourceAlias = getAlias(sourceClass.getSimpleName());
         }
-        if (!isEmpty(targetAlias)) {
+        if (isEmpty(targetAlias)) {
             targetAlias = getAlias(targetClass.getSimpleName());
         }
         print(sourceClass, sourceAlias, targetClass, targetAlias);
@@ -68,7 +68,10 @@ public class PrintMethodInvokeMojo extends AbstractMojo {
                 System.out.println(s);
             }
         } else {
-
+            List<String> list = ClassUtil.setBySameGet(sourceClass, sourceAlias, targetClass, targetAlias);
+            for (String s : list) {
+                System.out.println(s);
+            }
         }
     }
 
