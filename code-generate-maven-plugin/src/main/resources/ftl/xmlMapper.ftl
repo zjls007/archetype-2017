@@ -62,13 +62,13 @@
         where <@idEqual/>
     </update>
 
-    <select id="getBy${primaryKeyPropertyName?cap_first!}" resultMap="BaseResultMap" parameterType="<@modelFullName/>">
+    <select id="getBy${primaryKeyPropertyName?cap_first!}" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM ${tableName!} WHERE <@idEqual/>
     </select>
 
-    <select id="getBy${primaryKeyPropertyName?cap_first!}List" resultMap="BaseResultMap" parameterType="<@modelFullName/>">
+    <select id="getBy${primaryKeyPropertyName?cap_first!}List" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM ${tableName!} WHERE ${primaryKeyColumnName!} IN
