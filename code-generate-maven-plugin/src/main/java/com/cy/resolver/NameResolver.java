@@ -24,9 +24,10 @@ public class NameResolver {
     public static String getTableAlias(String tableName) {
         StringBuilder sb = new StringBuilder();
         if (tableName != null) {
+            tableName = "_" + tableName;
             for (int i = 0; i < tableName.length(); i++) {
-                if ((i+1) < tableName.length() && String.valueOf(tableName.charAt(i + 1)).equals("_")) {
-                    sb.append(tableName.charAt(i));
+                if (String.valueOf(tableName.charAt(i)).equals("_") && (i + 1) < tableName.length()) {
+                    sb.append(tableName.charAt(i + 1));
                 }
             }
         }
