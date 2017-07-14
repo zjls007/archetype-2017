@@ -67,6 +67,7 @@ public class ObjectResolver {
 
         String tableName = table.getName();
         dataModel.setTableName(tableName);
+        dataModel.setTableAlias(NameResolver.getTableAlias(tableName));
         dataModel.setBeanName(NameResolver.getJavaClassName(tableName));
         dataModel.setTableRemark(table.getRemark());
         List<PropertyDTO> propertyDTOList = new ArrayList<PropertyDTO>();

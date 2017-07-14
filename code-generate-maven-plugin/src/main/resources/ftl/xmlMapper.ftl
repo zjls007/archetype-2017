@@ -15,7 +15,7 @@
     </sql>
 
     <sql id="Base_Alias_Column_List">
-        <@colunmList prefix='abc'/>
+        <@colunmList prefix='${tableAlias!}'/>
     </sql>
 
     <insert id="insert" parameterType="<@modelFullName/>" useGeneratedKeys="true" keyColumn="${primaryKeyColumnName!}" keyProperty="${primaryKeyPropertyName!}">

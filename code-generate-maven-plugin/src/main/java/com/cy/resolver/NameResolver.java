@@ -21,6 +21,18 @@ public class NameResolver {
         return String.format("set%s", getTFStr(name, true));
     }
 
+    public static String getTableAlias(String tableName) {
+        StringBuilder sb = new StringBuilder();
+        if (tableName != null) {
+            for (int i = 0; i < tableName.length(); i++) {
+                if ((i+1) < tableName.length() && String.valueOf(tableName.charAt(i + 1)).equals("_")) {
+                    sb.append(tableName.charAt(i));
+                }
+            }
+        }
+        return sb.toString();
+    }
+
     private static String getTFStr(String str, boolean firstUpCase) {
         StringBuilder sb = new StringBuilder();
         if (str != null && !str.isEmpty()) {

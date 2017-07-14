@@ -38,6 +38,11 @@ public class BaseDTO  {
     private String tableName;
 
     /**
+     * 表别名
+     */
+    private String tableAlias;
+
+    /**
      * java对象名称
      */
     private String beanName;
@@ -161,5 +166,13 @@ public class BaseDTO  {
 
     public void setSetMethodInvokeStrList(List<String> setMethodInvokeStrList) {
         this.setMethodInvokeStrList = setMethodInvokeStrList;
+    }
+
+    public String getTableAlias() {
+        return tableAlias;
+    }
+
+    public void setTableAlias(String tableAlias) {
+        this.tableAlias = tableAlias;
     }
 }
