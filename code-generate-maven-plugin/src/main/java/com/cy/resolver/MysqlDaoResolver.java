@@ -70,7 +70,9 @@ public class MysqlDaoResolver {
     private Map<String, List<String>> getUniKey(DatabaseMetaData dbmd, String tableName) throws Exception {
         Map<String, List<String>> map = new HashMap<String, List<String>>();
 
-        ResultSet rs =  dbmd.getIndexInfo(null, null, tableName, true, false );
+//        ResultSet rs =  dbmd.getIndexInfo(null, null, tableName, true, false );
+        //  获取所有索引，包括唯一索引
+        ResultSet rs =  dbmd.getIndexInfo(null, null, tableName, false, false );
         while (rs.next()) {
             String indexName = rs.getString("INDEX_NAME");
             if (!"PRIMARY".equalsIgnoreCase(indexName)) {
