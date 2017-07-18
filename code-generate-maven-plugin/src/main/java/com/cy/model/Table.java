@@ -1,6 +1,7 @@
 package com.cy.model;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zxj on 2017/5/2.
@@ -17,14 +18,12 @@ public class Table {
      */
     private String primaryKeyName;
 
-    /**
-     * 唯一单列索引集合的字段名
-     */
-    private List<Column> uniKeyList;
-
     private List<Column> columnList;
 
-    private List<String> uniKeyNameList;
+    /**
+     * 唯一列map
+     */
+    private Map<String, List<String>> uniKeyMap;
 
     /**
      * 表备注
@@ -55,14 +54,6 @@ public class Table {
         this.primaryKeyName = primaryKeyName;
     }
 
-    public List<Column> getUniKeyList() {
-        return uniKeyList;
-    }
-
-    public void setUniKeyList(List<Column> uniKeyList) {
-        this.uniKeyList = uniKeyList;
-    }
-
     public String getRemark() {
         return remark;
     }
@@ -71,11 +62,11 @@ public class Table {
         this.remark = remark;
     }
 
-    public List<String> getUniKeyNameList() {
-        return uniKeyNameList;
+    public Map<String, List<String>> getUniKeyMap() {
+        return uniKeyMap;
     }
 
-    public void setUniKeyNameList(List<String> uniKeyNameList) {
-        this.uniKeyNameList = uniKeyNameList;
+    public void setUniKeyMap(Map<String, List<String>> uniKeyMap) {
+        this.uniKeyMap = uniKeyMap;
     }
 }

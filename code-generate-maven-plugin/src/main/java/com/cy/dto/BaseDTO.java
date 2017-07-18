@@ -58,6 +58,11 @@ public class BaseDTO  {
     private List<PropertyDTO> propertyList;
 
     /**
+     * 唯一列索引
+     */
+    private List<List<PropertyDTO>> uniKeyList;
+
+    /**
      * 主键字段类型
      */
     private String primaryKeyType;
@@ -174,5 +179,13 @@ public class BaseDTO  {
 
     public void setTableAlias(String tableAlias) {
         this.tableAlias = tableAlias;
+    }
+
+    public List<List<PropertyDTO>> getUniKeyList() {
+        return uniKeyList;
+    }
+
+    public void setUniKeyList(List<List<PropertyDTO>> uniKeyList) {
+        this.uniKeyList = uniKeyList;
     }
 }

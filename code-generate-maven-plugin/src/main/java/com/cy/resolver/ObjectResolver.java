@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -70,18 +71,16 @@ public class ObjectResolver {
         dataModel.setTableAlias(NameResolver.getTableAlias(tableName));
         dataModel.setBeanName(NameResolver.getJavaClassName(tableName));
         dataModel.setTableRemark(table.getRemark());
-        List<PropertyDTO> propertyDTOList = new ArrayList<PropertyDTO>();
         String primaryKeyName = table.getPrimaryKeyName();
         dataModel.setPrimaryKeyColumnName(primaryKeyName);
         dataModel.setPrimaryKeyPropertyName(NameResolver.getFieldName(primaryKeyName));
+
+        List<PropertyDTO> propertyDTOList = new ArrayList<PropertyDTO>();
         for (Column item : table.getColumnList()) {
             if (item.getName().equals(primaryKeyName)) {
                 dataModel.setPrimaryKeyType(JavaTypeResolver.getType(item.getType())[0]);
             }
             PropertyDTO dto = new PropertyDTO();
-            if (table.getUniKeyNameList().contains(item.getName())) {
-                dto.setSingleUnqKey(true);
-            }
             String columnName = item.getName();
             dto.setColumnName(columnName);
             dto.setPropertyName(NameResolver.getFieldName(columnName));
@@ -101,6 +100,21 @@ public class ObjectResolver {
             propertyDTOList.add(dto);
         }
         dataModel.setPropertyList(propertyDTOList);
+
+        // 唯一索引
+        List<List<PropertyDTO>> list = new ArrayList<List<PropertyDTO>>();
+        for (Map.Entry<String, List<String>> map : table.getUniKeyMap().entrySet()) {
+            List<PropertyDTO> uniKey = new ArrayList<PropertyDTO>();
+            for (String str : map.getValue()) {
+                for (PropertyDTO dto : propertyDTOList) {
+                    if (dto.getColumnName().equals(str)) {
+                        uniKey.add(dto);
+                    }
+                }
+            }
+            list.add(uniKey);
+        }
+        dataModel.setUniKeyList(list);
     }
 
     public static void main(String[] args) {

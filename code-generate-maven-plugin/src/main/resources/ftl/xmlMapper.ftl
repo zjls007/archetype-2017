@@ -25,7 +25,7 @@
         <@noIdColunmListValue/>
     </insert>
 
-    <insert id="batchInsert">
+    <insert id="batchInsert" parameterType="<@modelFullName/>">
         INSERT INTO ${tableName!}
         <@noIdColunmList/>
         VALUES
@@ -35,18 +35,18 @@
     </insert>
 
     <delete id="delete">
-        DELETE FROM ${tableName!} where <@idEqual/>
+        DELETE FROM ${tableName!} WHERE <@idEqual/>
     </delete>
 
     <delete id="batchDelete">
-        DELETE FROM ${tableName!} where ${primaryKeyColumnName!} in
+        DELETE FROM ${tableName!} WHERE ${primaryKeyColumnName!} IN
         <foreach collection="list" open="(" close=")" separator="," item="item">
             ${'#'}{item}
         </foreach>
     </delete>
 
     <update id="update" parameterType="<@modelFullName/>" >
-        update ${tableName!}
+        UPDATE ${tableName!}
         <set>
         <#list propertyList as item>
         <#if primaryKeyPropertyName?? && (item.propertyName == primaryKeyPropertyName)>
@@ -59,7 +59,7 @@
         </#if>
         </#list>
         </set>
-        where <@idEqual/>
+        WHERE <@idEqual/>
     </update>
 
     <select id="getBy${primaryKeyPropertyName?cap_first!}" resultMap="BaseResultMap">
@@ -77,15 +77,14 @@
         </foreach>
     </select>
 
-    <#list propertyList as item>
-    <#if item.singleUnqKey??>
-    <select id="getBy${item.propertyName?cap_first!}" resultMap="BaseResultMap">
+    <#list uniKeyList as list>
+    <select id="getBy<#list list as item>${item.propertyName?cap_first!}<#if item_has_next>And</#if></#list>" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM ${tableName!} WHERE ${item.columnName!} = ${'#'}{${item.propertyName!}}
+        FROM ${tableName!}
+        WHERE <#list list as item>${item.columnName!} = ${'#'}{${item.propertyName!}}<#if item_has_next> AND </#if></#list>
     </select>
 
-    </#if>
     </#list>
 </mapper>
 

@@ -14,11 +14,6 @@ public class PropertyDTO implements Serializable {
     private Boolean primaryKey;
 
     /**
-     * 是否为单列索引
-     */
-    private Boolean singleUnqKey;
-
-    /**
      * 属性注释
      */
     private String remark;
@@ -123,13 +118,5 @@ public class PropertyDTO implements Serializable {
 
     public void setPrimaryKey(Boolean primaryKey) {
         this.primaryKey = primaryKey;
-    }
-
-    public Boolean getSingleUnqKey() {
-        return singleUnqKey;
-    }
-
-    public void setSingleUnqKey(Boolean singleUnqKey) {
-        this.singleUnqKey = singleUnqKey;
     }
 }

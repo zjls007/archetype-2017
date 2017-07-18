@@ -11,7 +11,9 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zxj on 2017/3/8.
@@ -37,9 +39,7 @@ public class MysqlDaoResolver {
         table.setRemark(getTableRemark(conn, tableName));
         table.setPrimaryKeyName(getPrimaryKey(conn, dbmd, tableName));
         table.setColumnList(getColumns(dbmd, tableName));
-        List<String> uniKeySingleList = getUniKeySingleList(dbmd, tableName);
-        table.setUniKeyList(getUniColumn(table.getColumnList(), uniKeySingleList));
-        table.setUniKeyNameList(uniKeySingleList);
+        table.setUniKeyMap(getUniKey(dbmd, tableName));
         return table;
     }
 
@@ -67,49 +67,25 @@ public class MysqlDaoResolver {
         return list;
     }
 
-    private List<Column> getUniColumn(List<Column> columnList, List<String> uniKeyList) {
-        List<Column> result = new ArrayList<Column>();
-        for (String key : uniKeyList) {
-            for (Column column : columnList) {
-                if (column.getName().equalsIgnoreCase(key)) {
-                    result.add(column);
-                    break;
-                }
-            }
-        }
+    private Map<String, List<String>> getUniKey(DatabaseMetaData dbmd, String tableName) throws Exception {
+        Map<String, List<String>> map = new HashMap<String, List<String>>();
 
-        return result;
-    }
-
-    /**
-     * 获取单列唯一索引，排除主键，排除唯一索引中有多个字段
-     * @return
-     */
-    private List<String> getUniKeySingleList(DatabaseMetaData dbmd, String tableName) throws Exception {
-        List<String> result = new ArrayList<String>();
-
-        List<String> temp = new ArrayList<String>();
         ResultSet rs =  dbmd.getIndexInfo(null, null, tableName, true, false );
         while (rs.next()) {
             String indexName = rs.getString("INDEX_NAME");
             if (!"PRIMARY".equalsIgnoreCase(indexName)) {
                 String colunmName = rs.getString("COLUMN_NAME");
-                temp.add(String.format("%s:%s", indexName, colunmName));
-            }
-        }
-        for (String i : temp) {
-            int count = 0;
-            for (String j : temp) {
-                if (i.substring(0, i.indexOf(":")).equals(j.substring(0, j.indexOf(":")))) {
-                    count++;
+                List<String> list = map.get(indexName);
+                if (list == null) {
+                    list = new ArrayList<String>();
+                    map.put(indexName, list);
                 }
-            }
-            if (count == 1) {
-                result.add(i.substring(i.indexOf(":") + 1));
+                list.add(colunmName);
             }
         }
-        return result;
+        return map;
     }
+
 
     public String getPrimaryKey(Connection conn, DatabaseMetaData dbmd, String tableName) throws Exception {
         ResultSet primaryKeyResultSet = dbmd.getPrimaryKeys(conn.getCatalog(), null, tableName);
@@ -122,7 +98,7 @@ public class MysqlDaoResolver {
 
     public static void main(String[] args) throws Exception {
         MysqlDaoResolver mysqlDaoResolver = new MysqlDaoResolver(new JdbcConnectionFactory());
-        mysqlDaoResolver.getTable("quote_price_section");
+        mysqlDaoResolver.getTable("account_user");
     }
 
 }
