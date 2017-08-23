@@ -1,3 +1,10 @@
+CREATE TABLE `t_web_session` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `session_id` varchar(255) DEFAULT NULL COMMENT 'sessionId',
+  `session_ser_val` varchar(255) DEFAULT NULL COMMENT 'session序列号值',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `t_user_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(20) DEFAULT NULL COMMENT '用户名',
@@ -14,10 +21,41 @@ CREATE TABLE `t_user_info` (
   UNIQUE KEY `uni_user_name` (`user_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `t_web_session` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `session_id` varchar(255) DEFAULT NULL COMMENT 'sessionId',
-  `session_ser_val` varchar(255) DEFAULT NULL COMMENT 'session序列号值',
+CREATE TABLE `t_role_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(255) NOT NULL COMMENT '角色名称',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `lst_upd_time` datetime NOT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色信息表';
+
+CREATE TABLE `t_user_role_ref` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` bigint(20) NOT NULL COMMENT '用于id',
+  `role_id` bigint(20) NOT NULL COMMENT '角色id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色关联表';
+
+CREATE TABLE `t_user_group_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(255) NOT NULL COMMENT '组名称',
+  `parent_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '父级工作组id，为空时填0',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `lst_upd_time` datetime NOT NULL COMMENT '最后更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户组信息表';
+
+CREATE TABLE `t_user_user_group_ref` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `user_group_id` bigint(20) NOT NULL COMMENT '用户组id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户用户组关联表';
+
+CREATE TABLE `t_user_group_role_ref` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `role_id` bigint(20) NOT NULL COMMENT '角色id',
+  `user_group_id` bigint(20) NOT NULL COMMENT '用户组id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户组角色关联表';
 
