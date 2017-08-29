@@ -17,9 +17,11 @@ CREATE TABLE `t_user_info` (
 CREATE TABLE `t_role_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(255) NOT NULL COMMENT '角色名称',
+  `code` varchar(255) DEFAULT NULL COMMENT '角色编码',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `lst_upd_time` datetime NOT NULL COMMENT '最后更新时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uni_code` (`code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色信息表';
 
 CREATE TABLE `t_user_role_ref` (
@@ -52,3 +54,46 @@ CREATE TABLE `t_user_group_role_ref` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户组角色关联表';
 
+CREATE TABLE `t_permission_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `type` varchar(255) NOT NULL COMMENT '类型（menu-菜单、page-页面元素）',
+  `data_id` bigint(20) NOT NULL COMMENT '关联的数据id',
+  `name` varchar(255) NOT NULL COMMENT '权限名称',
+  `code` varchar(255) NOT NULL COMMENT '权限code',
+  `create_time` datetime NOT NULL,
+  `lst_upd_time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限表';
+
+CREATE TABLE `t_role_permission_ref` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `rold_id` bigint(20) NOT NULL COMMENT '角色id',
+  `permission_id` bigint(20) NOT NULL COMMENT '权限id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色-权限关联表';
+
+CREATE TABLE `t_operation_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(255) NOT NULL COMMENT '操作名称',
+  `code` varchar(255) NOT NULL COMMENT '操作编码',
+  `create_time` datetime NOT NULL,
+  `lst_upd_time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='操作表';
+
+CREATE TABLE `t_permission_operation_ref` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `permission_id` bigint(20) NOT NULL COMMENT '权限id',
+  `operation_id` bigint(20) NOT NULL COMMENT '操作id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限-操作关联表';
+
+CREATE TABLE `t_menu_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(255) NOT NULL COMMENT '菜单名称',
+  `url` varchar(255) NOT NULL COMMENT '菜单url',
+  `parent_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '父级菜单id,无填写0',
+  `create_time` datetime NOT NULL,
+  `lst_upd_time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单信息表';

@@ -14,7 +14,7 @@ public class SerializableUtil {
      *
      * @param javaFileName 如：UserInfo.java
      * @param source java源码
-     * @param javafullName 如：com.cy.entity.UserInfo
+     * @param javafullName 如：UserInfo
      * @return
      */
     public static Long getSerialVersionUID(String javaFileName, String source, String javafullName) {
@@ -43,7 +43,7 @@ public class SerializableUtil {
      *
      * @param javaFileName 如：UserInfo.java
      * @param source java源码
-     * @param javafullName 如：com.cy.entity.UserInfo
+     * @param javafullName 如：UserInfo
      * @return
      */
     public static Class<?> getCalssBySource(String javaFileName, String source, String javafullName) {

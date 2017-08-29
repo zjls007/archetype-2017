@@ -15,7 +15,7 @@ import java.util.List;
 public class ClassUtil {
 
     public static void main(String[] args) throws Exception {
-        Class clazz = Class.forName("com.cy.entity.UserInfo");
+        Class clazz = Class.forName("UserInfo");
         List<String> list = getSetMethodInvoke(clazz, "entity");
         for (String s : list) {
             System.out.println(s);

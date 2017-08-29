@@ -2,8 +2,8 @@ package com.cy.common.core;
 
 import com.cy.common.constant.Constants;
 import com.cy.common.emun.ByteBooleanEnum;
-import com.cy.dao.UserInfoDAO;
-import com.cy.entity.UserInfo;
+import com.cy.dao.system.UserInfoDAO;
+import com.cy.entity.system.UserInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

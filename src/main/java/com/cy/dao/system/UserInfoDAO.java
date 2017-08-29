@@ -1,6 +1,6 @@
-package com.cy.dao;
+package com.cy.dao.system;
 
-import com.cy.entity.UserInfo;
+import com.cy.entity.system.UserInfo;
 import com.cy.web.dto.result.UserInfoListResultDTO;
 import org.springframework.stereotype.Repository;
 

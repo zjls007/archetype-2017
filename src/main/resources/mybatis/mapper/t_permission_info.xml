@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.dao.system.PermissionInfoDAO">
+
+    <resultMap id="BaseResultMap" type="com.cy.entity.system.PermissionInfo">
+        <id column="id" property="id" />
+        <result column="type" property="type" />
+        <result column="data_id" property="dataId" />
+        <result column="name" property="name" />
+        <result column="code" property="code" />
+        <result column="create_time" property="createTime" />
+        <result column="lst_upd_time" property="lstUpdTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, type, data_id, name, code, create_time, lst_upd_time
+    </sql>
+
+    <sql id="Base_Alias_Column_List">
+        tpi.id, tpi.type, tpi.data_id, tpi.name, tpi.code, tpi.create_time, tpi.lst_upd_time
+    </sql>
+
+    <insert id="insert" parameterType="com.cy.entity.system.PermissionInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO t_permission_info
+        (type, data_id, name, code, create_time, lst_upd_time)
+        VALUES
+        (#{type}, #{dataId}, #{name}, #{code}, #{createTime}, #{lstUpdTime})
+    </insert>
+
+    <insert id="batchInsert" parameterType="com.cy.entity.system.PermissionInfo">
+        INSERT INTO t_permission_info
+        (type, data_id, name, code, create_time, lst_upd_time)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+           (#{item.type}, #{item.dataId}, #{item.name}, #{item.code}, #{item.createTime}, #{item.lstUpdTime})
+        </foreach>
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM t_permission_info WHERE id = #{id}
+    </delete>
+
+    <delete id="batchDelete">
+        DELETE FROM t_permission_info WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="com.cy.entity.system.PermissionInfo" >
+        UPDATE t_permission_info
+        <set>
+            <if test="type != null" >
+                type = #{type},
+            </if>
+            <if test="dataId != null" >
+                data_id = #{dataId},
+            </if>
+            <if test="name != null" >
+                name = #{name},
+            </if>
+            <if test="code != null" >
+                code = #{code},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime},
+            </if>
+            lst_upd_time = #{lstUpdTime}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_permission_info WHERE id = #{id}
+    </select>
+
+    <select id="getByIdList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_permission_info WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>
+

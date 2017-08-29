@@ -1,8 +1,7 @@
 package com.cy.service;
 
-import com.cy.common.exception.SystemException;
+import com.cy.entity.system.UserInfo;
 import com.cy.web.dto.param.RegistParamDTO;
-import com.cy.web.dto.param.UserLoginParamDTO;
 
 /**
  * Created by zxj on 2017/5/8.
@@ -10,19 +9,11 @@ import com.cy.web.dto.param.UserLoginParamDTO;
 public interface UserService {
 
     /**
-     * 登录接口
-     * @param userLoginDTO
-     * @return 用户id
-     * @throws {@link SystemException}
-     */
-    Long login(UserLoginParamDTO userLoginDTO);
-
-    /**
      * 注册
      * @param paramDTO
      * @return 用户id
      * @throws
      */
-    Long regist(RegistParamDTO paramDTO);
+    UserInfo regist(RegistParamDTO paramDTO);
 
 }

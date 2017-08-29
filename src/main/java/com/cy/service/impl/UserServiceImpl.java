@@ -1,21 +1,13 @@
 package com.cy.service.impl;
 
-import com.cy.common.constant.Constants;
 import com.cy.common.emun.ByteBooleanEnum;
 import com.cy.common.exception.SystemException;
-import com.cy.dao.UserInfoDAO;
-import com.cy.entity.UserInfo;
+import com.cy.dao.system.UserInfoDAO;
+import com.cy.entity.system.UserInfo;
 import com.cy.service.UserService;
 import com.cy.web.dto.param.RegistParamDTO;
-import com.cy.web.dto.param.UserLoginParamDTO;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,27 +23,7 @@ public class UserServiceImpl implements UserService {
     private UserInfoDAO userInfoDAO;
 
     @Override
-    public Long login(UserLoginParamDTO userLoginDTO) {
-        String principal = userLoginDTO.getPrincipal();
-        String credentials = userLoginDTO.getCredentials();
-
-        Subject currentUser = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(principal, credentials);
-//        token.setRememberMe(true);
-        try {
-            currentUser.login(token);
-        } catch (UnknownAccountException e) {
-            throw new SystemException("账号不存在", e) ;
-        } catch (IncorrectCredentialsException e) {
-            throw new SystemException("密码不正确", e) ;
-        } catch (LockedAccountException e) {
-            throw new SystemException("账号被锁定", e) ;
-        }
-        return (Long) currentUser.getSession().getAttribute(Constants.CURRENT_USER_ID);
-    }
-
-    @Override
-    public Long regist(RegistParamDTO paramDTO) {
+    public UserInfo regist(RegistParamDTO paramDTO) {
         if (userInfoDAO.selectByUserName(paramDTO.getUserName()) != null) {
             throw new SystemException("用户已存在") ;
         }
@@ -70,7 +42,7 @@ public class UserServiceImpl implements UserService {
         if (result != 1) {
             throw new RuntimeException("sql影响行数不正确!");
         }
-        return userInfo.getId();
+        return userInfo;
     }
 
     private void encryptPassword(UserInfo userInfo) {
@@ -86,15 +58,6 @@ public class UserServiceImpl implements UserService {
 
         userInfo.setPassword(encodedPassword);
         userInfo.setSalt(salt2);
-    }
-
-    public static void main(String[] args) {
-        UserServiceImpl userService = new UserServiceImpl();
-        UserInfo userInfo = new UserInfo();
-        userInfo.setUserName("zxj");
-        userInfo.setPassword("123");
-        userService.encryptPassword(userInfo);
-        System.out.println(userInfo);
     }
 
 }

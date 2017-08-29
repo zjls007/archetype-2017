@@ -31,10 +31,4 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping("regist")
-    @ResponseBody
-    public Object regist(RegistParamDTO paramDTO) {
-        return new Response(userService.regist(paramDTO));
-    }
-
 }

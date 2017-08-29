@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.dao.system.UserUserGroupRefDAO">
+
+    <resultMap id="BaseResultMap" type="com.cy.entity.system.UserUserGroupRef">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="user_group_id" property="userGroupId" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id, user_group_id
+    </sql>
+
+    <sql id="Base_Alias_Column_List">
+        tuugr.id, tuugr.user_id, tuugr.user_group_id
+    </sql>
+
+    <insert id="insert" parameterType="com.cy.entity.system.UserUserGroupRef" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO t_user_user_group_ref
+        (user_id, user_group_id)
+        VALUES
+        (#{userId}, #{userGroupId})
+    </insert>
+
+    <insert id="batchInsert" parameterType="com.cy.entity.system.UserUserGroupRef">
+        INSERT INTO t_user_user_group_ref
+        (user_id, user_group_id)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+           (#{item.userId}, #{item.userGroupId})
+        </foreach>
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM t_user_user_group_ref WHERE id = #{id}
+    </delete>
+
+    <delete id="batchDelete">
+        DELETE FROM t_user_user_group_ref WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="com.cy.entity.system.UserUserGroupRef" >
+        UPDATE t_user_user_group_ref
+        <set>
+            <if test="userId != null" >
+                user_id = #{userId},
+            </if>
+            <if test="userGroupId != null" >
+                user_group_id = #{userGroupId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user_user_group_ref WHERE id = #{id}
+    </select>
+
+    <select id="getByIdList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user_user_group_ref WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>
+

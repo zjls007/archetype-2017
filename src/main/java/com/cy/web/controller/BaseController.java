@@ -1,7 +1,7 @@
 package com.cy.web.controller;
 
 import com.cy.common.constant.Constants;
-import com.cy.entity.UserInfo;
+import com.cy.entity.system.UserInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 

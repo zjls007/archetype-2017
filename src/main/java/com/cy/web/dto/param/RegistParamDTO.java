@@ -1,11 +1,10 @@
 package com.cy.web.dto.param;
 
 import com.cy.common.annotation.ParamValid;
-import com.cy.entity.UserInfo;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by zxj on 2017/5/8.
@@ -17,6 +16,7 @@ public class RegistParamDTO implements Serializable {
 
     /** 用户名 */
     @NotNull(message="用户名不能为空")
+    @Length(min = 2, max = 15, message = "用户名长度必须在{min}-{max}位之间")
     private String userName;
 
     /** 密码 */

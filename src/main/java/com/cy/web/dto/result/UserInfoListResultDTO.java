@@ -1,6 +1,5 @@
 package com.cy.web.dto.result;
 
-import com.cy.entity.UserInfo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;

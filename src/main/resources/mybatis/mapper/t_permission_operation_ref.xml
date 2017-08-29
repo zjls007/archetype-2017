@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.dao.system.PermissionOperationRefDAO">
+
+    <resultMap id="BaseResultMap" type="com.cy.entity.system.PermissionOperationRef">
+        <id column="id" property="id" />
+        <result column="permission_id" property="permissionId" />
+        <result column="operation_id" property="operationId" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, permission_id, operation_id
+    </sql>
+
+    <sql id="Base_Alias_Column_List">
+        tpor.id, tpor.permission_id, tpor.operation_id
+    </sql>
+
+    <insert id="insert" parameterType="com.cy.entity.system.PermissionOperationRef" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO t_permission_operation_ref
+        (permission_id, operation_id)
+        VALUES
+        (#{permissionId}, #{operationId})
+    </insert>
+
+    <insert id="batchInsert" parameterType="com.cy.entity.system.PermissionOperationRef">
+        INSERT INTO t_permission_operation_ref
+        (permission_id, operation_id)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+           (#{item.permissionId}, #{item.operationId})
+        </foreach>
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM t_permission_operation_ref WHERE id = #{id}
+    </delete>
+
+    <delete id="batchDelete">
+        DELETE FROM t_permission_operation_ref WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="com.cy.entity.system.PermissionOperationRef" >
+        UPDATE t_permission_operation_ref
+        <set>
+            <if test="permissionId != null" >
+                permission_id = #{permissionId},
+            </if>
+            <if test="operationId != null" >
+                operation_id = #{operationId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_permission_operation_ref WHERE id = #{id}
+    </select>
+
+    <select id="getByIdList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_permission_operation_ref WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>
+
