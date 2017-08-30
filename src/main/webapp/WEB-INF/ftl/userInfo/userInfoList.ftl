@@ -1,6 +1,8 @@
 <html>
 <head>
     <title>列表</title>
+    <link rel="stylesheet" type="text/css" href="/statics/js/easyui/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/statics/js/easyui/icon.css">
 </head>
 <body>
 <table class="easyui-datagrid" id="dg-userInfo"
@@ -10,9 +12,10 @@
                      rownumbers:true,
                      onLoadSuccess:onLoadSuccess,
                      noheader:true,
+                     border:false,
                      toolbar:'#tb-userInfo',
                      pagination:true,
-                     url:'userInfo/data',
+                     url:'/userInfo/data',
                      queryParams:queryParams(),
                      method:'post'">
     <thead>
@@ -56,5 +59,11 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm('f-userInfo-regist')" style="width:80px">重置</a>
     </div>
 </div>
+<script type="text/javascript" src="/statics/js/jquery.min.js"></script>
+<script type="text/javascript" src="/statics/js/ajaxFileUpload.js"></script>
+<script type="text/javascript" src="/statics/js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/statics/js/easyui/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/statics/js/jquery.form.js"></script>
+<script type="text/javascript" src="/statics/js/app-custom.js"></script>
 </body>
 </html>
