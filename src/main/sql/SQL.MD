@@ -93,6 +93,7 @@ CREATE TABLE `t_menu_info` (
   `name` varchar(255) NOT NULL COMMENT '菜单名称',
   `url` varchar(255) NOT NULL COMMENT '菜单url',
   `parent_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '父级菜单id,无填写0',
+  `sort_num` int(11) NOT NULL COMMENT '排序编号',
   `create_time` datetime NOT NULL,
   `lst_upd_time` datetime NOT NULL,
   PRIMARY KEY (`id`)

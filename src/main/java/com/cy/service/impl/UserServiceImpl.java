@@ -5,7 +5,7 @@ import com.cy.common.exception.SystemException;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.system.UserInfo;
 import com.cy.service.UserService;
-import com.cy.web.dto.param.RegistParamDTO;
+import com.cy.web.dto.param.system.RegistParamDTO;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;

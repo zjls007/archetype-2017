@@ -1,4 +1,4 @@
-package com.cy.web.dto.param;
+package com.cy.web.dto.param.system;
 
 import com.cy.common.annotation.ParamValid;
 import org.hibernate.validator.constraints.Length;

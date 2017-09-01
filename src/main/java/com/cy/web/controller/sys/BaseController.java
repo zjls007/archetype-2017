@@ -1,4 +1,4 @@
-package com.cy.web.controller;
+package com.cy.web.controller.sys;
 
 import com.cy.common.constant.Constants;
 import com.cy.entity.system.UserInfo;

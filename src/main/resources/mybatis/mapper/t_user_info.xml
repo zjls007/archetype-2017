@@ -16,7 +16,7 @@
         <result column="modify_time" property="modifyTime" />
     </resultMap>
 
-    <resultMap id="UserInfoListDTOMap" type="com.cy.web.dto.result.UserInfoListResultDTO">
+    <resultMap id="UserInfoListDTOMap" type="com.cy.web.dto.result.system.UserInfoListResultDTO">
         <id column="id" property="id" />
         <result column="user_name" property="userName" />
         <result column="full_name" property="fullName" />

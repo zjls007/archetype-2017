@@ -1,10 +1,9 @@
-package com.cy.web.controller;
+package com.cy.web.controller.sys;
 
 import com.cy.common.Response;
-import com.cy.common.filter.IFormAuthenticationFilter;
 import com.cy.entity.system.UserInfo;
 import com.cy.service.UserService;
-import com.cy.web.dto.param.RegistParamDTO;
+import com.cy.web.dto.param.system.RegistParamDTO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -12,11 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 
 /**
  * Created by zxj on 2017/2/17.

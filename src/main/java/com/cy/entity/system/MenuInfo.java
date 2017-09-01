@@ -1,5 +1,7 @@
 package com.cy.entity.system;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,7 +23,11 @@ public class MenuInfo implements Serializable {
     private String url;
 
     /** 父级菜单id,无填写0,not null */
+    @JsonProperty("_parentId")
     private Long parentId;
+
+    /** 排序编号,not null */
+    private Integer sortNum;
 
     /** ,not null */
     private Date createTime;
@@ -77,4 +83,11 @@ public class MenuInfo implements Serializable {
         this.lstUpdTime = lstUpdTime;
     }
 
+    public Integer getSortNum() {
+        return sortNum;
+    }
+
+    public void setSortNum(Integer sortNum) {
+        this.sortNum = sortNum;
+    }
 }

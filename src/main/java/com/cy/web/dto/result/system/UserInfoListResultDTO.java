@@ -1,4 +1,4 @@
-package com.cy.web.dto.result;
+package com.cy.web.dto.result.system;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

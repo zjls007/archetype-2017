@@ -7,31 +7,32 @@
         <result column="name" property="name" />
         <result column="url" property="url" />
         <result column="parent_id" property="parentId" />
+        <result column="sort_num" property="sortNum" />
         <result column="create_time" property="createTime" />
         <result column="lst_upd_time" property="lstUpdTime" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, name, url, parent_id, create_time, lst_upd_time
+        id, name, url, parent_id, sort_num, create_time, lst_upd_time
     </sql>
 
     <sql id="Base_Alias_Column_List">
-        tmi.id, tmi.name, tmi.url, tmi.parent_id, tmi.create_time, tmi.lst_upd_time
+        tmi.id, tmi.name, tmi.url, tmi.parent_id, tmi.sort_num, tmi.create_time, tmi.lst_upd_time
     </sql>
 
     <insert id="insert" parameterType="com.cy.entity.system.MenuInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO t_menu_info
-        (name, url, parent_id, create_time, lst_upd_time)
+        (name, url, parent_id, sort_num, create_time, lst_upd_time)
         VALUES
-        (#{name}, #{url}, #{parentId}, #{createTime}, #{lstUpdTime})
+        (#{name}, #{url}, #{parentId}, #{sortNum}, #{createTime}, #{lstUpdTime})
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.system.MenuInfo">
         INSERT INTO t_menu_info
-        (name, url, parent_id, create_time, lst_upd_time)
+        (name, url, parent_id, sort_num, create_time, lst_upd_time)
         VALUES
         <foreach collection="list" item="item" separator=",">
-           (#{item.name}, #{item.url}, #{item.parentId}, #{item.createTime}, #{item.lstUpdTime})
+           (#{item.name}, #{item.url}, #{item.parentId}, #{item.sortNum} now(), now())
         </foreach>
     </insert>
 
@@ -46,6 +47,18 @@
         </foreach>
     </delete>
 
+    <update id="updateNoIf">
+        UPDATE t_menu_info
+        <set>
+            name = #{name},
+            url = #{url},
+            parent_id = #{parentId},
+            sort_num = #{sortNum},
+            lst_upd_time = now()
+        </set>
+        WHERE id = #{id}
+    </update>
+
     <update id="update" parameterType="com.cy.entity.system.MenuInfo" >
         UPDATE t_menu_info
         <set>
@@ -58,8 +71,8 @@
             <if test="parentId != null" >
                 parent_id = #{parentId},
             </if>
-            <if test="createTime != null" >
-                create_time = #{createTime},
+            <if test="sort_num != null" >
+                sort_num = #{sortNum},
             </if>
             lst_upd_time = #{lstUpdTime}
         </set>
@@ -79,6 +92,12 @@
         <foreach collection="list" open="(" close=")" separator="," item="item">
             #{item}
         </foreach>
+    </select>
+
+    <select id="list" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_menu_info ORDER BY sort_num ASC
     </select>
 
 </mapper>

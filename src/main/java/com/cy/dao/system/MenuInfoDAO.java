@@ -19,10 +19,14 @@ public interface MenuInfoDAO {
 
     int batchDelete(List<Long> list);
 
+    int updateNoIf(MenuInfo entity);
+
     int update(MenuInfo entity);
 
     MenuInfo getById(Long id);
 
     List<MenuInfo> getByIdList(List<Long> list);
+
+    List<MenuInfo> list();
 
 }

@@ -10,6 +10,7 @@ function openTab(url, title){
 
     var tab = $('#tt').tabs('getTab', title);
     if (tab) {
+        $('#tt').tabs('select', title);
         $('#tt').tabs('update', {
             tab: tab,
             options: option

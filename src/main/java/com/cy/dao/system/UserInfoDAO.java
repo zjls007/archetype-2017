@@ -1,7 +1,7 @@
 package com.cy.dao.system;
 
 import com.cy.entity.system.UserInfo;
-import com.cy.web.dto.result.UserInfoListResultDTO;
+import com.cy.web.dto.result.system.UserInfoListResultDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

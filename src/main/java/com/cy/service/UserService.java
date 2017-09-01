@@ -1,7 +1,7 @@
 package com.cy.service;
 
 import com.cy.entity.system.UserInfo;
-import com.cy.web.dto.param.RegistParamDTO;
+import com.cy.web.dto.param.system.RegistParamDTO;
 
 /**
  * Created by zxj on 2017/5/8.

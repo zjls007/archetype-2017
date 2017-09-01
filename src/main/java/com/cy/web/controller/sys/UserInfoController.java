@@ -1,4 +1,4 @@
-package com.cy.web.controller;
+package com.cy.web.controller.sys;
 
 import com.cy.common.PageInfo;
 import com.cy.service.UserInfoService;
@@ -19,7 +19,7 @@ public class UserInfoController extends BaseController {
 
     @RequestMapping("list")
     public String list() {
-        return "userInfo/userInfoList";
+        return "userInfo/list";
     }
 
     @RequestMapping("data")
