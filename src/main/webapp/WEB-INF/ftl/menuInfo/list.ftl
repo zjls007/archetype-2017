@@ -21,23 +21,25 @@
        treeField:'name'">
     <thead>
     <tr>
-        <th data-options="field:'name',width:180">菜单名称</th>
-        <th data-options="field:'url',width:180">URL</th>
+        <th data-options="field:'name',width:180,editor:'textbox'">菜单名称</th>
+        <th data-options="field:'url',width:180,editor:'textbox'">URL</th>
         <th data-options="field:'btn',align:'center',width:140,formatter:formatter">操作</th>
     </tr>
     </thead>
 </table>
-<div style="display: none">
-    <a href="javascript:void(0)" class="mb">操作</a>
+<div style="display: none" id="hideDiv">
+    <a href="javascript:void(0)" id="mb">操作</a>
 </div>
 <div id="tb-menu" style="padding:2px 5px;">
 
 </div>
-<div id="mm" class="easyui-menu" style="width:200px;">
-    <div data-options="iconCls:'icon-edit'" onclick="appendMenu(this)">编辑</div>
-    <div data-options="iconCls:'icon-delete'" onclick="appendMenu(1)">删除</div>
-    <div data-options="iconCls:'icon-undo'" onclick="appendMenu(1)">插入同级菜单</div>
-    <div data-options="iconCls:'icon-redo'" onclick="appendMenu(2)">插入子级菜单</div>
+<div id="mm" style="width:200px;">
+    <div data-options="iconCls:''" id="mm-edit">编辑</div>
+    <div data-options="iconCls:'icon-delete'" id="mm-del">删除</div>
+    <div data-options="iconCls:'icon-undo'" id="mm-brother">插入同级菜单</div>
+    <div data-options="iconCls:'icon-redo'" id="mm-children">插入子级菜单</div>
+    <div data-options="iconCls:'icon-tip'" id="mm-up">上移</div>
+    <div data-options="iconCls:'icon-tip'" id="mm-down">下移</div>
     <div class="menu-sep"></div>
     <div>Exit</div>
 </div>
@@ -48,32 +50,183 @@
 <script type="text/javascript" src="/statics/js/jquery.form.js"></script>
 <script type="text/javascript" src="/statics/js/app-custom.js"></script>
 <script type="text/javascript">
+    globalId = 0;
     function formatter(value,row,index){
-        return $('.mb').parent().html();
+        return $('#mb').clone().attr("id", 'mb' + row.id).attr("dataId", row.id).attr("_parentId", row._parentId).addClass("mb").prop("outerHTML");
     }
-
     function onLoadSuccess(data) {
+        doMenu();
+    }
+    function doMenu() {
         $('.mb').each(function () {
-           $(this).menubutton({
-               iconCls: 'icon-edit',
-               menu: '#mm'
-           });
+            // 渲染过的不用再次渲染
+            if ($(this).data('drawing') != 'true') {
+                var id = $(this).attr("dataId");
+                var _parentId = $(this).attr("_parentId");
+                var newId = 'mm' + id;
+                var div = $('#mm').clone().attr("id", newId);
+                // 顶级菜单不能修改和删除
+                if (id == 0) {
+                    div = div.children('div#mm-edit').attr('data-options','disabled:true').html('编辑').parent();
+                    div = div.children('div#mm-del').attr('data-options','disabled:true').parent();
+                    div = div.children('div#mm-brother').attr('data-options','disabled:true').parent();
+                    div = div.children('div#mm-children').attr('onclick',"addChildrenNode('0')").parent();
+                    div = div.children('div#mm-up').attr('data-options','disabled:true').parent();
+                    div = div.children('div#mm-down').attr('data-options','disabled:true').parent();
+                } else {
+                    var editId = $('#tg').data('editId');
+                    var editStr = "编辑";
+                    if (editId && editId == id) {
+                        editStr = "结束编辑";
+                    }
+                    div = div.children('div#mm-edit').attr('onclick',"edit('" + id + "')").html(editStr).parent();
+                    div = div.children('div#mm-del').attr('onclick',"removeNode('" + id + "')").parent();
+                    div = div.children('div#mm-brother').attr('onclick',"addBrotherNode(" + id + "," + _parentId + ")").parent();
+                    div = div.children('div#mm-children').attr('onclick',"addChildrenNode(" + id + ")").parent();
+                    div = div.children('div#mm-up').attr('onclick',"upNode('" + id + "')").parent();
+                    div = div.children('div#mm-down').attr('onclick',"downNode('" + id + "')").parent();
+                }
+                div.appendTo('#hideDiv');
+                $(this).menubutton({
+                    iconCls: 'icon-edit',
+                    menu: '#'+newId
+                });
+                $(this).data('drawing', 'true');
+            }
         });
     }
-    function appendMenu(type) {
-        var parentId;
-        if (type == 1) {
-            parentId = selectNode._parentId;
+    function edit(operateId) {
+        var editId = $('#tg').data('editId');
+        if (editId) {
+            if (editId != operateId) {
+                alert('不能同时编辑多行!');
+                return;
+            }
+            $('#tg').data('editId', '');
+            $('#mb' + operateId).data('drawing', 'false');
+            $('#mm' + operateId).menu('destroy');
+            $('#mb' + operateId).menubutton('destroy');
+            $('#tg').treegrid('endEdit', operateId);
+            doMenu();
         } else {
-            parentId = selectNode.id;
+            $('#tg').data('editId', operateId);
+            $('#tg').treegrid('beginEdit', operateId);
+            $('#mm'+operateId).children('div#mm-edit').children('div').text("结束编辑");
         }
+    }
+    function addBrotherNode(beforeId, parentId) {
+        var editId = $('#tg').data('editId');
+        if (editId) {
+            alert('不能同时编辑多行!');
+            return;
+        }
+        var id = --globalId;
+        $('#tg').treegrid('insert',{
+            after: beforeId,
+            data: {
+                id: id,
+                name: id,
+                _parentId: parentId
+            }
+        });
+        // 更新parentId为字符串类型
+        $('#tg').treegrid('update',{
+            id: id,
+            row: {
+                _parentId: parentId.toString()
+            }
+        });
+        $('#tg').treegrid('beginEdit', id);
+        $('#tg').data('editId', id);
+        doMenu();
+    }
+    function addChildrenNode(parentId) {
+        var editId = $('#tg').data('editId');
+        if (editId) {
+            alert('不能同时编辑多行!');
+            return;
+        }
+        var id = --globalId;
         $('#tg').treegrid('append',{
             parent: parentId,
             data: [{
-                id: '',
-                name: 'name73',
+                id: id,
+                name: id,
             }]
         });
+        $('#tg').treegrid('beginEdit', id);
+        $('#tg').data('editId', id);
+        doMenu();
+    }
+    function upNode(operateId) {
+        var node = $('#tg').treegrid('find', operateId);
+        var parentId = node._parentId;
+        var brotherNodes = $('#tg').treegrid('getParent', node.id).children;
+        var beforeId;
+        for (var i = 0; i < brotherNodes.length; i++) {
+            if (brotherNodes[i].id == operateId) {
+                break;
+            }
+            beforeId = brotherNodes[i].id;
+        }
+        if (!beforeId) {
+            alert("已经在最顶部了!");
+            return;
+        }
+        $('#mm' + operateId).menu('destroy');
+        $('#mb' + operateId).menubutton('destroy');
+        $('#mb' + operateId).data('drawing', 'false');
+        $('#tg').treegrid('remove', operateId);
+        $('#tg').treegrid('insert',{
+            before: beforeId,
+            data: node
+        });
+        // 更新parentId为字符串类型
+        $('#tg').treegrid('update',{
+            id: node.id,
+            row: {
+                _parentId: parentId.toString()
+            }
+        });
+        doMenu();
+    }
+    function downNode(operateId) {
+        var node = $('#tg').treegrid('find', operateId);
+        var parentId = node._parentId;
+        var brotherNodes = $('#tg').treegrid('getParent', node.id).children;
+        var beforeId;
+        for (var i = brotherNodes.length - 1; i >= 0; i--) {
+            if (brotherNodes[i].id == operateId) {
+                break;
+            }
+            beforeId = brotherNodes[i].id;
+        }
+        if (!beforeId) {
+            alert("已经在最底部了!");
+            return;
+        }
+        $('#mm' + operateId).menu('destroy');
+        $('#mb' + operateId).menubutton('destroy');
+        $('#mb' + operateId).data('drawing', 'false');
+        $('#tg').treegrid('remove', operateId);
+        $('#tg').treegrid('insert',{
+            after: beforeId,
+            data: node
+        });
+        // 更新parentId为字符串类型
+        $('#tg').treegrid('update',{
+            id: node.id,
+            row: {
+                _parentId: parentId.toString()
+            }
+        });
+        doMenu();
+    }
+    function removeNode(operateId) {
+        $('#tg').data('editId', '');
+        $('#mm' + operateId).menu('destroy');
+        $('#mb' + operateId).menubutton('destroy');
+        $('#tg').treegrid('remove', operateId);
     }
 </script>
 </body>
