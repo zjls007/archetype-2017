@@ -17,6 +17,8 @@ public interface MenuInfoDAO {
 
     int delete(Long id);
 
+    int deleteAll();
+
     int batchDelete(List<Long> list);
 
     int updateNoIf(MenuInfo entity);

@@ -22,20 +22,16 @@ public class MenuInfoServiceImpl implements MenuInfoService {
     @Override
     @Transactional
     public void save(List<MenuInfo> list) {
+        menuInfoDAO.deleteAll();
+        if (list == null || list.isEmpty()) {
+            return;
+        }
         int i = 0;
         for (MenuInfo item : list) {
             // 设置排序编号
             item.setSortNum(i++);
-            Long id = item.getId();
-            if (id == null) {
-                menuInfoDAO.insert(item);
-            } else {
-                // 顶级菜单不保存入数据库
-                if (id.intValue() != 0) {
-                    menuInfoDAO.update(item);
-                }
-            }
         }
+        menuInfoDAO.batchInsert(list);
     }
 
     @Override

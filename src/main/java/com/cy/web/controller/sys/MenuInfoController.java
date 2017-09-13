@@ -1,12 +1,16 @@
 package com.cy.web.controller.sys;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.cy.common.PageInfo;
+import com.cy.common.Response;
 import com.cy.common.util.JsonUtil;
 import com.cy.entity.system.MenuInfo;
 import com.cy.service.MenuInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,9 +30,26 @@ public class MenuInfoController extends DataController<MenuInfo> {
     @Override
     public Object data(PageInfo pageInfo) {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("total", "1");
-        map.put("rows", menuInfoService.list());
+        List<MenuInfo> list = menuInfoService.list();
+        map.put("total", list.size());
+        map.put("rows", list);
         return map;
+    }
+
+    @RequestMapping("save")
+    @ResponseBody
+    public Object save(String jsonStr) {
+        List<MenuInfo> list = new ArrayList<MenuInfo>();
+        JSONArray jsonArray = JSONArray.parseArray(jsonStr);
+        for (int i = 1; i < jsonArray.size(); i++) {
+            MenuInfo menuInfo = JSON.toJavaObject(jsonArray.getJSONObject(i), MenuInfo.class);
+            if (menuInfo.getId() < 0) {
+                menuInfo.setId(null);
+            }
+            list.add(menuInfo);
+        }
+        menuInfoService.save(list);
+        return new Response("成功");
     }
 
 }

@@ -21,8 +21,8 @@
        treeField:'name'">
     <thead>
     <tr>
-        <th data-options="field:'name',width:180,editor:'textbox'">菜单名称</th>
-        <th data-options="field:'url',width:180,editor:'textbox'">URL</th>
+        <th data-options="field:'name',width:180,editor:'textbox',styler:styler">菜单名称</th>
+        <th data-options="field:'url',width:180,editor:'textbox',styler:styler">URL</th>
         <th data-options="field:'btn',align:'center',width:140,formatter:formatter">操作</th>
     </tr>
     </thead>
@@ -30,8 +30,9 @@
 <div style="display: none" id="hideDiv">
     <a href="javascript:void(0)" id="mb">操作</a>
 </div>
-<div id="tb-menu" style="padding:2px 5px;">
-
+<div id="tb-menu" style="padding:12px 8px;">
+    <a id="btn" href="javascript:void(0)" onclick="save()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+    <a id="btn" href="javascript:void(0)" onclick="undo()" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">全部撤销</a>
 </div>
 <div id="mm" style="width:200px;">
     <div data-options="iconCls:''" id="mm-edit">编辑</div>
@@ -51,11 +52,42 @@
 <script type="text/javascript" src="/statics/js/app-custom.js"></script>
 <script type="text/javascript">
     globalId = 0;
+    function styler(value,row,index) {
+        var operateId = $('#tg').data('colorId');
+        if (operateId == row.id) {
+            return {class:'c1',style:'color:red'};
+        }
+        return '';
+    }
     function formatter(value,row,index){
         return $('#mb').clone().attr("id", 'mb' + row.id).attr("dataId", row.id).attr("_parentId", row._parentId).addClass("mb").prop("outerHTML");
     }
     function onLoadSuccess(data) {
         doMenu();
+    }
+    function undo() {
+        $('#tg').treegrid('reload');
+    }
+    function save() {
+        var editId = $('#tg').data('editId');
+        if (editId) {
+            alert('请先结束编辑!');
+            return;
+        }
+        var jsonStr = JSON.stringify($('#tg').treegrid('getChildren', 0));
+        $.ajax({
+            async: true,
+            data: {jsonStr: jsonStr},
+            type: 'POST',
+            dataType: 'json',
+            url: '/menuInfo/save',
+            success: function (data) {
+                $('#tg').treegrid('reload');
+            },
+            error: function () {
+                alert("出错了!");
+            }
+        });
     }
     function doMenu() {
         $('.mb').each(function () {
@@ -102,6 +134,7 @@
                 alert('不能同时编辑多行!');
                 return;
             }
+            $('#tg').data('colorId', operateId);
             $('#tg').data('editId', '');
             $('#mb' + operateId).data('drawing', 'false');
             $('#mm' + operateId).menu('destroy');
