@@ -1,3 +1,4 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <title>列表</title>
@@ -63,7 +64,20 @@
         return $('#mb').clone().attr("id", 'mb' + row.id).attr("dataId", row.id).attr("_parentId", row._parentId).addClass("mb").prop("outerHTML");
     }
     function onLoadSuccess(data) {
+        updateParentId();
         doMenu();
+    }
+    function updateParentId() {
+        var treeData = $('#tg').treegrid('getChildren', 0);
+        for (var i = 1; i < treeData.length; i++) {
+            // 更新parentId为字符串类型
+            $('#tg').treegrid('update',{
+                id: treeData[i].id,
+                row: {
+                    _parentId: treeData[i]._parentId.toString()
+                }
+            });
+        }
     }
     function undo() {
         $('#tg').treegrid('reload');

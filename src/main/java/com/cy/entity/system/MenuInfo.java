@@ -1,5 +1,6 @@
 package com.cy.entity.system;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
@@ -30,9 +31,11 @@ public class MenuInfo implements Serializable {
     private Integer sortNum;
 
     /** ,not null */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /** ,not null */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lstUpdTime;
 
     public Long getId() {

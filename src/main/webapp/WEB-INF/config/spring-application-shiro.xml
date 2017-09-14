@@ -27,7 +27,8 @@
                 /statics/** = anon
                 /regist = anon
                 /logout = anon
-                /** = iAuthc
+                /** = anon
+                # /** = iAuthc
                 # /signIn = anon 可以自己实现登录代码
                 # /admin/** = authc, roles[admin]
                 # /docs/** = authc, perms[document:read]
