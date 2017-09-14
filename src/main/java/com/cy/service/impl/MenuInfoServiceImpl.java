@@ -30,8 +30,12 @@ public class MenuInfoServiceImpl implements MenuInfoService {
         for (MenuInfo item : list) {
             // 设置排序编号
             item.setSortNum(i++);
+            if (item.getId() != null) {
+                menuInfoDAO.insertHasId(item);
+            } else {
+                menuInfoDAO.insert(item);
+            }
         }
-        menuInfoDAO.batchInsert(list);
     }
 
     @Override

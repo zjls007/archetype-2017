@@ -13,6 +13,8 @@ public interface MenuInfoDAO {
 
     int insert(MenuInfo entity);
 
+    int insertHasId(MenuInfo entity);
+
     int batchInsert(List<MenuInfo> list);
 
     int delete(Long id);

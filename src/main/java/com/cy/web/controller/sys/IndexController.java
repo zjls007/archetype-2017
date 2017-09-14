@@ -1,5 +1,6 @@
 package com.cy.web.controller.sys;
 
+import com.cy.service.MenuInfoService;
 import com.cy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,12 @@ public class IndexController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MenuInfoService menuInfoService;
+
     @RequestMapping({"/", "/index"})
     public String index(ModelMap modelMap) {
+        modelMap.addAttribute("menuInfoList", menuInfoService.list());
         return "index";
     }
 

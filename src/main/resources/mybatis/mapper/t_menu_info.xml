@@ -24,7 +24,14 @@
         INSERT INTO t_menu_info
         (name, url, parent_id, sort_num, create_time, lst_upd_time)
         VALUES
-        (#{name}, #{url}, #{parentId}, #{sortNum}, #{createTime}, #{lstUpdTime})
+        (#{name}, #{url}, #{parentId}, #{sortNum}, now(), now())
+    </insert>
+
+    <insert id="insertHasId">
+        INSERT INTO t_menu_info
+        (id, name, url, parent_id, sort_num, create_time, lst_upd_time)
+        VALUES
+        (#{id}, #{name}, #{url}, #{parentId}, #{sortNum}, now(), now())
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.system.MenuInfo">
@@ -75,7 +82,7 @@
             <if test="parentId != null" >
                 parent_id = #{parentId},
             </if>
-            <if test="sort_num != null" >
+            <if test="sortNum != null" >
                 sort_num = #{sortNum},
             </if>
             lst_upd_time = now()
