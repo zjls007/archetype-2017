@@ -44,7 +44,7 @@
                     </ul>
                 </li>
             <#else>
-                <li><span><a href="javascript:void(0)" onclick="openTab('${item.url}', '${item.name}')">${item.name}${hasChildren(item.id)}</a></span></li>
+                <li><span><a href="javascript:void(0)" onclick="openTab('${item.url}', '${item.name}')">${item.name}</a></span></li>
             </#if>
         </#if>
     </#list>

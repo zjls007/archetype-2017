@@ -96,6 +96,7 @@
             dataType: 'json',
             url: '/menuInfo/save',
             success: function (data) {
+                $('#tg').data('colorId', 'none');
                 $('#tg').treegrid('reload');
             },
             error: function () {
