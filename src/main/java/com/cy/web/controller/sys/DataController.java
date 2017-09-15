@@ -1,6 +1,7 @@
 package com.cy.web.controller.sys;
 
 import com.cy.common.PageInfo;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,9 +23,10 @@ public abstract class DataController<T> extends BaseController {
     }
 
     @RequestMapping("list")
-    public String list() {
+    public String list(ModelMap modelMap) {
         StringBuilder sb = new StringBuilder(entityClass.getSimpleName());
         sb.setCharAt(0, Character.toLowerCase(sb.charAt(0)));
+        modelMap.addAttribute("url", String.format("%s/data", sb.toString()));
         return String.format("%s/list", sb.toString());
     }
 
