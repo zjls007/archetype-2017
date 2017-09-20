@@ -25,6 +25,12 @@ function queryParams() {
     var param = {
         ajaxOrigin:'datagrid'
     };
+    var jsonArray = $('#f-query').serializeArray();
+    for (var i = 0; i < jsonArray.length; i++) {
+        var name = jsonArray[i].name;
+        var value = jsonArray[i].value;
+        param[name] = value;
+    }
     onQueryParam(param);
     return param;
 }
@@ -38,6 +44,7 @@ function onLoadSuccess(data) {
     }
 }
 function dgQuery() {
+    $('#dg').datagrid('options').queryParams = queryParams();
     $('#dg').datagrid('load');
 }
 function submitForm() {

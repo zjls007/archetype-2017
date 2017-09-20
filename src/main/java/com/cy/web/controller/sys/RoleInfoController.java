@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("roleInfo")
-public class RoleInfoController extends EasyUIAdaptController<RoleInfo> {
+public class RoleInfoController extends EasyUIAdaptController<RoleInfo, RoleInfo> {
 
     @Autowired
     private RoleInfoDAO roleInfoDAO;
@@ -26,8 +26,8 @@ public class RoleInfoController extends EasyUIAdaptController<RoleInfo> {
     private RoleInfoService roleInfoService;
 
     @Override
-    protected List<RoleInfo> getData() {
-        return roleInfoDAO.list();
+    protected List<RoleInfo> getData(RoleInfo queryDTO) {
+        return roleInfoDAO.list(queryDTO);
     }
 
     @Override

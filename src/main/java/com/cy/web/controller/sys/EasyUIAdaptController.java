@@ -3,14 +3,12 @@ package com.cy.web.controller.sys;
 import com.cy.common.PageInfo;
 import com.cy.common.Response;
 import com.cy.entity.system.MenuInfo;
+import com.cy.entity.system.RoleInfo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -21,7 +19,7 @@ import java.util.Map;
 /**
  * Created by zxj on 2017/8/30.
  */
-public abstract class EasyUIAdaptController<T> extends BaseController {
+public abstract class EasyUIAdaptController<T, E> extends BaseController {
 
     private Class<T> entityClass;
 
@@ -43,14 +41,20 @@ public abstract class EasyUIAdaptController<T> extends BaseController {
 
     @RequestMapping("data")
     @ResponseBody
-    public Object data(PageInfo pageInfo) {
+    public Object data(@RequestParam("page") Integer pageNum, @RequestParam("rows")Integer pageSize, E queryDTO) {
         Map<String, Object> map = new HashMap<String, Object>();
-        PageHelper.startPage(pageInfo.getPage().intValue(), pageInfo.getRows().intValue());
-        List<T> list = getData();
+        PageHelper.startPage(pageNum, pageSize);
+        List<T> list = getData(queryDTO);
         map.put("total", ((Page)list).getTotal());
         map.put("rows", list);
         doDataOther(map);
         return map;
+    }
+
+    protected abstract List<T> getData(E queryDTO);
+
+    protected void doDataOther(Map<String, Object> map) {
+
     }
 
     @RequestMapping("saveOrUpdate")
@@ -58,16 +62,11 @@ public abstract class EasyUIAdaptController<T> extends BaseController {
     public abstract Response saveOrUpdate(T t);
 
     @RequestMapping("delete")
+    @ResponseBody
     public Response delete(@RequestBody List<Long> idList) {
         return doDelete(idList);
     }
 
     protected abstract Response doDelete(List<Long> idList);
-
-    protected abstract List<T> getData();
-
-    protected void doDataOther(Map<String, Object> map) {
-
-    }
 
 }

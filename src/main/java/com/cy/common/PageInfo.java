@@ -1,15 +1,17 @@
 package com.cy.common;
 
+import com.cy.entity.system.RoleInfo;
+
 /**
  * Created by zxj on 2017/5/8.
  */
-public class PageInfo {
+public class PageInfo<T>{
 
     private Long page;
 
     private Long rows;
 
-    private Object data;
+    private T data;
 
     public Long getPage() {
         return page;
@@ -27,11 +29,11 @@ public class PageInfo {
         this.rows = rows;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

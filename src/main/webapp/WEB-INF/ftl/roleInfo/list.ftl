@@ -31,7 +31,7 @@
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="delData('/${delUrl}')">删除</a>
         </div>
         <div style="padding: 0px 8px 10px 8px">
-            <form id="f-query-userInfo">
+            <form id="f-query">
                 <input class="easyui-textbox" id="q-textbox-name" name="name" style="width:240px;margin-left: 5px;" data-options="label:'名称:'"/>
                 <input class="easyui-textbox" id="q-textbox-code" name="code" style="width:240px;margin-left: 5px;" data-options="label:'编码:'"/>
                 <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" onclick="dgQuery()">搜索</a>
