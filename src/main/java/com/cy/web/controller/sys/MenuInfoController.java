@@ -2,7 +2,6 @@ package com.cy.web.controller.sys;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.cy.common.PageInfo;
 import com.cy.common.Response;
 import com.cy.entity.system.MenuInfo;
 import com.cy.service.MenuInfoService;
@@ -21,13 +20,19 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("menuInfo")
-public class MenuInfoController extends DataController<MenuInfo> {
+public class MenuInfoController {
 
     @Autowired
     private MenuInfoService menuInfoService;
 
-    @Override
-    public Object data(PageInfo pageInfo) {
+    @RequestMapping("list")
+    public String list() {
+        return "menuInfo/list";
+    }
+
+    @RequestMapping("data")
+    @ResponseBody
+    public Object getData() {
         Map<String, Object> map = new HashMap<String, Object>();
         List<MenuInfo> list = menuInfoService.list();
         map.put("total", list.size());

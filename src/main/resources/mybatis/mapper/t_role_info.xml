@@ -22,7 +22,7 @@
         INSERT INTO t_role_info
         (name, code, create_time, lst_upd_time)
         VALUES
-        (#{name}, #{code}, #{createTime}, #{lstUpdTime})
+        (#{name}, #{code}, now(), now())
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.system.RoleInfo">
@@ -30,7 +30,7 @@
         (name, code, create_time, lst_upd_time)
         VALUES
         <foreach collection="list" item="item" separator=",">
-           (#{item.name}, #{item.code}, #{item.createTime}, #{item.lstUpdTime})
+           (#{item.name}, #{item.code}, now(), now())
         </foreach>
     </insert>
 
@@ -57,7 +57,7 @@
             <if test="createTime != null" >
                 create_time = #{createTime},
             </if>
-            lst_upd_time = #{lstUpdTime}
+            lst_upd_time = now()
         </set>
         WHERE id = #{id}
     </update>
@@ -84,5 +84,10 @@
         WHERE code = #{code}
     </select>
 
+    <select id="list" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_role_info
+    </select>
 </mapper>
 

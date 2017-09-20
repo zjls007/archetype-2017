@@ -27,4 +27,6 @@ public interface RoleInfoDAO {
 
     RoleInfo getByCode(String code);
 
+    List<RoleInfo> list();
+
 }

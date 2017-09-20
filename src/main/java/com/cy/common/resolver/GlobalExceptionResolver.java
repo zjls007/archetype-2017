@@ -34,16 +34,15 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver, Ordere
                                          Object handler, Exception e) {
         // 通过controller方法上有没有@ResponseBody判断是否为ajax请求
         HandlerMethod handlerMethod = (HandlerMethod) handler;
-        boolean responseBody = handlerMethod.getMethod().getAnnotation(ResponseBody.class) != null;
+        boolean responseBody = handlerMethod.getMethodAnnotation(ResponseBody.class) != null;
         if (!responseBody) {
             responseBody = handlerMethod.getBeanType().getAnnotation(RestController.class) != null;
         }
         if (responseBody) {
             if (e instanceof ValidationException) {
                 new Response(ResponseStatus.PARAM_ERROR, e.getMessage()).send(httpServletResponse);
-            } else if (e instanceof SystemException) {
-                new Response(ResponseStatus.EXCEPTION, e.getMessage()).send(httpServletResponse);
             }
+            new Response(ResponseStatus.EXCEPTION, e.getMessage()).send(httpServletResponse);
         } else {
 
         }
