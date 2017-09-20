@@ -49,7 +49,7 @@ function submitForm() {
                     $('#w').window('close')
                     $('#dg').datagrid('reload');
                 } else {
-                    alert(data.message);
+                    $.messager.alert('错误',data.message,'error');
                 }
             }
         });
@@ -60,28 +60,33 @@ function delData(url) {
     $('#w').window('close');
     var checked = $('#dg').datagrid('getChecked');
     if (checked.length == 0) {
-        alert("请选择数据!");
+        $.messager.alert('警告','请选择数据!','warning');
+        return;
     }
-    var idList=[];
-    for (var i = 0; i < checked.length; i++) {
-        idList.push(checked[i].id);
-    }
-    $.ajax({
-        async: true,
-        type: 'POST',
-        url: url,
-        data: JSON.stringify(idList),
-        dataType: 'json',
-        contentType:"application/json",
-        success: function (data) {
-            if (data.code == 0) {
-                $('#dg').datagrid('reload');
-            } else {
-                alert(data.message);
+    $.messager.confirm('警告','确定要删除吗?',function(r){
+        if (r){
+            var idList=[];
+            for (var i = 0; i < checked.length; i++) {
+                idList.push(checked[i].id);
             }
-        },
-        error: function () {
-            alert("出错了!");
+            $.ajax({
+                async: true,
+                type: 'POST',
+                url: url,
+                data: JSON.stringify(idList),
+                dataType: 'json',
+                contentType:"application/json",
+                success: function (data) {
+                    if (data.code == 0) {
+                        $('#dg').datagrid('reload');
+                    } else {
+                        $.messager.alert('错误',data.message,'error');
+                    }
+                },
+                error: function () {
+                    $.messager.alert('错误','请选择数据!','error');
+                }
+            });
         }
     });
 }
@@ -93,9 +98,9 @@ function onDblClickRow(index,row) {
 function editData() {
     var checked = $('#dg').datagrid('getChecked');
     if (checked.length == 0) {
-        alert("请选择数据!");
+        $.messager.alert('警告','请选择数据!','warning');
     } else if (checked.length > 1) {
-        alert("只能编辑一天数据!");
+        $.messager.alert('警告','只能编辑一天数据!','warning');
     } else {
         doEdit(checked[0]);
     }

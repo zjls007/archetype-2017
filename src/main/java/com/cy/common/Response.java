@@ -23,8 +23,14 @@ public class Response {
     }
 
     public Response(ResponseStatus responseStatus) {
-        this.code = responseStatus.getCode();
-        this.message = responseStatus.getMessage();
+        if (responseStatus == null) {
+            this.code = 0;
+            this.message = "成功";
+            this.data = data;
+        } else {
+            this.code = responseStatus.getCode();
+            this.message = responseStatus.getMessage();
+        }
     }
 
     public Response(ResponseStatus responseStatus, String message) {

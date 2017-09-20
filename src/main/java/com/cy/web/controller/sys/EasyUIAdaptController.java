@@ -3,6 +3,8 @@ package com.cy.web.controller.sys;
 import com.cy.common.PageInfo;
 import com.cy.common.Response;
 import com.cy.entity.system.MenuInfo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,8 +45,9 @@ public abstract class EasyUIAdaptController<T> extends BaseController {
     @ResponseBody
     public Object data(PageInfo pageInfo) {
         Map<String, Object> map = new HashMap<String, Object>();
+        PageHelper.startPage(pageInfo.getPage().intValue(), pageInfo.getRows().intValue());
         List<T> list = getData();
-        map.put("total", list.size());
+        map.put("total", ((Page)list).getTotal());
         map.put("rows", list);
         doDataOther(map);
         return map;
