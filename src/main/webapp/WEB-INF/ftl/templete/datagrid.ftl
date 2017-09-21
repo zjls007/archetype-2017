@@ -36,7 +36,7 @@
         </div>
     </div>
 </div>
-<div id="w" class="easyui-window" title="弹窗" data-options="iconCls:'icon-save',closed:true,collapsible:false" style="width:500px;height:200px;padding:10px;">
+<div id="w" class="easyui-window" title="弹窗" data-options="iconCls:'icon-save',closed:true,collapsible:false,onClose:onWClose" style="width:500px;height:200px;padding:10px;">
     <div id="d-edit" style="text-align:center;padding:5px 0">
         <form id="f-edit" method="post" action="/${actionUrl}">
             <input type="hidden" name="id" value=""/>
@@ -45,8 +45,8 @@
         </form>
     </div>
     <div style="text-align:center;padding:5px 0">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">提交</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#f-edit').form('clear');" style="width:80px">重置</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" id="submitForm" onclick="submitForm()" style="width:80px">提交</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" id="resetForm" onclick="resetForm()" style="width:80px">重置</a>
     </div>
 </div>
 </@override>

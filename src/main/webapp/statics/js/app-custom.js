@@ -63,6 +63,18 @@ function submitForm() {
     }
 }
 
+function resetForm() {
+    $('#f-edit').form('clear');
+    var row = $('#resetForm').data('row');
+    if (row) {
+        doEdit(row);
+    }
+}
+
+function onWClose() {
+    $('#resetForm').data('row', '');
+}
+
 function delData(url) {
     $('#w').window('close');
     var checked = $('#dg').datagrid('getChecked');
@@ -114,6 +126,7 @@ function editData() {
 }
 
 function doEdit(row) {
+    $('#resetForm').data('row', row);
     $('#f-edit').form('clear');
     $('#w').window('open');
     for (var key in row) {
