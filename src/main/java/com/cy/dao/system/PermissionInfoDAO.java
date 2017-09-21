@@ -25,4 +25,6 @@ public interface PermissionInfoDAO {
 
     List<PermissionInfo> getByIdList(List<Long> list);
 
+    List<PermissionInfo> list(PermissionInfo permissionInfo);
+
 }

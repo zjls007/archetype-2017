@@ -24,7 +24,7 @@
         INSERT INTO t_permission_info
         (type, data_id, name, code, create_time, lst_upd_time)
         VALUES
-        (#{type}, #{dataId}, #{name}, #{code}, #{createTime}, #{lstUpdTime})
+        (#{type}, #{dataId}, #{name}, #{code}, now(), now())
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.system.PermissionInfo">
@@ -32,7 +32,7 @@
         (type, data_id, name, code, create_time, lst_upd_time)
         VALUES
         <foreach collection="list" item="item" separator=",">
-           (#{item.type}, #{item.dataId}, #{item.name}, #{item.code}, #{item.createTime}, #{item.lstUpdTime})
+           (#{item.type}, #{item.dataId}, #{item.name}, #{item.code}, now(), now())
         </foreach>
     </insert>
 
@@ -65,7 +65,7 @@
             <if test="createTime != null" >
                 create_time = #{createTime},
             </if>
-            lst_upd_time = #{lstUpdTime}
+            lst_upd_time = now()
         </set>
         WHERE id = #{id}
     </update>
@@ -83,6 +83,24 @@
         <foreach collection="list" open="(" close=")" separator="," item="item">
             #{item}
         </foreach>
+    </select>
+
+    <select id="list" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_permission_info
+        <where>
+            <if test="type != null and type != ''" >
+                AND type = #{type}
+            </if>
+            <if test="name != null and name != ''" >
+                AND name = #{name}
+            </if>
+            <if test="code != null and code != ''" >
+                AND code = #{code}
+            </if>
+        </where>
+        ORDER BY lst_upd_time DESC
     </select>
 
 </mapper>

@@ -1,5 +1,9 @@
 package com.cy.entity.system;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,15 +25,21 @@ public class PermissionInfo implements Serializable {
     private Long dataId;
 
     /** 权限名称,not null */
+    @NotNull(message="权限名称为空")
+    @Length(min = 2, max = 15, message = "权限名称长度必须在{min}-{max}位之间")
     private String name;
 
     /** 权限code,not null */
+    @NotNull(message="权限编码为空")
+    @Length(min = 2, max = 15, message = "权限编码长度必须在{min}-{max}位之间")
     private String code;
 
     /** ,not null */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /** ,not null */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lstUpdTime;
 
     public Long getId() {

@@ -1,13 +1,11 @@
 package com.cy.web.controller.sys;
 
-import com.cy.common.PageInfo;
 import com.cy.common.Response;
 import com.cy.dao.system.RoleInfoDAO;
 import com.cy.entity.system.RoleInfo;
 import com.cy.service.RoleInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -17,7 +15,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("roleInfo")
-public class RoleInfoController extends EasyUIAdaptController<RoleInfo, RoleInfo> {
+public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleInfo> {
 
     @Autowired
     private RoleInfoDAO roleInfoDAO;
@@ -37,9 +35,8 @@ public class RoleInfoController extends EasyUIAdaptController<RoleInfo, RoleInfo
     }
 
     @Override
-    protected Response doDelete(List<Long> idList) {
+    protected void doDelete(List<Long> idList) {
         roleInfoDAO.batchDelete(idList);
-        return new Response(null);
     }
 
 }

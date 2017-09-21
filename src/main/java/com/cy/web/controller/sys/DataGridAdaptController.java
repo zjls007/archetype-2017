@@ -19,11 +19,11 @@ import java.util.Map;
 /**
  * Created by zxj on 2017/8/30.
  */
-public abstract class EasyUIAdaptController<T, E> extends BaseController {
+public abstract class DataGridAdaptController<T, E> extends BaseController {
 
     private Class<T> entityClass;
 
-    protected EasyUIAdaptController() {
+    protected DataGridAdaptController() {
         Type type = getClass().getGenericSuperclass();
         Type trueType = ((ParameterizedType) type).getActualTypeArguments()[0];
         this.entityClass = (Class<T>) trueType;
@@ -64,9 +64,10 @@ public abstract class EasyUIAdaptController<T, E> extends BaseController {
     @RequestMapping("delete")
     @ResponseBody
     public Response delete(@RequestBody List<Long> idList) {
-        return doDelete(idList);
+        doDelete(idList);
+        return new Response(null);
     }
 
-    protected abstract Response doDelete(List<Long> idList);
+    protected abstract void doDelete(List<Long> idList);
 
 }
