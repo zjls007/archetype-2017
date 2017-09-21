@@ -29,7 +29,7 @@ public class UserInfoController extends DataGridAdaptController<UserInfo, UserIn
 
     @Override
     protected List<UserInfo> getData(UserInfoQueryDTO queryDTO) {
-        return userInfoDAO.list();
+        return userInfoDAO.list(queryDTO);
     }
 
     @Override

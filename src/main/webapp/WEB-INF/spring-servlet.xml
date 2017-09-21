@@ -17,9 +17,16 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven conversion-service="conversionService" />
     <mvc:default-servlet-handler/>
 
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.cy.common.converter.DateConverter" />
+            </set>
+        </property>
+    </bean>
     <mvc:interceptors>
         <bean class="com.cy.common.interceptor.AllIntercept"/>
     </mvc:interceptors>

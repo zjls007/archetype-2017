@@ -37,7 +37,7 @@
         INSERT INTO t_user_info
         (user_name, password, salt, full_name, tel_no, mobile_no, sign_no, account_locked, create_time, modify_time)
         VALUES
-        (#{userName}, #{password}, #{salt}, #{fullName}, #{telNo}, #{mobileNo}, #{signNo}, #{accountLocked}, #{createTime}, #{modifyTime})
+        (#{userName}, #{password}, #{salt}, #{fullName}, #{telNo}, #{mobileNo}, #{signNo}, #{accountLocked}, now(), now())
     </insert>
 
     <insert id="batchInsert">
@@ -45,7 +45,7 @@
         (user_name, password, salt, full_name, tel_no, mobile_no, sign_no, account_locked, create_time, modify_time)
         VALUES
         <foreach collection="list" item="item" separator=",">
-           (#{item.userName}, #{item.password}, #{item.salt}, #{item.fullName}, #{item.telNo}, #{item.mobileNo}, #{item.signNo}, #{item.accountLocked}, #{item.createTime}, #{item.modifyTime})
+           (#{item.userName}, #{item.password}, #{item.salt}, #{item.fullName}, #{item.telNo}, #{item.mobileNo}, #{item.signNo}, #{item.accountLocked}, now(), now())
         </foreach>
     </insert>
 
@@ -90,9 +90,7 @@
             <if test="createTime != null" >
                 create_time = #{createTime},
             </if>
-            <if test="modifyTime != null" >
-                modify_time = #{modifyTime},
-            </if>
+            modify_time = now()
         </set>
         where id = #{id}
     </update>
@@ -120,6 +118,14 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_user_info
+        <where>
+            <if test="createTimeBegin != null">
+                AND create_time >= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd != null">
+                AND #{createTimeEnd} >= create_time
+            </if>
+        </where>
         ORDER BY modify_time DESC
     </select>
 

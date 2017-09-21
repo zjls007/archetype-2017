@@ -14,5 +14,9 @@
 <script type="text/javascript" src="/statics/js/easyui/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="/statics/js/jquery.form.js"></script>
 <script type="text/javascript" src="/statics/js/app-custom.js"></script>
+<script type="text/javascript">
+<@block name="script">
+</@block>
+</script>
 </body>
 </html>

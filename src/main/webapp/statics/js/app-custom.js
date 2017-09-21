@@ -75,6 +75,10 @@ function onWClose() {
     $('#resetForm').data('row', '');
 }
 
+function onWOpen() {
+    $('.combobox').combobox();
+}
+
 function delData(url) {
     $('#w').window('close');
     var checked = $('#dg').datagrid('getChecked');

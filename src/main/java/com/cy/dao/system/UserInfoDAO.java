@@ -1,6 +1,7 @@
 package com.cy.dao.system;
 
 import com.cy.entity.system.UserInfo;
+import com.cy.web.dto.param.system.UserInfoQueryDTO;
 import com.cy.web.dto.result.system.UserInfoListResultDTO;
 import org.springframework.stereotype.Repository;
 
@@ -28,6 +29,6 @@ public interface UserInfoDAO {
 
     List<UserInfoListResultDTO> listUserInfo();
 
-    List<UserInfo> list();
+    List<UserInfo> list(UserInfoQueryDTO queryDTO);
 
 }

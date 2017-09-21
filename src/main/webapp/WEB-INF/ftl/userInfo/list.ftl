@@ -5,13 +5,17 @@
     <th data-options="field:'telNo',width:200,align:'left'">电话号码</th>
     <th data-options="field:'mobileNo',width:200">手机号码</th>
     <th data-options="field:'signNo',width:200">登录次数</th>
-    <th data-options="field:'accountLocked',width:200">账户是否锁定</th>
+    <th data-options="field:'accountLocked',width:200,formatter:formatterAccountLocked">账户是否锁定</th>
     <th data-options="field:'createTime',width:200,align:'left'">注册时间</th>
     <th data-options="field:'modifyTime',width:200,align:'left'">更新时间</th>
 </@override>
 <@override name="query">
-    注册时间: <input class="easyui-datebox" id="q-textbox-name"  style="width:110px">
-    ~ <input class="easyui-datebox" id="q-textbox-name" style="width:110px">
+    <@formInput type='textbox' name='userName' label='用户名' required='false'/>
+    <@formInput type='textbox' name='fullName' label='真实姓名' required='false'/>
+    <@formInput type='textbox' name='telNo' label='电话号码' required='false'/>
+    <@formInput type='textbox' name='mobileNo' label='手机号码' required='false'/>
+    注册时间: <input class="easyui-datebox" name="createTimeBegin" style="width:110px">
+    ~ <input class="easyui-datebox" name="createTimeEnd" style="width:110px">
 </@override>
 <@override name="form">
     <@formInput type='textbox' name='userName' label='用户名' required='true'/>
@@ -20,5 +24,13 @@
     <@formInput type='textbox' name='telNo' label='电话号码' required='false'/>
     <@formInput type='textbox' name='mobileNo' label='手机号码' required='false'/>
     <@formInput type='combobox' name='accountLocked' label='锁定状态' required='true' value="[{id:0,text:'未锁定',selected:true},{id:1,text:'锁定'}]"/>
+</@override>
+<@override name="script">
+    function formatterAccountLocked(value,row,index) {
+        if (value == 1) {
+            return "锁定";
+        }
+        return "未锁定";
+    }
 </@override>
 <@extends name="../templete/datagrid.ftl"/>
