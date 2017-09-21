@@ -125,15 +125,20 @@ function editData() {
     }
 }
 
+<!-- 编辑最终掉的方法 -->
 function doEdit(row) {
+    // 存放编辑重置的数据
     $('#resetForm').data('row', row);
     $('#f-edit').form('clear');
     $('#w').window('open');
     for (var key in row) {
         var f = $('#d-edit');
         var textbox = $('#f-textbox-' + key);
+        var combobox = $('#f-combobox-' + key);
         if (textbox.length == 1) {
             textbox.textbox('setValue', row[key]);
+        } else if (combobox.length == 1) {
+            combobox.combobox('setValue', row[key]);
         } else {
             var input = f.find('input[name=' + key + ']');
             if (input.length == 1) {
@@ -143,6 +148,7 @@ function doEdit(row) {
     }
 }
 
+<!-- 打开弹窗 -->
 function addData() {
     $('#f-edit').form('clear');
     $('#w').window('open');

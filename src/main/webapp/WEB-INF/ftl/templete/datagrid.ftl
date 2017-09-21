@@ -57,9 +57,13 @@
 </div>
 </@override>
 <@extends name="../base.ftl"/>
-<!-- -->
-<#macro formInput type='textbox' name='' label='' required='false'>
+<!-- 宏 -->
+<#macro formInput type='textbox' name='' label='' required='false' value=''>
     <div style="margin-bottom:20px">
-        <input class="easyui-${type}" id="f-textbox-${name}" name="${name}" data-options="label:'${label}:',required:${required},width:240"/>
+    <#if type == 'textbox'>
+        <input class="easyui-${type}" id="f-textbox-${name}" name="${name}" value="${value}" data-options="label:'${label}:',required:${required},width:240"/>
+    <#elseif type == 'combobox'>
+        <input class="easyui-${type}" id="f-combobox-${name}" name="${name}" style="z-index: 99999999" data-options="label:'${label}:',required:${required},width:240,valueField:'id',textField:'text',data:${value}">
+    </#if>
     </div>
 </#macro>
