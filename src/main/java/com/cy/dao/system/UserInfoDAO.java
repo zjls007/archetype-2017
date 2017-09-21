@@ -28,4 +28,6 @@ public interface UserInfoDAO {
 
     List<UserInfoListResultDTO> listUserInfo();
 
+    List<UserInfo> list();
+
 }

@@ -1,69 +1,29 @@
-<html>
-<head>
-    <title>列表</title>
-    <link rel="stylesheet" type="text/css" href="/statics/js/easyui/easyui.css">
-    <link rel="stylesheet" type="text/css" href="/statics/js/easyui/icon.css">
-</head>
-<body>
-<table class="easyui-datagrid" id="dg-userInfo"
-       data-options="singleSelect:false,
-                     collapsible:false,
-                     fit:true,
-                     rownumbers:true,
-                     onLoadSuccess:onLoadSuccess,
-                     noheader:true,
-                     border:false,
-                     toolbar:'#tb-userInfo',
-                     pagination:true,
-                     url:'/userInfo/data',
-                     queryParams:queryParams(),
-                     method:'post'">
-    <thead>
-    <tr>
-        <th data-options="field:'id',checkbox:true,"></th>
-        <th data-options="field:'userName',width:200">用户名</th>
-        <th data-options="field:'fullName',width:200">真实姓名</th>
-        <th data-options="field:'telNo',width:200,align:'left'">电话号码</th>
-        <th data-options="field:'mobileNo',width:200">手机号码</th>
-        <th data-options="field:'signNo',width:200">登录次数</th>
-        <th data-options="field:'accountLocked',width:200">账户是否锁定</th>
-        <th data-options="field:'createTime',width:200,align:'left'">注册时间</th>
-        <th data-options="field:'modifyTime',width:200,align:'left'">更新时间</th>
-    </tr>
-    </thead>
-</table>
-<div id="tb-userInfo" style="padding:2px 5px;">
-    <form id="f-query-userInfo">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="$('#w-userInfo').window('open')">注册新用户</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除</a>
-    <br>
-    注册时间: <input class="easyui-datebox" style="width:110px">
-    ~ <input class="easyui-datebox" style="width:110px">
-    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" onclick="dgQuery('userInfo')">搜索</a>
-    </form>
-</div>
-
-<div id="w-userInfo" class="easyui-window" title="注册用户" data-options="iconCls:'icon-save',closed:true,collapsible:false" style="width:500px;height:200px;padding:10px;">
-    <div style="text-align:center;padding:5px 0">
-    <form id="f-userInfo-regist" method="post" action="regist">
-        <div style="margin-bottom:20px">
-            <input class="easyui-textbox" name="userName" style="width:240px" data-options="label:'用户名:',required:true">
-        </div>
-        <div style="margin-bottom:20px">
-            <input class="easyui-passwordbox"" name="password" style="width:240px" data-options="label:'密码:',required:true">
-        </div>
-    </form>
-        </div>
-    <div style="text-align:center;padding:5px 0">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm('f-userInfo-regist', 'userInfo')" style="width:80px">提交</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm('f-userInfo-regist')" style="width:80px">重置</a>
+<@override name="th">
+    <th data-options="field:'id',checkbox:true,"></th>
+    <th data-options="field:'userName',width:200">用户名</th>
+    <th data-options="field:'fullName',width:200">真实姓名</th>
+    <th data-options="field:'telNo',width:200,align:'left'">电话号码</th>
+    <th data-options="field:'mobileNo',width:200">手机号码</th>
+    <th data-options="field:'signNo',width:200">登录次数</th>
+    <th data-options="field:'accountLocked',width:200">账户是否锁定</th>
+    <th data-options="field:'createTime',width:200,align:'left'">注册时间</th>
+    <th data-options="field:'modifyTime',width:200,align:'left'">更新时间</th>
+</@override>
+<@override name="query">
+    注册时间: <input class="easyui-datebox" id="q-textbox-name"  style="width:110px">
+    ~ <input class="easyui-datebox" id="q-textbox-name" style="width:110px">
+</@override>
+<@override name="form">
+    <@formInput type='textbox' name='userName' label='用户名' required='true'/>
+    <@formInput type='passwordbox' name='password' label='密码' required='true'/>
+    <@formInput type='textbox' name='fullName' label='真实姓名' required='false'/>
+    <@formInput type='textbox' name='telNo' label='电话号码' required='false'/>
+    <@formInput type='textbox' name='mobileNo' label='手机号码' required='false'/>
+    <div style="margin-bottom:20px">
+        <select id="f-textbox-accountLocked" class="easyui-combobox" name="accountLocked" data-options="label:'锁定状态:',required:true,width:240">
+            <option value="0">未锁定</option>
+            <option value="1">锁定</option>
+        </select>
     </div>
-</div>
-<script type="text/javascript" src="/statics/js/jquery.min.js"></script>
-<script type="text/javascript" src="/statics/js/ajaxFileUpload.js"></script>
-<script type="text/javascript" src="/statics/js/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="/statics/js/easyui/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="/statics/js/jquery.form.js"></script>
-<script type="text/javascript" src="/statics/js/app-custom.js"></script>
-</body>
-</html>
+</@override>
+<@extends name="../templete/datagrid.ftl"/>

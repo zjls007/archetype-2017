@@ -3,6 +3,7 @@ package com.cy.web.controller.sys;
 import com.cy.common.Response;
 import com.cy.dao.system.PermissionInfoDAO;
 import com.cy.entity.system.PermissionInfo;
+import com.cy.web.controller.sys.base.DataGridAdaptController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

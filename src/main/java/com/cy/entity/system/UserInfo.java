@@ -1,5 +1,7 @@
 package com.cy.entity.system;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,8 +10,8 @@ import java.util.Date;
  */
 public class UserInfo implements Serializable {
 
-
     private static final long serialVersionUID = 1222715330523141490L;
+
     private Long id;
 
     /** 用户名 */
@@ -37,9 +39,11 @@ public class UserInfo implements Serializable {
     private Byte accountLocked;
 
     /** 创建时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /** 更新时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date modifyTime;
 
     public Long getId() {

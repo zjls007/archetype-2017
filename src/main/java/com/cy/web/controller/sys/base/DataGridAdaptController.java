@@ -1,4 +1,4 @@
-package com.cy.web.controller.sys;
+package com.cy.web.controller.sys.base;
 
 import com.cy.common.PageInfo;
 import com.cy.common.Response;

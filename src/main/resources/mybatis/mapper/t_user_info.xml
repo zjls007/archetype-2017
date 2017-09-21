@@ -116,5 +116,12 @@
         ORDER BY modify_time DESC
     </select>
 
+    <select id="list" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user_info
+        ORDER BY modify_time DESC
+    </select>
+
 </mapper>
 

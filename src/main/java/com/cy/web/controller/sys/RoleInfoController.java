@@ -4,6 +4,7 @@ import com.cy.common.Response;
 import com.cy.dao.system.RoleInfoDAO;
 import com.cy.entity.system.RoleInfo;
 import com.cy.service.RoleInfoService;
+import com.cy.web.controller.sys.base.DataGridAdaptController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

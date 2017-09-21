@@ -10,11 +10,7 @@
     <input class="easyui-textbox" id="q-textbox-code" name="code" style="width:240px;margin-left: 5px;" data-options="label:'编码:'"/>
 </@override>
 <@override name="form">
-    <div style="margin-bottom:20px">
-        <input class="easyui-textbox" id="f-textbox-name" name="name" style="width:240px" data-options="label:'名称:',required:true"/>
-    </div>
-    <div style="margin-bottom:20px">
-        <input class="easyui-textbox" id="f-textbox-code" name="code" style="width:240px" data-options="label:'编码:',required:true"/>
-    </div>
+    <@formInput type='textbox' name='name' label='名称' required='true'/>
+    <@formInput type='textbox' name='code' label='编码' required='true'/>
 </@override>
 <@extends name="../templete/datagrid.ftl"/>

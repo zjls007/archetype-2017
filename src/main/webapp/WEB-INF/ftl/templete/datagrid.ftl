@@ -36,18 +36,30 @@
         </div>
     </div>
 </div>
-<div id="w" class="easyui-window" title="弹窗" data-options="iconCls:'icon-save',closed:true,collapsible:false,onClose:onWClose" style="width:500px;height:200px;padding:10px;">
-    <div id="d-edit" style="text-align:center;padding:5px 0">
-        <form id="f-edit" method="post" action="/${actionUrl}">
-            <input type="hidden" name="id" value=""/>
-            <@block name="form">
-            </@block>
-        </form>
-    </div>
-    <div style="text-align:center;padding:5px 0">
-        <a href="javascript:void(0)" class="easyui-linkbutton" id="submitForm" onclick="submitForm()" style="width:80px">提交</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" id="resetForm" onclick="resetForm()" style="width:80px">重置</a>
+<div id="w" class="easyui-window" title="弹窗" data-options="iconCls:'icon-save',closed:true,collapsible:false,onClose:onWClose" style="width:450px;height:400px;padding:10px;">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'center',noheader:true,border:false">
+            <div id="d-edit" style="text-align:center;padding:5px 0">
+                <form id="f-edit" method="post" action="/${actionUrl}">
+                    <input type="hidden" name="id" value=""/>
+                    <@block name="form">
+                    </@block>
+                </form>
+            </div>
+        </div>
+        <div data-options="region:'south',noheader:true,border:false">
+            <div style="text-align:center;padding:5px 0">
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="submitForm" onclick="submitForm()" style="width:80px">提交</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" id="resetForm" onclick="resetForm()" style="width:80px">重置</a>
+            </div>
+        </div>
     </div>
 </div>
 </@override>
 <@extends name="../base.ftl"/>
+<!-- -->
+<#macro formInput type='textbox' name='' label='' required='false'>
+    <div style="margin-bottom:20px">
+        <input class="easyui-${type}" id="f-textbox-${name}" name="${name}" data-options="label:'${label}:',required:${required},width:240"/>
+    </div>
+</#macro>

@@ -8,6 +8,5 @@ import com.cy.common.PageResult;
  */
 public interface UserInfoService {
 
-    PageResult data(PageInfo pageInfo);
 
 }

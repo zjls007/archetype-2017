@@ -19,11 +19,5 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Resource
     private UserInfoDAO userInfoDAO;
 
-    @Override
-    public PageResult data(PageInfo pageInfo) {
-        PageHelper.startPage(pageInfo.getPage().intValue(), pageInfo.getRows().intValue());
-        Page page = (Page) userInfoDAO.listUserInfo();
-        return new PageResult(page);
-    }
 
 }
