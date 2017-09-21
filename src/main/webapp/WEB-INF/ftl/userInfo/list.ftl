@@ -10,12 +10,12 @@
     <th data-options="field:'modifyTime',width:200,align:'left'">更新时间</th>
 </@override>
 <@override name="query">
-    <@formInput type='textbox' name='userName' label='用户名' required='false'/>
-    <@formInput type='textbox' name='fullName' label='真实姓名' required='false'/>
-    <@formInput type='textbox' name='telNo' label='电话号码' required='false'/>
-    <@formInput type='textbox' name='mobileNo' label='手机号码' required='false'/>
-    注册时间: <input class="easyui-datebox" name="createTimeBegin" style="width:110px">
-    ~ <input class="easyui-datebox" name="createTimeEnd" style="width:110px">
+    <input class="easyui-textbox" name="userName" data-options="label:'用户名:',required:false,width:240"/>
+    <input class="easyui-textbox" name="fullName" data-options="label:'真实姓名:',required:false,width:240"/>
+    <input class="easyui-textbox" name="telNo" data-options="label:'电话号码:',required:false,width:240"/>
+    <input class="easyui-textbox" name="mobileNo" data-options="label:'手机号码:',required:false,width:240"/>
+    <input class="easyui-datebox" name="createTimeBegin" data-options="label:'注册时间:',required:false,width:200" >~
+    <input class="easyui-datebox" name="createTimeEnd" data-options="label:'',required:false,width:110" >
 </@override>
 <@override name="form">
     <@formInput type='textbox' name='userName' label='用户名' required='true'/>

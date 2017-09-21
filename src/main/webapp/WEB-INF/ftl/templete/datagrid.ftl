@@ -31,7 +31,8 @@
             <form id="f-query">
                 <@block name="query">
                 </@block>
-                <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" onclick="dgQuery()">搜索</a>
+                <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" style="width:80px" onclick="dgQuery()">搜索</a>
+                <a href="javascript:void(0);" class="easyui-linkbutton" onclick="$('#f-query').form('clear');" style="width:80px">重置</a>
             </form>
         </div>
     </div>
@@ -49,8 +50,8 @@
         </div>
         <div data-options="region:'south',noheader:true,border:false">
             <div style="text-align:center;padding:5px 0">
-                <a href="javascript:void(0)" class="easyui-linkbutton" id="submitForm" onclick="submitForm()" style="width:80px">提交</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" id="resetForm" onclick="resetForm()" style="width:80px">重置</a>
+                <a href="javascript:void(0);" class="easyui-linkbutton" id="submitForm" onclick="submitForm()" style="width:80px">提交</a>
+                <a href="javascript:void(0);" class="easyui-linkbutton" id="resetForm" onclick="resetForm()" style="width:80px">重置</a>
             </div>
         </div>
     </div>
