@@ -8,7 +8,12 @@ public enum ResponseStatus {
     SUCCESS(0, "成功"),
     PARAM_ERROR(1, "参数错误"),
     EXCEPTION(2, "失败"),
-    ACCESS_DENIED(3, "未登陆");
+    ACCESS_DENIED(3, "未登陆"),
+
+    USER_NAME_ERROR(4, "用户名不正确!"),
+    PASSWORD_ERROR(5, "密码不正确!"),
+    ACCOUNT_DENIED(6, "账户被锁定!"),
+    ;
 
     private Integer code;
 

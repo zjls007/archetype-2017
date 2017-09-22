@@ -107,4 +107,8 @@
      2.还可以有其他配置方法,配置多个servlet-mapping  url-pattern值为*.jsp, *.json, *.htm, *.xml 区分请求类型
     -->
   </servlet-mapping>
+
+  <session-config>
+    <session-timeout>1</session-timeout>
+  </session-config>
 </web-app>

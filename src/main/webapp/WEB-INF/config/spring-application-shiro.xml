@@ -11,27 +11,11 @@
         <property name="successUrl" value="/index"/>
         <!-- 没权限跳转的页面 -->
         <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
-        <property name="filters">
-            <map>
-                <entry key="iAuthc">
-                    <bean class="com.cy.common.filter.IFormAuthenticationFilter">
-                        <property name="usernameParam" value="principal"/>
-                        <property name="passwordParam" value="credentials"/>
-                    </bean>
-                </entry>
-            </map>
-        </property>
         <property name="filterChainDefinitions">
             <value>
                 # 参考枚举： org.apache.shiro.web.filter.mgt.DefaultFilter
-                /statics/** = anon
-                /regist = anon
-                /logout = anon
+                # 登录控制交给springmvc intercept
                 /** = anon
-                # /** = iAuthc
-                # /signIn = anon 可以自己实现登录代码
-                # /admin/** = authc, roles[admin]
-                # /docs/** = authc, perms[document:read]
             </value>
         </property>
     </bean>
