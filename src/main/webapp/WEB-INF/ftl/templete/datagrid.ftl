@@ -31,8 +31,8 @@
             <form id="f-query">
                 <@block name="query">
                 </@block>
-                <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" style="width:80px" onclick="dgQuery()">搜索</a>
-                <a href="javascript:void(0);" class="easyui-linkbutton" onclick="$('#f-query').form('clear');" style="width:80px">重置</a>
+                <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:20px;width:80px" onclick="dgQuery()">搜索</a>
+                <a href="javascript:void(0);" class="easyui-linkbutton" onclick="$('#f-query').form('clear');" style="margin-left:10px;width:80px">重置</a>
             </form>
         </div>
     </div>
@@ -64,10 +64,25 @@
 <#macro formInput type='textbox' name='' label='' required='false' value=''>
     <div style="margin-bottom:20px">
     <#if type == 'textbox'>
-        <input class="easyui-${type}" id="f-textbox-${name}" name="${name}" value="${value}" data-options="label:'${label}:',required:${required},width:240"/>
+        <input class="easyui-textbox" id="f-textbox-${name}" name="${name}" value="${value}" data-options="label:'${label}:',required:${required},width:240"/>
+    <#elseif type == 'passwordbox'>
+        <input class="easyui-passwordbox" name="${name}" data-options="label:'${label}:',required:${required},width:240"/>
     <#elseif type == 'combobox'>
         <!-- 这里不通过class: easyui-combobox初始化，因为combobox在windows的内容中初始化会有不能选中默认值的问题，通过window的onOpen在打开时初始化 -->
-        <input class="combobox" id="f-combobox-${name}" name="${name}" style="z-index: 99999999" data-options="label:'${label}:',required:${required},width:240,valueField:'id',textField:'text',data:${value}">
+        <input class="combobox" id="f-combobox-${name}" name="${name}" data-options="label:'${label}:',required:${required},width:240,valueField:'id',textField:'text',data:${value}">
     </#if>
+    </div>
+</#macro>
+
+<#macro queryInput type='textbox' name='' label='' required='false' value=''>
+    <div style="float: left;margin: 0px 20px 20px 0px">
+        <#if type == 'textbox'>
+            <input class="easyui-textbox" id="q-textbox-${name}" name="${name}" data-options="label:'${label}:',required:${required},width:240"/>
+        <#elseif type == 'combobox'>
+            <input class="easyui-combobox" id="q-combobox-${name}" name="${name}" data-options="label:'${label}:',required:${required},width:240,valueField:'id',textField:'text',data:${value}">
+        <#elseif type == 'datebox'>
+            <input class="easyui-datebox" name="${name?split(",")[0]}" data-options="label:'${label}:',required:false,width:200" >~
+            <input class="easyui-datebox" name="${name?split(",")[1]}" data-options="label:'',required:false,width:110" >
+        </#if>
     </div>
 </#macro>

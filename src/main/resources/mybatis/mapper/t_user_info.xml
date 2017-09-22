@@ -119,6 +119,21 @@
         <include refid="Base_Column_List"/>
         FROM t_user_info
         <where>
+            <if test="userName != null and userName != ''" >
+                AND user_name LIKE CONCAT('%',#{userName},'%')
+            </if>
+            <if test="fullName != null and fullName != ''" >
+                AND full_name LIKE CONCAT('%',#{fullName},'%')
+            </if>
+            <if test="telNo != null and telNo != ''" >
+                AND tel_no LIKE CONCAT('%',#{telNo},'%')
+            </if>
+            <if test="mobileNo != null and mobileNo != ''" >
+                AND mobile_no LIKE CONCAT('%',#{mobileNo},'%')
+            </if>
+            <if test="accountLocked != null and accountLocked != -1" >
+                AND account_locked = #{accountLocked}
+            </if>
             <if test="createTimeBegin != null">
                 AND create_time >= #{createTimeBegin}
             </if>
