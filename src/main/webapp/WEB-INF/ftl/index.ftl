@@ -23,5 +23,17 @@
 <script type="text/javascript" src="/statics/js/easyui/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="/statics/js/jquery.form.js"></script>
 <script type="text/javascript" src="/statics/js/app-custom.js"></script>
+<script type="text/javascript">
+    function doLogin() {
+        $.messager.alert({
+            title: '提示',
+            msg: '<div style="text-align:center;margin-top:18px">请重新登录!</div>',
+            icon:'info',
+            fn: function(){
+                window.parent.location.href='/login';
+            }
+        });
+    }
+</script>
 </body>
 </html>

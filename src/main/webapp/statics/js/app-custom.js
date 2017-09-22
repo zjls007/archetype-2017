@@ -58,8 +58,25 @@ function submitForm() {
                 } else {
                     $.messager.alert('错误',data.message,'error');
                 }
+            },
+            error: function(xhr, status, error) {
+                // 未登录
+                if (xhr.status == 403) {
+                    window.parent.doLogin();
+                } else {
+                    $.messager.alert('错误','保存出错!','error');
+                }
             }
         });
+    }
+}
+
+function onLoadError(xhr, status, error) {
+    // 未登录
+    if (xhr.status == 403) {
+        window.parent.doLogin();
+    } else {
+        $.messager.alert('错误','保存出错!','error');
     }
 }
 

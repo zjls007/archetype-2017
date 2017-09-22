@@ -29,6 +29,13 @@
     </bean>
     <mvc:interceptors>
         <bean class="com.cy.common.interceptor.AllIntercept"/>
+        <mvc:interceptor>
+            <mvc:mapping path="/*/data"/>
+            <mvc:mapping path="/*/saveOrUpdate"/>
+            <mvc:mapping path="/*/delete"/>
+            <mvc:exclude-mapping path="/list"/>
+            <bean class="com.cy.common.interceptor.DatagridIntercept"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
     <!-- 全局异常处理 -->

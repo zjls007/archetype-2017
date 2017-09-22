@@ -7,6 +7,7 @@
                     border:false,
                     fit:true,
                     onLoadSuccess:onLoadSuccess,
+                    onLoadError:onLoadError,
                     onDblClickRow:onDblClickRow,
                     toolbar:'#tb',
                     pagination:true,
