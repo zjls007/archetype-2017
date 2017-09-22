@@ -69,7 +69,7 @@
         <input class="easyui-passwordbox" name="${name}" data-options="label:'${label}:',required:${required},width:240"/>
     <#elseif type == 'combobox'>
         <!-- 这里不通过class: easyui-combobox初始化，因为combobox在windows的内容中初始化会有不能选中默认值的问题，通过window的onOpen在打开时初始化 -->
-        <input class="combobox" id="f-combobox-${name}" name="${name}" data-options="label:'${label}:',required:${required},width:240,valueField:'id',textField:'text',data:${value}">
+        <input class="combobox" id="f-combobox-${name}" name="${name}" data-options="panelHeight:'auto',label:'${label}:',required:${required},width:240,valueField:'id',textField:'text',data:${value}">
     </#if>
     </div>
 </#macro>
@@ -79,10 +79,14 @@
         <#if type == 'textbox'>
             <input class="easyui-textbox" id="q-textbox-${name}" name="${name}" data-options="label:'${label}:',required:${required},width:240"/>
         <#elseif type == 'combobox'>
-            <input class="easyui-combobox" id="q-combobox-${name}" name="${name}" data-options="label:'${label}:',required:${required},width:240,valueField:'id',textField:'text',data:${value}">
+            <input class="easyui-combobox" id="q-combobox-${name}" name="${name}" data-options="panelHeight:'auto',label:'${label}:',required:${required},width:240,valueField:'id',textField:'text',data:${value}">
         <#elseif type == 'datebox'>
             <input class="easyui-datebox" name="${name?split(",")[0]}" data-options="label:'${label}:',required:false,width:200" >~
             <input class="easyui-datebox" name="${name?split(",")[1]}" data-options="label:'',required:false,width:110" >
         </#if>
     </div>
+</#macro>
+
+<#macro br>
+    <div style="clear: both;"></div>
 </#macro>
