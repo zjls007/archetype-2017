@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zxj on 2017/9/1.
@@ -27,13 +29,19 @@ public class MenuInfoServiceImpl implements MenuInfoService {
             return;
         }
         int i = 0;
+        Map<Long, Long> map = new HashMap<Long, Long>();
         for (MenuInfo item : list) {
             // 设置排序编号
             item.setSortNum(i++);
-            if (item.getId() != null) {
+            if (item.getId() > 0) {
                 menuInfoDAO.insertHasId(item);
             } else {
+                long id = item.getId();
+                if (item.getParentId() != null && map.containsKey(item.getParentId())) {
+                    item.setParentId(map.get(item.getParentId()));
+                }
                 menuInfoDAO.insert(item);
+                map.put(id, item.getId());
             }
         }
     }

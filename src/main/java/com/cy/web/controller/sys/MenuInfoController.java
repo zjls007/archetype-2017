@@ -47,9 +47,6 @@ public class MenuInfoController {
         JSONArray jsonArray = JSONArray.parseArray(jsonStr);
         for (int i = 1; i < jsonArray.size(); i++) {
             MenuInfo menuInfo = JSON.toJavaObject(jsonArray.getJSONObject(i), MenuInfo.class);
-            if (menuInfo.getId() < 0) {
-                menuInfo.setId(null);
-            }
             list.add(menuInfo);
         }
         menuInfoService.save(list);

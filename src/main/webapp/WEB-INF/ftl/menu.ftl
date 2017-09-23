@@ -4,7 +4,7 @@
         <ul>
             <!-- 动态获取 -->
             <#if (menuInfoList?size > 1)>
-                <@showTree/>
+                <@showNode/>
             <!-- 手动书写 -->
             <#else>
                 <li>
@@ -21,19 +21,7 @@
         </ul>
     </li>
 </ul>
-<#macro showTree pId=0>
-    <#list menuInfoList as item>
-        <#if item.parentId?? && item.parentId == pId>
-            <li>
-                <span>${item.name}</span>
-                <ul>
-                    <@showNode pId=item.id/>
-                </ul>
-            </li>
-        </#if>
-    </#list>
-</#macro>
-<#macro showNode pId>
+<#macro showNode pId=0>
     <#list menuInfoList as item>
         <#if item.parentId?? && item.parentId == pId>
             <#if hasChildren(item.id) == "1">
