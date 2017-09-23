@@ -18,7 +18,7 @@ public class DatagridIntercept implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         String ajaxOrigin = httpServletRequest.getParameter("ajaxOrigin");
-        if ("datagrid".equals(ajaxOrigin) && SecurityUtils.getSubject().isAuthenticated()) {
+        if (SecurityUtils.getSubject().isAuthenticated()) {
             return true;
         }
         httpServletResponse.setStatus(403);

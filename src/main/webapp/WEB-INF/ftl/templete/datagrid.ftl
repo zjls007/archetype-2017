@@ -30,6 +30,7 @@
         </div>
         <div style="padding: 0px 8px 10px 8px">
             <form id="f-query">
+                <input type="hidden" name="ajaxOrigin" value="datagrid"/>
                 <@block name="query">
                 </@block>
                 <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:20px;width:80px" onclick="dgQuery()">搜索</a>
@@ -44,6 +45,7 @@
             <div id="d-edit" style="text-align:center;padding:5px 0">
                 <form id="f-edit" method="post" action="/${actionUrl}">
                     <input type="hidden" name="id" value=""/>
+                    <input type="hidden" name="ajaxOrigin" value="datagrid"/>
                     <@block name="form">
                     </@block>
                 </form>
