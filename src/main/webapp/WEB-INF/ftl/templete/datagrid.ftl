@@ -24,9 +24,9 @@
 <div id="tb" style="padding:2px 5px;">
     <div>
         <div style="padding: 5px 8px 10px 8px">
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addData()">添加</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editData()">修改</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="delData('/${delUrl}')">删除</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton add"  iconCls="icon-add" plain="true">添加</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton edit" iconCls="icon-edit" plain="true">修改</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton delete" delUrl="/${delUrl}" iconCls="icon-remove" plain="true">删除</a>
         </div>
         <div style="padding: 0px 8px 10px 8px">
             <form id="f-query">
@@ -53,8 +53,8 @@
         </div>
         <div data-options="region:'south',noheader:true,border:false">
             <div style="text-align:center;padding:5px 0">
-                <a href="javascript:void(0);" class="easyui-linkbutton" id="submitForm" onclick="submitForm()" style="width:80px">提交</a>
-                <a href="javascript:void(0);" class="easyui-linkbutton" id="resetForm" onclick="resetForm()" style="width:80px">重置</a>
+                <a href="javascript:void(0);" class="easyui-linkbutton submit" id="submitForm" style="width:80px">提交</a>
+                <a href="javascript:void(0);" class="easyui-linkbutton reset" id="resetForm" style="width:80px">重置</a>
             </div>
         </div>
     </div>
