@@ -1,6 +1,9 @@
+<@override name="menu">
+    <div data-options="businessType:'setRole',iconCls:'icon-undo'">查看/设置角色</div>
+</@override>
 <@override name="th">
     <th data-options="field:'id',checkbox:true,"></th>
-    <th data-options="field:'operater',align:'center',width:80">操作</th>
+    <th data-options="field:'operater',align:'center',width:80,<@formatterMenuButton/>">操作</th>
     <th data-options="field:'userName',width:200">用户名</th>
     <th data-options="field:'fullName',width:200">真实姓名</th>
     <th data-options="field:'telNo',width:200,align:'left'">电话号码</th>

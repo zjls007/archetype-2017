@@ -23,6 +23,16 @@
 </table>
 <div id="tb" style="padding:2px 5px;">
     <div>
+        <div style="display: none">
+            <!-- class="easyui-menu" -->
+            <div id="mm" style="width:200px;" data-options="onClick:onClickMenu">
+                <@block name="menu">
+                </@block>
+                <div class="menu-sep"></div>
+                <div>Exit</div>
+            </div>
+            <div id="mmDiv"></div>
+        </div>
         <div style="padding: 5px 8px 10px 8px">
             <a href="javascript:void(0)" class="easyui-linkbutton add"  iconCls="icon-add" plain="true">添加</a>
             <a href="javascript:void(0)" class="easyui-linkbutton edit" iconCls="icon-edit" plain="true">修改</a>
@@ -92,4 +102,10 @@
 
 <#macro br>
     <div style="clear: both;"></div>
+</#macro>
+
+<#macro formatterMenuButton>
+    formatter:function(value,row,index) {
+        return $('<a>操作</a>').addClass('easyui-menubutton').attr('href', 'javascript:void(0)').attr('dataId', row.id).prop('outerHTML');
+    }
 </#macro>

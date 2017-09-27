@@ -83,6 +83,15 @@ function onQueryParam(param) {
 
 }
 function onLoadSuccess(data) {
+    $('.easyui-menubutton').each(function () {
+        var id = $(this).attr('dataId');
+        var html = $('#mm').clone().attr('id', 'mm' + id).attr('dataId', id).prop('outerHTML');
+        $('#mmDiv').append(html);
+        $(this).menubutton({
+            iconCls: 'icon-edit',
+            menu: '#mm'+ id
+        });
+    });
     if (data.error) {
         alert(data.error);
         location.href="index";
@@ -166,4 +175,10 @@ function doEdit(row) {
             }
         }
     }
+}
+
+function onClickMenu(menu) {
+    var type = menu.businessType;
+    var id = $(menu.target).parent().attr('dataId');
+    alert(id + '-' + type);
 }

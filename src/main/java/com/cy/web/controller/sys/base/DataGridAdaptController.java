@@ -23,20 +23,23 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
 
     private Class<T> entityClass;
 
+    private String entityClassName;
+
     protected DataGridAdaptController() {
         Type type = getClass().getGenericSuperclass();
         Type trueType = ((ParameterizedType) type).getActualTypeArguments()[0];
         this.entityClass = (Class<T>) trueType;
+        StringBuilder sb = new StringBuilder(entityClass.getSimpleName());
+        sb.setCharAt(0, Character.toLowerCase(sb.charAt(0)));
+        this.entityClassName = sb.toString();
     }
 
     @RequestMapping("list")
     public String list(ModelMap modelMap) {
-        StringBuilder sb = new StringBuilder(entityClass.getSimpleName());
-        sb.setCharAt(0, Character.toLowerCase(sb.charAt(0)));
-        modelMap.addAttribute("delUrl", String.format("%s/delete", sb.toString()));
-        modelMap.addAttribute("dataUrl", String.format("%s/data", sb.toString()));
-        modelMap.addAttribute("actionUrl", String.format("%s/saveOrUpdate", sb.toString()));
-        return String.format("%s/list", sb.toString());
+        modelMap.addAttribute("delUrl", String.format("%s/delete", entityClassName));
+        modelMap.addAttribute("dataUrl", String.format("%s/data", entityClassName));
+        modelMap.addAttribute("actionUrl", String.format("%s/saveOrUpdate", entityClassName));
+        return String.format("%s/list", entityClassName);
     }
 
     @RequestMapping("data")
@@ -69,5 +72,10 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
     }
 
     protected abstract void doDelete(List<Long> idList);
+
+    @RequestMapping("{tempName}")
+    public String tempFtl(@PathVariable String tempName) {
+        return String.format("%s/%s", entityClassName, tempName);
+    }
 
 }
