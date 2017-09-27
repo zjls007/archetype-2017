@@ -1,24 +1,16 @@
 $(function () {
     // 打开弹窗
-    $('.add').on('click', function () {
-        addData();
-    });
+    $('.add').on('click', addData);
     // 编辑
-    $('.edit').on('click', function () {
-        editData();
-    });
+    $('.edit').on('click', editData);
     // 删除
     $('.delete').on('click', function () {
         delData($(this).attr('delUrl'));
     });
     // 提交
-    $('.submit').on('click', function () {
-        submitForm();
-    });
+    $('.submit').on('click', submitForm);
     // 重置
-    $('.reset').on('click', function () {
-        resetForm();
-    });
+    $('.reset').on('click', resetForm);
 });
 
 <!-- 打开弹窗 -->
