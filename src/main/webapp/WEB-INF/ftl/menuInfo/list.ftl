@@ -18,7 +18,6 @@
        toolbar:'#tb-menu',
        method: 'post',
        onLoadSuccess:onLoadSuccess,
-       onLoadError:onLoadError,
        idField:'id',
        treeField:'name'">
     <thead>
