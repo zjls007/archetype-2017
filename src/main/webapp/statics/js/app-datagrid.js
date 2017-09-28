@@ -1,15 +1,14 @@
 $(function () {
     // 打开弹窗
     $('.add').on({
+        // 方法中可以直接中 $(this)获取对象本身
         click: addData,
         mouseover:function(){}
     });
     // 编辑
     $('.edit').on({click:editData});
     // 删除
-    $('.delete').on('click', function () {
-        delData($(this).attr('delUrl'));
-    });
+    $('.delete').on({click:delData});
     // 提交
     $('.submit').on({click:submitForm});
     // 重置
@@ -33,7 +32,8 @@ function editData() {
     }
 }
 <!-- 删除数据 -->
-function delData(url) {
+function delData() {
+    var url = $(this).attr('delUrl');
     $('#w').window('close');
     var checked = $('#dg').datagrid('getChecked');
     if (checked.length == 0) {
@@ -67,7 +67,6 @@ function delData(url) {
         }
     });
 }
-
 
 function queryParams() {
     var param = {
