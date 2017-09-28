@@ -83,6 +83,15 @@ function onQueryParam(param) {
 
 }
 function onLoadSuccess(data) {
+    initMenuButton();
+    if (data.error) {
+        alert(data.error);
+        location.href="index";
+    }
+}
+
+function initMenuButton() {
+    // 初始化datagrid-menuButton
     $('.easyui-menubutton').each(function () {
         var id = $(this).attr('dataId');
         var html = $('#mm').clone().attr('id', 'mm' + id).attr('dataId', id).prop('outerHTML');
@@ -92,10 +101,6 @@ function onLoadSuccess(data) {
             menu: '#mm'+ id
         });
     });
-    if (data.error) {
-        alert(data.error);
-        location.href="index";
-    }
 }
 function dgQuery() {
     $('#dg').datagrid('options').queryParams = queryParams();
@@ -128,9 +133,20 @@ function submitForm() {
 function onLoadError(xhr, status, error) {
     // 未登录
     if (xhr.status == 403) {
-        window.parent.doLogin();
+        if (window.parent.length == 0) {
+            $.messager.alert({
+                title: '提示',
+                msg: '<div style="text-align:center;margin-top:18px">请重新登录!</div>',
+                icon:'info',
+                fn: function(){
+                    window.parent.location.href='/login';
+                }
+            });
+        } else {
+            window.parent.doLogin();
+        }
     } else {
-        $.messager.alert('错误','保存出错!','error');
+        $.messager.alert('错误','出错啦!','error');
     }
 }
 

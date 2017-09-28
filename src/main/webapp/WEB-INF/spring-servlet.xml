@@ -30,6 +30,11 @@
     <mvc:interceptors>
         <bean class="com.cy.common.interceptor.AllIntercept"/>
         <mvc:interceptor>
+            <mvc:mapping path="/"/>
+            <mvc:mapping path="/index"/>
+            <bean class="com.cy.common.interceptor.SessionIntercept"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
             <mvc:mapping path="/*/data"/>
             <mvc:mapping path="/*/saveOrUpdate"/>
             <mvc:mapping path="/*/delete"/>
