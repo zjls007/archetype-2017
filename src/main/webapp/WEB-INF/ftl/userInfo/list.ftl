@@ -1,5 +1,6 @@
 <@override name="menu">
-    <div data-options="businessType:'setRole',iconCls:'icon-undo'">查看/设置角色</div>
+    <div data-options="businessType:'roleInfo',iconCls:'icon-undo'">角色</div>
+    <div data-options="businessType:'userGroup',iconCls:'icon-undo'">用户组</div>
 </@override>
 <@override name="th">
     <th data-options="field:'id',checkbox:true,"></th>

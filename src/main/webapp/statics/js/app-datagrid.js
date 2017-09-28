@@ -2,7 +2,7 @@ $(function () {
     // 打开弹窗
     $('.add').on({
         // 方法中可以直接中 $(this)获取对象本身
-        click: addData,
+        click: openWindow,
         mouseover:function(){}
     });
     // 编辑
@@ -16,10 +16,15 @@ $(function () {
 });
 
 <!-- 打开弹窗 -->
-function addData() {
+function openWindow() {
     $('#f-edit').form('clear');
     $('#w').window('open');
 }
+
+function onDblClickRow(index,row) {
+    doEdit(row);
+}
+
 <!-- 编辑数据 -->
 function editData() {
     var checked = $('#dg').datagrid('getChecked');
@@ -31,6 +36,41 @@ function editData() {
         doEdit(checked[0]);
     }
 }
+
+<!-- 编辑最终掉的方法 -->
+function doEdit(row) {
+    openWindow();
+    // 存放编辑重置的数据
+    $('#resetForm').data('row', row);
+    setValue(row);
+}
+
+function setValue(row) {
+    for (var key in row) {
+        var f = $('#d-edit');
+        var textbox = $('#f-textbox-' + key);
+        var combobox = $('#f-combobox-' + key);
+        if (textbox.length == 1) {
+            textbox.textbox('setValue', row[key]);
+        } else if (combobox.length == 1) {
+            combobox.combobox('setValue', row[key]);
+        } else {
+            var input = f.find('input[name=' + key + ']');
+            if (input.length == 1) {
+                input.val(row[key]);
+            }
+        }
+    }
+}
+
+function resetForm() {
+    $('#f-edit').form('clear');
+    var row = $('#resetForm').data('row');
+    if (row) {
+        setValue(row);
+    }
+}
+
 <!-- 删除数据 -->
 function delData() {
     var url = $(this).attr('delUrl');
@@ -152,47 +192,12 @@ function onLoadError(xhr, status, error) {
     }
 }
 
-function resetForm() {
-    $('#f-edit').form('clear');
-    var row = $('#resetForm').data('row');
-    if (row) {
-        doEdit(row);
-    }
-}
-
 function onWClose() {
     $('#resetForm').data('row', '');
 }
 
 function onWOpen() {
     $('.combobox').combobox();
-}
-
-function onDblClickRow(index,row) {
-    doEdit(row);
-}
-
-<!-- 编辑最终掉的方法 -->
-function doEdit(row) {
-    // 存放编辑重置的数据
-    $('#resetForm').data('row', row);
-    $('#f-edit').form('clear');
-    $('#w').window('open');
-    for (var key in row) {
-        var f = $('#d-edit');
-        var textbox = $('#f-textbox-' + key);
-        var combobox = $('#f-combobox-' + key);
-        if (textbox.length == 1) {
-            textbox.textbox('setValue', row[key]);
-        } else if (combobox.length == 1) {
-            combobox.combobox('setValue', row[key]);
-        } else {
-            var input = f.find('input[name=' + key + ']');
-            if (input.length == 1) {
-                input.val(row[key]);
-            }
-        }
-    }
 }
 
 function onClickMenu(menu) {
