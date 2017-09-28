@@ -1,16 +1,19 @@
 $(function () {
     // 打开弹窗
-    $('.add').on('click', addData);
+    $('.add').on({
+        click: addData,
+        mouseover:function(){}
+    });
     // 编辑
-    $('.edit').on('click', editData);
+    $('.edit').on({click:editData});
     // 删除
     $('.delete').on('click', function () {
         delData($(this).attr('delUrl'));
     });
     // 提交
-    $('.submit').on('click', submitForm);
+    $('.submit').on({click:submitForm});
     // 重置
-    $('.reset').on('click', resetForm);
+    $('.reset').on({click:resetForm});
 });
 
 <!-- 打开弹窗 -->
