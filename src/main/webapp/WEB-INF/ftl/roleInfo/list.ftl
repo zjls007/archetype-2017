@@ -13,8 +13,4 @@
     <@queryInput type='textbox' name='name' label='名称'/>
     <@queryInput type='textbox' name='code' label='编码'/>
 </@override>
-<@override name="form">
-    <@formInput type='textbox' name='name' label='名称' required='true'/>
-    <@formInput type='textbox' name='code' label='编码' required='true'/>
-</@override>
 <@extends name="../templete/datagrid.ftl"/>

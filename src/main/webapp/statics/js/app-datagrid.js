@@ -38,9 +38,9 @@ function openWindow(row) {
 }
 
 function initFormBox() {
-    $('.textbox').textbox();
-    $('.passwordbox').passwordbox();
-    $('.combobox').combobox();
+    $('#d-edit .textbox').textbox();
+    $('#d-edit .passwordbox').passwordbox();
+    $('#d-edit .combobox').combobox();
 }
 
 function onDblClickRow(index,row) {
