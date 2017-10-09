@@ -16,24 +16,39 @@ $(function () {
 });
 
 <!-- 打开弹窗 -->
-function openWindow(row) {
+function openWindow(row, url) {
     $('#w-center').empty();
-    $.ajax({
-        method: 'post',
-        url: $('#add').attr('actionUrl'),
-        success: function (data) {
-            var getHtml = $(data);
-            var temp = $('<code></code>').append(getHtml);
-            $('#w-center').append(temp.html());
-            initFormBox();
-            if (row) {
-                setValue(row);
+    if (url) {
+        $.ajax({
+            method: 'post',
+            url: url,
+            success: function (data) {
+                var getHtml = $(data);
+                var temp = $('<code></code>').append(getHtml);
+                $('#w-center').append(temp.html());
+            },
+            error: function () {
+                $.messager.alert('警告','请求异常!','warning');
             }
-        },
-        error: function () {
-            $.messager.alert('警告','请求异常!','warning');
-        }
-    });
+        });
+    } else {
+        $.ajax({
+            method: 'post',
+            url: $('#add').attr('actionUrl'),
+            success: function (data) {
+                var getHtml = $(data);
+                var temp = $('<code></code>').append(getHtml);
+                $('#w-center').append(temp.html());
+                initFormBox();
+                if (row) {
+                    setValue(row);
+                }
+            },
+            error: function () {
+                $.messager.alert('警告','请求异常!','warning');
+            }
+        });
+    }
     $('#w').window('open');
 }
 
@@ -221,7 +236,6 @@ function onWOpen() {
 }
 
 function onClickMenu(menu) {
-    var type = menu.businessType;
     var id = $(menu.target).parent().attr('dataId');
-    alert(id + '-' + type);
+    openWindow({}, menu.businessURL+id);
 }

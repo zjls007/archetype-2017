@@ -28,8 +28,7 @@
             <div id="mm" style="width:200px;" data-options="onClick:onClickMenu">
                 <@block name="menu">
                 </@block>
-                <div class="menu-sep"></div>
-                <div>退出</div>
+                <#--划痕 <div class="menu-sep"></div>-->
             </div>
             <div id="mmDiv"></div>
         </div>
