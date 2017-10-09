@@ -29,12 +29,12 @@
                 <@block name="menu">
                 </@block>
                 <div class="menu-sep"></div>
-                <div>Exit</div>
+                <div>退出</div>
             </div>
             <div id="mmDiv"></div>
         </div>
         <div style="padding: 5px 8px 10px 8px">
-            <a href="javascript:void(0)" class="easyui-linkbutton add"  iconCls="icon-add" plain="true">添加</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton add" id="add" actionUrl="/${editUrl}" iconCls="icon-add" plain="true">添加</a>
             <a href="javascript:void(0)" class="easyui-linkbutton edit" iconCls="icon-edit" plain="true">修改</a>
             <a href="javascript:void(0)" class="easyui-linkbutton delete" delUrl="/${delUrl}" iconCls="icon-remove" plain="true">删除</a>
         </div>
@@ -50,14 +50,7 @@
 </div>
 <div id="w" class="easyui-window" title="弹窗" data-options="iconCls:'icon-save',closed:true,collapsible:false,onClose:onWClose,onOpen:onWOpen" style="width:450px;height:400px;padding:10px;">
     <div class="easyui-layout" data-options="fit:true">
-        <div data-options="region:'center',noheader:true,border:false">
-            <div id="d-edit" style="text-align:center;padding:5px 0">
-                <form id="f-edit" method="post" action="/${actionUrl}">
-                    <input type="hidden" name="id" value=""/>
-                    <@block name="form">
-                    </@block>
-                </form>
-            </div>
+        <div id="w-center" data-options="region:'center',noheader:true,border:false">
         </div>
         <div data-options="region:'south',noheader:true,border:false">
             <div style="text-align:center;padding:5px 0">
@@ -70,21 +63,8 @@
 </@override>
 <@override name="script">
 </@override>
-<@extends name="../base.ftl"/>
+<@extends name="/base.ftl"/>
 <!-- 宏 -->
-<#macro formInput type='textbox' name='' label='' required='false' value=''>
-    <div style="margin-bottom:20px">
-    <#if type == 'textbox'>
-        <input class="easyui-textbox" id="f-textbox-${name}" name="${name}" value="${value}" data-options="label:'${label}:',required:${required},width:240"/>
-    <#elseif type == 'passwordbox'>
-        <input class="easyui-passwordbox" name="${name}" data-options="label:'${label}:',required:${required},width:240"/>
-    <#elseif type == 'combobox'>
-        <!-- 这里不通过class: easyui-combobox初始化，因为combobox在windows的内容中初始化会有不能选中默认值的问题，通过window的onOpen在打开时初始化 -->
-        <input class="combobox" id="f-combobox-${name}" name="${name}" data-options="panelHeight:'auto',label:'${label}:',required:${required},width:240,valueField:'id',textField:'text',data:${value}">
-    </#if>
-    </div>
-</#macro>
-
 <#macro queryInput type='textbox' name='' label='' required='false' value=''>
     <div style="float: left;margin: 0px 20px 20px 0px">
         <#if type == 'textbox'>

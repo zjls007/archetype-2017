@@ -36,6 +36,7 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
 
     @RequestMapping("list")
     public String list(ModelMap modelMap) {
+        modelMap.addAttribute("editUrl", String.format("%s/edit", entityClassName));
         modelMap.addAttribute("delUrl", String.format("%s/delete", entityClassName));
         modelMap.addAttribute("dataUrl", String.format("%s/data", entityClassName));
         modelMap.addAttribute("actionUrl", String.format("%s/saveOrUpdate", entityClassName));

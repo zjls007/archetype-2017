@@ -16,9 +16,31 @@ $(function () {
 });
 
 <!-- 打开弹窗 -->
-function openWindow() {
-    $('#f-edit').form('clear');
+function openWindow(row) {
+    $('#w-center').empty();
+    $.ajax({
+        method: 'post',
+        url: $('#add').attr('actionUrl'),
+        success: function (data) {
+            var getHtml = $(data);
+            var temp = $('<code></code>').append(getHtml);
+            $('#w-center').append(temp.html());
+            initFormBox();
+            if (row) {
+                setValue(row);
+            }
+        },
+        error: function () {
+            $.messager.alert('警告','请求异常!','warning');
+        }
+    });
     $('#w').window('open');
+}
+
+function initFormBox() {
+    $('.textbox').textbox();
+    $('.passwordbox').passwordbox();
+    $('.combobox').combobox();
 }
 
 function onDblClickRow(index,row) {
@@ -39,10 +61,9 @@ function editData() {
 
 <!-- 编辑最终掉的方法 -->
 function doEdit(row) {
-    openWindow();
+    openWindow(row);
     // 存放编辑重置的数据
     $('#resetForm').data('row', row);
-    setValue(row);
 }
 
 function setValue(row) {
@@ -197,7 +218,6 @@ function onWClose() {
 }
 
 function onWOpen() {
-    $('.combobox').combobox();
 }
 
 function onClickMenu(menu) {
