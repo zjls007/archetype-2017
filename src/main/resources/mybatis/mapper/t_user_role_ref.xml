@@ -71,12 +71,16 @@
         </foreach>
     </select>
 
-    <select id="getByUserInfoId" resultMap="BaseResultMap">
+    <select id="getByUserInfoId" resultType="long">
         SELECT role_id FROM t_user_role_ref WHERE user_id = #{userInfoId}
     </select>
 
-    <select id="getByRoleInfoId" resultMap="BaseResultMap">
+    <select id="getByRoleInfoId" resultType="long">
         SELECT user_id FROM t_user_role_ref WHERE role_id = #{roleInfoId}
     </select>
+
+    <delete id="deleteByUserInfoId">
+        DELETE FROM t_user_role_ref WHERE user_id = #{userInfoId}
+    </delete>
 </mapper>
 

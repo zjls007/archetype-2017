@@ -9,8 +9,6 @@ $(function () {
     $('.edit').on({click:editData});
     // 删除
     $('.delete').on({click:delData});
-    // 提交
-    $('.submit').on({click:submitForm});
     // 重置
     $('.reset').on({click:resetForm});
 });
@@ -39,7 +37,6 @@ function openWindow(row, url) {
                 var getHtml = $(data);
                 var temp = $('<code></code>').append(getHtml);
                 $('#w-center').append(temp.html());
-                initFormBox();
                 if (row) {
                     setValue(row);
                 }
@@ -50,12 +47,6 @@ function openWindow(row, url) {
         });
     }
     $('#w').window('open');
-}
-
-function initFormBox() {
-    $('#d-edit .textbox').textbox();
-    $('#d-edit .passwordbox').passwordbox();
-    $('#d-edit .combobox').combobox();
 }
 
 function onDblClickRow(index,row) {
@@ -183,29 +174,6 @@ function initMenuButton() {
 function dgQuery() {
     $('#dg').datagrid('options').queryParams = queryParams();
     $('#dg').datagrid('load');
-}
-function submitForm() {
-    var form = $('#f-edit');
-    if (form.form('validate')) {
-        form.ajaxSubmit({
-            success: function (data) {
-                if (data.code == 0) {
-                    $('#w').window('close')
-                    $('#dg').datagrid('reload');
-                } else {
-                    $.messager.alert('错误',data.message,'error');
-                }
-            },
-            error: function(xhr, status, error) {
-                // 未登录
-                if (xhr.status == 403) {
-                    window.parent.doLogin();
-                } else {
-                    $.messager.alert('错误','保存出错!','error');
-                }
-            }
-        });
-    }
 }
 
 function onLoadError(xhr, status, error) {

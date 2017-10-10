@@ -5,6 +5,35 @@
     </@block>
     </form>
 </div>
+<script type="text/javascript">
+    $('#d-edit .textbox').textbox();
+    $('#d-edit .passwordbox').passwordbox();
+    $('#d-edit .combobox').combobox();
+    $('.submit').unbind();
+    $('.submit').on({click:function () {
+        var form = $('#f-edit');
+        if (form.form('validate')) {
+            form.ajaxSubmit({
+                success: function (data) {
+                    if (data.code == 0) {
+                        $('#w').window('close')
+                        $('#dg').datagrid('reload');
+                    } else {
+                        $.messager.alert('错误',data.message,'error');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // 未登录
+                    if (xhr.status == 403) {
+                        window.parent.doLogin();
+                    } else {
+                        $.messager.alert('错误','保存出错!','error');
+                    }
+                }
+            });
+        }
+    }});
+</script>
 <#macro formInput type='textbox' name='' label='' required='false' value=''>
 <div style="margin-bottom:20px">
     <#if type == 'textbox'>

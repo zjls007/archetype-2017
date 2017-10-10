@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -55,12 +57,30 @@ public class UserInfoController extends DataGridAdaptController<UserInfo, UserIn
         userInfoDAO.batchDelete(idList);
     }
 
+    /**
+     * 获取角色页面
+     * @param userInfoId
+     * @param modelMap
+     * @return
+     */
     @RequestMapping("refRoleInfo/{userInfoId}")
     public String refRoleInfo(@PathVariable Long userInfoId, ModelMap modelMap) {
         modelMap.put("value", StringUtils.arrayToDelimitedString(userRoleRefDAO.getByUserInfoId(userInfoId).toArray(), ","));
         modelMap.put("userName", userInfoDAO.selectById(userInfoId).getUserName());
         modelMap.put("userInfoId", userInfoId);
         return genPath("refRoleInfo");
+    }
+
+    @RequestMapping("saveRefRoleInfo")
+    @ResponseBody
+    public Response saveRefRoleInfo(Long userInfoId, String values) {
+        values = values == null ? "" : values;
+        List<Long> roleInfoList = new ArrayList<Long>();
+        for (String roleInfoId : values.split(",")) {
+            roleInfoList.add(Long.valueOf(roleInfoId));
+        }
+        userInfoService.saveRefRoleInfo(userInfoId, roleInfoList);
+        return new Response(null);
     }
 
 }

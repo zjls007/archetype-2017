@@ -29,4 +29,6 @@ public interface UserRoleRefDAO {
 
     List<Long> getByRoleInfoId(Long roleInfoId);
 
+    int deleteByUserInfoId(Long userInfoId);
+
 }
