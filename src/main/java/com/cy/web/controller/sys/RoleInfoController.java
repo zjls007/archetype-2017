@@ -1,5 +1,7 @@
 package com.cy.web.controller.sys;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.cy.common.Response;
 import com.cy.dao.system.RoleInfoDAO;
 import com.cy.entity.system.RoleInfo;
@@ -8,6 +10,7 @@ import com.cy.web.controller.sys.base.DataGridAdaptController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -38,6 +41,12 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
     @Override
     protected void doDelete(List<Long> idList) {
         roleInfoDAO.batchDelete(idList);
+    }
+
+    @RequestMapping("userRefRoleInfoData")
+    @ResponseBody
+    public Object userRefRoleInfoData(Long userInfoId) {
+        return roleInfoService.userRefRoleInfoData(userInfoId);
     }
 
 }

@@ -71,5 +71,12 @@
         </foreach>
     </select>
 
+    <select id="getByUserInfoId" resultMap="BaseResultMap">
+        SELECT role_id FROM t_user_role_ref WHERE user_id = #{userInfoId}
+    </select>
+
+    <select id="getByRoleInfoId" resultMap="BaseResultMap">
+        SELECT user_id FROM t_user_role_ref WHERE role_id = #{roleInfoId}
+    </select>
 </mapper>
 

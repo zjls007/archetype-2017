@@ -9,4 +9,6 @@ public interface RoleInfoService {
 
     RoleInfo saveOrUpdate(RoleInfo roleInfo);
 
+    Object userRefRoleInfoData(Long userInfoId);
+
 }

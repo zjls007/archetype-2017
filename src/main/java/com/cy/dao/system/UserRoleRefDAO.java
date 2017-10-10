@@ -25,4 +25,8 @@ public interface UserRoleRefDAO {
 
     List<UserRoleRef> getByIdList(List<Long> list);
 
+    List<Long> getByUserInfoId(Long userInfoId);
+
+    List<Long> getByRoleInfoId(Long roleInfoId);
+
 }
