@@ -185,7 +185,7 @@ function onLoadError(xhr, status, error) {
                 msg: '<div style="text-align:center;margin-top:18px">请重新登录!</div>',
                 icon:'info',
                 fn: function(){
-                    window.parent.hrefIndex();
+                    location.href='login';
                 }
             });
         } else {

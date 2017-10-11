@@ -34,7 +34,7 @@
             msg: '<div style="text-align:center;margin-top:18px">请重新登录!</div>',
             icon:'info',
             fn: function(){
-                window.parent.location.href='/login';
+                hrefIndex();
             }
         });
     }

@@ -11,6 +11,7 @@
            toolbar:'#tb-menu',
            method: 'post',
            onLoadSuccess:onLoadSuccess,
+           onLoadError:onLoadError,
            idField:'id',
            treeField:'name'">
         <thead>
@@ -264,6 +265,25 @@
         $('#mm' + operateId).menu('destroy');
         $('#mb' + operateId).menubutton('destroy');
         $('#tg').treegrid('remove', operateId);
+    }
+    function onLoadError(xhr, status, error) {
+        // 未登录
+        if (xhr.status == 403) {
+            if (window.parent.length == 0) {
+                $.messager.alert({
+                    title: '提示',
+                    msg: '<div style="text-align:center;margin-top:18px">请重新登录!</div>',
+                    icon:'info',
+                    fn: function(){
+                        window.parent.hrefIndex();
+                    }
+                });
+            } else {
+                window.parent.doLogin();
+            }
+        } else {
+            $.messager.alert('错误','出错啦!','error');
+        }
     }
 </script>
 </@override>
