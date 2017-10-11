@@ -1,12 +1,8 @@
 package com.cy.web.controller.sys.base;
 
-import com.cy.common.PageInfo;
 import com.cy.common.Response;
-import com.cy.entity.system.MenuInfo;
-import com.cy.entity.system.RoleInfo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,15 +13,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zxj on 2017/8/30.
+ * Created by zxj on 2017/10/11.
  */
-public abstract class DataGridAdaptController<T, E> extends BaseController {
+public abstract class TreeGridAdaptController<T> extends BaseController {
 
     private Class<T> entityClass;
 
     private String entityClassName;
 
-    protected DataGridAdaptController() {
+    protected TreeGridAdaptController() {
         Type type = getClass().getGenericSuperclass();
         Type trueType = ((ParameterizedType) type).getActualTypeArguments()[0];
         this.entityClass = (Class<T>) trueType;
@@ -40,8 +36,6 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
 
     @RequestMapping("list")
     public String list(ModelMap modelMap) {
-        modelMap.addAttribute("editUrl", genPath("edit"));
-        modelMap.addAttribute("delUrl", genPath("delete"));
         modelMap.addAttribute("dataUrl", genPath("data"));
         modelMap.addAttribute("actionUrl", genPath("saveOrUpdate"));
         return genPath("list");
@@ -49,17 +43,16 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
 
     @RequestMapping("data")
     @ResponseBody
-    public Object data(@RequestParam("page") Integer pageNum, @RequestParam("rows")Integer pageSize, E queryDTO) {
+    public Object data() {
         Map<String, Object> map = new HashMap<String, Object>();
-        PageHelper.startPage(pageNum, pageSize);
-        List<T> list = getData(queryDTO);
-        map.put("total", ((Page)list).getTotal());
+        List<T> list = getData();
+        map.put("total", list.size());
         map.put("rows", list);
         doDataOther(map);
         return map;
     }
 
-    protected abstract List<T> getData(E queryDTO);
+    protected abstract List<T> getData();
 
     protected void doDataOther(Map<String, Object> map) {
 
@@ -67,20 +60,6 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
 
     @RequestMapping("saveOrUpdate")
     @ResponseBody
-    public abstract Response saveOrUpdate(T t);
-
-    @RequestMapping("delete")
-    @ResponseBody
-    public Response delete(@RequestBody List<Long> idList) {
-        doDelete(idList);
-        return new Response(null);
-    }
-
-    protected abstract void doDelete(List<Long> idList);
-
-    @RequestMapping("{tempName}")
-    public String tempFtl(@PathVariable String tempName) {
-        return genPath(tempName);
-    }
+    public abstract Response saveOrUpdate(String jsonStr);
 
 }

@@ -21,9 +21,7 @@
 <script type="text/javascript" src="statics/js/jquery.form.js"></script>
 <script type="text/javascript" src="statics/js/app-custom.js"></script>
 <script type="text/javascript" src="statics/js/app-datagrid.js"></script>
-<script type="text/javascript">
 <@block name="script">
 </@block>
-</script>
 </body>
 </html>

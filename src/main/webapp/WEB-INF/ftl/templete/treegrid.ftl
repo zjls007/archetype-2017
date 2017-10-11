@@ -1,62 +1,45 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <base href="${basePath}">
-    <title>列表</title>
-    <link rel="stylesheet" type="text/css" href="statics/js/easyui/easyui.css">
-    <link rel="stylesheet" type="text/css" href="statics/js/easyui/icon.css">
-</head>
-<body>
-<table id="tg" class="easyui-treegrid"
-       data-options="url:'menuInfo/data',
-       fit:true,
-       noheader:true,
-       border:false,
-       rownumbers: true,
-       animate: true,
-       collapsible: true,
-       fitColumns: false,
-       toolbar:'#tb-menu',
-       method: 'post',
-       onLoadSuccess:onLoadSuccess,
-       idField:'id',
-       treeField:'name'">
-    <thead>
-    <tr>
-        <th data-options="field:'name',width:180,editor:'textbox',styler:styler">菜单名称</th>
-        <th data-options="field:'url',width:180,editor:'textbox',styler:styler">URL</th>
-        <th data-options="field:'btn',align:'center',width:140,formatter:formatter">操作</th>
-    </tr>
-    </thead>
-</table>
-<div style="display: none" id="hideDiv">
-    <a href="javascript:void(0)" id="mb">操作</a>
-</div>
-<div id="tb-menu" style="padding:12px 8px;">
-    <a id="btn" href="javascript:void(0)" onclick="save()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
-    <a id="btn" href="javascript:void(0)" onclick="undo()" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">全部撤销</a>
-</div>
-<div id="mm" style="width:200px;">
-    <div data-options="iconCls:''" id="mm-edit">编辑</div>
-    <div data-options="iconCls:'icon-delete'" id="mm-del">删除</div>
-    <div data-options="iconCls:'icon-undo'" id="mm-brother">插入同级菜单</div>
-    <div data-options="iconCls:'icon-redo'" id="mm-children">插入子级菜单</div>
-    <div data-options="iconCls:'icon-tip'" id="mm-up">上移</div>
-    <div data-options="iconCls:'icon-tip'" id="mm-down">下移</div>
-    <div class="menu-sep"></div>
-    <div>Exit</div>
-</div>
-<script type="text/javascript" src="statics/js/jquery.min.js"></script>
-<script type="text/javascript" src="statics/js/ajaxFileUpload.js"></script>
-<script type="text/javascript" src="statics/js/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="statics/js/easyui/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="statics/js/jquery.form.js"></script>
-<script type="text/javascript" src="statics/js/app-custom.js"></script>
-<style type="text/css">
-    .datagrid-cell-rownumber {
-        height: 26px;
-    }
-</style>
+<@override name="body">
+    <table id="tg" class="easyui-treegrid"
+           data-options="url:'${dataUrl!}',
+           fit:true,
+           noheader:true,
+           border:false,
+           rownumbers: true,
+           animate: true,
+           collapsible: true,
+           fitColumns: false,
+           toolbar:'#tb-menu',
+           method: 'post',
+           onLoadSuccess:onLoadSuccess,
+           idField:'id',
+           treeField:'name'">
+        <thead>
+        <tr>
+            <th data-options="field:'name',width:180,editor:'textbox',styler:styler">菜单名称</th>
+            <th data-options="field:'url',width:180,editor:'textbox',styler:styler">URL</th>
+            <th data-options="field:'btn',align:'center',width:140,formatter:formatter">操作</th>
+        </tr>
+        </thead>
+    </table>
+    <div style="display: none" id="hideDiv">
+        <a href="javascript:void(0)" id="mb">操作</a>
+    </div>
+    <div id="tb-menu" style="padding:12px 8px;">
+        <a id="btn" href="javascript:void(0)" onclick="save()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+        <a id="btn" href="javascript:void(0)" onclick="undo()" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">全部撤销</a>
+    </div>
+    <div id="mm" style="width:200px;">
+        <div data-options="iconCls:''" id="mm-edit">编辑</div>
+        <div data-options="iconCls:'icon-delete'" id="mm-del">删除</div>
+        <div data-options="iconCls:'icon-undo'" id="mm-brother">插入同级菜单</div>
+        <div data-options="iconCls:'icon-redo'" id="mm-children">插入子级菜单</div>
+        <div data-options="iconCls:'icon-tip'" id="mm-up">上移</div>
+        <div data-options="iconCls:'icon-tip'" id="mm-down">下移</div>
+        <div class="menu-sep"></div>
+        <div>Exit</div>
+    </div>
+</@override>
+<@override name="script">
 <script type="text/javascript">
     globalId = 0;
     function styler(value,row,index) {
@@ -100,7 +83,7 @@
             data: {jsonStr: jsonStr},
             type: 'POST',
             dataType: 'json',
-            url: 'menuInfo/save',
+            url: '${actionUrl!}',
             success: function (data) {
                 $('#tg').data('colorId', 'none');
                 $('#tg').treegrid('reload');
@@ -283,5 +266,5 @@
         $('#tg').treegrid('remove', operateId);
     }
 </script>
-</body>
-</html>
+</@override>
+<@extends name="/base.ftl"/>

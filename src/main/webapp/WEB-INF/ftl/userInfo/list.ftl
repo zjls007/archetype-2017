@@ -24,11 +24,13 @@
     <@queryInput type='datebox' name='createTimeBegin,createTimeEnd' label='注册时间'/>
 </@override>
 <@override name="script">
+<script type="text/javascript">
     function formatterAccountLocked(value,row,index) {
         if (value == 1) {
             return "锁定";
         }
         return "未锁定";
     }
+</script>
 </@override>
 <@extends name="../templete/datagrid.ftl"/>
