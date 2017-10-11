@@ -16,9 +16,8 @@
            treeField:'name'">
         <thead>
         <tr>
-            <th data-options="field:'name',width:180,editor:'textbox',styler:styler">菜单名称</th>
-            <th data-options="field:'url',width:180,editor:'textbox',styler:styler">URL</th>
-            <th data-options="field:'btn',align:'center',width:140,formatter:formatter">操作</th>
+            <@block name="th">
+            </@block>
         </tr>
         </thead>
     </table>
@@ -26,8 +25,8 @@
         <a href="javascript:void(0)" id="mb">操作</a>
     </div>
     <div id="tb-menu" style="padding:12px 8px;">
-        <a id="btn" href="javascript:void(0)" onclick="save()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
-        <a id="btn" href="javascript:void(0)" onclick="undo()" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">全部撤销</a>
+        <a id="btn" href="javascript:void(0)" class="easyui-linkbutton save" data-options="iconCls:'icon-save'">保存</a>
+        <a id="btn" href="javascript:void(0)" class="easyui-linkbutton undo" data-options="iconCls:'icon-undo'">全部撤销</a>
     </div>
     <div id="mm" style="width:200px;">
         <div data-options="iconCls:''" id="mm-edit">编辑</div>
@@ -42,6 +41,10 @@
 </@override>
 <@override name="script">
 <script type="text/javascript">
+    $(function () {
+        $('.save').on({click: save});
+        $('.undo').on({click: undo});
+    })
     globalId = 0;
     function styler(value,row,index) {
         var operateId = $('#tg').data('colorId');
@@ -75,7 +78,7 @@
     function save() {
         var editId = $('#tg').data('editId');
         if (editId) {
-            alert('请先结束编辑!');
+            $.messager.alert('警告','请先结束编辑!','warning');
             return;
         }
         var jsonStr = JSON.stringify($('#tg').treegrid('getChildren', 0));
@@ -90,7 +93,7 @@
                 $('#tg').treegrid('reload');
             },
             error: function () {
-                alert("出错了!");
+                $.messager.alert('错误','出错了!','error');
             }
         });
     }
@@ -136,7 +139,7 @@
         var editId = $('#tg').data('editId');
         if (editId) {
             if (editId != operateId) {
-                alert('不能同时编辑多行!');
+                $.messager.alert('警告','不能同时编辑多行!','warning');
                 return;
             }
             $('#tg').data('colorId', operateId);
@@ -155,7 +158,7 @@
     function addBrotherNode(beforeId, parentId) {
         var editId = $('#tg').data('editId');
         if (editId) {
-            alert('不能同时编辑多行!');
+            $.messager.alert('警告','不能同时编辑多行!','warning');
             return;
         }
         var id = --globalId;
@@ -181,7 +184,7 @@
     function addChildrenNode(parentId) {
         var editId = $('#tg').data('editId');
         if (editId) {
-            alert('不能同时编辑多行!');
+            $.messager.alert('警告','不能同时编辑多行!','warning');
             return;
         }
         var id = --globalId;
@@ -208,7 +211,7 @@
             beforeId = brotherNodes[i].id;
         }
         if (!beforeId) {
-            alert("已经在最顶部了!");
+            $.messager.alert('警告','已经在最顶部了!','warning');
             return;
         }
         $('#mm' + operateId).menu('destroy');
@@ -240,7 +243,7 @@
             beforeId = brotherNodes[i].id;
         }
         if (!beforeId) {
-            alert("已经在最底部了!");
+            $.messager.alert('警告','已经在最底部了!','warning');
             return;
         }
         $('#mm' + operateId).menu('destroy');
