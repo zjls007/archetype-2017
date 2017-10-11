@@ -5,6 +5,11 @@
     <title>**系统</title>
     <link rel="stylesheet" type="text/css" href="statics/js/easyui/easyui.css">
     <link rel="stylesheet" type="text/css" href="statics/js/easyui/icon.css">
+    <style type="text/css">
+        .datagrid-cell-rownumber {
+            height: 26px;
+        }
+    </style>
 </head>
 <body>
 <@block name="body">

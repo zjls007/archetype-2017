@@ -52,6 +52,11 @@
 <script type="text/javascript" src="statics/js/easyui/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="statics/js/jquery.form.js"></script>
 <script type="text/javascript" src="statics/js/app-custom.js"></script>
+<style type="text/css">
+    .datagrid-cell-rownumber {
+        height: 26px;
+    }
+</style>
 <script type="text/javascript">
     globalId = 0;
     function styler(value,row,index) {
