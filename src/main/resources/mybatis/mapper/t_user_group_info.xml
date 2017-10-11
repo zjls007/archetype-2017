@@ -6,23 +6,31 @@
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="parent_id" property="parentId" />
+        <result column="sort_num" property="sortNum" />
         <result column="create_time" property="createTime" />
         <result column="lst_upd_time" property="lstUpdTime" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, name, parent_id, create_time, lst_upd_time
+        id, name, parent_id, sort_num, create_time, lst_upd_time
     </sql>
 
     <sql id="Base_Alias_Column_List">
-        tugi.id, tugi.name, tugi.parent_id, tugi.create_time, tugi.lst_upd_time
+        tugi.id, tugi.name, tugi.parent_id, tugi.sort_num, tugi.create_time, tugi.lst_upd_time
     </sql>
 
     <insert id="insert" parameterType="com.cy.entity.system.UserGroupInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO t_user_group_info
-        (name, parent_id, create_time, lst_upd_time)
+        (name, parent_id, sort_num, create_time, lst_upd_time)
         VALUES
-        (#{name}, #{parentId}, #{createTime}, #{lstUpdTime})
+        (#{name}, #{parentId}, #{sortNum}, now(), now())
+    </insert>
+
+    <insert id="insertHasId">
+        INSERT INTO t_user_group_info
+        (id, name, parent_id, sort_num, create_time, lst_upd_time)
+        VALUES
+        (#{id}, #{name}, #{parentId}, #{sortNum}, now(), now())
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.system.UserGroupInfo">
@@ -36,6 +44,10 @@
 
     <delete id="delete">
         DELETE FROM t_user_group_info WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteAll">
+        DELETE FROM t_user_group_info
     </delete>
 
     <delete id="batchDelete">
@@ -75,6 +87,13 @@
         <foreach collection="list" open="(" close=")" separator="," item="item">
             #{item}
         </foreach>
+    </select>
+
+    <select id="list" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user_group_info
+        ORDER BY sort_num ASC
     </select>
 
 </mapper>

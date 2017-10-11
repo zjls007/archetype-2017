@@ -1,10 +1,9 @@
 package com.cy.web.controller.sys.base;
 
 import com.cy.common.Response;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

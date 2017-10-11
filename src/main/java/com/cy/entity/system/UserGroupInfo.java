@@ -1,5 +1,8 @@
 package com.cy.entity.system;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,12 +21,18 @@ public class UserGroupInfo implements Serializable {
     private String name;
 
     /** 父级工作组id，为空时填0,not null */
+    @JsonProperty("_parentId")
     private Long parentId;
 
+    /** 排序编号,not null */
+    private Integer sortNum;
+
     /** 创建时间,not null */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /** 最后更新时间,not null */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lstUpdTime;
 
     public Long getId() {
@@ -66,4 +75,11 @@ public class UserGroupInfo implements Serializable {
         this.lstUpdTime = lstUpdTime;
     }
 
+    public Integer getSortNum() {
+        return sortNum;
+    }
+
+    public void setSortNum(Integer sortNum) {
+        this.sortNum = sortNum;
+    }
 }

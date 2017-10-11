@@ -13,9 +13,13 @@ public interface UserGroupInfoDAO {
 
     int insert(UserGroupInfo entity);
 
+    int insertHasId(UserGroupInfo entity);
+
     int batchInsert(List<UserGroupInfo> list);
 
     int delete(Long id);
+
+    int deleteAll();
 
     int batchDelete(List<Long> list);
 
@@ -24,5 +28,7 @@ public interface UserGroupInfoDAO {
     UserGroupInfo getById(Long id);
 
     List<UserGroupInfo> getByIdList(List<Long> list);
+
+    List<UserGroupInfo> list();
 
 }

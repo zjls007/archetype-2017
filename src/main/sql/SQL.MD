@@ -35,6 +35,7 @@ CREATE TABLE `t_user_group_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(255) NOT NULL COMMENT '组名称',
   `parent_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '父级工作组id，为空时填0',
+  `sort_num` int(11) NOT NULL COMMENT '排序编号',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `lst_upd_time` datetime NOT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`)

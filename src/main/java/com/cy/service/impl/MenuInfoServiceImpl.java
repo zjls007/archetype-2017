@@ -23,7 +23,7 @@ public class MenuInfoServiceImpl implements MenuInfoService {
 
     @Override
     @Transactional
-    public void save(List<MenuInfo> list) {
+    public void saveOrUpdate(List<MenuInfo> list) {
         menuInfoDAO.deleteAll();
         if (list == null || list.isEmpty()) {
             return;

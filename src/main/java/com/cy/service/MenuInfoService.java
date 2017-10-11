@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface MenuInfoService {
 
-    void save(List<MenuInfo> list);
+    void saveOrUpdate(List<MenuInfo> list);
 
     List<MenuInfo> list();
 
