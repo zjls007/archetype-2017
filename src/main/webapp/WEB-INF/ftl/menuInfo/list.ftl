@@ -1,13 +1,14 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+    <base href="${basePath}">
     <title>列表</title>
-    <link rel="stylesheet" type="text/css" href="/statics/js/easyui/easyui.css">
-    <link rel="stylesheet" type="text/css" href="/statics/js/easyui/icon.css">
+    <link rel="stylesheet" type="text/css" href="statics/js/easyui/easyui.css">
+    <link rel="stylesheet" type="text/css" href="statics/js/easyui/icon.css">
 </head>
 <body>
 <table id="tg" class="easyui-treegrid" style="width:600px;height:400px"
-       data-options="url:'/menuInfo/data',
+       data-options="url:'menuInfo/data',
        fit:true,
        noheader:true,
        border:false,
@@ -45,12 +46,12 @@
     <div class="menu-sep"></div>
     <div>Exit</div>
 </div>
-<script type="text/javascript" src="/statics/js/jquery.min.js"></script>
-<script type="text/javascript" src="/statics/js/ajaxFileUpload.js"></script>
-<script type="text/javascript" src="/statics/js/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="/statics/js/easyui/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="/statics/js/jquery.form.js"></script>
-<script type="text/javascript" src="/statics/js/app-custom.js"></script>
+<script type="text/javascript" src="statics/js/jquery.min.js"></script>
+<script type="text/javascript" src="statics/js/ajaxFileUpload.js"></script>
+<script type="text/javascript" src="statics/js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="statics/js/easyui/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="statics/js/jquery.form.js"></script>
+<script type="text/javascript" src="statics/js/app-custom.js"></script>
 <script type="text/javascript">
     globalId = 0;
     function styler(value,row,index) {
@@ -94,7 +95,7 @@
             data: {jsonStr: jsonStr},
             type: 'POST',
             dataType: 'json',
-            url: '/menuInfo/save',
+            url: 'menuInfo/save',
             success: function (data) {
                 $('#tg').data('colorId', 'none');
                 $('#tg').treegrid('reload');

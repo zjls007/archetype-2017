@@ -31,9 +31,6 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
     @Autowired
     private RoleInfoService roleInfoService;
 
-    @Autowired
-    private UserInfoDAO userInfoDAO;
-
     @Override
     protected List<RoleInfo> getData(RoleInfo queryDTO) {
         return roleInfoDAO.list(queryDTO);
@@ -64,7 +61,6 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
      */
     @RequestMapping("refPermission/{userInfoId}")
     public String refRoleInfo(@PathVariable Long userInfoId, ModelMap modelMap) {
-        modelMap.put("userName", userInfoDAO.selectById(userInfoId).getUserName());
         modelMap.put("userInfoId", userInfoId);
         return genPath("refPermission");
     }
