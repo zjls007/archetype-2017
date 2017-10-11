@@ -25,6 +25,9 @@
 <script type="text/javascript" src="statics/js/jquery.form.js"></script>
 <script type="text/javascript" src="statics/js/app-custom.js"></script>
 <script type="text/javascript">
+    function hrefIndex() {
+        location.href='login';
+    }
     function doLogin() {
         $.messager.alert({
             title: '提示',
