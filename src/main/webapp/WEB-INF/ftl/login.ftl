@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <base href="${basePath}">
     <title>系统登录</title>
-    <link rel="stylesheet" type="text/css" href="/statics/js/easyui/easyui.css">
-    <link rel="stylesheet" type="text/css" href="/statics/js/easyui/icon.css">
+    <link rel="stylesheet" type="text/css" href="statics/js/easyui/easyui.css">
+    <link rel="stylesheet" type="text/css" href="statics/js/easyui/icon.css">
 </head>
 <body>
 <div style="width: 400px;position: absolute;height: 185;left: 50%;top: 50%;margin-left: -200px;margin-top: -200px;">
@@ -28,12 +28,12 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/statics/js/jquery.min.js"></script>
-<script type="text/javascript" src="/statics/js/ajaxFileUpload.js"></script>
-<script type="text/javascript" src="/statics/js/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="/statics/js/easyui/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="/statics/js/jquery.form.js"></script>
-<script type="text/javascript" src="/statics/js/app-custom.js"></script>
+<script type="text/javascript" src="statics/js/jquery.min.js"></script>
+<script type="text/javascript" src="statics/js/ajaxFileUpload.js"></script>
+<script type="text/javascript" src="statics/js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="statics/js/easyui/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="statics/js/jquery.form.js"></script>
+<script type="text/javascript" src="statics/js/app-custom.js"></script>
 <script type="text/javascript">
     function login() {
         var form = $('#f-edit');

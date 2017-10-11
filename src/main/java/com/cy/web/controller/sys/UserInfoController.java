@@ -71,6 +71,12 @@ public class UserInfoController extends DataGridAdaptController<UserInfo, UserIn
         return genPath("refRoleInfo");
     }
 
+    /**
+     * 保存用户角色关联数据
+     * @param userInfoId
+     * @param values
+     * @return
+     */
     @RequestMapping("saveRefRoleInfo")
     @ResponseBody
     public Response saveRefRoleInfo(Long userInfoId, String values) {
