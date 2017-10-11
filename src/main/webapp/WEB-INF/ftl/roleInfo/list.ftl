@@ -1,5 +1,5 @@
 <@override name="menu">
-<div data-options="businessURL:'/roleInfo/',iconCls:'icon-undo'">查看/设置权限</div>
+<div data-options="businessURL:'roleInfo/',iconCls:'icon-undo'">查看/设置权限</div>
 </@override>
 <@override name="th">
     <th data-options="field:'id',checkbox:true"></th>

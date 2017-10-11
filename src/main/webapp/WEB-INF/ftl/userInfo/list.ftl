@@ -1,6 +1,6 @@
 <@override name="menu">
-    <div data-options="businessURL:'/userInfo/refRoleInfo/',iconCls:'icon-undo'">角色</div>
-    <div data-options="businessURL:'/userInfo/refRoleInfo/',iconCls:'icon-undo'">用户组</div>
+    <div data-options="businessURL:'userInfo/refRoleInfo/',iconCls:'icon-undo'">角色</div>
+    <div data-options="businessURL:'userInfo/refRoleInfo/',iconCls:'icon-undo'">用户组</div>
 </@override>
 <@override name="th">
     <th data-options="field:'id',checkbox:true,"></th>

@@ -1,5 +1,5 @@
 <div id="d-edit" style="text-align:center;padding:5px 0;">
-    <form id="f-edit" method="post" action="/userInfo/saveOrUpdate">
+    <form id="f-edit" method="post" action="userInfo/saveOrUpdate">
         <input type="hidden" name="id" value=""/>
     <@block name="form">
     </@block>

@@ -1,5 +1,5 @@
 <input class="easyui-tagbox" id="w-role" label="用户[${userName!}]：" style="width:100%" data-options="
-        url:'/roleInfo/userRefRoleInfoData?userInfoId=${userInfoId!}',
+        url:'roleInfo/userRefRoleInfoData?userInfoId=${userInfoId!}',
         value:'${value!}',
         valueField: 'id',
         textField: 'text',
@@ -11,7 +11,7 @@
     $('.submit').unbind();
     $('.submit').on({click:function () {
         $.ajax({
-            url: '/userInfo/saveRefRoleInfo',
+            url: 'userInfo/saveRefRoleInfo',
             method: 'post',
             data: {userInfoId:${userInfoId!},values:$('#w-role').tagbox('getValues').toString()},
             success: function (data) {

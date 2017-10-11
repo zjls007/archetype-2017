@@ -88,6 +88,13 @@
         <property name="suffix" value=".ftl"/>
         <!-- 处理页面编码问题 -->
         <property name="contentType" value="text/html;charset=utf-8"/>
+
+        <property name="exposeRequestAttributes" value="true"/>
+        <property name="exposeSessionAttributes" value="true"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="requestContextAttribute" value="request"/>
+        <!-- 允许session覆盖旧值 -->
+        <!--<property name="allowSessionOverride" value="true"/>-->
     </bean>
 
 </beans>

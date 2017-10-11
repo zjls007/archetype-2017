@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <base href="${basePath}">
     <title>系统登录</title>
     <link rel="stylesheet" type="text/css" href="/statics/js/easyui/easyui.css">
     <link rel="stylesheet" type="text/css" href="/statics/js/easyui/icon.css">
@@ -9,7 +10,7 @@
 <body>
 <div style="width: 400px;position: absolute;height: 185;left: 50%;top: 50%;margin-left: -200px;margin-top: -200px;">
     <div class="easyui-panel" title="登录" style="width:100%;max-width:400px;padding:30px 60px 10px 60px;">
-        <form id="f-edit" method="post" action="/login">
+        <form id="f-edit" method="post" action="login">
             <div style="margin-bottom:20px">
                 <input class="easyui-textbox" name="principal" style="width:100%" data-options="label:'用户名:',required:true">
             </div>
@@ -40,7 +41,7 @@
             form.ajaxSubmit({
                 success: function (data) {
                     if (data.code == 0) {
-                        location.href = '/index';
+                        location.href = 'index';
                     } else {
                         $.messager.alert('错误',data.message,'error');
                     }

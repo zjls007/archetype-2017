@@ -23,6 +23,15 @@ public class AllIntercept implements HandlerInterceptor {
     public Logger logger = LoggerFactory.getLogger(AllIntercept.class);
 
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler) throws Exception {
+        String scheme = httpServletRequest.getScheme();
+        String serverName = httpServletRequest.getServerName();
+        int port = httpServletRequest.getServerPort();
+        String path = httpServletRequest.getContextPath();
+        String basePath = scheme + "://" + serverName + ":" + port + path;
+        if (basePath.lastIndexOf("/") != (basePath.length() - 1)) {
+            basePath += "/";
+        }
+        httpServletRequest.setAttribute("basePath", basePath);
         return true;
     }
 
