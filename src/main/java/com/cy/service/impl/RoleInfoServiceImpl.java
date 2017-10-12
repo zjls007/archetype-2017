@@ -3,6 +3,7 @@ package com.cy.service.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cy.dao.system.RoleInfoDAO;
+import com.cy.dao.system.RolePermissionRefDAO;
 import com.cy.dao.system.UserRoleRefDAO;
 import com.cy.entity.system.RoleInfo;
 import com.cy.service.RoleInfoService;
@@ -22,6 +23,9 @@ public class RoleInfoServiceImpl implements RoleInfoService {
 
     @Autowired
     private UserRoleRefDAO userRoleRefDAO;
+
+    @Autowired
+    private RolePermissionRefDAO rolePermissionRefDAO;
 
     @Override
     public RoleInfo saveOrUpdate(RoleInfo roleInfo) {
@@ -45,6 +49,22 @@ public class RoleInfoServiceImpl implements RoleInfoService {
             jsonArray.add(jsonObject);
         }
         return jsonArray;
+    }
+
+    @Override
+    public void saveRefPermissionMenu(Long roleInfoId, List<Long> menuInfoIdList) {
+//        userRoleRefDAO.deleteByUserInfoId(userInfoId);
+//        List<UserRoleRef> list = new ArrayList<UserRoleRef>();
+//        if (roleInfoIdList != null && !roleInfoIdList.isEmpty()) {
+//            Set<Long> set = new LinkedHashSet(roleInfoIdList);
+//            for (Long roleInfoId : set) {
+//                UserRoleRef ref = new UserRoleRef();
+//                ref.setUserId(userInfoId);
+//                ref.setRoleId(roleInfoId);
+//                list.add(ref);
+//            }
+//            userRoleRefDAO.batchInsert(list);
+//        }
     }
 
 }

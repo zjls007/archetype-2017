@@ -81,11 +81,13 @@ public class UserInfoController extends DataGridAdaptController<UserInfo, UserIn
     @ResponseBody
     public Response saveRefRoleInfo(Long userInfoId, String values) {
         values = values == null ? "" : values;
-        List<Long> roleInfoList = new ArrayList<Long>();
+        List<Long> roleInfoIdList = new ArrayList<Long>();
         for (String roleInfoId : values.split(",")) {
-            roleInfoList.add(Long.valueOf(roleInfoId));
+            if (!"".equals(roleInfoId)) {
+                roleInfoIdList.add(Long.valueOf(roleInfoId));
+            }
         }
-        userInfoService.saveRefRoleInfo(userInfoId, roleInfoList);
+        userInfoService.saveRefRoleInfo(userInfoId, roleInfoIdList);
         return new Response(null);
     }
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,14 +56,28 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
 
     /**
      * 获取权限页面
-     * @param userInfoId
+     * @param roleInfoId
      * @param modelMap
      * @return
      */
-    @RequestMapping("refPermission/{userInfoId}")
-    public String refRoleInfo(@PathVariable Long userInfoId, ModelMap modelMap) {
-        modelMap.put("userInfoId", userInfoId);
-        return genPath("refPermission");
+    @RequestMapping("refPermissionMenu/{roleInfoId}")
+    public String refPermissionMenu(@PathVariable Long roleInfoId, ModelMap modelMap) {
+        modelMap.put("roleInfoId", roleInfoId);
+        return genPath("refPermissionMenu");
+    }
+
+    @RequestMapping("saveRefPermissionMenu")
+    @ResponseBody
+    public Response saveRefPermissionMenu(Long roleInfoId, String values) {
+        values = values == null ? "" : values;
+        List<Long> menuInfoIdList = new ArrayList<Long>();
+        for (String menuInfoId : values.split(",")) {
+            if (!"".equals(menuInfoId)) {
+                menuInfoIdList.add(Long.valueOf(menuInfoId));
+            }
+        }
+        roleInfoService.saveRefPermissionMenu(roleInfoId, menuInfoIdList);
+        return new Response(null);
     }
 
 }

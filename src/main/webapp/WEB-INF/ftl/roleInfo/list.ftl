@@ -1,5 +1,6 @@
 <@override name="menu">
-    <div data-options="businessURL:'roleInfo/refPermission/',iconCls:'icon-undo'">权限</div>
+    <div data-options="businessURL:'roleInfo/refPermissionMenu/',iconCls:'icon-undo'">菜单权限</div>
+    <div data-options="businessURL:'roleInfo/refPermission/',iconCls:'icon-undo'">页面权限</div>
 </@override>
 <@override name="th">
     <th data-options="field:'id',checkbox:true"></th>
