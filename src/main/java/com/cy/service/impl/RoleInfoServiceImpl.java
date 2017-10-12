@@ -6,11 +6,15 @@ import com.cy.dao.system.RoleInfoDAO;
 import com.cy.dao.system.RolePermissionRefDAO;
 import com.cy.dao.system.UserRoleRefDAO;
 import com.cy.entity.system.RoleInfo;
+import com.cy.entity.system.RolePermissionRef;
 import com.cy.service.RoleInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by zxj on 2017/9/19.
@@ -53,18 +57,19 @@ public class RoleInfoServiceImpl implements RoleInfoService {
 
     @Override
     public void saveRefPermissionMenu(Long roleInfoId, List<Long> menuInfoIdList) {
-//        userRoleRefDAO.deleteByUserInfoId(userInfoId);
-//        List<UserRoleRef> list = new ArrayList<UserRoleRef>();
-//        if (roleInfoIdList != null && !roleInfoIdList.isEmpty()) {
-//            Set<Long> set = new LinkedHashSet(roleInfoIdList);
-//            for (Long roleInfoId : set) {
-//                UserRoleRef ref = new UserRoleRef();
-//                ref.setUserId(userInfoId);
-//                ref.setRoleId(roleInfoId);
-//                list.add(ref);
-//            }
-//            userRoleRefDAO.batchInsert(list);
-//        }
+        rolePermissionRefDAO.deleteByRoleInfoId(roleInfoId, "menu");
+        List<RolePermissionRef> list = new ArrayList<RolePermissionRef>();
+        if (menuInfoIdList != null && !menuInfoIdList.isEmpty()) {
+            Set<Long> set = new LinkedHashSet<Long>(menuInfoIdList);
+            for (Long menuInfoId : set) {
+                RolePermissionRef ref = new RolePermissionRef();
+                ref.setRoleId(roleInfoId);
+                ref.setPermissionId(menuInfoId);
+                ref.setType("menu");
+                list.add(ref);
+            }
+            rolePermissionRefDAO.batchInsert(list);
+        }
     }
 
 }

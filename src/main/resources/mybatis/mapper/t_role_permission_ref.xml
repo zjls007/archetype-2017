@@ -4,31 +4,32 @@
 
     <resultMap id="BaseResultMap" type="com.cy.entity.system.RolePermissionRef">
         <id column="id" property="id" />
-        <result column="rold_id" property="roldId" />
+        <result column="role_id" property="roleId" />
         <result column="permission_id" property="permissionId" />
+        <result column="type" property="type" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, rold_id, permission_id
+        id, role_id, permission_id, type
     </sql>
 
     <sql id="Base_Alias_Column_List">
-        trpr.id, trpr.rold_id, trpr.permission_id
+        trpr.id, trpr.role_id, trpr.permission_id, trpr.type
     </sql>
 
     <insert id="insert" parameterType="com.cy.entity.system.RolePermissionRef" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO t_role_permission_ref
-        (rold_id, permission_id)
+        (role_id, permission_id, type)
         VALUES
-        (#{roldId}, #{permissionId})
+        (#{roleId}, #{permissionId}, #{type})
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.system.RolePermissionRef">
         INSERT INTO t_role_permission_ref
-        (rold_id, permission_id)
+        (role_id, permission_id, type)
         VALUES
         <foreach collection="list" item="item" separator=",">
-           (#{item.roldId}, #{item.permissionId})
+           (#{item.roleId}, #{item.permissionId}, #{item.type})
         </foreach>
     </insert>
 
@@ -46,8 +47,8 @@
     <update id="update" parameterType="com.cy.entity.system.RolePermissionRef" >
         UPDATE t_role_permission_ref
         <set>
-            <if test="roldId != null" >
-                rold_id = #{roldId},
+            <if test="roleId != null" >
+                role_id = #{roleId},
             </if>
             <if test="permissionId != null" >
                 permission_id = #{permissionId},
@@ -70,6 +71,10 @@
             #{item}
         </foreach>
     </select>
+
+    <delete id="deleteByRoleInfoId">
+        DELETE FROM t_role_permission_ref WHERE role_id = #{roleInfoId} AND type = #{type}
+    </delete>
 
 </mapper>
 

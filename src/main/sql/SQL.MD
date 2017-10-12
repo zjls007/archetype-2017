@@ -57,7 +57,6 @@ CREATE TABLE `t_user_group_role_ref` (
 
 CREATE TABLE `t_permission_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `type` varchar(255) NOT NULL COMMENT '类型（menu-菜单、page-页面元素）',
   `data_id` bigint(20) NOT NULL COMMENT '关联的数据id',
   `name` varchar(255) NOT NULL COMMENT '权限名称',
   `code` varchar(255) NOT NULL COMMENT '权限code',
@@ -68,8 +67,9 @@ CREATE TABLE `t_permission_info` (
 
 CREATE TABLE `t_role_permission_ref` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `rold_id` bigint(20) NOT NULL COMMENT '角色id',
+  `role_id` bigint(20) NOT NULL COMMENT '角色id',
   `permission_id` bigint(20) NOT NULL COMMENT '权限id',
+  `type` varchar(255) NOT NULL COMMENT '类型（menu-菜单、page-页面元素）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色-权限关联表';
 

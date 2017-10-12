@@ -18,9 +18,6 @@ public class PermissionInfo implements Serializable {
     /** 主键,not null */
     private Long id;
 
-    /** 类型（menu-菜单、page-页面元素）,not null */
-    private String type;
-
     /** 关联的数据id,not null */
     private Long dataId;
 
@@ -48,14 +45,6 @@ public class PermissionInfo implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public Long getDataId() {

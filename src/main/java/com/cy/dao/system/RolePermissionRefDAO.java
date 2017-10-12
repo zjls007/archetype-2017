@@ -1,6 +1,7 @@
 package com.cy.dao.system;
 
 import com.cy.entity.system.RolePermissionRef;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,5 +25,7 @@ public interface RolePermissionRefDAO {
     RolePermissionRef getById(Long id);
 
     List<RolePermissionRef> getByIdList(List<Long> list);
+
+    int deleteByRoleInfoId(@Param("roleInfoId") Long roleInfoId, @Param("type") String type);
 
 }

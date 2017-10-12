@@ -14,10 +14,13 @@ public class RolePermissionRef implements Serializable {
     private Long id;
 
     /** 角色id,not null */
-    private Long roldId;
+    private Long roleId;
 
     /** 权限id,not null */
     private Long permissionId;
+
+    /** 类型（menu-菜单、page-页面元素）,not null */
+    private String type;
 
     public Long getId() {
         return id;
@@ -25,14 +28,6 @@ public class RolePermissionRef implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getRoldId() {
-        return roldId;
-    }
-
-    public void setRoldId(Long roldId) {
-        this.roldId = roldId;
     }
 
     public Long getPermissionId() {
@@ -43,4 +38,19 @@ public class RolePermissionRef implements Serializable {
         this.permissionId = permissionId;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
 }

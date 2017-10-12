@@ -4,7 +4,6 @@
 
     <resultMap id="BaseResultMap" type="com.cy.entity.system.PermissionInfo">
         <id column="id" property="id" />
-        <result column="type" property="type" />
         <result column="data_id" property="dataId" />
         <result column="name" property="name" />
         <result column="code" property="code" />
@@ -13,26 +12,26 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, type, data_id, name, code, create_time, lst_upd_time
+        id, data_id, name, code, create_time, lst_upd_time
     </sql>
 
     <sql id="Base_Alias_Column_List">
-        tpi.id, tpi.type, tpi.data_id, tpi.name, tpi.code, tpi.create_time, tpi.lst_upd_time
+        tpi.id, tpi.data_id, tpi.name, tpi.code, tpi.create_time, tpi.lst_upd_time
     </sql>
 
     <insert id="insert" parameterType="com.cy.entity.system.PermissionInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO t_permission_info
-        (type, data_id, name, code, create_time, lst_upd_time)
+        (data_id, name, code, create_time, lst_upd_time)
         VALUES
-        (#{type}, #{dataId}, #{name}, #{code}, now(), now())
+        (#{dataId}, #{name}, #{code}, now(), now())
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.system.PermissionInfo">
         INSERT INTO t_permission_info
-        (type, data_id, name, code, create_time, lst_upd_time)
+        (data_id, name, code, create_time, lst_upd_time)
         VALUES
         <foreach collection="list" item="item" separator=",">
-           (#{item.type}, #{item.dataId}, #{item.name}, #{item.code}, now(), now())
+           (#{item.dataId}, #{item.name}, #{item.code}, now(), now())
         </foreach>
     </insert>
 
@@ -50,9 +49,6 @@
     <update id="update" parameterType="com.cy.entity.system.PermissionInfo" >
         UPDATE t_permission_info
         <set>
-            <if test="type != null" >
-                type = #{type},
-            </if>
             <if test="dataId != null" >
                 data_id = #{dataId},
             </if>
@@ -90,9 +86,6 @@
         <include refid="Base_Column_List"/>
         FROM t_permission_info
         <where>
-            <if test="type != null and type != ''" >
-                AND type = #{type}
-            </if>
             <if test="name != null and name != ''" >
                 AND name = #{name}
             </if>
