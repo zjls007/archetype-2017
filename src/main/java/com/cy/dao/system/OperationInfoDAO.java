@@ -25,4 +25,6 @@ public interface OperationInfoDAO {
 
     List<OperationInfo> getByIdList(List<Long> list);
 
+    List<OperationInfo> list(OperationInfo entity);
+
 }

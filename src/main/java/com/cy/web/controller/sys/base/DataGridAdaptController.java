@@ -43,8 +43,13 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
         modelMap.addAttribute("editUrl", genPath("edit"));
         modelMap.addAttribute("delUrl", genPath("delete"));
         modelMap.addAttribute("dataUrl", genPath("data"));
-        modelMap.addAttribute("actionUrl", genPath("saveOrUpdate"));
         return genPath("list");
+    }
+
+    @RequestMapping("edit")
+    public String tempFtl(ModelMap modelMap) {
+        modelMap.addAttribute("actionUrl", genPath("saveOrUpdate"));
+        return genPath("edit");
     }
 
     @RequestMapping("data")

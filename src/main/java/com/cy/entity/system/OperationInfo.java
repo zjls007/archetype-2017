@@ -1,5 +1,7 @@
 package com.cy.entity.system;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,9 +23,11 @@ public class OperationInfo implements Serializable {
     private String code;
 
     /** ,not null */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /** ,not null */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lstUpdTime;
 
     public Long getId() {
