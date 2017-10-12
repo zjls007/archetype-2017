@@ -5,6 +5,7 @@
            singleSelect:false,
            border:false,
            rownumbers: true,
+           onLoadSuccess:onLoadSuccess,
            animate: true,
            collapsible: true,
            fitColumns: false,
@@ -19,6 +20,15 @@
     </thead>
 </table>
 <script type="text/javascript">
+    function onLoadSuccess() {
+        var values = "${values!}".split(",");
+        for (var i = 0; i < values.length; i++) {
+            if (values[i]) {
+                $('#tg').treegrid('checkRow', values[i]);
+            }
+        }
+    }
+
     $('#tg').treegrid();
     $('.submit').unbind();
     $('.submit').on({click:function () {

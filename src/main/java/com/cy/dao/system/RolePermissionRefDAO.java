@@ -28,4 +28,6 @@ public interface RolePermissionRefDAO {
 
     int deleteByRoleInfoId(@Param("roleInfoId") Long roleInfoId, @Param("type") String type);
 
+    List<Long> getMenuByRoleInfoId(Long roleInfoId);
+
 }

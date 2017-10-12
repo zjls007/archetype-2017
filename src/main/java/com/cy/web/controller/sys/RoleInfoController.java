@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cy.common.Response;
 import com.cy.dao.system.RoleInfoDAO;
+import com.cy.dao.system.RolePermissionRefDAO;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.system.RoleInfo;
 import com.cy.service.RoleInfoService;
@@ -31,6 +32,9 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
 
     @Autowired
     private RoleInfoService roleInfoService;
+
+    @Autowired
+    private RolePermissionRefDAO rolePermissionRefDAO;
 
     @Override
     protected List<RoleInfo> getData(RoleInfo queryDTO) {
@@ -62,6 +66,7 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
      */
     @RequestMapping("refPermissionMenu/{roleInfoId}")
     public String refPermissionMenu(@PathVariable Long roleInfoId, ModelMap modelMap) {
+        modelMap.put("values", StringUtils.arrayToDelimitedString(rolePermissionRefDAO.getMenuByRoleInfoId(roleInfoId).toArray(), ","));
         modelMap.put("roleInfoId", roleInfoId);
         return genPath("refPermissionMenu");
     }

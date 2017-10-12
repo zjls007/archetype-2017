@@ -76,5 +76,8 @@
         DELETE FROM t_role_permission_ref WHERE role_id = #{roleInfoId} AND type = #{type}
     </delete>
 
+    <select id="getMenuByRoleInfoId" resultType="long">
+        SELECT permission_id FROM t_role_permission_ref WHERE role_id = #{roleInfoId}
+    </select>
 </mapper>
 
