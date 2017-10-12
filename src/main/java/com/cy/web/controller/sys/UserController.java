@@ -1,7 +1,6 @@
 package com.cy.web.controller.sys;
 
 import com.cy.common.Response;
-import com.cy.common.constant.*;
 import com.cy.common.constant.ResponseStatus;
 import com.cy.entity.system.UserInfo;
 import com.cy.service.UserService;
@@ -29,7 +28,6 @@ public class UserController {
 
     /**
      * get请求进登录页面，post请求进行登录操作
-     * post进入：{@link com.cy.common.filter.IFormAuthenticationFilter}
      * @return
      */
     @RequestMapping(value = "login", method = RequestMethod.GET)

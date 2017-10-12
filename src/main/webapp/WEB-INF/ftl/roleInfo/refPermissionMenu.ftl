@@ -6,6 +6,8 @@
            border:false,
            rownumbers: true,
            onLoadSuccess:onLoadSuccess,
+           onCheck:onCheck,
+           onUncheck:onUncheck,
            animate: true,
            collapsible: true,
            fitColumns: false,
@@ -20,6 +22,11 @@
     </thead>
 </table>
 <script type="text/javascript">
+    function onCheck(row) {
+//        alert(row.id);
+    }
+    function onUncheck(row) {
+    }
     function onLoadSuccess() {
         var values = "${values!}".split(",");
         for (var i = 0; i < values.length; i++) {

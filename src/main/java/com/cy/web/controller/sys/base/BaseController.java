@@ -18,8 +18,7 @@ public class BaseController {
 
     public Long getCurrentUserId() {
         Subject subject = SecurityUtils.getSubject();
-        UserInfo userInfo = (UserInfo) subject.getSession().getAttribute(Constants.CURRENT_USER);
-        return userInfo.getId();
+        return (Long) subject.getSession().getAttribute(Constants.CURRENT_USER_ID);
     }
 
 }

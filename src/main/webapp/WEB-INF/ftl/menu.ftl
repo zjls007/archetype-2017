@@ -23,7 +23,7 @@
 </ul>
 <#macro showNode pId=0>
     <#list menuInfoList as item>
-        <#if item.parentId?? && item.parentId == pId>
+        <#if item.parentId?? && item.parentId == pId && hasMenuIdList?seq_contains(item.id)>
             <#if hasChildren(item.id) == "1">
                 <li>
                     <span>${item.name}</span>

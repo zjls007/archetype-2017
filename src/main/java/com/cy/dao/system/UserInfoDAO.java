@@ -31,4 +31,6 @@ public interface UserInfoDAO {
 
     List<UserInfo> list(UserInfoQueryDTO queryDTO);
 
+    List<Long> getMenuIdList(Long userInfoId);
+
 }
