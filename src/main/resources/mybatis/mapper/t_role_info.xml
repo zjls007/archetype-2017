@@ -98,5 +98,16 @@
         </where>
         ORDER BY lst_upd_time DESC
     </select>
+
+    <select id="getRoleCodeList" resultType="string">
+        SELECT
+            tri. CODE
+        FROM
+            t_role_info tri,
+            t_user_role_ref turf
+        WHERE
+            tri.id = turf.role_id
+        AND turf.user_id = #{userInfoId}
+    </select>
 </mapper>
 

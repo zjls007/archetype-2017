@@ -2,6 +2,7 @@ package com.cy.common.core;
 
 import com.cy.common.constant.Constants;
 import com.cy.common.emun.ByteBooleanEnum;
+import com.cy.dao.system.RoleInfoDAO;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.system.UserInfo;
 import org.apache.shiro.SecurityUtils;
@@ -25,6 +26,9 @@ public class UserRealm extends AuthorizingRealm {
     @Resource
     private UserInfoDAO userInfoDAO;
 
+    @Resource
+    private RoleInfoDAO roleInfoDAO;
+
     /**
      * 授权方法
      * @param principalCollection
@@ -33,7 +37,8 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String username = (String) principalCollection.getPrimaryPrincipal();
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.setRoles(null);
+        Long currentUserId = (Long) SecurityUtils.getSubject().getSession().getAttribute(Constants.CURRENT_USER_ID);
+        authorizationInfo.setRoles(roleInfoDAO.getRoleCodeList(currentUserId));
         authorizationInfo.setStringPermissions(null);
         return authorizationInfo;
     }

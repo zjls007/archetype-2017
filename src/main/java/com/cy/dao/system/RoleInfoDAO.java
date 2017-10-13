@@ -4,6 +4,7 @@ import com.cy.entity.system.RoleInfo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by zxj on 2017-08-29 10:32:27.
@@ -28,5 +29,7 @@ public interface RoleInfoDAO {
     RoleInfo getByCode(String code);
 
     List<RoleInfo> list(RoleInfo queryDTO);
+
+    Set<String> getRoleCodeList(Long userInfoId);
 
 }

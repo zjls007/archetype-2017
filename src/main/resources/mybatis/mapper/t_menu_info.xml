@@ -111,5 +111,9 @@
         FROM t_menu_info ORDER BY sort_num ASC
     </select>
 
+    <select id="getAllIdList" resultType="long">
+        SELECT id FROM t_menu_info ORDER BY sort_num ASC
+    </select>
+
 </mapper>
 

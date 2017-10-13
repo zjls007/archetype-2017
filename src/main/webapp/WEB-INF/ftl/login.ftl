@@ -35,6 +35,13 @@
 <script type="text/javascript" src="statics/js/jquery.form.js"></script>
 <script type="text/javascript" src="statics/js/app-custom.js"></script>
 <script type="text/javascript">
+    $(function () {
+        $('input').keydown(function(e){
+            if(e.keyCode==13){
+                login();
+            }
+        });
+    })
     function login() {
         var form = $('#f-edit');
         if (form.form('validate')) {
