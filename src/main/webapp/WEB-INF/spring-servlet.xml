@@ -32,13 +32,17 @@
         <mvc:interceptor>
             <mvc:mapping path="/"/>
             <mvc:mapping path="/index"/>
+            <mvc:exclude-mapping path="/statics/**"/>
             <bean class="com.cy.common.interceptor.SessionIntercept"/>
         </mvc:interceptor>
         <mvc:interceptor>
-            <mvc:mapping path="/*/data"/>
-            <mvc:mapping path="/*/saveOrUpdate"/>
-            <mvc:mapping path="/*/delete"/>
-            <mvc:exclude-mapping path="/list"/>
+            <mvc:mapping path="/*"/>
+            <mvc:mapping path="/*/**"/>
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/index"/>
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/*/list"/>
+            <mvc:exclude-mapping path="/statics/**"/>
             <bean class="com.cy.common.interceptor.DatagridIntercept"/>
         </mvc:interceptor>
     </mvc:interceptors>

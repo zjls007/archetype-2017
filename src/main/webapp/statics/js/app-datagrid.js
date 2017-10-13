@@ -171,8 +171,12 @@ function dgQuery() {
 }
 
 function onLoadError(xhr, status, error) {
+    var statuCode = xhr.status;
+    if (!statuCode) {
+        statuCode = status.status;
+    }
     // 未登录
-    if (xhr.status == 403) {
+    if (statuCode == 403) {
         if (window.parent.length == 0) {
             $.messager.alert({
                 title: '提示',
@@ -185,9 +189,9 @@ function onLoadError(xhr, status, error) {
         } else {
             window.parent.doLogin();
         }
-    } else if (status.status == 404) {
+    } else if (statuCode == 404) {
         $.messager.alert('错误','请求地址不存在!','error');
-    } else if (status.status == 500) {
+    } else if (statuCode == 500) {
         $.messager.alert('错误','服务器内部错误!','error');
     } else {
         $.messager.alert('错误','未知异常!','error');
