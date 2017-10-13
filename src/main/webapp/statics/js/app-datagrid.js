@@ -11,6 +11,8 @@ $(function () {
     $('.delete').on({click:delData});
     // 重置
     $('.reset').on({click:resetForm});
+    // jquery全局ajax设置
+    $(document).ajaxError(onLoadError);
 });
 
 <!-- 打开弹窗 -->
@@ -24,9 +26,7 @@ function openWindow(row, url) {
                 var getHtml = $(data);
                 var temp = $('<code></code>').append(getHtml);
                 $('#w-center').append(temp.html());
-            },
-            error: function () {
-                $.messager.alert('警告','请求异常!','warning');
+                $('#w').window('open');
             }
         });
     } else {
@@ -40,13 +40,10 @@ function openWindow(row, url) {
                 if (row) {
                     setValue(row);
                 }
-            },
-            error: function () {
-                $.messager.alert('警告','请求异常!','warning');
+                $('#w').window('open');
             }
         });
     }
-    $('#w').window('open');
 }
 
 function onDblClickRow(index,row) {
@@ -126,9 +123,6 @@ function delData() {
                     } else {
                         $.messager.alert('错误',data.message,'error');
                     }
-                },
-                error: function () {
-                    $.messager.alert('错误','请选择数据!','error');
                 }
             });
         }
@@ -191,8 +185,12 @@ function onLoadError(xhr, status, error) {
         } else {
             window.parent.doLogin();
         }
+    } else if (status.status == 404) {
+        $.messager.alert('错误','请求地址不存在!','error');
+    } else if (status.status == 500) {
+        $.messager.alert('错误','服务器内部错误!','error');
     } else {
-        $.messager.alert('错误','出错啦!','error');
+        $.messager.alert('错误','未知异常!','error');
     }
 }
 
