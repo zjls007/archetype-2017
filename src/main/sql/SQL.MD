@@ -99,3 +99,19 @@ CREATE TABLE `t_menu_info` (
   `lst_upd_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单信息表';
+
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `create_time`, `lst_upd_time`) VALUES ('系统管理', '', 0, 0, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `create_time`, `lst_upd_time`) VALUES ('菜单管理', 'menuInfo/list', 1, 1, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `create_time`, `lst_upd_time`) VALUES ('用户管理', 'userInfo/list', 1, 2, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `create_time`, `lst_upd_time`) VALUES ('角色管理', 'roleInfo/list', 1, 4, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `create_time`, `lst_upd_time`) VALUES ('权限管理', 'permissionInfo/list', 1, 5, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `create_time`, `lst_upd_time`) VALUES ('用户组管理', 'userGroupInfo/list', 1, 3, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `create_time`, `lst_upd_time`) VALUES ('权限操作', 'operationInfo/list', 1, 6, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
+
+INSERT INTO `t_user_info` (`id`, `user_name`, `password`, `salt`, `full_name`, `tel_no`, `mobile_no`, `sign_no`, `account_locked`, `create_time`, `modify_time`) VALUES (1, 'sys_admin', '8d7ac5d7f2b7ef1a9d8535196e652033', '105e5b2e9ef4c4f423f84ad2ab06655b', '系统管理员', '', '', NULL, 0, '2017-10-16 10:56:44', '2017-10-16 10:57:06');
+
+INSERT INTO `t_role_info` (`id`, `name`, `code`, `create_time`, `lst_upd_time`) VALUES (1, '系统管理员', 'sys_admin', '2017-9-21 11:31:08', '2017-9-21 11:31:08');
+
+INSERT INTO `t_user_role_ref` (`id`, `user_id`, `role_id`) VALUES (1, 1, 1);
+
+
