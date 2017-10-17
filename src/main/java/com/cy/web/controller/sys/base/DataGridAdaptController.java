@@ -40,6 +40,7 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
 
     @RequestMapping("list")
     public String list(ModelMap modelMap) {
+        modelMap.addAttribute("modelName", entityClassName);
         modelMap.addAttribute("editUrl", genPath("edit"));
         modelMap.addAttribute("delUrl", genPath("delete"));
         modelMap.addAttribute("dataUrl", genPath("data"));
