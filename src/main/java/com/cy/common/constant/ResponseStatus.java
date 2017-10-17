@@ -9,10 +9,11 @@ public enum ResponseStatus {
     PARAM_ERROR(1, "参数错误"),
     EXCEPTION(2, "失败"),
     ACCESS_DENIED(3, "未登陆"),
+    NO_PERMISSION(4, "无权限"),
 
-    USER_NAME_ERROR(4, "用户名不正确!"),
-    PASSWORD_ERROR(5, "密码不正确!"),
-    ACCOUNT_DENIED(6, "账户被锁定!"),
+    USER_NAME_ERROR(5, "用户名不正确!"),
+    PASSWORD_ERROR(6, "密码不正确!"),
+    ACCOUNT_DENIED(7, "账户被锁定!"),
     ;
 
     private Integer code;

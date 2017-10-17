@@ -2,11 +2,14 @@ package com.cy.web.controller.sys.base;
 
 import com.cy.common.PageInfo;
 import com.cy.common.Response;
+import com.cy.common.constant.*;
+import com.cy.common.constant.ResponseStatus;
 import com.cy.entity.system.MenuInfo;
 import com.cy.entity.system.RoleInfo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,6 +81,9 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
     @RequestMapping("delete")
     @ResponseBody
     public Response delete(@RequestBody List<Long> idList) {
+        if (!SecurityUtils.getSubject().isPermitted(String.format("%s:delete", entityClassName))) {
+            return new Response(ResponseStatus.NO_PERMISSION);
+        }
         doDelete(idList);
         return new Response(null);
     }
