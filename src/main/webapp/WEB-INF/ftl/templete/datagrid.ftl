@@ -42,8 +42,7 @@
             <@shiro.hasPermission name="${modelName}:delete">
                 <a href="javascript:void(0)" class="easyui-linkbutton delete" delUrl="${delUrl}" iconCls="icon-remove" plain="true">删除</a>
             </@shiro.hasPermission>
-            <a href="javascript:void(0)" class="easyui-linkbutton delete" delUrl="${delUrl}" iconCls="icon-remove" plain="true">删除</a>
-            </div>
+        </div>
         <div style="padding: 0px 8px 10px 8px">
             <form id="f-query">
                 <@block name="query">
