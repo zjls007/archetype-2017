@@ -14,6 +14,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by zxj on 2017/2/17.
@@ -39,7 +41,9 @@ public class UserRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         Long currentUserId = (Long) SecurityUtils.getSubject().getSession().getAttribute(Constants.CURRENT_USER_ID);
         authorizationInfo.setRoles(roleInfoDAO.getRoleCodeList(currentUserId));
-        authorizationInfo.setStringPermissions(null);
+        Set<String> set = new HashSet<String>();
+        set.add("userInfo");
+        authorizationInfo.setStringPermissions(set);
         return authorizationInfo;
     }
 

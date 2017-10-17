@@ -35,8 +35,10 @@
         <div style="padding: 5px 8px 10px 8px">
             <a href="javascript:void(0)" class="easyui-linkbutton add" id="add" actionUrl="${editUrl}" iconCls="icon-add" plain="true">添加</a>
             <a href="javascript:void(0)" class="easyui-linkbutton edit" iconCls="icon-edit" plain="true">修改</a>
+            <@shiro.hasPermission name="userInfo:delete">
             <a href="javascript:void(0)" class="easyui-linkbutton delete" delUrl="${delUrl}" iconCls="icon-remove" plain="true">删除</a>
-        </div>
+            </@shiro.hasPermission>
+            </div>
         <div style="padding: 0px 8px 10px 8px">
             <form id="f-query">
                 <@block name="query">
