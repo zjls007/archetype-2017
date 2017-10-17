@@ -57,7 +57,6 @@ CREATE TABLE `t_user_group_role_ref` (
 
 CREATE TABLE `t_permission_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `data_id` bigint(20) NOT NULL COMMENT '关联的数据id',
   `name` varchar(255) NOT NULL COMMENT '权限名称',
   `code` varchar(255) NOT NULL COMMENT '权限code',
   `create_time` datetime NOT NULL,

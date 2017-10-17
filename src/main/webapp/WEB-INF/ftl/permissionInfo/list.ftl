@@ -14,8 +14,6 @@
     <@queryInput type='textbox' name='code' label='编码'/>
 </@override>
 <@override name="form">
-    <@formInput type='textbox' name='type' label='类型' required='true'/>
-    <@formInput type='textbox' name='dataId' label='数据id' required='true'/>
     <@formInput type='textbox' name='name' label='名称' required='true'/>
     <@formInput type='textbox' name='code' label='编码' required='true'/>
 </@override>

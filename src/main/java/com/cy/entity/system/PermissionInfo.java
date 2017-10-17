@@ -18,9 +18,6 @@ public class PermissionInfo implements Serializable {
     /** 主键,not null */
     private Long id;
 
-    /** 关联的数据id,not null */
-    private Long dataId;
-
     /** 权限名称,not null */
     @NotNull(message="权限名称为空")
     @Length(min = 2, max = 15, message = "权限名称长度必须在{min}-{max}位之间")
@@ -45,14 +42,6 @@ public class PermissionInfo implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getDataId() {
-        return dataId;
-    }
-
-    public void setDataId(Long dataId) {
-        this.dataId = dataId;
     }
 
     public String getName() {

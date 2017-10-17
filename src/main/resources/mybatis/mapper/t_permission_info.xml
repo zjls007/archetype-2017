@@ -4,7 +4,6 @@
 
     <resultMap id="BaseResultMap" type="com.cy.entity.system.PermissionInfo">
         <id column="id" property="id" />
-        <result column="data_id" property="dataId" />
         <result column="name" property="name" />
         <result column="code" property="code" />
         <result column="create_time" property="createTime" />
@@ -12,26 +11,26 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, data_id, name, code, create_time, lst_upd_time
+        id, name, code, create_time, lst_upd_time
     </sql>
 
     <sql id="Base_Alias_Column_List">
-        tpi.id, tpi.data_id, tpi.name, tpi.code, tpi.create_time, tpi.lst_upd_time
+        tpi.id, tpi.name, tpi.code, tpi.create_time, tpi.lst_upd_time
     </sql>
 
     <insert id="insert" parameterType="com.cy.entity.system.PermissionInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO t_permission_info
-        (data_id, name, code, create_time, lst_upd_time)
+        (name, code, create_time, lst_upd_time)
         VALUES
-        (#{dataId}, #{name}, #{code}, now(), now())
+        (#{name}, #{code}, now(), now())
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.system.PermissionInfo">
         INSERT INTO t_permission_info
-        (data_id, name, code, create_time, lst_upd_time)
+        (name, code, create_time, lst_upd_time)
         VALUES
         <foreach collection="list" item="item" separator=",">
-           (#{item.dataId}, #{item.name}, #{item.code}, now(), now())
+           (#{item.name}, #{item.code}, now(), now())
         </foreach>
     </insert>
 
@@ -49,9 +48,6 @@
     <update id="update" parameterType="com.cy.entity.system.PermissionInfo" >
         UPDATE t_permission_info
         <set>
-            <if test="dataId != null" >
-                data_id = #{dataId},
-            </if>
             <if test="name != null" >
                 name = #{name},
             </if>
