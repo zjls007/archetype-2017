@@ -6,6 +6,7 @@ import com.cy.dao.system.UserInfoDAO;
 import com.cy.service.MenuInfoService;
 import com.cy.web.controller.sys.base.BaseController;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,7 +33,8 @@ public class IndexController extends BaseController {
     public String index(ModelMap modelMap) {
         modelMap.addAttribute("menuInfoList", menuInfoService.list());
         List<Long> menuIdList;
-        if (SecurityUtils.getSubject().hasRole(Constants.ROLE_SYS_ADMIN)) {
+        Subject subject = getSubject();
+        if (subject.hasRole(Constants.ROLE_SYS_ADMIN) || subject.hasRole(Constants.DEVELOPER)) {
             menuIdList = menuInfoDAO.getAllIdList();
         } else {
             menuIdList = userInfoDAO.getMenuIdList(getCurrentUserId());
