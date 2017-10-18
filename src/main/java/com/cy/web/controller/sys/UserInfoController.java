@@ -43,7 +43,7 @@ public class UserInfoController extends DataGridAdaptController<UserInfo, UserIn
     }
 
     @Override
-    public Response saveOrUpdate(UserInfo userInfo) {
+    public Response doSaveOrUpdate(UserInfo userInfo) {
         if (userInfo.getId() == null) {
             userInfoDAO.insert(userInfo);
         } else {

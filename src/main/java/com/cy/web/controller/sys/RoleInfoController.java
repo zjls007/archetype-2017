@@ -42,7 +42,7 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
     }
 
     @Override
-    public Response saveOrUpdate(RoleInfo roleInfo) {
+    public Response doSaveOrUpdate(RoleInfo roleInfo) {
         RoleInfo result = roleInfoService.saveOrUpdate(roleInfo);
         return new Response(result);
     }

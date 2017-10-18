@@ -4,6 +4,7 @@ import com.cy.common.PageInfo;
 import com.cy.common.Response;
 import com.cy.common.constant.*;
 import com.cy.common.constant.ResponseStatus;
+import com.cy.common.exception.SystemException;
 import com.cy.entity.system.MenuInfo;
 import com.cy.entity.system.RoleInfo;
 import com.github.pagehelper.Page;
@@ -13,6 +14,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -39,6 +41,10 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
 
     protected String genPath(String path) {
         return String.format("%s/%s", entityClassName, path);
+    }
+
+    protected String genPerm(String permStr) {
+        return String.format("%s:%s", entityClassName, permStr);
     }
 
     @RequestMapping("list")
@@ -76,12 +82,32 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
 
     @RequestMapping("saveOrUpdate")
     @ResponseBody
-    public abstract Response saveOrUpdate(T t);
+    public Response saveOrUpdate(T t) {
+        Long id = null;
+        try {
+            Method m = t.getClass().getMethod("getId");
+            id = (Long) m.invoke(t);
+        } catch (Exception e) {
+            throw new SystemException("找不到id");
+        }
+        if (id == null) {
+            if (!SecurityUtils.getSubject().isPermitted(genPerm("add"))) {
+                return new Response(ResponseStatus.NO_PERMISSION);
+            }
+        } else {
+            if (!SecurityUtils.getSubject().isPermitted(genPerm("modify"))) {
+                return new Response(ResponseStatus.NO_PERMISSION);
+            }
+        }
+        return doSaveOrUpdate(t);
+    }
+
+    public abstract Response doSaveOrUpdate(T t);
 
     @RequestMapping("delete")
     @ResponseBody
     public Response delete(@RequestBody List<Long> idList) {
-        if (!SecurityUtils.getSubject().isPermitted(String.format("%s:delete", entityClassName))) {
+        if (!SecurityUtils.getSubject().isPermitted(genPerm("delete"))) {
             return new Response(ResponseStatus.NO_PERMISSION);
         }
         doDelete(idList);

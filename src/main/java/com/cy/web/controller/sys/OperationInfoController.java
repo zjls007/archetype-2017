@@ -26,7 +26,7 @@ public class OperationInfoController extends DataGridAdaptController<OperationIn
     }
 
     @Override
-    public Response saveOrUpdate(OperationInfo operationInfo) {
+    public Response doSaveOrUpdate(OperationInfo operationInfo) {
         if (operationInfo.getId() == null) {
             operationInfoDAO.insert(operationInfo);
         } else {

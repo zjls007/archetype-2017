@@ -42,7 +42,7 @@ public class UserRealm extends AuthorizingRealm {
         Long currentUserId = (Long) SecurityUtils.getSubject().getSession().getAttribute(Constants.CURRENT_USER_ID);
         authorizationInfo.setRoles(roleInfoDAO.getRoleCodeList(currentUserId));
         Set<String> set = new HashSet<String>();
-        set.add("userInfo:add");
+        set.add("userInfo");
         authorizationInfo.setStringPermissions(set);
         return authorizationInfo;
     }

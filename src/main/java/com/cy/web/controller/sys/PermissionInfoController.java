@@ -26,7 +26,7 @@ public class PermissionInfoController extends DataGridAdaptController<Permission
     }
 
     @Override
-    public Response saveOrUpdate(PermissionInfo permissionInfo) {
+    public Response doSaveOrUpdate(PermissionInfo permissionInfo) {
         if (permissionInfo.getId() == null) {
             permissionInfoDAO.insert(permissionInfo);
         } else {
