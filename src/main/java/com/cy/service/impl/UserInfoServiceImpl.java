@@ -1,7 +1,5 @@
 package com.cy.service.impl;
 
-import com.cy.common.PageInfo;
-import com.cy.common.PageResult;
 import com.cy.common.emun.ByteBooleanEnum;
 import com.cy.common.exception.SystemException;
 import com.cy.dao.system.UserInfoDAO;
@@ -10,8 +8,6 @@ import com.cy.entity.system.UserInfo;
 import com.cy.entity.system.UserRoleRef;
 import com.cy.service.UserInfoService;
 import com.cy.web.dto.param.system.RegistParamDTO;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Service;

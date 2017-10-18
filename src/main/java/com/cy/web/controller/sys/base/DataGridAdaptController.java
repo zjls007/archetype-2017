@@ -1,15 +1,10 @@
 package com.cy.web.controller.sys.base;
 
-import com.cy.common.PageInfo;
 import com.cy.common.Response;
-import com.cy.common.constant.*;
 import com.cy.common.constant.ResponseStatus;
 import com.cy.common.exception.SystemException;
-import com.cy.entity.system.MenuInfo;
-import com.cy.entity.system.RoleInfo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;

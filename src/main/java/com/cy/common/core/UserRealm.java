@@ -43,6 +43,8 @@ public class UserRealm extends AuthorizingRealm {
         Set<String> set = new HashSet<String>();
         set.add("userInfo");
         set.add("roleInfo");
+        set.add("permissionInfo");
+        set.add("operationInfo");
         authorizationInfo.setStringPermissions(set);
         return authorizationInfo;
     }

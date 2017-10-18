@@ -1,7 +1,5 @@
 package com.cy.service;
 
-import com.cy.common.PageInfo;
-import com.cy.common.PageResult;
 import com.cy.entity.system.UserInfo;
 import com.cy.web.dto.param.system.RegistParamDTO;
 
