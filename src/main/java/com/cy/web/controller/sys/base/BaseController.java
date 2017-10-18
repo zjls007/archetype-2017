@@ -21,4 +21,8 @@ public class BaseController {
         return (Long) subject.getSession().getAttribute(Constants.CURRENT_USER_ID);
     }
 
+    public Subject getSubject() {
+        return SecurityUtils.getSubject();
+    }
+
 }

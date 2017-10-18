@@ -33,15 +33,17 @@
             <div id="mmDiv"></div>
         </div>
         <div style="padding: 5px 8px 10px 8px">
-            <@shiro.hasPermission name="${modelName}:add">
+            <#--<@shiro.hasPermission name="${modelName}:modify">-->
+            <#--</@shiro.hasPermission>-->
+            <#if addPerm>
                 <a href="javascript:void(0)" class="easyui-linkbutton add" id="add" actionUrl="${editUrl}" iconCls="icon-add" plain="true">添加</a>
-            </@shiro.hasPermission>
-            <@shiro.hasPermission name="${modelName}:modify">
+            </#if>
+            <#if modifyPerm>
                 <a href="javascript:void(0)" class="easyui-linkbutton edit" iconCls="icon-edit" plain="true">修改</a>
-            </@shiro.hasPermission>
-            <@shiro.hasPermission name="${modelName}:delete">
+            </#if>
+            <#if deletePerm>
                 <a href="javascript:void(0)" class="easyui-linkbutton delete" delUrl="${delUrl}" iconCls="icon-remove" plain="true">删除</a>
-            </@shiro.hasPermission>
+            </#if>
         </div>
         <div style="padding: 0px 8px 10px 8px">
             <form id="f-query">
