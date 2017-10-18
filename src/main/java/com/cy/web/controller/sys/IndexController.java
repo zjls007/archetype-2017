@@ -4,7 +4,6 @@ import com.cy.common.constant.Constants;
 import com.cy.dao.system.MenuInfoDAO;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.service.MenuInfoService;
-import com.cy.service.UserService;
 import com.cy.web.controller.sys.base.BaseController;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +18,6 @@ import java.util.List;
  */
 @Controller
 public class IndexController extends BaseController {
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private UserInfoDAO userInfoDAO;

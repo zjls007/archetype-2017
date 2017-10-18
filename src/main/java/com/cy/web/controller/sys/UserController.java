@@ -3,7 +3,7 @@ package com.cy.web.controller.sys;
 import com.cy.common.Response;
 import com.cy.common.constant.ResponseStatus;
 import com.cy.entity.system.UserInfo;
-import com.cy.service.UserService;
+import com.cy.service.UserInfoService;
 import com.cy.web.dto.param.system.RegistParamDTO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -24,7 +24,7 @@ public class UserController {
     Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Resource
-    private UserService userService;
+    private UserInfoService userInfoService;
 
     /**
      * get请求进登录页面，post请求进行登录操作
@@ -70,7 +70,7 @@ public class UserController {
     @PostMapping("regist")
     @ResponseBody
     public Object regist(RegistParamDTO paramDTO) {
-        UserInfo userInfo = userService.regist(paramDTO);
+        UserInfo userInfo = userInfoService.regist(paramDTO);
         Subject subject = SecurityUtils.getSubject();
         subject.login(new UsernamePasswordToken(userInfo.getUserName(), paramDTO.getPassword()));
         return new Response(userInfo.getId());

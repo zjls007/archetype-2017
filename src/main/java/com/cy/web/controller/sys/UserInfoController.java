@@ -1,11 +1,9 @@
 package com.cy.web.controller.sys;
 
-import com.cy.common.PageInfo;
 import com.cy.common.Response;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.dao.system.UserRoleRefDAO;
 import com.cy.entity.system.UserInfo;
-import com.cy.entity.system.UserRoleRef;
 import com.cy.service.UserInfoService;
 import com.cy.web.controller.sys.base.DataGridAdaptController;
 import com.cy.web.dto.param.system.UserInfoQueryDTO;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -44,12 +41,8 @@ public class UserInfoController extends DataGridAdaptController<UserInfo, UserIn
 
     @Override
     public Response doSaveOrUpdate(UserInfo userInfo) {
-        if (userInfo.getId() == null) {
-            userInfoDAO.insert(userInfo);
-        } else {
-            userInfoDAO.update(userInfo);
-        }
-        return new Response(userInfo.getId());
+        userInfoService.saveOrUpdate(userInfo);
+        return new Response(null);
     }
 
     @Override
