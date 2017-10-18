@@ -8,6 +8,7 @@ CREATE TABLE `t_user_info` (
   `mobile_no` varchar(20) DEFAULT NULL COMMENT '手机号',
   `sign_no` bigint(20) DEFAULT NULL COMMENT '登录次数',
   `account_locked` tinyint(2) DEFAULT '0' COMMENT '账户是否锁定 0 未锁定 1锁定',
+  `native` tinyint(2) DEFAULT '0' COMMENT '是否为系统初始数据(0-否, 1-是)',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `modify_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -18,6 +19,7 @@ CREATE TABLE `t_role_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(255) NOT NULL COMMENT '角色名称',
   `code` varchar(255) DEFAULT NULL COMMENT '角色编码',
+  `native` tinyint(2) DEFAULT '0' COMMENT '是否为系统初始数据(0-否, 1-是)',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `lst_upd_time` datetime NOT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`),
@@ -76,6 +78,7 @@ CREATE TABLE `t_operation_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(255) NOT NULL COMMENT '操作名称',
   `code` varchar(255) NOT NULL COMMENT '操作编码',
+  `native` tinyint(2) DEFAULT '0' COMMENT '是否为系统初始数据(0-否, 1-是)',
   `create_time` datetime NOT NULL,
   `lst_upd_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
@@ -94,22 +97,23 @@ CREATE TABLE `t_menu_info` (
   `url` varchar(255) NOT NULL COMMENT '菜单url',
   `parent_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '父级菜单id,无填写0',
   `sort_num` int(11) NOT NULL COMMENT '排序编号',
+  `native` tinyint(2) DEFAULT '0' COMMENT '是否为系统初始数据(0-否, 1-是)',
   `create_time` datetime NOT NULL,
   `lst_upd_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单信息表';
 
-INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `create_time`, `lst_upd_time`) VALUES ('系统管理', '', 0, 0, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
-INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `create_time`, `lst_upd_time`) VALUES ('菜单管理', 'menuInfo/list', 1, 1, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
-INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `create_time`, `lst_upd_time`) VALUES ('用户管理', 'userInfo/list', 1, 2, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
-INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `create_time`, `lst_upd_time`) VALUES ('角色管理', 'roleInfo/list', 1, 4, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
-INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `create_time`, `lst_upd_time`) VALUES ('权限管理', 'permissionInfo/list', 1, 5, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
-INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `create_time`, `lst_upd_time`) VALUES ('用户组管理', 'userGroupInfo/list', 1, 3, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
-INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `create_time`, `lst_upd_time`) VALUES ('权限操作', 'operationInfo/list', 1, 6, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('系统管理', '', 0, 0, 1, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('菜单管理', 'menuInfo/list', 1, 1, 1, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('用户管理', 'userInfo/list', 1, 2, 1, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('角色管理', 'roleInfo/list', 1, 4, 1, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('权限管理', 'permissionInfo/list', 1, 5, 1, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('用户组管理', 'userGroupInfo/list', 1, 3, 1, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('权限操作', 'operationInfo/list', 1, 6, 1, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
 
-INSERT INTO `t_user_info` (`id`, `user_name`, `password`, `salt`, `full_name`, `tel_no`, `mobile_no`, `sign_no`, `account_locked`, `create_time`, `modify_time`) VALUES (1, 'sys_admin', '8d7ac5d7f2b7ef1a9d8535196e652033', '105e5b2e9ef4c4f423f84ad2ab06655b', '系统管理员', '', '', NULL, 0, '2017-10-16 10:56:44', '2017-10-16 10:57:06');
+INSERT INTO `t_user_info` (`id`, `user_name`, `password`, `salt`, `full_name`, `tel_no`, `mobile_no`, `sign_no`, `account_locked`, `native`, `create_time`, `modify_time`) VALUES (1, 'sys_admin', '8d7ac5d7f2b7ef1a9d8535196e652033', '105e5b2e9ef4c4f423f84ad2ab06655b', '系统管理员', '', '', NULL, 0, 1, '2017-10-16 10:56:44', '2017-10-16 10:57:06');
 
-INSERT INTO `t_role_info` (`id`, `name`, `code`, `create_time`, `lst_upd_time`) VALUES (1, '系统管理员', 'sys_admin', '2017-9-21 11:31:08', '2017-9-21 11:31:08');
+INSERT INTO `t_role_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (1, '系统管理员', 'sys_admin', 1, '2017-9-21 11:31:08', '2017-9-21 11:31:08');
 
 INSERT INTO `t_user_role_ref` (`id`, `user_id`, `role_id`) VALUES (1, 1, 1);
 
