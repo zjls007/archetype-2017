@@ -50,7 +50,8 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
      * @return
      */
     protected boolean otherSuperPerm() {
-        return getSubject().hasRole(Constants.ROLE_SYS_ADMIN);
+        Subject subject = getSubject();
+        return subject.hasRole(Constants.ROLE_SYS_ADMIN) || subject.hasRole(Constants.DEVELOPER);
     }
 
     @RequestMapping("list")
@@ -105,11 +106,11 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
             throw new SystemException("找不到id");
         }
         if (id == null) {
-            if (!SecurityUtils.getSubject().isPermitted(genPerm("add"))) {
+            if (!SecurityUtils.getSubject().isPermitted(genPerm("add")) && !otherSuperPerm()) {
                 return new Response(ResponseStatus.NO_PERMISSION);
             }
         } else {
-            if (!SecurityUtils.getSubject().isPermitted(genPerm("modify"))) {
+            if (!SecurityUtils.getSubject().isPermitted(genPerm("modify")) && !otherSuperPerm()) {
                 return new Response(ResponseStatus.NO_PERMISSION);
             }
         }
@@ -121,7 +122,7 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
     @RequestMapping("delete")
     @ResponseBody
     public Response delete(@RequestBody List<Long> idList) {
-        if (!SecurityUtils.getSubject().isPermitted(genPerm("delete"))) {
+        if (!SecurityUtils.getSubject().isPermitted(genPerm("delete")) && !otherSuperPerm()) {
             return new Response(ResponseStatus.NO_PERMISSION);
         }
         doDelete(idList);
