@@ -60,6 +60,9 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
     @RequestMapping("data")
     @ResponseBody
     public Object data(@RequestParam("page") Integer pageNum, @RequestParam("rows")Integer pageSize, E queryDTO) {
+        if (!SecurityUtils.getSubject().isPermitted(genPerm("query"))) {
+            return new Response(ResponseStatus.NO_PERMISSION);
+        }
         Map<String, Object> map = new HashMap<String, Object>();
         PageHelper.startPage(pageNum, pageSize);
         List<T> list = getData(queryDTO);

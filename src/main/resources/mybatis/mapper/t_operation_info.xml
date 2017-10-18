@@ -43,6 +43,7 @@
         <foreach collection="list" open="(" close=")" separator="," item="item">
             #{item}
         </foreach>
+        and native = 0
     </delete>
 
     <update id="update" parameterType="com.cy.entity.system.OperationInfo" >

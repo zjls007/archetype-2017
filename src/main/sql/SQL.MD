@@ -117,4 +117,10 @@ INSERT INTO `t_role_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_u
 
 INSERT INTO `t_user_role_ref` (`id`, `user_id`, `role_id`) VALUES (1, 1, 1);
 
+INSERT INTO `t_operation_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (1, '查询数据', 'query', 1, '2017-10-18 14:08:23', '2017-10-18 14:08:23');
+INSERT INTO `t_operation_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (2, '添加数据', 'add', 1, '2017-10-18 14:08:30', '2017-10-18 14:08:30');
+INSERT INTO `t_operation_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (3, '修改数据', 'modify', 1, '2017-10-18 14:08:40', '2017-10-18 14:08:40');
+INSERT INTO `t_operation_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (4, '删除数据', 'delete', 1, '2017-10-18 14:08:53', '2017-10-18 14:08:53');
+
+
 
