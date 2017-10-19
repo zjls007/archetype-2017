@@ -8,12 +8,13 @@
         <result column="url" property="url" />
         <result column="parent_id" property="parentId" />
         <result column="sort_num" property="sortNum" />
+        <result column="native" property="nativeState" />
         <result column="create_time" property="createTime" />
         <result column="lst_upd_time" property="lstUpdTime" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, name, url, parent_id, sort_num, create_time, lst_upd_time
+        id, name, url, parent_id, sort_num, native, create_time, lst_upd_time
     </sql>
 
     <sql id="Base_Alias_Column_List">

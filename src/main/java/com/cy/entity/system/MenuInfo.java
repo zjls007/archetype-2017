@@ -30,6 +30,10 @@ public class MenuInfo implements Serializable {
     /** 排序编号,not null */
     private Integer sortNum;
 
+    /** 是否为系统初始数据(0-否, 1-是) */
+    @JsonProperty("native")
+    private Byte nativeState;
+
     /** ,not null */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
@@ -92,5 +96,13 @@ public class MenuInfo implements Serializable {
 
     public void setSortNum(Integer sortNum) {
         this.sortNum = sortNum;
+    }
+
+    public Byte getNativeState() {
+        return nativeState;
+    }
+
+    public void setNativeState(Byte nativeState) {
+        this.nativeState = nativeState;
     }
 }

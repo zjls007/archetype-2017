@@ -54,6 +54,7 @@ public class MenuInfoServiceImpl implements MenuInfoService {
         m.setId(0l);
         m.setName("菜单");
         m.setSortNum(0);
+        m.setNativeState((byte)1);
         m.setParentId(null);
         list.add(m);
         list.addAll(menuInfoDAO.list());
