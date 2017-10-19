@@ -193,7 +193,9 @@ function onLoadError(xhr, status, error) {
         $.messager.alert('错误','请求地址不存在!','error');
     } else if (statuCode == 500) {
         $.messager.alert('错误','服务器内部错误!','error');
-    } else {
+    } else if (statuCode == 0) {
+        $.messager.alert('错误','服务器已关闭!','error');
+    }else {
         $.messager.alert('错误','未知异常!','error');
     }
 }
