@@ -1,6 +1,6 @@
 <@override name="menu">
     <div data-options="businessURL:'roleInfo/refPermissionMenu/',iconCls:'icon-undo'">菜单权限</div>
-    <div data-options="businessURL:'roleInfo/refPermission/',iconCls:'icon-undo'">页面权限</div>
+    <div data-options="businessURL:'roleInfo/refPermissionPage/',iconCls:'icon-undo'">页面权限</div>
 </@override>
 <@override name="th">
     <th data-options="field:'id',checkbox:true"></th>
@@ -14,15 +14,5 @@
 <@override name="query">
     <@queryInput type='textbox' name='name' label='名称'/>
     <@queryInput type='textbox' name='code' label='编码'/>
-</@override>
-<@override name="script">
-<script type="text/javascript">
-    function formatter(value,row,index) {
-        if (row.id == 1 || row.id == 2) {
-            return '<font color="green">是</font>';
-        }
-        return '否';
-    }
-</script>
 </@override>
 <@extends name="/templete/datagrid.ftl"/>

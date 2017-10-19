@@ -59,7 +59,7 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
     }
 
     /**
-     * 获取权限页面
+     * 菜单权限
      * @param roleInfoId
      * @param modelMap
      * @return
@@ -83,6 +83,18 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
         }
         roleInfoService.saveRefPermissionMenu(roleInfoId, menuInfoIdList);
         return new Response(null);
+    }
+
+    /**
+     * 页面权限
+     * @param roleInfoId
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping("refPermissionPage/{roleInfoId}")
+    public String refPermissionPage(@PathVariable Long roleInfoId, ModelMap modelMap) {
+        modelMap.put("roleInfoId", roleInfoId);
+        return genPath("refPermissionPage");
     }
 
 }
