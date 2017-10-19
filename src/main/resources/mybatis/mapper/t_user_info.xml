@@ -12,6 +12,7 @@
         <result column="mobile_no" property="mobileNo" />
         <result column="sign_no" property="signNo" />
         <result column="account_locked" property="accountLocked" />
+        <result column="native" property="nativeState" />
         <result column="create_time" property="createTime" />
         <result column="modify_time" property="modifyTime" />
     </resultMap>
@@ -24,12 +25,13 @@
         <result column="mobile_no" property="mobileNo" />
         <result column="sign_no" property="signNo" />
         <result column="account_locked" property="accountLocked" />
+        <result column="native" property="nativeState" />
         <result column="create_time" property="createTime" />
         <result column="modify_time" property="modifyTime" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, user_name, password, salt, full_name, tel_no, mobile_no, sign_no, account_locked, create_time, 
+        id, user_name, password, salt, full_name, tel_no, mobile_no, sign_no, account_locked, native, create_time,
         modify_time
     </sql>
 

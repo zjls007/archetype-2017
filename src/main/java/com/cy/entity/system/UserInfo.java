@@ -1,6 +1,7 @@
 package com.cy.entity.system;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -37,6 +38,10 @@ public class UserInfo implements Serializable {
 
     /** 账户是否锁定 0 未锁定 1锁定 */
     private Byte accountLocked;
+
+    /** 是否为系统初始数据(0-否, 1-是) */
+    @JsonProperty("native")
+    private Byte nativeState;
 
     /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -134,4 +139,11 @@ public class UserInfo implements Serializable {
         this.modifyTime = modifyTime;
     }
 
+    public Byte getNativeState() {
+        return nativeState;
+    }
+
+    public void setNativeState(Byte nativeState) {
+        this.nativeState = nativeState;
+    }
 }
