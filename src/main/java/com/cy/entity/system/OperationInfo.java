@@ -1,6 +1,7 @@
 package com.cy.entity.system;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,6 +22,10 @@ public class OperationInfo implements Serializable {
 
     /** 操作编码,not null */
     private String code;
+
+    /** 是否为系统初始数据(0-否, 1-是) */
+    @JsonProperty("native")
+    private Byte nativeState;
 
     /** ,not null */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -70,4 +75,11 @@ public class OperationInfo implements Serializable {
         this.lstUpdTime = lstUpdTime;
     }
 
+    public Byte getNativeState() {
+        return nativeState;
+    }
+
+    public void setNativeState(Byte nativeState) {
+        this.nativeState = nativeState;
+    }
 }

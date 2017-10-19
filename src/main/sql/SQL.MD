@@ -61,6 +61,7 @@ CREATE TABLE `t_permission_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(255) NOT NULL COMMENT '权限名称',
   `code` varchar(255) NOT NULL COMMENT '权限code',
+  `native` tinyint(2) DEFAULT '0' COMMENT '是否为系统初始数据(0-否, 1-是)',
   `create_time` datetime NOT NULL,
   `lst_upd_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
@@ -117,6 +118,13 @@ INSERT INTO `t_role_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_u
 INSERT INTO `t_role_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (2, '开发人员', 'developer', 1, '2017-9-21 11:31:08', '2017-9-21 11:31:08');
 
 INSERT INTO `t_user_role_ref` (`id`, `user_id`, `role_id`) VALUES (1, 1, 1);
+
+INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (1, '菜单管理', 'menuInfo', 1, '2017-10-19 10:08:42', '2017-10-19 10:08:42');
+INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (2, '用户管理', 'userInfo', 1, '2017-10-19 10:08:58', '2017-10-19 10:08:58');
+INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (3, '角色管理', 'roleInfo', 1, '2017-10-19 10:09:13', '2017-10-19 10:09:13');
+INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (4, '权限管理', 'permissionInfo', 1, '2017-10-19 10:09:28', '2017-10-19 10:09:28');
+INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (5, '用户组管理', 'userGroupInfo', 1, '2017-10-19 10:09:40', '2017-10-19 10:09:40');
+INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (6, '权限操作', 'operationInfo', 1, '2017-10-19 10:09:53', '2017-10-19 10:09:53');
 
 INSERT INTO `t_operation_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (1, '查询数据', 'query', 1, '2017-10-18 14:08:23', '2017-10-18 14:08:23');
 INSERT INTO `t_operation_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (2, '添加数据', 'add', 1, '2017-10-18 14:08:30', '2017-10-18 14:08:30');

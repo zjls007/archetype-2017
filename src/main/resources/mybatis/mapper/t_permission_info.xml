@@ -6,12 +6,13 @@
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="code" property="code" />
+        <result column="native" property="nativeState" />
         <result column="create_time" property="createTime" />
         <result column="lst_upd_time" property="lstUpdTime" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, name, code, create_time, lst_upd_time
+        id, name, code, native, create_time, lst_upd_time
     </sql>
 
     <sql id="Base_Alias_Column_List">

@@ -296,3 +296,11 @@
 </script>
 </@override>
 <@extends name="/base.ftl"/>
+<#macro formatterNative>
+    formatter:function(value,row,index) {
+        if (row.native == 1) {
+            return '<font color=\'green\'>是</font>';
+        }
+        return '否';
+    }
+</#macro>

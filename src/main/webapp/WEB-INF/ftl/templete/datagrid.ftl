@@ -94,3 +94,11 @@
         return $('<a>操作</a>').addClass('easyui-menubutton').attr('href', 'javascript:void(0)').attr('dataId', row.id).prop('outerHTML');
     }
 </#macro>
+<#macro formatterNative>
+    formatter:function(value,row,index) {
+        if (row.native == 1) {
+            return '<font color=\'green\'>是</font>';
+        }
+        return '否';
+    }
+</#macro>

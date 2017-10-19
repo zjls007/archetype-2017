@@ -2,6 +2,7 @@ package com.cy.entity.system;
 
 import com.cy.common.annotation.ParamValid;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -29,6 +30,10 @@ public class RoleInfo implements Serializable {
     @NotNull(message="角色编码为空")
     @Length(min = 2, max = 15, message = "角色编码长度必须在{min}-{max}位之间")
     private String code;
+
+    /** 是否为系统初始数据(0-否, 1-是) */
+    @JsonProperty("native")
+    private Byte nativeState;
 
     /** 创建时间,not null */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -78,4 +83,11 @@ public class RoleInfo implements Serializable {
         this.lstUpdTime = lstUpdTime;
     }
 
+    public Byte getNativeState() {
+        return nativeState;
+    }
+
+    public void setNativeState(Byte nativeState) {
+        this.nativeState = nativeState;
+    }
 }
