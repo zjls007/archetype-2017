@@ -45,7 +45,7 @@
         </foreach>
     </delete>
 
-    <update id="update" parameterType="<@modelFullName/>" >
+    <update id="updateBy${primaryKeyPropertyName?cap_first!}Selective">
         UPDATE ${tableName!}
         <set>
         <#list propertyList as item>
@@ -57,6 +57,21 @@
                 ${item.columnName!} = ${'#'}{${item.propertyName!}},
             </if>
         </#if>
+        </#list>
+        </set>
+        WHERE <@idEqual/>
+    </update>
+
+    <update id="updateBy${primaryKeyPropertyName?cap_first!}">
+        UPDATE ${tableName!}
+        <set>
+        <#list propertyList as item>
+            <#if primaryKeyPropertyName?? && (item.propertyName == primaryKeyPropertyName)>
+            <#elseif updateTime?? && (updateTime?length gt 0) && (updateTime == item.columnName)>
+            ${item.columnName!} = ${'#'}{${item.propertyName!}}<#if item_has_next>,</#if>
+            <#else>
+            ${item.columnName!} = ${'#'}{${item.propertyName!}},
+            </#if>
         </#list>
         </set>
         WHERE <@idEqual/>

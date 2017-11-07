@@ -23,7 +23,9 @@ public interface ${beanName!}DAO {
 
     int batchDelete(List<${primaryKeyType!}> list);
 
-    int update(${beanName!} entity);
+    int updateBy${primaryKeyPropertyName?cap_first!}Selective(${beanName!} entity);
+
+    int updateBy${primaryKeyPropertyName?cap_first!}(${beanName!} entity);
 
     ${beanName!} getBy${primaryKeyPropertyName?cap_first!}(${primaryKeyType!} ${primaryKeyPropertyName!});
 
