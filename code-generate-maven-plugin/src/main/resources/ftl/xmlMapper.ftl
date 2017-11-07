@@ -100,6 +100,19 @@
         </foreach>
     </select>
 
+    <select id="list" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ${tableName!}
+        <where>
+        <#list propertyList as item>
+            <if test="${item.propertyName!} != null<#if item.typeName == 'String'> and ${item.propertyName!} != ''</#if>" >
+                AND ${item.columnName!} = ${'#'}{${item.propertyName!}}
+            </if>
+        </#list>
+        </where>
+    </select>
+
     <#list uniKeyList as list>
     <select id="getBy<#list list as item>${item.propertyName?cap_first!}<#if item_has_next>And</#if></#list>" resultMap="BaseResultMap">
         SELECT

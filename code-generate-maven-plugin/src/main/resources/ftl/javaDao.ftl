@@ -31,6 +31,8 @@ public interface ${beanName!}DAO {
 
     List<${beanName!}> getBy${primaryKeyPropertyName?cap_first!}List(List<${primaryKeyType!}> list);
 
+    List<${beanName!}> list(${beanName!} entity);
+
     <#list uniKeyList as list>
     ${beanName!} getBy<#list list as item>${item.propertyName?cap_first!}<#if item_has_next>And</#if></#list>(<#list list as item>${item.typeName!} ${item.propertyName!}<#if item_has_next>, </#if></#list>);
 
