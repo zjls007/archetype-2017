@@ -10,10 +10,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by zxj on 2017/3/8.
@@ -39,7 +36,15 @@ public class MysqlDaoResolver {
         table.setRemark(getTableRemark(conn, tableName));
         table.setPrimaryKeyName(getPrimaryKey(conn, dbmd, tableName));
         table.setColumnList(getColumns(dbmd, tableName));
-        table.setUniKeyMap(getUniKey(dbmd, tableName));
+        Map<String, List<String>> unqKeyMap = getIndexKey(dbmd, tableName, true);
+        table.setUniKeyMap(unqKeyMap);
+        Map<String, List<String>> indexKeyMap = getIndexKey(dbmd, tableName, false);
+        for (Map.Entry<String, List<String>> map : indexKeyMap.entrySet()) {
+            if (unqKeyMap.containsKey(map.getKey())) {
+                indexKeyMap.remove(map.getKey());
+            }
+        }
+        table.setIndexKeyMap(indexKeyMap);
         return table;
     }
 
@@ -67,12 +72,10 @@ public class MysqlDaoResolver {
         return list;
     }
 
-    private Map<String, List<String>> getUniKey(DatabaseMetaData dbmd, String tableName) throws Exception {
+    private Map<String, List<String>> getIndexKey(DatabaseMetaData dbmd, String tableName, boolean unq) throws Exception {
         Map<String, List<String>> map = new HashMap<String, List<String>>();
-
-//        ResultSet rs =  dbmd.getIndexInfo(null, null, tableName, true, false );
-        //  获取所有索引，包括唯一索引
-        ResultSet rs =  dbmd.getIndexInfo(null, null, tableName, false, false );
+        // 文档：unique 为boolean 型，当为真值时，返回具有唯一值的索引，而为假时，不论索引值是否唯一都返回；
+        ResultSet rs =  dbmd.getIndexInfo(null, null, tableName, unq, false);
         while (rs.next()) {
             String indexName = rs.getString("INDEX_NAME");
             if (!"PRIMARY".equalsIgnoreCase(indexName)) {
@@ -100,7 +103,7 @@ public class MysqlDaoResolver {
 
     public static void main(String[] args) throws Exception {
         MysqlDaoResolver mysqlDaoResolver = new MysqlDaoResolver(new JdbcConnectionFactory());
-        mysqlDaoResolver.getTable("account_user");
+        mysqlDaoResolver.getTable("t_waybill_cost");
     }
 
 }

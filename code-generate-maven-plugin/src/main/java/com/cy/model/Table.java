@@ -26,6 +26,11 @@ public class Table {
     private Map<String, List<String>> uniKeyMap;
 
     /**
+     * 索引列map
+     */
+    private Map<String, List<String>> indexKeyMap;
+
+    /**
      * 表备注
      */
     private String remark;
@@ -68,5 +73,13 @@ public class Table {
 
     public void setUniKeyMap(Map<String, List<String>> uniKeyMap) {
         this.uniKeyMap = uniKeyMap;
+    }
+
+    public Map<String, List<String>> getIndexKeyMap() {
+        return indexKeyMap;
+    }
+
+    public void setIndexKeyMap(Map<String, List<String>> indexKeyMap) {
+        this.indexKeyMap = indexKeyMap;
     }
 }

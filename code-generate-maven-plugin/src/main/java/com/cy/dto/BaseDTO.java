@@ -63,6 +63,11 @@ public class BaseDTO  {
     private List<List<PropertyDTO>> uniKeyList;
 
     /**
+     * 非唯一索引列
+     */
+    private List<List<PropertyDTO>> indexKeyList;
+
+    /**
      * 主键字段类型
      */
     private String primaryKeyType;
@@ -187,5 +192,13 @@ public class BaseDTO  {
 
     public void setUniKeyList(List<List<PropertyDTO>> uniKeyList) {
         this.uniKeyList = uniKeyList;
+    }
+
+    public List<List<PropertyDTO>> getIndexKeyList() {
+        return indexKeyList;
+    }
+
+    public void setIndexKeyList(List<List<PropertyDTO>> indexKeyList) {
+        this.indexKeyList = indexKeyList;
     }
 }

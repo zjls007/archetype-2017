@@ -115,6 +115,21 @@ public class ObjectResolver {
             list.add(uniKey);
         }
         dataModel.setUniKeyList(list);
+
+        // 非唯一索引
+        list = new ArrayList<List<PropertyDTO>>();
+        for (Map.Entry<String, List<String>> map : table.getIndexKeyMap().entrySet()) {
+            List<PropertyDTO> uniKey = new ArrayList<PropertyDTO>();
+            for (String str : map.getValue()) {
+                for (PropertyDTO dto : propertyDTOList) {
+                    if (dto.getColumnName().equals(str)) {
+                        uniKey.add(dto);
+                    }
+                }
+            }
+            list.add(uniKey);
+        }
+        dataModel.setIndexKeyList(list);
     }
 
     public static void main(String[] args) {
