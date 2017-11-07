@@ -3,9 +3,11 @@ package com.cy.web.controller.sys;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cy.common.Response;
+import com.cy.dao.system.PermissionInfoDAO;
 import com.cy.dao.system.RoleInfoDAO;
 import com.cy.dao.system.RolePermissionRefDAO;
 import com.cy.dao.system.UserInfoDAO;
+import com.cy.entity.system.PermissionInfo;
 import com.cy.entity.system.RoleInfo;
 import com.cy.service.RoleInfoService;
 import com.cy.web.controller.sys.base.DataGridAdaptController;
@@ -35,6 +37,9 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
 
     @Autowired
     private RolePermissionRefDAO rolePermissionRefDAO;
+
+    @Autowired
+    private PermissionInfoDAO permissionInfoDAO;
 
     @Override
     protected List<RoleInfo> getData(RoleInfo queryDTO) {
@@ -95,6 +100,20 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
     public String refPermissionPage(@PathVariable Long roleInfoId, ModelMap modelMap) {
         modelMap.put("roleInfoId", roleInfoId);
         return genPath("refPermissionPage");
+    }
+
+    @RequestMapping("getPermissionData")
+    @ResponseBody
+    public Object getPermissionData() {
+        List<PermissionInfo> list = permissionInfoDAO.list(null);
+        JSONArray jsonArray = new JSONArray();
+        for (PermissionInfo item : list) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("id", item.getId());
+            jsonObject.put("text", item.getName());
+            jsonArray.add(jsonObject);
+        }
+        return jsonArray;
     }
 
 }

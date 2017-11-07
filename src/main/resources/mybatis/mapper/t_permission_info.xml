@@ -61,7 +61,7 @@
             </if>
             lst_upd_time = now()
         </set>
-        WHERE id = #{id}
+        WHERE id = #{id} AND native = 0
     </update>
 
     <select id="getById" resultMap="BaseResultMap">
