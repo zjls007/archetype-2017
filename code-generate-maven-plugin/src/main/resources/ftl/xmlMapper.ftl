@@ -10,12 +10,20 @@
         <@resultMap/>
     </resultMap>
 
+    <resultMap id="BaseResultMapAS" type="<@modelFullName/>">
+        <@resultMapAS prefix='${tableAlias!}'/>
+    </resultMap>
+
     <sql id="Base_Column_List">
         <@colunmList/>
     </sql>
 
     <sql id="Base_Alias_Column_List">
         <@colunmList prefix='${tableAlias!}'/>
+    </sql>
+
+    <sql id="Base_Alias_Column_List_AS">
+        <@colunmListAs prefix='${tableAlias!}'/>
     </sql>
 
     <insert id="insert" parameterType="<@modelFullName/>" useGeneratedKeys="true" keyColumn="${primaryKeyColumnName!}" keyProperty="${primaryKeyPropertyName!}">
@@ -34,7 +42,7 @@
         </foreach>
     </insert>
 
-    <delete id="delete">
+    <delete id="deleteBy${primaryKeyPropertyName?cap_first!}">
         DELETE FROM ${tableName!} WHERE <@idEqual/>
     </delete>
 
@@ -119,9 +127,23 @@
         </#if>
     </#list>
 </#macro>
+<#macro resultMapAS prefix=''>
+    <#list propertyList as item>
+        <#if item.primaryKey??>
+        <id column="${prefix}<@strExist source=prefix trueVal='_'/>${item.columnName!}" property="${item.propertyName!}" />
+        <#else>
+        <result column="${prefix}<@strExist source=prefix trueVal='_'/>${item.columnName!}" property="${item.propertyName!}" />
+        </#if>
+    </#list>
+</#macro>
 <#macro colunmList prefix=''>
     <#list propertyList?chunk(10) as row>
         <#list row as item>${prefix}<@strExist source=prefix trueVal='.'/>${item.columnName!}<#if item_has_next || row_has_next>, </#if></#list>
+    </#list>
+</#macro>
+<#macro colunmListAs prefix=''>
+    <#list propertyList?chunk(10) as row>
+        <#list row as item>${prefix}<@strExist source=prefix trueVal='.'/>${item.columnName!} AS ${prefix}<@strExist source=prefix trueVal='_'/>${item.columnName!}<#if item_has_next || row_has_next>, </#if></#list>
     </#list>
 </#macro>
 <#macro noIdColunmList>

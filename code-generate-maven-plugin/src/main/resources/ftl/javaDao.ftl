@@ -19,7 +19,7 @@ public interface ${beanName!}DAO {
 
     int batchInsert(List<${beanName!}> list);
 
-    int delete(${primaryKeyType!} ${primaryKeyPropertyName!});
+    int deleteBy${primaryKeyPropertyName?cap_first!}(${primaryKeyType!} ${primaryKeyPropertyName!});
 
     int batchDelete(List<${primaryKeyType!}> list);
 
