@@ -6,22 +6,24 @@
         <id column="id" property="id" />
         <result column="role_id" property="roleId" />
         <result column="permission_id" property="permissionId" />
+        <result column="operation_info_id" property="operationInfoId" />
+        <result column="operation_info_code" property="operationInfoCode" />
         <result column="type" property="type" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, role_id, permission_id, type
+        id, role_id, permission_id, operation_info_id, operation_info_code,  type
     </sql>
 
     <sql id="Base_Alias_Column_List">
-        trpr.id, trpr.role_id, trpr.permission_id, trpr.type
+        trpr.id, trpr.role_id, trpr.permission_id, trpr.operation_info_id , trpr.operation_info_code trpr.type
     </sql>
 
     <insert id="insert" parameterType="com.cy.entity.system.RolePermissionRef" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO t_role_permission_ref
-        (role_id, permission_id, type)
+        (role_id, permission_id, operation_info_id, operation_info_code, type)
         VALUES
-        (#{roleId}, #{permissionId}, #{type})
+        (#{roleId}, #{permissionId}, #{operationInfoId}, #{operationInfoCode}, #{type})
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.system.RolePermissionRef">

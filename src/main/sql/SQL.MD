@@ -71,6 +71,8 @@ CREATE TABLE `t_role_permission_ref` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `role_id` bigint(20) NOT NULL COMMENT '角色id',
   `permission_id` bigint(20) NOT NULL COMMENT '权限id',
+  `operation_info_id` varchar(2000) DEFAULT NULL COMMENT '权限操作id,多个用逗号分割',
+  `operation_info_code` varchar(2000) DEFAULT NULL COMMENT '权限操作code,多个用逗号分割',
   `type` varchar(255) NOT NULL COMMENT '类型（menu-菜单、page-页面元素）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色-权限关联表';
@@ -84,13 +86,6 @@ CREATE TABLE `t_operation_info` (
   `lst_upd_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='操作表';
-
-CREATE TABLE `t_permission_operation_ref` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `permission_id` bigint(20) NOT NULL COMMENT '权限id',
-  `operation_id` bigint(20) NOT NULL COMMENT '操作id',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限-操作关联表';
 
 CREATE TABLE `t_menu_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',

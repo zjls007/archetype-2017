@@ -1,4 +1,4 @@
-<input class="easyui-tagbox" id="w-role" label="用户[${userName!}]：" style="width:100%" data-options="
+<input id="w-role" label="用户[${userName!}]：" style="width:100%" data-options="
         url:'roleInfo/userRefRoleInfoData?userInfoId=${userInfoId!}',
         value:'${value!}',
         valueField: 'id',
@@ -7,7 +7,7 @@
         prompt: '请选择角色',
         validType: ['length[0,1000]','uniquetag']">
 <script type="text/javascript">
-    $('#w-center .easyui-tagbox').tagbox();
+    $('#w-role').tagbox();
     $('.submit').unbind();
     $('.submit').on({click:function () {
         $.ajax({

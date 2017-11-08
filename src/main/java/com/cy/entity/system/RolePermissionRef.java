@@ -19,6 +19,12 @@ public class RolePermissionRef implements Serializable {
     /** 权限id,not null */
     private Long permissionId;
 
+    /** 权限操作id,多个用逗号分割 */
+    private String operationInfoId;
+
+    /** 权限操作code,多个用逗号分割 */
+    private String operationInfoCode;
+
     /** 类型（menu-菜单、page-页面元素）,not null */
     private String type;
 
@@ -52,5 +58,21 @@ public class RolePermissionRef implements Serializable {
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public String getOperationInfoId() {
+        return operationInfoId;
+    }
+
+    public void setOperationInfoId(String operationInfoId) {
+        this.operationInfoId = operationInfoId;
+    }
+
+    public String getOperationInfoCode() {
+        return operationInfoCode;
+    }
+
+    public void setOperationInfoCode(String operationInfoCode) {
+        this.operationInfoCode = operationInfoCode;
     }
 }
