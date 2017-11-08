@@ -9,20 +9,21 @@ import com.cy.dao.system.RolePermissionRefDAO;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.system.PermissionInfo;
 import com.cy.entity.system.RoleInfo;
+import com.cy.entity.system.RolePermissionRef;
 import com.cy.service.RoleInfoService;
 import com.cy.web.controller.sys.base.DataGridAdaptController;
 import com.cy.web.dto.param.system.RolePermissionRefSaveDTO;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zxj on 2017/9/15.
@@ -102,6 +103,19 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
     public String refPermissionPage(@PathVariable Long roleInfoId, ModelMap modelMap) {
         modelMap.put("roleInfoId", roleInfoId);
         return genPath("refPermissionPage");
+    }
+
+    @RequestMapping("listPermData/{roleInfoId}")
+    @ResponseBody
+    public Object listPermData(@PathVariable Long roleInfoId, @RequestParam(value = "page", defaultValue = "1") Integer pageNum, @RequestParam(value = "rows", defaultValue = "10")Integer pageSize) {
+        pageNum = pageNum == null ? 1 : pageNum;
+        pageSize = pageSize == null ? 10 : pageSize;
+        PageHelper.startPage(pageNum, pageSize);
+        List<RolePermissionRef> list = rolePermissionRefDAO.getByRoleInfoId(roleInfoId);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("total", list.size());
+        map.put("rows", list);
+        return map;
     }
 
     @RequestMapping("saveRefPermissionPage")

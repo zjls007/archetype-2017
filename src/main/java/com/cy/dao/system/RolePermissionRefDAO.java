@@ -30,6 +30,8 @@ public interface RolePermissionRefDAO {
 
     List<Long> getMenuByRoleInfoId(Long roleInfoId);
 
+    List<RolePermissionRef> getByRoleInfoId(Long roleInfoId);
+
     RolePermissionRef getRolePermissionRef(@Param("roleInfoId") Long roleInfoId, @Param("permissionId") Long permissionId);
 
 }

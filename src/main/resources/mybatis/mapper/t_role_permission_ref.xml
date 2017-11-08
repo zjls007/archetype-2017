@@ -21,9 +21,9 @@
 
     <insert id="insert" parameterType="com.cy.entity.system.RolePermissionRef" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO t_role_permission_ref
-        (role_id, permission_id, operation_info_id, operation_info_code, type)
+        (role_id, permission_id, operation_info_id, operation_info_code, type, create_time, lst_upd_time)
         VALUES
-        (#{roleId}, #{permissionId}, #{operationInfoId}, #{operationInfoCode}, #{type})
+        (#{roleId}, #{permissionId}, #{operationInfoId}, #{operationInfoCode}, #{type}, now(), now())
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.system.RolePermissionRef">
@@ -55,6 +55,13 @@
             <if test="permissionId != null" >
                 permission_id = #{permissionId},
             </if>
+            <if test="operationInfoId != null">
+                operation_info_id = #{operationInfoId},
+            </if>
+            <if test="operationInfoCode != null">
+                operation_info_code = #{operationInfoCode},
+            </if>
+            lst_upd_time = now()
         </set>
         WHERE id = #{id}
     </update>
@@ -80,6 +87,12 @@
 
     <select id="getMenuByRoleInfoId" resultType="long">
         SELECT permission_id FROM t_role_permission_ref WHERE role_id = #{roleInfoId}
+    </select>
+
+    <select id="getByRoleInfoId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM t_role_permission_ref WHERE role_id = #{roleInfoId}
+        ORDER BY lst_upd_time DESC
     </select>
 
     <select id="getRolePermissionRef" resultMap="BaseResultMap">

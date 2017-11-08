@@ -1,6 +1,7 @@
 package com.cy.entity.system;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by zxj on 2017-08-29 10:32:27.
@@ -27,6 +28,12 @@ public class RolePermissionRef implements Serializable {
 
     /** 类型（menu-菜单、page-页面元素）,not null */
     private String type;
+
+    /** 创建时间,not null */
+    private Date createTime;
+
+    /** 最后更新时间,not null*/
+    private Date lstUpdTime;
 
     public Long getId() {
         return id;
@@ -74,5 +81,21 @@ public class RolePermissionRef implements Serializable {
 
     public void setOperationInfoCode(String operationInfoCode) {
         this.operationInfoCode = operationInfoCode;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getLstUpdTime() {
+        return lstUpdTime;
+    }
+
+    public void setLstUpdTime(Date lstUpdTime) {
+        this.lstUpdTime = lstUpdTime;
     }
 }

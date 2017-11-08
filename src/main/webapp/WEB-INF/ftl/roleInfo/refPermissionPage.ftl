@@ -10,14 +10,14 @@
                     onDblClickRow:onDblClickRow,
                     toolbar:'#tb-ref',
                     pagination:true,
-                    url:'',
+                    url:'roleInfo/listPermData/${roleInfoId!}',
                     queryParams:queryParams(),
                     method:'post'">
     <thead>
     <tr>
         <th data-options="field:'id',checkbox:true"></th>
-        <th data-options="field:'name',width:200">权限</th>
-        <th data-options="field:'code',width:200">权限操作</th>
+        <th data-options="field:'permissionId',width:200">权限Id</th>
+        <th data-options="field:'operationInfoCode',width:200">权限操作</th>
     </tr>
     </thead>
 </table>
