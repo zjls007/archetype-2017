@@ -80,7 +80,7 @@ CREATE TABLE `t_role_permission_ref` (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `lst_upd_time` datetime NOT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uni_role_per` (`role_id`,`permission_id`) USING BTREE
+  UNIQUE KEY `uni_role_per` (`role_id`,`permission_id`,`type`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色-权限关联表';
 
 CREATE TABLE `t_operation_info` (

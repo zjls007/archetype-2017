@@ -2,9 +2,11 @@ package com.cy.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.cy.dao.system.MenuInfoDAO;
 import com.cy.dao.system.RoleInfoDAO;
 import com.cy.dao.system.RolePermissionRefDAO;
 import com.cy.dao.system.UserRoleRefDAO;
+import com.cy.entity.system.MenuInfo;
 import com.cy.entity.system.RoleInfo;
 import com.cy.entity.system.RolePermissionRef;
 import com.cy.service.RoleInfoService;
@@ -13,10 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by zxj on 2017/9/19.
@@ -61,6 +60,8 @@ public class RoleInfoServiceImpl implements RoleInfoService {
     public void saveRefPermissionMenu(Long roleInfoId, List<Long> menuInfoIdList) {
         rolePermissionRefDAO.deleteByRoleInfoId(roleInfoId, "menu");
         List<RolePermissionRef> list = new ArrayList<RolePermissionRef>();
+        menuInfoIdList.add(0l);
+        menuInfoIdList = getAllLevelId(menuInfoIdList);
         if (menuInfoIdList != null && !menuInfoIdList.isEmpty()) {
             Set<Long> set = new LinkedHashSet<Long>(menuInfoIdList);
             for (Long menuInfoId : set) {
@@ -72,6 +73,31 @@ public class RoleInfoServiceImpl implements RoleInfoService {
             }
             rolePermissionRefDAO.batchInsert(list);
         }
+    }
+
+    @Autowired
+    private MenuInfoDAO menuInfoDAO;
+
+    private List<Long> getAllLevelId(List<Long> menuInfoIdList) {
+        Set<Long> set = new HashSet<Long>();
+        for (Long id : menuInfoIdList) {
+            set.add(id);
+            if (id.intValue() == 0) {
+                continue;
+            }
+            boolean cont = true;
+            do {
+                MenuInfo menuInfo = menuInfoDAO.getById(id);
+                menuInfo = menuInfoDAO.getById(menuInfo.getParentId());
+                if (menuInfo != null) {
+                    id = menuInfo.getId();
+                    set.add(id);
+                } else {
+                    cont = false;
+                }
+            } while (cont);
+        }
+        return new ArrayList<Long>(set);
     }
 
     @Override
