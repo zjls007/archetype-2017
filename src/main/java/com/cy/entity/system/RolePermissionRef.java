@@ -20,6 +20,9 @@ public class RolePermissionRef implements Serializable {
     /** 权限id,not null */
     private Long permissionId;
 
+    /** 权限code,not null */
+    private String permissionCode;
+
     /** 权限名称,not null */
     private String permissionName;
 
@@ -119,5 +122,13 @@ public class RolePermissionRef implements Serializable {
 
     public void setOperationInfoName(String operationInfoName) {
         this.operationInfoName = operationInfoName;
+    }
+
+    public String getPermissionCode() {
+        return permissionCode;
+    }
+
+    public void setPermissionCode(String permissionCode) {
+        this.permissionCode = permissionCode;
     }
 }

@@ -22,7 +22,7 @@ public interface RolePermissionRefDAO {
 
     int update(RolePermissionRef entity);
 
-    int updatePermName(@Param("permissionId") Long permissionId, @Param("permissionName") String permissionName);
+    int updatePermName(@Param("permissionId") Long permissionId, @Param("permissionName") String permissionName, @Param("permissionCode") String permissionCode);
 
     RolePermissionRef getById(Long id);
 

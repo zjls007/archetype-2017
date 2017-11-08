@@ -15,6 +15,9 @@ public class RolePermissionRefSaveDTO implements Serializable {
     /** 权限id,not null */
     private Long permissionId;
 
+    /** 权限code,not null */
+    private String permissionCode;
+
     /** 权限名称,not null */
     private String permissionName;
 
@@ -73,5 +76,13 @@ public class RolePermissionRefSaveDTO implements Serializable {
 
     public void setPermissionName(String permissionName) {
         this.permissionName = permissionName;
+    }
+
+    public String getPermissionCode() {
+        return permissionCode;
+    }
+
+    public void setPermissionCode(String permissionCode) {
+        this.permissionCode = permissionCode;
     }
 }

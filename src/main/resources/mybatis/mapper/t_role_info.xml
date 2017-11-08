@@ -111,5 +111,17 @@
             tri.id = turf.role_id
         AND turf.user_id = #{userInfoId}
     </select>
+
+    <select id="getPermByUser" resultType="string">
+        SELECT
+            CONCAT(trpr.permission_code, IF(trpr.operation_info_code IS NULL or trpr.operation_info_code = '','',':'), IFNULL(trpr.operation_info_code,'')) as code
+        FROM
+            t_user_role_ref turf,
+            t_role_permission_ref trpr
+        WHERE
+            turf.user_id = #{userInfoId}
+        AND turf.role_id = trpr.role_id
+        AND trpr.type = 'page'
+    </select>
 </mapper>
 

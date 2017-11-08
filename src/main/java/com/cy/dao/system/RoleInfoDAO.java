@@ -32,4 +32,6 @@ public interface RoleInfoDAO {
 
     Set<String> getRoleCodeList(Long userInfoId);
 
+    Set<String> getPermByUser(Long userInfoId);
+
 }

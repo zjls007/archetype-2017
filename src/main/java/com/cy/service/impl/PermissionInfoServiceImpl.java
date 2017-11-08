@@ -25,7 +25,7 @@ public class PermissionInfoServiceImpl implements PermissionInfoService {
         if (id == null) {
             permissionInfoDAO.insert(permissionInfo);
         } else {
-            rolePermissionRefDAO.updatePermName(id, permissionInfo.getName());
+            rolePermissionRefDAO.updatePermName(id, permissionInfo.getName(), permissionInfo.getCode());
             permissionInfoDAO.update(permissionInfo);
         }
     }

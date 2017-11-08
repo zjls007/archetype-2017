@@ -124,7 +124,9 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
         RolePermissionRefSaveDTO dto = new RolePermissionRefSaveDTO();
         dto.setRoleId(roleInfoId);
         dto.setPermissionId(permissionId);
-        dto.setPermissionName(permissionInfoDAO.getById(permissionId).getName());
+        PermissionInfo permissionInfo = permissionInfoDAO.getById(permissionId);
+        dto.setPermissionCode(permissionInfo.getCode());
+        dto.setPermissionName(permissionInfo.getName());
         if (!StringUtils.isEmpty(values)) {
             List<String> id = new ArrayList<String>();
             List<String> code = new ArrayList<String>();
