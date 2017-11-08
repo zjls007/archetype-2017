@@ -11,11 +11,13 @@ import com.cy.entity.system.PermissionInfo;
 import com.cy.entity.system.RoleInfo;
 import com.cy.service.RoleInfoService;
 import com.cy.web.controller.sys.base.DataGridAdaptController;
+import com.cy.web.dto.param.system.RolePermissionRefSaveDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -100,6 +102,27 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
     public String refPermissionPage(@PathVariable Long roleInfoId, ModelMap modelMap) {
         modelMap.put("roleInfoId", roleInfoId);
         return genPath("refPermissionPage");
+    }
+
+    @RequestMapping("saveRefPermissionPage")
+    @ResponseBody
+    public Response saveRefPermissionPage(Long roleInfoId, Long permissionId, String values) {
+        RolePermissionRefSaveDTO dto = new RolePermissionRefSaveDTO();
+        dto.setRoleId(roleInfoId);
+        dto.setPermissionId(permissionId);
+        if (!StringUtils.isEmpty(values)) {
+            List<String> id = new ArrayList<String>();
+            List<String> code = new ArrayList<String>();
+            for (String item : values.split(",")) {
+                String[] split = item.split("-");
+                id.add(split[0]);
+                code.add(split[1]);
+            }
+            dto.setOperationInfoId(StringUtils.arrayToCommaDelimitedString(id.toArray()));
+            dto.setOperationInfoCode(StringUtils.arrayToCommaDelimitedString(code.toArray()));
+        }
+        roleInfoService.saveRefPermissionPage(dto);
+        return new Response(null);
     }
 
     @RequestMapping("getPermissionData")

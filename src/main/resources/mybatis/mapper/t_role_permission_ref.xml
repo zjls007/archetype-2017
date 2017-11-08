@@ -81,5 +81,12 @@
     <select id="getMenuByRoleInfoId" resultType="long">
         SELECT permission_id FROM t_role_permission_ref WHERE role_id = #{roleInfoId}
     </select>
+
+    <select id="getRolePermissionRef" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_role_permission_ref WHERE role_id = #{roleInfoId} AND permission_id = #{permissionId}
+    </select>
+
 </mapper>
 

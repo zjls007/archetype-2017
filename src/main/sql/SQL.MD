@@ -74,7 +74,8 @@ CREATE TABLE `t_role_permission_ref` (
   `operation_info_id` varchar(2000) DEFAULT NULL COMMENT '权限操作id,多个用逗号分割',
   `operation_info_code` varchar(2000) DEFAULT NULL COMMENT '权限操作code,多个用逗号分割',
   `type` varchar(255) NOT NULL COMMENT '类型（menu-菜单、page-页面元素）',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uni_role_per` (`role_id`,`permission_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色-权限关联表';
 
 CREATE TABLE `t_operation_info` (
