@@ -15,11 +15,17 @@ public class RolePermissionRefSaveDTO implements Serializable {
     /** 权限id,not null */
     private Long permissionId;
 
+    /** 权限名称,not null */
+    private String permissionName;
+
     /** 权限操作id,多个用逗号分割 */
     private String operationInfoId;
 
     /** 权限操作code,多个用逗号分割 */
     private String operationInfoCode;
+
+    /** 权限操作名称,多个用逗号分割 */
+    private String operationInfoName;
 
     public Long getRoleId() {
         return roleId;
@@ -51,5 +57,21 @@ public class RolePermissionRefSaveDTO implements Serializable {
 
     public void setOperationInfoCode(String operationInfoCode) {
         this.operationInfoCode = operationInfoCode;
+    }
+
+    public String getOperationInfoName() {
+        return operationInfoName;
+    }
+
+    public void setOperationInfoName(String operationInfoName) {
+        this.operationInfoName = operationInfoName;
+    }
+
+    public String getPermissionName() {
+        return permissionName;
+    }
+
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
     }
 }

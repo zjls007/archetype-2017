@@ -6,24 +6,26 @@
         <id column="id" property="id" />
         <result column="role_id" property="roleId" />
         <result column="permission_id" property="permissionId" />
+        <result column="permission_name" property="permissionName" />
         <result column="operation_info_id" property="operationInfoId" />
         <result column="operation_info_code" property="operationInfoCode" />
+        <result column="operation_info_name" property="operationInfoName" />
         <result column="type" property="type" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, role_id, permission_id, operation_info_id, operation_info_code,  type
+        id, role_id, permission_id, permission_name, operation_info_id, operation_info_code, operation_info_name, type
     </sql>
 
     <sql id="Base_Alias_Column_List">
-        trpr.id, trpr.role_id, trpr.permission_id, trpr.operation_info_id , trpr.operation_info_code trpr.type
+        trpr.id, trpr.role_id, trpr.permission_id, trpr.permission_name, trpr.operation_info_id , trpr.operation_info_code, trpr.operation_info_name, trpr.type
     </sql>
 
     <insert id="insert" parameterType="com.cy.entity.system.RolePermissionRef" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO t_role_permission_ref
-        (role_id, permission_id, operation_info_id, operation_info_code, type, create_time, lst_upd_time)
+        (role_id, permission_id, operation_info_id, permission_name, operation_info_code, operation_info_name, type, create_time, lst_upd_time)
         VALUES
-        (#{roleId}, #{permissionId}, #{operationInfoId}, #{operationInfoCode}, #{type}, now(), now())
+        (#{roleId}, #{permissionId}, #{operationInfoId}, #{permissionName}, #{operationInfoCode}, #{operationInfoName}, #{type}, now(), now())
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.system.RolePermissionRef">
@@ -45,6 +47,14 @@
             #{item}
         </foreach>
     </delete>
+
+    <update id="updatePermName">
+        UPDATE t_role_permission_ref
+        <set>
+            permission_name = #{permissionName}
+        </set>
+        WHERE permission_id = #{permissionId}
+    </update>
 
     <update id="update" parameterType="com.cy.entity.system.RolePermissionRef" >
         UPDATE t_role_permission_ref

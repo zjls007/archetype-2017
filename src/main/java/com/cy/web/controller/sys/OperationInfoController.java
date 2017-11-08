@@ -50,7 +50,7 @@ public class OperationInfoController extends DataGridAdaptController<OperationIn
         JSONArray jsonArray = new JSONArray();
         for (OperationInfo item : list) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("id", String.format("%s-%s", item.getId(), item.getCode()));
+            jsonObject.put("id", String.format("%s-%s-%s", item.getId(), item.getCode(), item.getName()));
             jsonObject.put("text", item.getName());
             jsonArray.add(jsonObject);
         }

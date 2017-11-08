@@ -22,6 +22,8 @@ public interface RolePermissionRefDAO {
 
     int update(RolePermissionRef entity);
 
+    int updatePermName(@Param("permissionId") Long permissionId, @Param("permissionName") String permissionName);
+
     RolePermissionRef getById(Long id);
 
     List<RolePermissionRef> getByIdList(List<Long> list);

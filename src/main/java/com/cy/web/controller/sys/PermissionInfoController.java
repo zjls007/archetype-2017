@@ -3,6 +3,7 @@ package com.cy.web.controller.sys;
 import com.cy.common.Response;
 import com.cy.dao.system.PermissionInfoDAO;
 import com.cy.entity.system.PermissionInfo;
+import com.cy.service.PermissionInfoService;
 import com.cy.web.controller.sys.base.DataGridAdaptController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,9 @@ public class PermissionInfoController extends DataGridAdaptController<Permission
     @Autowired
     private PermissionInfoDAO permissionInfoDAO;
 
+    @Autowired
+    private PermissionInfoService permissionInfoService;
+
     @Override
     protected List<PermissionInfo> getData(PermissionInfo queryDTO) {
         return permissionInfoDAO.list(queryDTO);
@@ -27,12 +31,8 @@ public class PermissionInfoController extends DataGridAdaptController<Permission
 
     @Override
     public Response doSaveOrUpdate(PermissionInfo permissionInfo) {
-        if (permissionInfo.getId() == null) {
-            permissionInfoDAO.insert(permissionInfo);
-        } else {
-            permissionInfoDAO.update(permissionInfo);
-        }
-        return new Response(permissionInfo.getId());
+        permissionInfoService.saveOrUpdate(permissionInfo);
+        return new Response(null);
     }
 
     @Override

@@ -7,7 +7,7 @@
                     fit:true,
                     onLoadSuccess:onLoadSuccess,
                     onLoadError:onLoadError,
-                    onDblClickRow:onDblClickRow,
+                    onDblClickRow:setItem,
                     toolbar:'#tb-ref',
                     pagination:true,
                     url:'roleInfo/listPermData/${roleInfoId!}',
@@ -16,8 +16,8 @@
     <thead>
     <tr>
         <th data-options="field:'id',checkbox:true"></th>
-        <th data-options="field:'permissionId',width:200">权限Id</th>
-        <th data-options="field:'operationInfoCode',width:200">权限操作</th>
+        <th data-options="field:'permissionName',width:200">权限Id</th>
+        <th data-options="field:'operationInfoName',width:200">权限操作</th>
     </tr>
     </thead>
 </table>
@@ -31,7 +31,7 @@
         valueField: 'id',
         textField: 'text',
         limitToList: true,
-        prompt: '请选择权限操作',
+        prompt: '为空代表拥有全部操作！',
         validType: ['length[0,1000]','uniquetag']">
     <div style="margin-top: 5px"></div>
 </div>
@@ -66,4 +66,8 @@
             }
         });
     }});
+    
+    function setItem(index,row) {
+        alert(row);
+    }
 </script>

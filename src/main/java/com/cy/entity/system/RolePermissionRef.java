@@ -20,11 +20,17 @@ public class RolePermissionRef implements Serializable {
     /** 权限id,not null */
     private Long permissionId;
 
+    /** 权限名称,not null */
+    private String permissionName;
+
     /** 权限操作id,多个用逗号分割 */
     private String operationInfoId;
 
     /** 权限操作code,多个用逗号分割 */
     private String operationInfoCode;
+
+    /** 权限操作名称,多个用逗号分割 */
+    private String operationInfoName;
 
     /** 类型（menu-菜单、page-页面元素）,not null */
     private String type;
@@ -97,5 +103,21 @@ public class RolePermissionRef implements Serializable {
 
     public void setLstUpdTime(Date lstUpdTime) {
         this.lstUpdTime = lstUpdTime;
+    }
+
+    public String getPermissionName() {
+        return permissionName;
+    }
+
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
+    }
+
+    public String getOperationInfoName() {
+        return operationInfoName;
+    }
+
+    public void setOperationInfoName(String operationInfoName) {
+        this.operationInfoName = operationInfoName;
     }
 }
