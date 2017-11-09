@@ -69,6 +69,8 @@
 </div>
 </@override>
 <@override name="script">
+<script type="application/javascript">
+</script>
 </@override>
 <@extends name="/base.ftl"/>
 <!-- 宏 -->

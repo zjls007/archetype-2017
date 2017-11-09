@@ -22,18 +22,29 @@
     </thead>
 </table>
 <div id="tb-ref" style="padding:2px 5px;">
-    <input id="permissionId" name="permissionId" data-options="panelHeight:'auto',label:'权限:',required:false,width:240,valueField:'id',textField:'text',url:'roleInfo/getPermissionData'"/>
-    <div style="margin-top: 5px"></div>
-    <input id="w-operation" style="width: 250px" data-options="
-        url:'operationInfo/operationInfoData',
-        value:'${value!}',
-        label:'权限操作:',
-        valueField: 'id',
-        textField: 'text',
-        limitToList: true,
-        prompt: '为空代表拥有全部操作！',
-        validType: ['length[0,1000]','uniquetag']">
-    <div style="margin-top: 5px"></div>
+    <form id="f-edit" method="post" action="roleInfo/saveRefPermissionPage">
+        <input id="permissionId" name="permissionId" data-options="
+            panelHeight:'auto',
+            label:'权限:',
+            required:true,
+            width:240,
+            valueField:'id',
+            textField:'text',
+            validType:'comboxRequired[\'---请选择---\']',
+            onChange:onPermChange,
+            url:'roleInfo/getPermissionData'"/>
+        <div style="margin-top: 5px"></div>
+        <input id="w-operation" style="width: 250px" data-options="
+            url:'operationInfo/operationInfoData',
+            value:'${value!}',
+            label:'权限操作:',
+            valueField: 'id',
+            textField: 'text',
+            limitToList: true,
+            prompt: '为空代表拥有全部操作！',
+            validType: ['length[0,1000]','uniquetag']">
+        <div style="margin-top: 5px"></div>
+    </form>
 </div>
 <script type="text/javascript">
     $('#dg-ref').datagrid();
@@ -41,33 +52,40 @@
     $('#w-operation').tagbox();
     $('.submit').unbind();
     $('.submit').on({click:function () {
-        $.ajax({
-            url: 'roleInfo/saveRefPermissionPage',
-            method: 'post',
-            data: {
-                roleInfoId:${roleInfoId!},
-                permissionId:$('#permissionId').combobox('getValue'),
-                values:$('#w-operation').tagbox('getValues').toString()
-            },
-            success: function (data) {
-                if (data.code == 0) {
-                    $('#w').window('close')
-                } else {
-                    $.messager.alert('错误',data.message,'error');
+        var form = $('#f-edit');
+        if (form.form('validate')) {
+            $.ajax({
+                url: 'roleInfo/saveRefPermissionPage',
+                method: 'post',
+                data: {
+                    roleInfoId:${roleInfoId!},
+                    permissionId:$('#permissionId').combobox('getValue'),
+                    values:$('#w-operation').tagbox('getValues').toString()
+                },
+                success: function (data) {
+                    if (data.code == 0) {
+                        // $('#w').window('close')
+                    } else {
+                        $.messager.alert('错误',data.message,'error');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // 未登录
+                    if (xhr.status == 403) {
+                        window.parent.doLogin();
+                    } else {
+                        $.messager.alert('错误','保存出错!','error');
+                    }
                 }
-            },
-            error: function(xhr, status, error) {
-                // 未登录
-                if (xhr.status == 403) {
-                    window.parent.doLogin();
-                } else {
-                    $.messager.alert('错误','保存出错!','error');
-                }
-            }
-        });
+            });
+        }
     }});
     
     function setItem(index,row) {
         alert(row);
+    }
+    
+    function onPermChange(newValue,oldValue) {
+
     }
 </script>

@@ -13,6 +13,17 @@ $(function () {
     $('.reset').on({click:resetForm});
     // jquery全局ajax设置
     $(document).ajaxError(onLoadError);
+
+    //添加一个验证类型
+    $.extend($.fn.validatebox.defaults.rules, {
+        comboxRequired: {
+            validator: function(value, param){
+                // ''为全部选项
+                return $(this).parent().find('input.textbox-value').val() != '';
+            },
+            message: '必须选择一项!'
+        }
+    });
 });
 
 <!-- 打开弹窗 -->

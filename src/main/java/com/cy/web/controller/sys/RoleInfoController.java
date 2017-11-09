@@ -155,7 +155,7 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
         List<PermissionInfo> list = permissionInfoDAO.list(null);
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", "-1");
+        jsonObject.put("id", "");
         jsonObject.put("text", "---请选择---");
         jsonObject.put("selected", "true");
         jsonArray.add(jsonObject);

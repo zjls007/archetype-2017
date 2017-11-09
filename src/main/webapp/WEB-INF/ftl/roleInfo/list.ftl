@@ -17,9 +17,8 @@
     <@queryInput type='textbox' name='name' label='名称'/>
     <@queryInput type='textbox' name='code' label='编码'/>
     <@br/>
-    <@queryInput type='combobox' name='nativeState' label='初始化数据' value="[{id:'-1',text:'--- 请选择 ---',selected:true},{id:0,text:'否'},{id:1,text:'是'}]"/>
-    <@queryInput type='combobox' name='hasSettingMenu' label='设置过菜单' value="[{id:'-1',text:'--- 请选择 ---',selected:true},{id:0,text:'否'},{id:1,text:'是'}]"/>
-    <@queryInput type='combobox' name='getHasSettingPage' label='设置过页面' value="[{id:'-1',text:'--- 请选择 ---',selected:true},{id:0,text:'否'},{id:1,text:'是'}]"/>
-
+    <@queryInput type='combobox' name='nativeState' label='初始化数据' value="[{id:'',text:'--- 请选择 ---',selected:true},{id:0,text:'否'},{id:1,text:'是'}]"/>
+    <@queryInput type='combobox' name='hasSettingMenu' label='设置过菜单' value="[{id:'',text:'--- 请选择 ---',selected:true},{id:0,text:'否'},{id:1,text:'是'}]"/>
+    <@queryInput type='combobox' name='getHasSettingPage' label='设置过页面' value="[{id:'',text:'--- 请选择 ---',selected:true},{id:0,text:'否'},{id:1,text:'是'}]"/>
 </@override>
 <@extends name="/templete/datagrid.ftl"/>
