@@ -3,9 +3,11 @@ package com.cy.web.controller.sys;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cy.common.Response;
+import com.cy.dao.system.OperationInfoDAO;
 import com.cy.dao.system.PermissionInfoDAO;
 import com.cy.dao.system.RoleInfoDAO;
 import com.cy.dao.system.RolePermissionRefDAO;
+import com.cy.entity.system.OperationInfo;
 import com.cy.entity.system.PermissionInfo;
 import com.cy.entity.system.RoleInfo;
 import com.cy.entity.system.RolePermissionRef;
@@ -47,6 +49,9 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
 
     @Autowired
     private PermissionInfoDAO permissionInfoDAO;
+
+    @Autowired
+    private OperationInfoDAO operationInfoDAO;
 
     @Override
     protected List<RoleInfoListResultDTO> getData(RoleInfoParamDTO queryDTO) {
@@ -123,6 +128,26 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
         map.put("total", list.size());
         map.put("rows", list);
         return map;
+    }
+
+    @RequestMapping("listPermOperData")
+    @ResponseBody
+    public Object listPermOperData(Long roleInfoId,
+                               Long permissionId) {
+        RolePermissionRef rolePermissionRef = rolePermissionRefDAO.getRolePermissionRef(roleInfoId, permissionId, "page");
+        List<String> list = new ArrayList<String>();
+        String operationInfoId = rolePermissionRef.getOperationInfoId();
+        if (!StringUtils.isEmpty(operationInfoId)) {
+            List<Long> ids = new ArrayList<Long>();
+            for (String item : operationInfoId.split(",")) {
+                ids.add(Long.valueOf(item));
+            }
+            List<OperationInfo> operationInfoList = operationInfoDAO.getByIdList(ids);
+            for (OperationInfo item : operationInfoList) {
+                list.add(String.format("%s-%s-%s", item.getId(), item.getCode(), item.getName()));
+            }
+        }
+        return list;
     }
 
     @RequestMapping("saveRefPermissionPage")

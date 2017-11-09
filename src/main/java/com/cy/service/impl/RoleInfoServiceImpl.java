@@ -105,7 +105,7 @@ public class RoleInfoServiceImpl implements RoleInfoService {
         RolePermissionRef ref = new RolePermissionRef();
         BeanUtils.copyProperties(dto, ref);
         ref.setType("page");
-        RolePermissionRef rolePermissionRef = rolePermissionRefDAO.getRolePermissionRef(ref.getRoleId(), ref.getPermissionId());
+        RolePermissionRef rolePermissionRef = rolePermissionRefDAO.getRolePermissionRef(ref.getRoleId(), ref.getPermissionId(), "page");
         if (rolePermissionRef == null) {
             rolePermissionRefDAO.insert(ref);
         } else {

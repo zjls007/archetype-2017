@@ -64,7 +64,8 @@
                 },
                 success: function (data) {
                     if (data.code == 0) {
-                        // $('#w').window('close')
+                        // $('#w').window('close');
+                        $('#dg-ref').datagrid('load');
                     } else {
                         $.messager.alert('错误',data.message,'error');
                     }
@@ -82,11 +83,33 @@
     }});
     
     function setItem(index,row) {
-        alert(row);
     }
     
     function onPermChange(newValue,oldValue) {
         $('#dg-ref').datagrid('options').queryParams = {permissionId:$('#permissionId').combobox('getValue')};
         $('#dg-ref').datagrid('load');
+
+        $.ajax({
+            url:'roleInfo/listPermOperData',
+            method: 'post',
+            data: {
+                roleInfoId:${roleInfoId!},
+                permissionId:$('#permissionId').combobox('getValue')
+            },
+            success: function (data) {
+                if (data.length > 0) {
+                    $('#w-operation').tagbox('setValues', data);
+                }
+            },
+            error: function(xhr, status, error) {
+                // 未登录
+                if (xhr.status == 403) {
+                    window.parent.doLogin();
+                } else {
+                    $.messager.alert('错误','保存出错!','error');
+                }
+            }
+        });
+
     }
 </script>

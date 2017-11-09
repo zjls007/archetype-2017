@@ -34,6 +34,6 @@ public interface RolePermissionRefDAO {
 
     List<RolePermissionRef> getByRoleInfoId(@Param("roleInfoId") Long roleInfoId, @Param("permissionId") Long permissionId);
 
-    RolePermissionRef getRolePermissionRef(@Param("roleInfoId") Long roleInfoId, @Param("permissionId") Long permissionId);
+    RolePermissionRef getRolePermissionRef(@Param("roleInfoId") Long roleInfoId, @Param("permissionId") Long permissionId, @Param("type") String type);
 
 }
