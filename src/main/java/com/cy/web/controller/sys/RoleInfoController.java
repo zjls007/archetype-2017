@@ -111,11 +111,14 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
 
     @RequestMapping("listPermData/{roleInfoId}")
     @ResponseBody
-    public Object listPermData(@PathVariable Long roleInfoId, @RequestParam(value = "page", defaultValue = "1") Integer pageNum, @RequestParam(value = "rows", defaultValue = "10")Integer pageSize) {
+    public Object listPermData(@PathVariable Long roleInfoId,
+                               Long permissionId,
+                               @RequestParam(value = "page", defaultValue = "1") Integer pageNum,
+                               @RequestParam(value = "rows", defaultValue = "10")Integer pageSize) {
         pageNum = pageNum == null ? 1 : pageNum;
         pageSize = pageSize == null ? 10 : pageSize;
         PageHelper.startPage(pageNum, pageSize);
-        List<RolePermissionRef> list = rolePermissionRefDAO.getByRoleInfoId(roleInfoId);
+        List<RolePermissionRef> list = rolePermissionRefDAO.getByRoleInfoId(roleInfoId, permissionId);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("total", list.size());
         map.put("rows", list);

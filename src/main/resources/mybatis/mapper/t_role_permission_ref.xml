@@ -103,7 +103,12 @@
 
     <select id="getByRoleInfoId" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List"/>
-        FROM t_role_permission_ref WHERE role_id = #{roleInfoId} AND type = 'page'
+        FROM t_role_permission_ref
+        WHERE role_id = #{roleInfoId}
+        AND type = 'page'
+        <if test="permissionId != null">
+            AND permission_id = #{permissionId}
+        </if>
         ORDER BY lst_upd_time DESC
     </select>
 

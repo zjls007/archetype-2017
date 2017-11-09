@@ -11,6 +11,8 @@ $(function () {
     $('.delete').on({click:delData});
     // 重置
     $('.reset').on({click:resetForm});
+    // 搜索
+    $('.query').on({click:dgQuery});
     // jquery全局ajax设置
     $(document).ajaxError(onLoadError);
 

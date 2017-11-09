@@ -30,7 +30,7 @@
             width:240,
             valueField:'id',
             textField:'text',
-            validType:'comboxRequired[\'---请选择---\']',
+            validType:'comboxRequired[]',
             onChange:onPermChange,
             url:'roleInfo/getPermissionData'"/>
         <div style="margin-top: 5px"></div>
@@ -86,6 +86,7 @@
     }
     
     function onPermChange(newValue,oldValue) {
-
+        $('#dg-ref').datagrid('options').queryParams = {permissionId:$('#permissionId').combobox('getValue')};
+        $('#dg-ref').datagrid('load');
     }
 </script>

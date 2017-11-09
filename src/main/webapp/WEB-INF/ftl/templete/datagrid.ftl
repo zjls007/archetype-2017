@@ -49,7 +49,7 @@
             <form id="f-query">
                 <@block name="query">
                 </@block>
-                <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:20px;width:80px" onclick="dgQuery()">搜索</a>
+                <a href="javascript:void(0);" class="easyui-linkbutton query" iconCls="icon-search" style="margin-left:20px;width:80px">搜索</a>
                 <a href="javascript:void(0);" class="easyui-linkbutton" onclick="$('#f-query').form('clear');" style="margin-left:10px;width:80px">重置</a>
             </form>
         </div>
