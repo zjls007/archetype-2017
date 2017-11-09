@@ -11,6 +11,11 @@
         <result column="lst_upd_time" property="lstUpdTime" />
     </resultMap>
 
+    <resultMap id="RoleInfoListResultDTO" type="com.cy.web.dto.result.system.RoleInfoListResultDTO" extends="BaseResultMap">
+        <result column="hasSettingMenu" property="hasSettingMenu" />
+        <result column="getHasSettingPage" property="getHasSettingPage" />
+    </resultMap>
+
     <sql id="Base_Column_List">
         id, name, code, native, create_time, lst_upd_time
     </sql>
@@ -96,6 +101,46 @@
             </if>
             <if test="code != null and code != ''">
                 AND code LIKE CONCAT('%',#{code},'%')
+            </if>
+        </where>
+        ORDER BY lst_upd_time DESC
+    </select>
+
+    <select id="listDTO" resultMap="RoleInfoListResultDTO">
+        SELECT
+        CASE (SELECT COUNT(1) from t_role_permission_ref WHERE role_id = tri.id AND type = 'menu')  WHEN 0 THEN 0 ELSE 1 END as hasSettingMenu,
+        CASE (SELECT COUNT(1) from t_role_permission_ref WHERE role_id = tri.id AND type = 'page')  WHEN 0 THEN 0 ELSE 1 END as getHasSettingPage,
+        <include refid="Base_Column_List"/>
+        FROM t_role_info tri
+        <where>
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="code != null and code != ''">
+                AND code LIKE CONCAT('%',#{code},'%')
+            </if>
+            <if test="nativeState != null and nativeState != -1">
+                AND native = #{nativeState}
+            </if>
+            <if test="hasSettingMenu != null and hasSettingMenu != -1">
+                <choose>
+                    <when test="hasSettingMenu == 1">
+                        AND EXISTS (SELECT 1 from t_role_permission_ref WHERE role_id = tri.id AND type = 'menu' limit 1)
+                    </when>
+                    <otherwise>
+                        AND NOT EXISTS (SELECT 1 from t_role_permission_ref WHERE role_id = tri.id AND type = 'menu' limit 1)
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="getHasSettingPage != null and getHasSettingPage != -1">
+                <choose>
+                    <when test="getHasSettingPage == 1">
+                        AND EXISTS (SELECT 1 from t_role_permission_ref WHERE role_id = tri.id AND type = 'page' limit 1)
+                    </when>
+                    <otherwise>
+                        AND NOT EXISTS (SELECT 1 from t_role_permission_ref WHERE role_id = tri.id AND type = 'page' limit 1)
+                    </otherwise>
+                </choose>
             </if>
         </where>
         ORDER BY lst_upd_time DESC

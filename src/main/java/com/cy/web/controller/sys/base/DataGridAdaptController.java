@@ -82,14 +82,14 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
         }
         Map<String, Object> map = new HashMap<String, Object>();
         PageHelper.startPage(pageNum, pageSize);
-        List<T> list = getData(queryDTO);
+        List<? extends T> list = getData(queryDTO);
         map.put("total", ((Page)list).getTotal());
         map.put("rows", list);
         doDataOther(map);
         return map;
     }
 
-    protected abstract List<T> getData(E queryDTO);
+    protected abstract List<? extends T> getData(E queryDTO);
 
     protected void doDataOther(Map<String, Object> map) {
 

@@ -6,19 +6,23 @@ import com.cy.common.Response;
 import com.cy.dao.system.PermissionInfoDAO;
 import com.cy.dao.system.RoleInfoDAO;
 import com.cy.dao.system.RolePermissionRefDAO;
-import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.system.PermissionInfo;
 import com.cy.entity.system.RoleInfo;
 import com.cy.entity.system.RolePermissionRef;
 import com.cy.service.RoleInfoService;
 import com.cy.web.controller.sys.base.DataGridAdaptController;
+import com.cy.web.dto.param.system.RoleInfoParamDTO;
 import com.cy.web.dto.param.system.RolePermissionRefSaveDTO;
+import com.cy.web.dto.result.system.RoleInfoListResultDTO;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +34,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("roleInfo")
-public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleInfo> {
+public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleInfoParamDTO> {
 
     @Autowired
     private RoleInfoDAO roleInfoDAO;
@@ -45,8 +49,8 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
     private PermissionInfoDAO permissionInfoDAO;
 
     @Override
-    protected List<RoleInfo> getData(RoleInfo queryDTO) {
-        return roleInfoDAO.list(queryDTO);
+    protected List<RoleInfoListResultDTO> getData(RoleInfoParamDTO queryDTO) {
+        return roleInfoDAO.listDTO(queryDTO);
     }
 
     @Override

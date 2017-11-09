@@ -1,6 +1,8 @@
 package com.cy.dao.system;
 
 import com.cy.entity.system.RoleInfo;
+import com.cy.web.dto.param.system.RoleInfoParamDTO;
+import com.cy.web.dto.result.system.RoleInfoListResultDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,6 +31,8 @@ public interface RoleInfoDAO {
     RoleInfo getByCode(String code);
 
     List<RoleInfo> list(RoleInfo queryDTO);
+
+    List<RoleInfoListResultDTO> listDTO(RoleInfoParamDTO queryDTO);
 
     Set<String> getRoleCodeList(Long userInfoId);
 
