@@ -39,9 +39,12 @@ public class MysqlDaoResolver {
         Map<String, List<String>> unqKeyMap = getIndexKey(dbmd, tableName, true);
         table.setUniKeyMap(unqKeyMap);
         Map<String, List<String>> indexKeyMap = getIndexKey(dbmd, tableName, false);
-        for (Map.Entry<String, List<String>> map : indexKeyMap.entrySet()) {
-            if (unqKeyMap.containsKey(map.getKey())) {
-                indexKeyMap.remove(map.getKey());
+
+        Iterator<String> iterator = indexKeyMap.keySet().iterator();
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            if (unqKeyMap.containsKey(key)) {
+                iterator.remove();
             }
         }
         table.setIndexKeyMap(indexKeyMap);

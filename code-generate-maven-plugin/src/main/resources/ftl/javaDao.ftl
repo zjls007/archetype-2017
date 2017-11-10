@@ -6,6 +6,7 @@
 import ${(config['model.package'])!}.${beanName!};
 </#if>
 import org.springframework.stereotype.Repository;
+<#if daoShowParam>import org.apache.ibatis.annotations.Param;</#if>
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public interface ${beanName!}DAO {
     List<${beanName!}> list(${beanName!} entity);
 
     <#list uniKeyList as list>
-    ${beanName!} getBy<#list list as item>${item.propertyName?cap_first!}<#if item_has_next>And</#if></#list>(<#list list as item>${item.typeName!} ${item.propertyName!}<#if item_has_next>, </#if></#list>);
+    ${beanName!} getBy<#list list as item>${item.propertyName?cap_first!}<#if item_has_next>And</#if></#list>(<#list list as item><#if (list?size>1)>@Param("${item.propertyName!}") </#if>${item.typeName!} ${item.propertyName!}<#if item_has_next>, </#if></#list>);
 
     </#list>
     <#list indexKeyList as list>

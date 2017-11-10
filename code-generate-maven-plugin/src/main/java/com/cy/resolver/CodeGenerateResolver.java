@@ -61,7 +61,8 @@ public class CodeGenerateResolver {
     public static void main(String[] args) throws Exception {
         Properties p = new Properties();
         try {
-            p.load(new InputStreamReader(new FileInputStream("E:\\56top\\code\\archetype-2017\\src\\main\\resources\\code-generate.properties"), "UTF-8"));
+            String path = "E:\\56top\\code\\archetype-2017\\src\\main\\resources\\code-generate.properties";
+            p.load(new InputStreamReader(new FileInputStream(path), "UTF-8"));
         } catch (IOException e) {
             throw new RuntimeException("加载配置文件出错", e);
         }
@@ -75,4 +76,5 @@ public class CodeGenerateResolver {
         resolver.gen(p, table, "D:/aaa/t_finance_pay_receive.xml", "xmlMapper.ftl", false);
         System.out.println(table);
     }
+
 }

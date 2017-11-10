@@ -101,10 +101,14 @@ public class ObjectResolver {
         }
         dataModel.setPropertyList(propertyDTOList);
 
+        boolean daoShowParam = false;
         // 唯一索引
         List<List<PropertyDTO>> list = new ArrayList<List<PropertyDTO>>();
         for (Map.Entry<String, List<String>> map : table.getUniKeyMap().entrySet()) {
             List<PropertyDTO> uniKey = new ArrayList<PropertyDTO>();
+            if (map.getValue().size() > 1) {
+                daoShowParam = true;
+            }
             for (String str : map.getValue()) {
                 for (PropertyDTO dto : propertyDTOList) {
                     if (dto.getColumnName().equals(str)) {
@@ -120,6 +124,9 @@ public class ObjectResolver {
         list = new ArrayList<List<PropertyDTO>>();
         for (Map.Entry<String, List<String>> map : table.getIndexKeyMap().entrySet()) {
             List<PropertyDTO> uniKey = new ArrayList<PropertyDTO>();
+            if (map.getValue().size() > 1) {
+                daoShowParam = true;
+            }
             for (String str : map.getValue()) {
                 for (PropertyDTO dto : propertyDTOList) {
                     if (dto.getColumnName().equals(str)) {
@@ -130,9 +137,7 @@ public class ObjectResolver {
             list.add(uniKey);
         }
         dataModel.setIndexKeyList(list);
+        dataModel.setDaoShowParam(daoShowParam);
     }
 
-    public static void main(String[] args) {
-        System.out.println("a.ftl".replaceAll(".ftl", "-ser.ftl"));
-    }
 }

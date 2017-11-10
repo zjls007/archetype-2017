@@ -58,6 +58,11 @@ public class BaseDTO  {
     private List<PropertyDTO> propertyList;
 
     /**
+     * dao中是否显示@Param
+     */
+    private Boolean daoShowParam;
+
+    /**
      * 唯一列索引
      */
     private List<List<PropertyDTO>> uniKeyList;
@@ -200,5 +205,13 @@ public class BaseDTO  {
 
     public void setIndexKeyList(List<List<PropertyDTO>> indexKeyList) {
         this.indexKeyList = indexKeyList;
+    }
+
+    public Boolean getDaoShowParam() {
+        return daoShowParam;
+    }
+
+    public void setDaoShowParam(Boolean daoShowParam) {
+        this.daoShowParam = daoShowParam;
     }
 }
