@@ -9,6 +9,7 @@ import com.cy.dao.system.UserRoleRefDAO;
 import com.cy.entity.system.MenuInfo;
 import com.cy.entity.system.RoleInfo;
 import com.cy.entity.system.RolePermissionRef;
+import com.cy.entity.system.emun.RolePermissionRefType;
 import com.cy.service.RoleInfoService;
 import com.cy.web.dto.param.system.RolePermissionRefSaveDTO;
 import org.springframework.beans.BeanUtils;
@@ -68,7 +69,7 @@ public class RoleInfoServiceImpl implements RoleInfoService {
                 RolePermissionRef ref = new RolePermissionRef();
                 ref.setRoleId(roleInfoId);
                 ref.setPermissionId(menuInfoId);
-                ref.setType("menu");
+                ref.setType(RolePermissionRefType.MENU.getCode());
                 list.add(ref);
             }
             rolePermissionRefDAO.batchInsert(list);
@@ -104,7 +105,7 @@ public class RoleInfoServiceImpl implements RoleInfoService {
     public void saveRefPermissionPage(RolePermissionRefSaveDTO dto) {
         RolePermissionRef ref = new RolePermissionRef();
         BeanUtils.copyProperties(dto, ref);
-        ref.setType("page");
+        ref.setType(RolePermissionRefType.PAGE.getCode());
         RolePermissionRef rolePermissionRef = rolePermissionRefDAO.getRolePermissionRef(ref.getRoleId(), ref.getPermissionId(), "page");
         if (rolePermissionRef == null) {
             rolePermissionRefDAO.insert(ref);

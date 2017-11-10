@@ -35,7 +35,7 @@ public class RolePermissionRef implements Serializable {
     /** 权限操作名称,多个用逗号分割 */
     private String operationInfoName;
 
-    /** 类型（menu-菜单、page-页面元素）,not null */
+    /** 类型 参考:{@link com.cy.entity.system.emun.RolePermissionRefType},not null */
     private String type;
 
     /** 创建时间,not null */

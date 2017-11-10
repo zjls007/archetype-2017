@@ -40,7 +40,7 @@ public class Response {
 
     public void send(HttpServletResponse response) {
         response.setCharacterEncoding("utf-8");
-        response.setHeader("Content-Type", "application/json");
+        response.setHeader("Content-RolePermissionRefType", "application/json");
         try {
             PrintWriter out = response.getWriter();
             out.write(JsonUtil.toJsonStr(this));
