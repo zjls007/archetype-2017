@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.cy.dao.system.MenuInfoDAO;
 import com.cy.dao.system.RoleInfoDAO;
 import com.cy.dao.system.RolePermissionRefDAO;
-import com.cy.dao.system.UserRoleRefDAO;
 import com.cy.entity.system.MenuInfo;
 import com.cy.entity.system.RoleInfo;
 import com.cy.entity.system.RolePermissionRef;
@@ -26,9 +25,6 @@ public class RoleInfoServiceImpl implements RoleInfoService {
 
     @Autowired
     private RoleInfoDAO roleInfoDAO;
-
-    @Autowired
-    private UserRoleRefDAO userRoleRefDAO;
 
     @Autowired
     private RolePermissionRefDAO rolePermissionRefDAO;
@@ -59,7 +55,7 @@ public class RoleInfoServiceImpl implements RoleInfoService {
 
     @Override
     public void saveRefPermissionMenu(Long roleInfoId, List<Long> menuInfoIdList) {
-        rolePermissionRefDAO.deleteByRoleInfoId(roleInfoId, "menu");
+        rolePermissionRefDAO.deleteByRoleInfoId(roleInfoId, RolePermissionRefType.MENU.getCode());
         List<RolePermissionRef> list = new ArrayList<RolePermissionRef>();
         menuInfoIdList.add(0l);
         menuInfoIdList = getAllLevelId(menuInfoIdList);
@@ -106,7 +102,7 @@ public class RoleInfoServiceImpl implements RoleInfoService {
         RolePermissionRef ref = new RolePermissionRef();
         BeanUtils.copyProperties(dto, ref);
         ref.setType(RolePermissionRefType.PAGE.getCode());
-        RolePermissionRef rolePermissionRef = rolePermissionRefDAO.getRolePermissionRef(ref.getRoleId(), ref.getPermissionId(), "page");
+        RolePermissionRef rolePermissionRef = rolePermissionRefDAO.getRolePermissionRef(ref.getRoleId(), ref.getPermissionId(), RolePermissionRefType.PAGE.getCode());
         if (rolePermissionRef == null) {
             rolePermissionRefDAO.insert(ref);
         } else {
