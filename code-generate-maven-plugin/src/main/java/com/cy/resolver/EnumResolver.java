@@ -94,6 +94,7 @@ public class EnumResolver {
             map.put("items", items);
             map.put("table", table);
             map.put("column", item);
+            map.put("package", config.getProperty("model.enum.package"));
             map.put("date", new Date());
             map.put("auth", config.getProperty("auth"));
             FileWriter out = new FileWriter(PathUtil.getEnumPath(name));

@@ -1,4 +1,5 @@
 <#include "stringUtil.ftl"/>
+package ${package!};
 
 /**
  * Created by ${auth!} on ${(date?string("yyyy-MM-dd HH:mm:ss"))!}.
@@ -21,10 +22,10 @@ public enum ${name!} {
         </#list>
     }
 
-    public statics boolean contains(<#list list as item><#if item_index == 0>${item[0]} ${item[1]}</#if></#list>) {
-        if (<#list list as item><#if item_index == 0>${item[1]} != null<#if item[0] == 'String'> && !''.equal(${item[1]})</#if></#if></#list>) {
+    public static boolean contains(<#list list as item><#if item_index == 0>${item[0]} ${item[1]}</#if></#list>) {
+        if (<#list list as item><#if item_index == 0>${item[1]} != null<#if item[0] == 'String'> && !"".equals(${item[1]})</#if></#if></#list>) {
             for (${name!} item : ${name!}.values()) {
-                if (<#list list as item><#if item_index == 0>${item[1]}.equal(item.get${item[1]?cap_first})</#if></#list>) {
+                if (<#list list as item><#if item_index == 0>${item[1]}.equals(item.get${item[1]?cap_first}())</#if></#list>) {
                     return true;
                 }
             }
@@ -32,10 +33,10 @@ public enum ${name!} {
         return false;
     }
 
-    public statics ${name!} convert(<#list list as item><#if item_index == 0>${item[0]} ${item[1]}</#if></#list>) {
-        if (<#list list as item><#if item_index == 0>${item[1]} != null<#if item[0] == 'String'> && !''.equal(${item[1]})</#if></#if></#list>) {
+    public static ${name!} convert(<#list list as item><#if item_index == 0>${item[0]} ${item[1]}</#if></#list>) {
+        if (<#list list as item><#if item_index == 0>${item[1]} != null<#if item[0] == 'String'> && !"".equals(${item[1]})</#if></#if></#list>) {
             for (${name!} item : ${name!}.values()) {
-                if (<#list list as item><#if item_index == 0>${item[1]}.equal(item.get${item[1]?cap_first})</#if></#list>) {
+                if (<#list list as item><#if item_index == 0>${item[1]}.equals(item.get${item[1]?cap_first}())</#if></#list>) {
                      return item;
                 }
              }
@@ -53,5 +54,4 @@ public enum ${name!} {
     }
 
     </#list>
-
 }
