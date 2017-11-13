@@ -11,6 +11,8 @@ public class GenerateConfig {
 
     public String modelPackage;
 
+    public String enumpackage;
+
     public String daoPackage;
 
     public Boolean genModel = true;
@@ -47,6 +49,7 @@ public class GenerateConfig {
         genTest = !"false".equalsIgnoreCase((String) p.get("gen.test"));
         tableName = (String) p.get("table.name");
         modelPackage = (String) p.get("model.package");
+        enumpackage = (String) p.get("model.enum.package");
         daoPackage = (String) p.get("dao.package");
         modelTargetProject = (String) p.get("model.targetProject");
         daoTargetProject = (String) p.get("dao.targetProject");

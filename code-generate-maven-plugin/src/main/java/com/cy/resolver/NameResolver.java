@@ -21,6 +21,21 @@ public class NameResolver {
         return String.format("set%s", getTFStr(name, true));
     }
 
+    public static String getEnumName(String name) {
+        StringBuilder sb = new StringBuilder();
+        if (name != null) {
+            int size = name.length();
+            for (int i = 0; i < size; i++) {
+                char charAt = name.charAt(i);
+                if (i != 0 && Character.isUpperCase(charAt)) {
+                    sb.append("_");
+                }
+                sb.append(charAt);
+            }
+        }
+        return sb.toString().toUpperCase();
+    }
+
     public static String getTableAlias(String tableName) {
         StringBuilder sb = new StringBuilder();
         if (tableName != null) {

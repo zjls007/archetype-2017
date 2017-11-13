@@ -69,11 +69,11 @@ public class CodeGenerateResolver {
 
         JdbcConnectionFactory jdbcConnectionFactory = new JdbcConnectionFactory();
         MysqlDaoResolver mysqlDaoResolver = new MysqlDaoResolver(jdbcConnectionFactory);
-        Table table = mysqlDaoResolver.getTable("t_finance_pay_receive");
+        Table table = mysqlDaoResolver.getTable("share_company_website");
         ObjectResolver resolver = new ObjectResolver();
-        resolver.gen(p, table, "D:/aaa/FinancePayReceive.java", "javaModel.ftl", true);
-        resolver.gen(p, table, "D:/aaa/FinancePayReceiveDao.java", "javaDao.ftl", false);
-        resolver.gen(p, table, "D:/aaa/t_finance_pay_receive.xml", "xmlMapper.ftl", false);
+        resolver.gen(p, table, "D:/aaa/ShareCompanyWebsite.java", "javaModel.ftl", true);
+//        resolver.gen(p, table, "D:/aaa/FinancePayReceiveDao.java", "javaDao.ftl", false);
+//        resolver.gen(p, table, "D:/aaa/t_finance_pay_receive.xml", "xmlMapper.ftl", false);
         System.out.println(table);
     }
 

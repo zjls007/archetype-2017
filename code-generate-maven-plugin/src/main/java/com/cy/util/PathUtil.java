@@ -9,7 +9,11 @@ import java.io.File;
  */
 public class PathUtil {
 
+    public static String basePath;
+
     public static String getModelPath(String basePath, String tableName) {
+        // 和枚举生成共用基础路径
+        PathUtil.basePath = basePath;
         GenerateConfig generateConfig = GenerateConfig.getInstance();
         StringBuilder path = new StringBuilder();
         path.append(basePath);
@@ -21,6 +25,22 @@ public class PathUtil {
         }
         path.append(File.separator);
         path.append(NameResolver.getJavaClassName(tableName));
+        path.append(".java");
+        return path.toString();
+    }
+
+    public static String getEnumPath(String enumName) {
+        GenerateConfig generateConfig = GenerateConfig.getInstance();
+        StringBuilder path = new StringBuilder();
+        path.append(basePath);
+        if (generateConfig.modelTargetProject != null && !generateConfig.modelTargetProject.isEmpty()) {
+            backDir(path, generateConfig.modelTargetProject);
+        }
+        if (generateConfig.enumpackage != null && !generateConfig.enumpackage.isEmpty()) {
+            backDir(path, generateConfig.enumpackage.replaceAll("\\.", "/"));
+        }
+        path.append(File.separator);
+        path.append(enumName);
         path.append(".java");
         return path.toString();
     }

@@ -8,7 +8,7 @@ import com.cy.dao.system.RolePermissionRefDAO;
 import com.cy.entity.system.MenuInfo;
 import com.cy.entity.system.RoleInfo;
 import com.cy.entity.system.RolePermissionRef;
-import com.cy.entity.system.emun.RolePermissionRefType;
+import com.cy.entity.system.enums.RolePermissionRefType;
 import com.cy.service.RoleInfoService;
 import com.cy.web.dto.param.system.RolePermissionRefSaveDTO;
 import org.springframework.beans.BeanUtils;

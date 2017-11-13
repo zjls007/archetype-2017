@@ -1,4 +1,4 @@
-package com.cy.entity.system.emun;
+package com.cy.entity.system.enums;
 
 import org.springframework.util.StringUtils;
 

@@ -28,7 +28,7 @@ public class ObjectResolver {
         Template temp = cfg.getTemplate(ftlName);
         StringWriter out = new StringWriter();
         BaseDTO dataModel = new BaseDTO();
-        init(config, dataModel, table, null);
+        init(config, dataModel, table, null, false);
         temp.process(dataModel, out);
         out.flush();
         out.close();
@@ -49,7 +49,7 @@ public class ObjectResolver {
             Long serialVersionUID = SerializableUtil.getSerialVersionUID(modelClass);
             dataModel.setSerialVersionUID(serialVersionUID + "L");
         }
-        init(config, dataModel, table, modelClass);
+        init(config, dataModel, table, modelClass, serializable);
         Template temp = cfg.getTemplate(ftlName);
         FileWriter out = new FileWriter(path);
         temp.process(dataModel, out);
@@ -58,7 +58,7 @@ public class ObjectResolver {
         System.out.println(String.format("生成: %s", path));
     }
 
-    private void init(Properties config, BaseDTO dataModel, Table table, Class<?> clazz) {
+    private void init(Properties config, BaseDTO dataModel, Table table, Class<?> clazz, boolean serializable) {
         JavaTypeResolver.initConfig(config);
         dataModel.setConfig(config);
 
@@ -76,7 +76,11 @@ public class ObjectResolver {
         dataModel.setPrimaryKeyPropertyName(NameResolver.getFieldName(primaryKeyName));
 
         List<PropertyDTO> propertyDTOList = new ArrayList<PropertyDTO>();
+        EnumResolver enumResolver = new EnumResolver();
         for (Column item : table.getColumnList()) {
+            if (serializable) {
+                enumResolver.genEnum(config, item, table);
+            }
             if (item.getName().equals(primaryKeyName)) {
                 dataModel.setPrimaryKeyType(JavaTypeResolver.getType(item.getType())[0]);
             }
