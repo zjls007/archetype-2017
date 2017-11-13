@@ -55,7 +55,6 @@ public class EnumResolver {
         // 把中文的大括号，中括号，小括号转为英文符号
         remark = remark.replaceAll("（", "(").replaceAll("）", ")").replaceAll("【", "[").replaceAll("】", "]").replaceAll("\\{", "{").replaceAll("}", "}");
         remark = remark.replaceAll("，", ",").replaceAll("、", ",");
-        remark = remark.replaceAll(" ", keyVal[1]);
         String group = null;
         String replaceGroup = null;
         for (String reg : regexVal.split("\\|")) {
@@ -118,6 +117,10 @@ public class EnumResolver {
                     continue;
                 }
                 String[] split = enumItem.split(keyVal[1]);
+                // code-name不以“-”分割不当枚举处理
+                if (split.length != 2) {
+                    return new ArrayList<String>();
+                }
                 items.add(String.format("%s(%s%s%s, \"%s\"),", NameResolver.getEnumName(split[0]), isNumber ? "" : "\"", split[0], isNumber ? "" : "\"", split.length == 2 ? split[1] : split[0]));
             }
         }
