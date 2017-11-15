@@ -134,17 +134,19 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
     @ResponseBody
     public Object listPermOperData(Long roleInfoId,
                                Long permissionId) {
-        RolePermissionRef rolePermissionRef = rolePermissionRefDAO.getRolePermissionRef(roleInfoId, permissionId, "page");
         List<String> list = new ArrayList<String>();
-        String operationInfoId = rolePermissionRef.getOperationInfoId();
-        if (!StringUtils.isEmpty(operationInfoId)) {
-            List<Long> ids = new ArrayList<Long>();
-            for (String item : operationInfoId.split(",")) {
-                ids.add(Long.valueOf(item));
-            }
-            List<OperationInfo> operationInfoList = operationInfoDAO.getByIdList(ids);
-            for (OperationInfo item : operationInfoList) {
-                list.add(String.format("%s-%s-%s", item.getId(), item.getCode(), item.getName()));
+        RolePermissionRef rolePermissionRef = rolePermissionRefDAO.getRolePermissionRef(roleInfoId, permissionId, "page");
+        if (rolePermissionRef != null) {
+            String operationInfoId = rolePermissionRef.getOperationInfoId();
+            if (!StringUtils.isEmpty(operationInfoId)) {
+                List<Long> ids = new ArrayList<Long>();
+                for (String item : operationInfoId.split(",")) {
+                    ids.add(Long.valueOf(item));
+                }
+                List<OperationInfo> operationInfoList = operationInfoDAO.getByIdList(ids);
+                for (OperationInfo item : operationInfoList) {
+                    list.add(String.format("%s-%s-%s", item.getId(), item.getCode(), item.getName()));
+                }
             }
         }
         return list;

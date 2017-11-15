@@ -33,6 +33,7 @@
             validType:'comboxRequired[]',
             onChange:onPermChange,
             url:'roleInfo/getPermissionData'"/>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="delRefData()">删除</a>
         <div style="margin-top: 5px"></div>
         <input id="w-operation" style="width: 250px" data-options="
             url:'operationInfo/operationInfoData',
@@ -47,6 +48,7 @@
     </form>
 </div>
 <script type="text/javascript">
+    $('.easyui-linkbutton').linkbutton();
     $('#dg-ref').datagrid();
     $('#permissionId').combobox();
     $('#w-operation').tagbox();
@@ -111,5 +113,36 @@
             }
         });
 
+    }
+
+    function  delRefData() {
+        var checked = $('#dg-ref').datagrid('getChecked');
+        if (checked.length == 0) {
+            $.messager.alert('警告','请选择数据!','warning');
+            return;
+        }
+        $.messager.confirm('警告','确定要删除吗?',function(r){
+            if (r){
+                var idList=[];
+                for (var i = 0; i < checked.length; i++) {
+                    idList.push(checked[i].id);
+                }
+                $.ajax({
+                    async: true,
+                    type: 'POST',
+                    url: url,
+                    data: JSON.stringify(idList),
+                    dataType: 'json',
+                    contentType:"application/json",
+                    success: function (data) {
+                        if (data.code == 0) {
+                            $('#dg').datagrid('reload');
+                        } else {
+                            $.messager.alert('错误',data.message,'error');
+                        }
+                    }
+                });
+            }
+        });
     }
 </script>
