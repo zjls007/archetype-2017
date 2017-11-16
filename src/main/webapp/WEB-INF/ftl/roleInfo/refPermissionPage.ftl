@@ -130,13 +130,13 @@
                 $.ajax({
                     async: true,
                     type: 'POST',
-                    url: url,
+                    url: 'roleInfo/deleteRef',
                     data: JSON.stringify(idList),
                     dataType: 'json',
                     contentType:"application/json",
                     success: function (data) {
                         if (data.code == 0) {
-                            $('#dg').datagrid('reload');
+                            $('#dg-ref').datagrid('reload');
                         } else {
                             $.messager.alert('错误',data.message,'error');
                         }
