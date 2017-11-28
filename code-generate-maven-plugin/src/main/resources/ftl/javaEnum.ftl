@@ -23,14 +23,7 @@ public enum ${name!} {
     }
 
     public static boolean contains(<#list list as item><#if item_index == 0>${item[0]} ${item[1]}</#if></#list>) {
-        if (<#list list as item><#if item_index == 0>${item[1]} != null<#if item[0] == 'String'> && !"".equals(${item[1]})</#if></#if></#list>) {
-            for (${name!} item : ${name!}.values()) {
-                if (<#list list as item><#if item_index == 0>${item[1]}.equals(item.get${item[1]?cap_first}())</#if></#list>) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return convert(<#list list as item><#if item_index == 0>${item[1]}</#if></#list>) != null;
     }
 
     public static ${name!} convert(<#list list as item><#if item_index == 0>${item[0]} ${item[1]}</#if></#list>) {
