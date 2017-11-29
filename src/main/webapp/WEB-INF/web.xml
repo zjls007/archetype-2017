@@ -89,23 +89,51 @@
   </filter-mapping>
 
   <servlet>
-    <servlet-name>springMvc</servlet-name>
+    <servlet-name>archetypeAdmin</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/spring-servlet.xml</param-value>
+      <param-value>/WEB-INF/config/spring-servlet-admin.xml</param-value>
     </init-param>
+    <load-on-startup>2</load-on-startup>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>springMvc</servlet-name>
-    <url-pattern>/</url-pattern>
+    <servlet-name>archetypeAdmin</servlet-name>
+    <url-pattern>/admin/*</url-pattern>
     <!--
-     1.如果用jsp作为视图则不能配置为 “/*”
-     servlet的url-pattern默认为 “/*.jsp” 而 “/*”的优先级比 “/*.jsp”高，故servlet不能被解析则不能解析jsp页面，
-     所以这里不能配置为 /*， 只能配置为 /来过滤所有请求
-     2.还可以有其他配置方法,配置多个servlet-mapping  url-pattern值为*.jsp, *.json, *.htm, *.xml 区分请求类型
+      http://blog.csdn.net/robinjwong/article/details/39619465
+     url-pattern匹配规则
+        匹配规则有三种：
+        精确匹配 —— 如/foo.htm，只会匹配foo.htm这个URL
+        路径匹配 —— 如/foo/*，会匹配以foo为前缀的URL
+        后缀匹配 —— 如*.htm，会匹配所有以.htm为后缀的URL
+        <url-pattern>的其他写法，如/foo/ ，/*.htm ，*/foo 都是不对的。
+
+    Servlet的匹配原则
+
+      Servlet的匹配规则在prg.apache.tomcat.util.http.mapper.Mapper.internalMapWrapper中定义。
+      对Servlet的匹配来说，如果同时定义了多个<url-pattern>,那么到底匹配哪个Servlet？这个匹配顺序是：
+      首先精确匹配，如定义了两个Servlet，Servlet1为/foo.htm，Servlet2是/*，请求URL为http://localhost/foo.htm，那么只有Servlet1匹配成功；
+      如果精确匹配不成功，那么会使用第二个原则“最长路径匹配”，如Servlet1为/foo/*，Servlet2为/*，这时请求的URL为http://localhost/foo/foo.htm，那么Servlet1匹配成功；
+      最后根据后缀进行匹配；
+      但是一次请求只会成功匹配到一个Servlet；
     -->
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>archetypeFront</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/config/spring-servlet-front.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>archetypeFront</servlet-name>
+    <url-pattern>/front/*</url-pattern>
   </servlet-mapping>
 
   <session-config>

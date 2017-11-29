@@ -17,7 +17,7 @@ public class SessionIntercept implements HandlerInterceptor {
         if (SecurityUtils.getSubject().isAuthenticated()) {
             return true;
         }
-        httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/login");
+        httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"login");
         return false;
     }
 
