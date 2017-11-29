@@ -17,9 +17,73 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
 
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="conversionService" />
     <mvc:default-servlet-handler/>
+
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.cy.common.converter.DateConverter" />
+            </set>
+        </property>
+    </bean>
+    <mvc:interceptors>
+        <bean class="com.cy.common.interceptor.AllIntercept"/>
+    </mvc:interceptors>
 
     <!-- 全局异常处理 -->
     <bean class="com.cy.common.resolver.GlobalExceptionResolver"/>
+
+    <!--form-data 数据解析器,文件上传等 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="200000000"/>
+        <property name="maxInMemorySize" value="4096" />
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="order" value="1"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+    </bean>
+
+    <!-- 不用shiro标签时默认的配置 -->
+    <!--<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">-->
+    <bean id="freemarkerConfig" class="com.cy.common.resolver.ShiroTagFreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/ftl/front"/>
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="freemarkerVariables">
+            <map>
+                <!--下面四个是在下面定义的-->
+                <entry key="extends" value-ref="extendsDirective"/>
+                <entry key="override" value-ref="overrideDirective"/>
+                <entry key="block" value-ref="blockDirective"/>
+                <entry key="super" value-ref="superDirective"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- freemaker  Directive-->
+    <bean id="blockDirective" class="cn.org.rapid_framework.freemarker.directive.BlockDirective"/>
+    <bean id="extendsDirective" class="cn.org.rapid_framework.freemarker.directive.ExtendsDirective"/>
+    <bean id="overrideDirective" class="cn.org.rapid_framework.freemarker.directive.OverrideDirective"/>
+    <bean id="superDirective" class="cn.org.rapid_framework.freemarker.directive.SuperDirective"/>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <!-- order越低，越先被执行 -->
+        <property name="order" value="0"/>
+        <property name="cache" value="true"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".ftl"/>
+        <!-- 处理页面编码问题 -->
+        <property name="contentType" value="text/html;charset=utf-8"/>
+
+        <property name="exposeRequestAttributes" value="true"/>
+        <property name="exposeSessionAttributes" value="true"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="requestContextAttribute" value="request"/>
+        <!-- 允许session覆盖旧值 -->
+        <!--<property name="allowSessionOverride" value="true"/>-->
+    </bean>
 </beans>
