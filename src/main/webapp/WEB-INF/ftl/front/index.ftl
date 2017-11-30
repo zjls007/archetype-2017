@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>牛X系统</title>
     <link rel="stylesheet" href="statics/ui/layui-2.2.3/css/layui.css">
+    <style>
+        .layui-tab {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -16,6 +21,12 @@
             <li class="layui-nav-item"><a href="admin/index">后台管理</a></li>
         </ul>
         <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="">消息<span class="layui-badge">0</span></a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">个人中心<span class="layui-badge-dot"></span></a>
+            </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
@@ -55,21 +66,16 @@
     </div>
 
     <div class="layui-body">
-        <!-- 内容主体区域 -->
-        <div style="padding: 15px;">内容主体区域</div>
-    </div>
-
-    <div class="layui-footer">
-        <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
+        <iframe src="front/userInfo/list" frameborder="0" border="0" marginwidth="0" marginheight="100" scrolling="auto" width="100%" height="100%"/>
     </div>
 </div>
 <script src="statics/ui/layui-2.2.3/layui.js"></script>
 <script>
     //JavaScript代码区域
     layui.use('element', function(){
-        var element = layui.element;
-
+        var $ = layui.jquery,
+        element = layui.element;
+        $('.lay-tab-index i').remove();
     });
 </script>
 </body>
