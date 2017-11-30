@@ -48,7 +48,7 @@
             form.ajaxSubmit({
                 success: function (data) {
                     if (data.code == 0) {
-                        location.href = 'admin/index';
+                        location.href = 'front/index';
                     } else {
                         $.messager.alert('错误',data.message,'error');
                     }

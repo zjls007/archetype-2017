@@ -8,7 +8,10 @@
     <link rel="stylesheet" type="text/css" href="statics/js/easyui/icon.css">
 </head>
 <body class="easyui-layout">
-<div data-options="region:'north',border:false" style="height:60px;"><a href="admin/logout" class="easyui-linkbutton">退出</a></div>
+<div data-options="region:'north',border:false" style="height:60px;">
+    <a href="admin/logout" class="easyui-linkbutton">退出</a>
+    <a href="front/index" class="easyui-linkbutton">前端</a>
+</div>
 <div data-options="region:'west',split:false,collapsed:false,title:'菜单'" style="width:220px;padding:10px;">
     <#include "menu.ftl"/>
 </div>
