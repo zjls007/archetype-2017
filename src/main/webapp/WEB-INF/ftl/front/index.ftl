@@ -7,21 +7,6 @@
     <title>牛X系统</title>
     <link rel="stylesheet" href="statics/ui/layui-2.2.3/css/layui.css">
     <link rel="stylesheet" href="statics/ui/tab/css/tabstyle-min.css">
-    <style>
-        .layui-tab {
-            margin: 5px 0;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        .wapper {
-            width: 100%;
-            height: 80%;
-            position:absolute
-        }
-    </style>
-
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -59,8 +44,12 @@
     <div class="layui-body">
         <#include "tab.ftl"/>
     </div>
+    <div class="layui-footer" style="text-align: center">
+        copyright@2017
+    </div>
 </div>
-<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<#--<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>-->
+<script src="statics/js/jquery.min.js"></script>
 <script src="statics/ui/tab/tab-min.js"></script>
 <script src="statics/ui/layui-2.2.3/layui.js"></script>
 <script>

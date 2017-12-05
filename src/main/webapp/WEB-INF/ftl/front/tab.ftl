@@ -11,7 +11,7 @@
         background-color: #9F9F9F;
     }
 </style>
-<div class="wapper">
+<div style="width: 100%; height: 100%;">
     <!--菜单HTML Start-->
     <div id="page-tab">
         <button class="tab-btn" id="page-prev"></button>
@@ -21,11 +21,11 @@
             </div>
         </nav>
         <button class="tab-btn" id="page-next"></button>
-        <div id="page-operation">
+        <div id="page-operation" onclick="closeAll()">
             <div id="menu-all">
                 <ul id="menu-btn">
                     <li onclick="closeOther()">关闭其他</li>
-                    <li onclick="closeAll()">关闭全部</li>
+                    <li class="closeAll">关闭全部</li>
                 </ul>
                 <!-- 放开会有纵向菜单导航（有bug） -->
                 <#--<ul id="menu-all-ul">-->
@@ -35,12 +35,15 @@
     </div>
     <!--菜单HTML End-->
     <!--iframe Start (根据页面顶部占用高度，自行调整高度数值)-->
-    <div id="page-content" style="height: calc(100% - 155px);">
+    <div id="page-content" style="height: calc(100% - 40px);">
         <iframe id="index" class="iframe-content active" data-url="http://www.baidu.com/" data-value="首页" src="http://www.baidu.com/"></iframe>
     </div>
     <!--iframe End-->
 </div>
 <script type="text/javascript">
+    $('.closeAll').click(function () {
+        closeAll();
+    })
     function goIndex(athis) {
         $('div#menu-list a.active').removeClass('active');
         $(athis).addClass('active');
