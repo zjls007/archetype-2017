@@ -17,7 +17,7 @@
         <button class="tab-btn" id="page-prev"></button>
         <nav id="page-tab-content">
             <div id="menu-list">
-                <a href="javascript:void(0);" onclick="goIndex(this)" data-url="" data-value="" class="active index" style="width: 40px">首页</a>
+                <a href="javascript:void(0);" onclick="goIndex(this)" data-url="" data-value="首页" class="active index" style="width: 40px">首页</a>
             </div>
         </nav>
         <button class="tab-btn" id="page-next"></button>
@@ -41,9 +41,13 @@
     <!--iframe End-->
 </div>
 <script type="text/javascript">
+    function newTab(title, url) {
+        $('#tabTemp').attr('href', url).html(title).click();
+    }
     function goIndex(athis) {
         $('div#menu-list a.active').removeClass('active');
         $(athis).addClass('active');
+        $('div#page-content iframe.active').removeClass('active');
         $('div#page-content iframe#index').addClass('active');
     }
     function closeOther() {

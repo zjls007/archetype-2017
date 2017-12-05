@@ -4,6 +4,7 @@
         <li class="layui-nav-item layui-nav-itemed">
             <a class="" href="javascript:;">系统管理</a>
             <dl class="layui-nav-child">
+                <a class="tab" id="tabTemp" href="front/userInfo/list" style="display: none;">用户管理</a>
                 <dd><a class="tab" href="front/userInfo/list">用户管理</a></dd>
                 <dd><a class="tab" href="front/userInfo/edit">用户查看</a></dd>
             </dl>
