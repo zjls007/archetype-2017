@@ -19,7 +19,7 @@ public class IndexController {
         Subject subject = SecurityUtils.getSubject();
         UserInfo userInfo = (UserInfo) subject.getSession().getAttribute(Constants.CURRENT_USER);
         modelMap.addAttribute("userInfo", userInfo);
-        return "index";
+        return "/index";
     }
 
 }

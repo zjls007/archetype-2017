@@ -39,12 +39,12 @@ public class IndexController extends BaseController {
             menuIdList = userInfoDAO.getMenuIdList(getCurrentUserId());
         }
         modelMap.addAttribute("hasMenuIdList", menuIdList);
-        return "index";
+        return "/index";
     }
 
     @RequestMapping({"/index1"})
     public String index1() {
-        return "index1";
+        return "/index";
     }
 
 }

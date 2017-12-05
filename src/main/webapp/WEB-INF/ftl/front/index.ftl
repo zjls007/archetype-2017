@@ -10,7 +10,19 @@
         .layui-tab {
             margin: 5px 0;
         }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .wapper {
+            width: 100%;
+            height: 80%;
+            position:absolute
+        }
     </style>
+    <link href="statics/ui/tab/css/tabstyle-min.css" rel="stylesheet" />
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="statics/ui/tab/tab-min.js"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -30,7 +42,7 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    ${userInfo.fullName!}
+                ${userInfo.fullName!}
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>
@@ -48,7 +60,8 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">系统管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="admin/userInfo/list">用户管理</a></dd>
+                        <dd><a href="front/userInfo/list">用户管理</a></dd>
+                        <dd><a href="front/userInfo/edit">用户查看</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -66,15 +79,38 @@
     </div>
 
     <div class="layui-body">
-        <iframe src="front/userInfo/list" frameborder="0" border="0" marginwidth="0" marginheight="100" scrolling="auto" width="100%" height="100%"/>
+        <div class="wapper">
+            <!--菜单HTML Start-->
+            <div id="page-tab">
+                <button class="tab-btn" id="page-prev"></button>
+                <nav id="page-tab-content">
+                    <div id="menu-list">
+                    </div>
+                </nav>
+                <button class="tab-btn" id="page-next"></button>
+                <div id="page-operation" title="关闭全部">
+                <#--<div id="menu-all">-->
+                <#--<ul id="menu-all-ul">-->
+                <#--</ul>-->
+            <#--</div>-->
+                </div>
+            </div>
+            <!--菜单HTML End-->
+            <!--iframe Start (根据页面顶部占用高度，自行调整高度数值)-->
+            <div id="page-content" style="height: calc(100% - 155px);">
+            </div>
+            <!--iframe End-->
+        </div>
     </div>
 </div>
 <script src="statics/ui/layui-2.2.3/layui.js"></script>
 <script>
+    //初始化a标签链接到tab
+    $("ul.layui-nav a").tab();
     //JavaScript代码区域
     layui.use('element', function(){
         var $ = layui.jquery,
-        element = layui.element;
+                element = layui.element;
         $('.lay-tab-index i').remove();
     });
 </script>
