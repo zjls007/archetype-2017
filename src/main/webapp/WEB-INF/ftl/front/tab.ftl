@@ -21,11 +21,11 @@
             </div>
         </nav>
         <button class="tab-btn" id="page-next"></button>
-        <div id="page-operation" onclick="closeAll()">
+        <div id="page-operation">
             <div id="menu-all">
                 <ul id="menu-btn">
-                    <li onclick="closeOther()">关闭其他</li>
-                    <li class="closeAll">关闭全部</li>
+                    <li onmousedown="closeOther()">关闭其他</li>
+                    <li onmousedown="closeAll()">关闭全部</li>
                 </ul>
                 <!-- 放开会有纵向菜单导航（有bug） -->
                 <#--<ul id="menu-all-ul">-->
@@ -41,9 +41,6 @@
     <!--iframe End-->
 </div>
 <script type="text/javascript">
-    $('.closeAll').click(function () {
-        closeAll();
-    })
     function goIndex(athis) {
         $('div#menu-list a.active').removeClass('active');
         $(athis).addClass('active');
