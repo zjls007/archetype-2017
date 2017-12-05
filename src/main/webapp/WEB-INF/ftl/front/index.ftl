@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>牛X系统</title>
     <link rel="stylesheet" href="statics/ui/layui-2.2.3/css/layui.css">
+    <link rel="stylesheet" href="statics/ui/tab/css/tabstyle-min.css">
     <style>
         .layui-tab {
             margin: 5px 0;
@@ -20,9 +21,7 @@
             position:absolute
         }
     </style>
-    <link href="statics/ui/tab/css/tabstyle-min.css" rel="stylesheet" />
-    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-    <script src="statics/ui/tab/tab-min.js"></script>
+
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -54,59 +53,19 @@
     </div>
 
     <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">系统管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="front/userInfo/list">用户管理</a></dd>
-                        <dd><a href="front/userInfo/edit">用户查看</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">解决方案</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="">超链接</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item"><a href="">云市场</a></li>
-                <li class="layui-nav-item"><a href="">发布商品</a></li>
-            </ul>
-        </div>
+        <#include "menu.ftl"/>
     </div>
 
     <div class="layui-body">
-        <div class="wapper">
-            <!--菜单HTML Start-->
-            <div id="page-tab">
-                <button class="tab-btn" id="page-prev"></button>
-                <nav id="page-tab-content">
-                    <div id="menu-list">
-                    </div>
-                </nav>
-                <button class="tab-btn" id="page-next"></button>
-                <div id="page-operation" title="关闭全部">
-                <#--<div id="menu-all">-->
-                <#--<ul id="menu-all-ul">-->
-                <#--</ul>-->
-            <#--</div>-->
-                </div>
-            </div>
-            <!--菜单HTML End-->
-            <!--iframe Start (根据页面顶部占用高度，自行调整高度数值)-->
-            <div id="page-content" style="height: calc(100% - 155px);">
-            </div>
-            <!--iframe End-->
-        </div>
+        <#include "tab.ftl"/>
     </div>
 </div>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="statics/ui/tab/tab-min.js"></script>
 <script src="statics/ui/layui-2.2.3/layui.js"></script>
 <script>
     //初始化a标签链接到tab
-    $("ul.layui-nav a").tab();
+    $("a.tab").tab();
     //JavaScript代码区域
     layui.use('element', function(){
         var $ = layui.jquery,
