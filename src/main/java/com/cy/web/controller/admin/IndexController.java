@@ -28,7 +28,7 @@ public class IndexController extends BaseController {
     @Autowired
     private MenuInfoService menuInfoService;
 
-    @RequestMapping({"/", "/index"})
+    @RequestMapping({"/", "index"})
     public String index(ModelMap modelMap) {
         modelMap.addAttribute("menuInfoList", menuInfoService.list());
         List<Long> menuIdList;
@@ -39,12 +39,7 @@ public class IndexController extends BaseController {
             menuIdList = userInfoDAO.getMenuIdList(getCurrentUserId());
         }
         modelMap.addAttribute("hasMenuIdList", menuIdList);
-        return "/index";
-    }
-
-    @RequestMapping({"/index1"})
-    public String index1() {
-        return "/index";
+        return "index";
     }
 
 }

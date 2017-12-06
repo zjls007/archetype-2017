@@ -298,7 +298,7 @@
 <@extends name="/base.ftl"/>
 <#macro formatterNative>
     formatter:function(value,row,index) {
-        if (row.native == 1) {
+        if (row.nativeState == 1) {
             return '<font color=\'green\'>是</font>';
         }
         return '否';

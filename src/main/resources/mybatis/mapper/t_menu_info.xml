@@ -23,16 +23,16 @@
 
     <insert id="insert" parameterType="com.cy.entity.system.MenuInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO t_menu_info
-        (name, url, parent_id, sort_num, create_time, lst_upd_time)
+        (name, url, parent_id, sort_num, native, create_time, lst_upd_time)
         VALUES
-        (#{name}, #{url}, #{parentId}, #{sortNum}, now(), now())
+        (#{name}, #{url}, #{parentId}, #{sortNum}, 0, now(), now())
     </insert>
 
     <insert id="insertHasId">
         INSERT INTO t_menu_info
-        (id, name, url, parent_id, sort_num, create_time, lst_upd_time)
+        (id, name, url, parent_id, sort_num, native, create_time, lst_upd_time)
         VALUES
-        (#{id}, #{name}, #{url}, #{parentId}, #{sortNum}, now(), now())
+        (#{id}, #{name}, #{url}, #{parentId}, #{sortNum}, #{nativeState}, now(), now())
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.system.MenuInfo">
