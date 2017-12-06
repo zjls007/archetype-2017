@@ -29,6 +29,24 @@
     </bean>
     <mvc:interceptors>
         <bean class="com.cy.common.interceptor.AllIntercept"/>
+        <mvc:interceptor>
+            <mvc:mapping path="/"/>
+            <mvc:mapping path="/index"/>
+            <bean class="com.cy.common.interceptor.SessionIntercept"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/*"/>
+            <mvc:mapping path="/*/**"/>
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/index"/>
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/logout"/>
+            <mvc:exclude-mapping path="/regist"/>
+            <mvc:exclude-mapping path="/timeOut"/>
+            <mvc:exclude-mapping path="/statics/**"/>
+            <mvc:exclude-mapping path="/statics/*/**"/>
+            <bean class="com.cy.common.interceptor.IFrameSessionIntercept"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
     <!-- 全局异常处理 -->

@@ -47,4 +47,9 @@ public class IndexController extends BaseController {
         return "index";
     }
 
+    @RequestMapping("timeOut")
+    public String timeOut() {
+        return "timeOut";
+    }
+
 }

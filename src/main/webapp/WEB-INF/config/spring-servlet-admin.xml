@@ -31,8 +31,7 @@
         <bean class="com.cy.common.interceptor.AllIntercept"/>
         <mvc:interceptor>
             <mvc:mapping path="/"/>
-            <mvc:mapping path="index"/>
-            <mvc:exclude-mapping path="/statics/**"/>
+            <mvc:mapping path="/index"/>
             <bean class="com.cy.common.interceptor.SessionIntercept"/>
         </mvc:interceptor>
         <mvc:interceptor>
@@ -45,6 +44,7 @@
             <mvc:exclude-mapping path="/regist"/>
             <mvc:exclude-mapping path="/*/list"/>
             <mvc:exclude-mapping path="/statics/**"/>
+            <mvc:exclude-mapping path="/statics/*/**"/>
             <bean class="com.cy.common.interceptor.DatagridIntercept"/>
         </mvc:interceptor>
     </mvc:interceptors>
