@@ -5,16 +5,41 @@
     <resultMap id="BaseResultMap" type="com.cy.entity.system.UserInfo">
         <id column="id" property="id" />
         <result column="user_name" property="userName" />
+        <result column="mobile_phone_number" property="mobilePhoneNumber" />
+        <result column="email" property="email" />
+        <result column="tel_no" property="telNo" />
         <result column="password" property="password" />
         <result column="salt" property="salt" />
         <result column="full_name" property="fullName" />
-        <result column="tel_no" property="telNo" />
-        <result column="mobile_no" property="mobileNo" />
+        <result column="sex" property="sex" />
         <result column="sign_no" property="signNo" />
+        <result column="birthday" property="birthday" />
+        <result column="last_login_ip" property="lastLoginIp" />
+        <result column="last_login_time" property="lastLoginTime" />
         <result column="account_locked" property="accountLocked" />
-        <result column="native" property="nativeState" />
+        <result column="native_state" property="nativeState" />
         <result column="create_time" property="createTime" />
-        <result column="modify_time" property="modifyTime" />
+        <result column="lst_upd_time" property="lstUpdTime" />
+    </resultMap>
+
+    <resultMap id="BaseResultMapAS" type="com.cy.entity.system.UserInfo">
+        <id column="tui_id" property="id" />
+        <result column="tui_user_name" property="userName" />
+        <result column="tui_mobile_phone_number" property="mobilePhoneNumber" />
+        <result column="tui_email" property="email" />
+        <result column="tui_tel_no" property="telNo" />
+        <result column="tui_password" property="password" />
+        <result column="tui_salt" property="salt" />
+        <result column="tui_full_name" property="fullName" />
+        <result column="tui_sex" property="sex" />
+        <result column="tui_sign_no" property="signNo" />
+        <result column="tui_birthday" property="birthday" />
+        <result column="tui_last_login_ip" property="lastLoginIp" />
+        <result column="tui_last_login_time" property="lastLoginTime" />
+        <result column="tui_account_locked" property="accountLocked" />
+        <result column="tui_native_state" property="nativeState" />
+        <result column="tui_create_time" property="createTime" />
+        <result column="tui_lst_upd_time" property="lstUpdTime" />
     </resultMap>
 
     <resultMap id="UserInfoListDTOMap" type="com.cy.web.dto.result.system.UserInfoListResultDTO">
@@ -22,52 +47,77 @@
         <result column="user_name" property="userName" />
         <result column="full_name" property="fullName" />
         <result column="tel_no" property="telNo" />
-        <result column="mobile_no" property="mobileNo" />
+        <result column="mobile_phone_number" property="mobileNo" />
         <result column="sign_no" property="signNo" />
         <result column="account_locked" property="accountLocked" />
-        <result column="native" property="nativeState" />
+        <result column="native_state" property="nativeState" />
         <result column="create_time" property="createTime" />
-        <result column="modify_time" property="modifyTime" />
+        <result column="lst_upd_time" property="modifyTime" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, user_name, password, salt, full_name, tel_no, mobile_no, sign_no, account_locked, native, create_time,
-        modify_time
+        id, user_name, mobile_phone_number, email, tel_no, password, salt, full_name, sex, sign_no, 
+        birthday, last_login_ip, last_login_time, account_locked, native_state, create_time, lst_upd_time
+    </sql>
+
+    <sql id="Base_Alias_Column_List">
+        tui.id, tui.user_name, tui.mobile_phone_number, tui.email, tui.tel_no, tui.password, tui.salt, tui.full_name, tui.sex, tui.sign_no, 
+        tui.birthday, tui.last_login_ip, tui.last_login_time, tui.account_locked, tui.native_state, tui.create_time, tui.lst_upd_time
+    </sql>
+
+    <sql id="Base_Alias_Column_List_AS">
+        tui.id AS tui_id, tui.user_name AS tui_user_name, tui.mobile_phone_number AS tui_mobile_phone_number, tui.email AS tui_email, tui.tel_no AS tui_tel_no, tui.password AS tui_password, tui.salt AS tui_salt, tui.full_name AS tui_full_name, tui.sex AS tui_sex, tui.sign_no AS tui_sign_no, 
+        tui.birthday AS tui_birthday, tui.last_login_ip AS tui_last_login_ip, tui.last_login_time AS tui_last_login_time, tui.account_locked AS tui_account_locked, tui.native_state AS tui_native_state, tui.create_time AS tui_create_time, tui.lst_upd_time AS tui_lst_upd_time
     </sql>
 
     <insert id="insert" parameterType="com.cy.entity.system.UserInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO t_user_info
-        (user_name, password, salt, full_name, tel_no, mobile_no, sign_no, account_locked, create_time, modify_time)
+        (user_name, mobile_phone_number, email, tel_no, password, salt, full_name, sex, sign_no, 
+        birthday, last_login_ip, last_login_time, account_locked, native_state, create_time, lst_upd_time)
         VALUES
-        (#{userName}, #{password}, #{salt}, #{fullName}, #{telNo}, #{mobileNo}, #{signNo}, #{accountLocked}, now(), now())
+        (#{userName}, #{mobilePhoneNumber}, #{email}, #{telNo}, #{password}, #{salt}, #{fullName}, #{sex}, #{signNo}, 
+        #{birthday}, #{lastLoginIp}, #{lastLoginTime}, #{accountLocked}, #{nativeState}, #{createTime}, #{lstUpdTime})
     </insert>
 
-    <insert id="batchInsert">
+    <insert id="batchInsert" parameterType="com.cy.entity.system.UserInfo">
         INSERT INTO t_user_info
-        (user_name, password, salt, full_name, tel_no, mobile_no, sign_no, account_locked, create_time, modify_time)
+        (user_name, mobile_phone_number, email, tel_no, password, salt, full_name, sex, sign_no, 
+        birthday, last_login_ip, last_login_time, account_locked, native_state, create_time, lst_upd_time)
         VALUES
         <foreach collection="list" item="item" separator=",">
-           (#{item.userName}, #{item.password}, #{item.salt}, #{item.fullName}, #{item.telNo}, #{item.mobileNo}, #{item.signNo}, #{item.accountLocked}, now(), now())
+           (#{item.userName}, #{item.mobilePhoneNumber}, #{item.email}, #{item.telNo}, #{item.password}, #{item.salt}, #{item.fullName}, #{item.sex}, #{item.signNo}, 
+           #{item.birthday}, #{item.lastLoginIp}, #{item.lastLoginTime}, #{item.accountLocked}, #{item.nativeState}, #{item.createTime}, #{item.lstUpdTime})
         </foreach>
     </insert>
 
-    <delete id="delete">
-        DELETE FROM t_user_info where id = #{id}
+    <delete id="deleteById">
+        DELETE FROM t_user_info WHERE id = #{id}
     </delete>
 
     <delete id="batchDelete">
-        DELETE FROM t_user_info where id in
+        DELETE FROM t_user_info WHERE id IN
         <foreach collection="list" open="(" close=")" separator="," item="item">
-        #{item}
+            #{item}
         </foreach>
-        AND native = 0
     </delete>
 
-    <update id="update" parameterType="com.cy.entity.system.UserInfo" >
-        update t_user_info
+    <update id="updateByIdSelective">
+        UPDATE t_user_info
         <set>
             <if test="userName != null" >
                 user_name = #{userName},
+            </if>
+            <if test="mobilePhoneNumber != null" >
+                mobile_phone_number = #{mobilePhoneNumber},
+            </if>
+            <if test="email != null" >
+                email = #{email},
+            </if>
+            <if test="telNo != null" >
+                tel_no = #{telNo},
+            </if>
+            <if test="password != null" >
+                password = #{password},
             </if>
             <if test="salt != null" >
                 salt = #{salt},
@@ -75,46 +125,161 @@
             <if test="fullName != null" >
                 full_name = #{fullName},
             </if>
-            <if test="telNo != null" >
-                tel_no = #{telNo},
-            </if>
-            <if test="mobileNo != null" >
-                mobile_no = #{mobileNo},
+            <if test="sex != null" >
+                sex = #{sex},
             </if>
             <if test="signNo != null" >
                 sign_no = #{signNo},
             </if>
+            <if test="birthday != null" >
+                birthday = #{birthday},
+            </if>
+            <if test="lastLoginIp != null" >
+                last_login_ip = #{lastLoginIp},
+            </if>
+            <if test="lastLoginTime != null" >
+                last_login_time = #{lastLoginTime},
+            </if>
             <if test="accountLocked != null" >
                 account_locked = #{accountLocked},
+            </if>
+            <if test="nativeState != null" >
+                native_state = #{nativeState},
             </if>
             <if test="createTime != null" >
                 create_time = #{createTime},
             </if>
-            modify_time = now()
+            lst_upd_time = #{lstUpdTime}
         </set>
-        where id = #{id}
+        WHERE id = #{id}
     </update>
 
-    <select id="selectById" resultMap="BaseResultMap" parameterType="com.cy.entity.system.UserInfo">
+    <update id="updateById">
+        UPDATE t_user_info
+        <set>
+            user_name = #{userName},
+            mobile_phone_number = #{mobilePhoneNumber},
+            email = #{email},
+            tel_no = #{telNo},
+            password = #{password},
+            salt = #{salt},
+            full_name = #{fullName},
+            sex = #{sex},
+            sign_no = #{signNo},
+            birthday = #{birthday},
+            last_login_ip = #{lastLoginIp},
+            last_login_time = #{lastLoginTime},
+            account_locked = #{accountLocked},
+            native_state = #{nativeState},
+            create_time = #{createTime},
+            lst_upd_time = #{lstUpdTime}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getById" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_user_info WHERE id = #{id}
     </select>
 
-    <select id="selectByUserName" resultMap="BaseResultMap" parameterType="com.cy.entity.system.UserInfo">
+    <select id="getByIdList" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM t_user_info WHERE user_name = #{userName}
+        FROM t_user_info WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="list" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user_info
+        <where>
+            <if test="id != null" >
+                AND id = #{id}
+            </if>
+            <if test="userName != null and userName != ''" >
+                AND user_name = #{userName}
+            </if>
+            <if test="mobilePhoneNumber != null and mobilePhoneNumber != ''" >
+                AND mobile_phone_number = #{mobilePhoneNumber}
+            </if>
+            <if test="email != null and email != ''" >
+                AND email = #{email}
+            </if>
+            <if test="telNo != null and telNo != ''" >
+                AND tel_no = #{telNo}
+            </if>
+            <if test="password != null and password != ''" >
+                AND password = #{password}
+            </if>
+            <if test="salt != null and salt != ''" >
+                AND salt = #{salt}
+            </if>
+            <if test="fullName != null and fullName != ''" >
+                AND full_name = #{fullName}
+            </if>
+            <if test="sex != null and sex != ''" >
+                AND sex = #{sex}
+            </if>
+            <if test="signNo != null" >
+                AND sign_no = #{signNo}
+            </if>
+            <if test="birthday != null" >
+                AND birthday = #{birthday}
+            </if>
+            <if test="lastLoginIp != null and lastLoginIp != ''" >
+                AND last_login_ip = #{lastLoginIp}
+            </if>
+            <if test="lastLoginTime != null" >
+                AND last_login_time = #{lastLoginTime}
+            </if>
+            <if test="accountLocked != null" >
+                AND account_locked = #{accountLocked}
+            </if>
+            <if test="nativeState != null" >
+                AND native_state = #{nativeState}
+            </if>
+            <if test="createTime != null" >
+                AND create_time = #{createTime}
+            </if>
+            <if test="lstUpdTime != null" >
+                AND lst_upd_time = #{lstUpdTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getByUserName" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user_info
+        WHERE user_name = #{userName}
+    </select>
+
+    <select id="getByEmail" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user_info
+        WHERE email = #{email}
+    </select>
+
+    <select id="getByMobilePhoneNumber" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user_info
+        WHERE mobile_phone_number = #{mobilePhoneNumber}
     </select>
 
     <select id="listUserInfo" resultMap="UserInfoListDTOMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_user_info
-        ORDER BY modify_time DESC
+        ORDER BY lst_upd_time DESC
     </select>
 
-    <select id="list" resultMap="BaseResultMap">
+    <select id="listByDTO" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_user_info
@@ -141,18 +306,18 @@
                 AND #{createTimeEnd} >= create_time
             </if>
         </where>
-        ORDER BY modify_time DESC
+        ORDER BY lst_upd_time DESC
     </select>
 
     <select id="getMenuIdList" resultType="long">
         SELECT
-            trpr.permission_id
+        trpr.permission_id
         FROM
-            t_user_info tui,
-            t_user_role_ref turf,
-            t_role_permission_ref trpr
+        t_user_info tui,
+        t_user_role_ref turf,
+        t_role_permission_ref trpr
         WHERE
-            tui.id = turf.user_id
+        tui.id = turf.user_id
         AND tui.id = #{userInfoId}
         AND turf.role_id = trpr.role_id
         AND trpr.type = 'menu'

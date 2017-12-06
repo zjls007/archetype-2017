@@ -32,7 +32,7 @@ public class UserInfoController {
 
     @RequestMapping("edit")
     public String edit(Long id, ModelMap modelMap) {
-        UserInfo userInfo = userInfoDAO.selectById(id);
+        UserInfo userInfo = userInfoDAO.getById(id);
         modelMap.addAttribute("userInfo", userInfo);
         return "userInfo/edit";
     }
@@ -41,7 +41,7 @@ public class UserInfoController {
     @ResponseBody
     public Object data(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit, UserInfoQueryDTO userInfoQueryDTO) {
         PageHelper.startPage(page, limit);
-        List<UserInfo> list = userInfoDAO.list(userInfoQueryDTO);
+        List<UserInfo> list = userInfoDAO.listByDTO(userInfoQueryDTO);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("code", 0);
         map.put("msg", "");

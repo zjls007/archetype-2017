@@ -14,8 +14,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
 import javax.annotation.Resource;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by zxj on 2017/2/17.
@@ -54,7 +52,7 @@ public class UserRealm extends AuthorizingRealm {
         // principal 身份, credentials 凭证
         String principal = (String) authenticationToken.getPrincipal();
         // 根据身份查找用户对象
-        UserInfo user = userInfoDAO.selectByUserName(principal);
+        UserInfo user = userInfoDAO.getByUserName(principal);
         if (user == null) {
             // 账户不存在
             throw new UnknownAccountException();

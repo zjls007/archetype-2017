@@ -47,7 +47,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfo regist(RegistParamDTO paramDTO) {
-        if (userInfoDAO.selectByUserName(paramDTO.getUserName()) != null) {
+        if (userInfoDAO.getByUserName(paramDTO.getUserName()) != null) {
             throw new SystemException("用户已存在") ;
         }
         UserInfo userInfo = new UserInfo();
@@ -55,11 +55,11 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfo.setPassword(paramDTO.getPassword());
         userInfo.setFullName(paramDTO.getFullName());
         userInfo.setTelNo(paramDTO.getTelNo());
-        userInfo.setMobileNo(paramDTO.getMobileNo());
+        userInfo.setMobilePhoneNumber(paramDTO.getMobileNo());
         encryptPassword(userInfo);
         Date now = new Date();
         userInfo.setCreateTime(now);
-        userInfo.setModifyTime(now);
+        userInfo.setLstUpdTime(now);
         userInfo.setAccountLocked(ByteBooleanEnum.FAILED.getCode());
         int result = userInfoDAO.insert(userInfo);
         if (result != 1) {
@@ -76,7 +76,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             encryptPassword(userInfo);
             userInfoDAO.insert(userInfo);
         } else {
-            userInfoDAO.update(userInfo);
+            userInfoDAO.updateById(userInfo);
         }
     }
 

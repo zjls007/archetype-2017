@@ -36,7 +36,7 @@ public class UserInfoController extends DataGridAdaptController<UserInfo, UserIn
 
     @Override
     protected List<UserInfo> getData(UserInfoQueryDTO queryDTO) {
-        return userInfoDAO.list(queryDTO);
+        return userInfoDAO.listByDTO(queryDTO);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class UserInfoController extends DataGridAdaptController<UserInfo, UserIn
     @RequestMapping("refRoleInfo/{userInfoId}")
     public String refRoleInfo(@PathVariable Long userInfoId, ModelMap modelMap) {
         modelMap.put("value", StringUtils.arrayToDelimitedString(userRoleRefDAO.getByUserInfoId(userInfoId).toArray(), ","));
-        modelMap.put("userName", userInfoDAO.selectById(userInfoId).getUserName());
+        modelMap.put("userName", userInfoDAO.getById(userInfoId).getUserName());
         modelMap.put("userInfoId", userInfoId);
         return genPath("refRoleInfo");
     }

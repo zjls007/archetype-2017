@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by zxj on 2017-05-05 16:29:06.
+ * Created by zxj on 2017-12-06 14:19:19.
  */
 @Repository
 public interface UserInfoDAO {
@@ -17,19 +17,29 @@ public interface UserInfoDAO {
 
     int batchInsert(List<UserInfo> list);
 
-    int delete(Long id);
+    int deleteById(Long id);
 
     int batchDelete(List<Long> list);
 
-    int update(UserInfo entity);
+    int updateByIdSelective(UserInfo entity);
 
-    UserInfo selectById(Long id);
+    int updateById(UserInfo entity);
 
-    UserInfo selectByUserName(String userName);
+    UserInfo getById(Long id);
+
+    List<UserInfo> getByIdList(List<Long> list);
+
+    List<UserInfo> list(UserInfo entity);
+
+    UserInfo getByUserName(String userName);
+
+    UserInfo getByEmail(String email);
+
+    UserInfo getByMobilePhoneNumber(String mobilePhoneNumber);
 
     List<UserInfoListResultDTO> listUserInfo();
 
-    List<UserInfo> list(UserInfoQueryDTO queryDTO);
+    List<UserInfo> listByDTO(UserInfoQueryDTO queryDTO);
 
     List<Long> getMenuIdList(Long userInfoId);
 

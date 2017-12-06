@@ -1,22 +1,32 @@
 package com.cy.entity.system;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by zxj on 2017-05-05 16:29:06.
+ * Created by zxj on 2017-12-06 14:19:19.
+ * t_user_info-用户表
  */
 public class UserInfo implements Serializable {
 
-    private static final long serialVersionUID = 1222715330523141490L;
+    private static final long serialVersionUID = -549565203291010723L;
 
+    /** ,not null */
     private Long id;
 
-    /** 用户名 */
+    /** 用户名,not null */
     private String userName;
+
+    /** 手机号,not null */
+    private String mobilePhoneNumber;
+
+    /** 邮箱,not null */
+    private String email;
+
+    /** 电话号码 */
+    private String telNo;
 
     /** 密码 */
     private String password;
@@ -24,32 +34,37 @@ public class UserInfo implements Serializable {
     /** 盐 */
     private String salt;
 
-    /** 真实姓名 */
+    /** 登录系统显示的名称,not null */
     private String fullName;
 
-    /** 电话号码 */
-    private String telNo;
-
-    /** 手机号 */
-    private String mobileNo;
+    /** 性别 参考:{@link com.cy.entity.system.enums.UserInfoSex} */
+    private String sex;
 
     /** 登录次数 */
     private Long signNo;
 
+    /** 出生年月 */
+    private Date birthday;
+
+    /** 最后登录ip */
+    private String lastLoginIp;
+
+    /** 最后登录时间 */
+    private Date lastLoginTime;
+
     /** 账户是否锁定 0 未锁定 1锁定 */
     private Byte accountLocked;
 
-    /** 是否为系统初始数据(0-否, 1-是) */
-    @JsonProperty("native")
+    /** 是否为系统初始数据 参考:{@link com.cy.entity.system.enums.ByteBooleanEnum} */
     private Byte nativeState;
 
-    /** 创建时间 */
+    /** 创建时间,not null */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
-    /** 更新时间 */
+    /** 最后更新时间,not null */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date modifyTime;
+    private Date lstUpdTime;
 
     public Long getId() {
         return id;
@@ -65,6 +80,30 @@ public class UserInfo implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getMobilePhoneNumber() {
+        return mobilePhoneNumber;
+    }
+
+    public void setMobilePhoneNumber(String mobilePhoneNumber) {
+        this.mobilePhoneNumber = mobilePhoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelNo() {
+        return telNo;
+    }
+
+    public void setTelNo(String telNo) {
+        this.telNo = telNo;
     }
 
     public String getPassword() {
@@ -91,20 +130,12 @@ public class UserInfo implements Serializable {
         this.fullName = fullName;
     }
 
-    public String getTelNo() {
-        return telNo;
+    public String getSex() {
+        return sex;
     }
 
-    public void setTelNo(String telNo) {
-        this.telNo = telNo;
-    }
-
-    public String getMobileNo() {
-        return mobileNo;
-    }
-
-    public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public Long getSignNo() {
@@ -115,12 +146,44 @@ public class UserInfo implements Serializable {
         this.signNo = signNo;
     }
 
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getLastLoginIp() {
+        return lastLoginIp;
+    }
+
+    public void setLastLoginIp(String lastLoginIp) {
+        this.lastLoginIp = lastLoginIp;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
     public Byte getAccountLocked() {
         return accountLocked;
     }
 
     public void setAccountLocked(Byte accountLocked) {
         this.accountLocked = accountLocked;
+    }
+
+    public Byte getNativeState() {
+        return nativeState;
+    }
+
+    public void setNativeState(Byte nativeState) {
+        this.nativeState = nativeState;
     }
 
     public Date getCreateTime() {
@@ -131,19 +194,12 @@ public class UserInfo implements Serializable {
         this.createTime = createTime;
     }
 
-    public Date getModifyTime() {
-        return modifyTime;
+    public Date getLstUpdTime() {
+        return lstUpdTime;
     }
 
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
+    public void setLstUpdTime(Date lstUpdTime) {
+        this.lstUpdTime = lstUpdTime;
     }
 
-    public Byte getNativeState() {
-        return nativeState;
-    }
-
-    public void setNativeState(Byte nativeState) {
-        this.nativeState = nativeState;
-    }
 }
