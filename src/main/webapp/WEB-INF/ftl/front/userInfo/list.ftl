@@ -11,21 +11,64 @@
     </style>
 </head>
 <body>
-<div style="height: 80px;">
-    真实姓名：
-    <div class="layui-inline">
-        <input class="layui-input" name="fullName" id="fullName" autocomplete="off">
-    </div>
-    <button class="layui-btn query" data-type="reload">搜索</button>
+<div class="layui-tab layui-tab-brief">
+    <ul class="layui-tab-title">
+        <li class="layui-this">用户管理<span class="layui-badge">1000</span></li>
+        <li class=""><i class="layui-icon">&#x1002;</i>刷新</li>
+    </ul>
+    <div class="layui-tab-content"></div>
 </div>
-<table class="layui-table" id="dg" lay-filter="data" lay-data="{height: 'full-120', cellMinWidth: 80, page: true, limit:30, url:'front/userInfo/data'}">
+<blockquote class="layui-elem-quote layui-quote-nm">
+    <button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon">&#xe608;</i>添加</button>
+    <button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon">&#xe640;</i>批量删除</button>
+    <button class="layui-btn layui-btn-primary layui-btn-sm query" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
+    <button class="layui-btn layui-btn-primary layui-btn-sm query" data-type="reload"><i class="layui-icon">&#xe633;</i>重置</button>
+    <div style="height: 20px"></div>
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">用户名：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="userName" placeholder="用户名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">真实姓名：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="fullName" placeholder="真实姓名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">手机号码：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="mobileNo" placeholder="手机号码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">注册时间：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="createTimeBegin" placeholder="注册时间" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">~</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="createTimeEnd" placeholder="注册时间" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </form>
+</blockquote>
+<table class="layui-table" id="dg" lay-filter="data" lay-data="{height: 'full-300', cellMinWidth: 80, page: true, limit:30, url:'front/userInfo/data'}">
     <thead>
     <tr>
         <th lay-data="{type:'checkbox'}">ID</th>
         <th lay-data="{field: 'userName', width:200}">用户名</th>
         <th lay-data="{field:'fullName', width:100}">真实姓名</th>
         <th lay-data="{field:'telNo', width:100, sort: true}">电话号码</th>
-        <th lay-data="{field:'mobileNo', minWidth: 150}">手机号</th>
+        <th lay-data="{field:'mobileNo', minWidth: 150}">手机号码</th>
         <th lay-data="{fixed: 'right', align:'left', toolbar: '#barDemo'}">操作</th>
     </tr>
     </thead>
@@ -43,7 +86,17 @@
         var laydate = layui.laydate //日期
                 , table = layui.table //  表单
                 ,layer = layui.layer //弹层
+                ,laydate = layui.laydate
                 ,element = layui.element; //元素操作
+
+        //常规用法
+        laydate.render({
+            elem: '#createTimeBegin'
+        });
+
+        laydate.render({
+            elem: '#createTimeEnd'
+        });
 
         var $ = layui.$, active = {
             reload: function(){
