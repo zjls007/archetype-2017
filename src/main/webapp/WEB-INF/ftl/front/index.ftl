@@ -12,10 +12,11 @@
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo">牛X系统</div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="admin/index">后台管理</a></li>
-        </ul>
+        <@shiro.hasRole name="sys_admin">
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="admin/index">后台管理</a></li>
+            </ul>
+        </@shiro.hasRole>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="">消息<span class="layui-badge">0</span></a>
