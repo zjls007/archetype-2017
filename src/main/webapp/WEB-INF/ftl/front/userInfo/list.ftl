@@ -11,14 +11,25 @@
     </style>
 </head>
 <body>
-<div>
+<div style="height: 80px;">
     真实姓名：
     <div class="layui-inline">
         <input class="layui-input" name="fullName" id="fullName" autocomplete="off">
     </div>
     <button class="layui-btn query" data-type="reload">搜索</button>
 </div>
-<table class="layui-hide" id="dg" lay-filter="demo"></table>
+<table class="layui-table" id="dg" lay-filter="data" lay-data="{height: 'full-120', cellMinWidth: 80, page: true, limit:30, url:'front/userInfo/data'}">
+    <thead>
+    <tr>
+        <th lay-data="{type:'checkbox'}">ID</th>
+        <th lay-data="{field: 'userName', width:200}">用户名</th>
+        <th lay-data="{field:'fullName', width:100}">真实姓名</th>
+        <th lay-data="{field:'telNo', width:100, sort: true}">电话号码</th>
+        <th lay-data="{field:'mobileNo', minWidth: 150}">手机号</th>
+        <th lay-data="{fixed: 'right', align:'left', toolbar: '#barDemo'}">操作</th>
+    </tr>
+    </thead>
+</table>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
@@ -30,27 +41,9 @@
 <script>
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
         var laydate = layui.laydate //日期
-                ,laypage = layui.laypage //分页
+                , table = layui.table //  表单
                 ,layer = layui.layer //弹层
-                ,table = layui.table //表格
                 ,element = layui.element; //元素操作
-
-        //执行一个 table 实例
-        table.render({
-            elem: '#dg',
-            height: 'full-200',
-            url: 'front/userInfo/data', //数据接口
-            page: true, //开启分页
-            method: 'post',
-            cols: [[ //表头
-                {checkbox: true, fixed: true},
-                {field: 'userName', title: '用户名', width:200},
-                {field: 'fullName', title: '真实姓名', sort: true, width:200},
-                {field: 'telNo', title: '电话号码', width:200},
-                {field: 'mobileNo', title: '手机号', width:200},
-                {fixed: 'right', title: '操作', align:'left', toolbar: '#barDemo'}
-            ]]
-        });
 
         var $ = layui.$, active = {
             reload: function(){
@@ -73,7 +66,7 @@
         });
 
         //监听工具条
-        table.on('tool(demo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        table.on('tool(data)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
                     ,layEvent = obj.event; //获得 lay-event 对应的值
             if(layEvent === 'detail'){
