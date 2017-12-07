@@ -323,5 +323,14 @@
         AND trpr.type = 'menu'
     </select>
 
+    <update id="updateAccountLocked">
+        UPDATE t_user_info
+        <set>
+            account_locked = #{accountLocked},
+            lst_upd_time = now(),
+        </set>
+        WHERE id = #{id}
+    </update>
+
 </mapper>
 

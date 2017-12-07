@@ -95,4 +95,9 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfo.setSalt(salt2);
     }
 
+    @Override
+    public void changeLockState(Long userInfoId, Long currentUserId, Byte accountLocked) {
+        userInfoDAO.updateAccountLocked(userInfoId, accountLocked);
+    }
+
 }

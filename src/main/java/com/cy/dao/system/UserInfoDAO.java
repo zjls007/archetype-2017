@@ -3,6 +3,7 @@ package com.cy.dao.system;
 import com.cy.entity.system.UserInfo;
 import com.cy.web.dto.param.system.UserInfoQueryDTO;
 import com.cy.web.dto.result.system.UserInfoListResultDTO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -42,5 +43,7 @@ public interface UserInfoDAO {
     List<UserInfo> listByDTO(UserInfoQueryDTO queryDTO);
 
     List<Long> getMenuIdList(Long userInfoId);
+
+    int updateAccountLocked(@Param("id") Long id, @Param("accountLocked") Byte accountLocked);
 
 }

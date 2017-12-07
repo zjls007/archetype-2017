@@ -22,4 +22,15 @@ public interface UserInfoService {
      */
     UserInfo regist(RegistParamDTO paramDTO);
 
+    /**
+     * 变更用户锁定状态
+     *
+     * @param userInfoId {@link UserInfo#id}
+     * @param currentUserId {@link UserInfo#id}
+     * @param accountLocked {@link UserInfo#accountLocked}
+     * @return
+     * @throws
+     */
+    void changeLockState(Long userInfoId, Long currentUserId, Byte accountLocked);
+
 }

@@ -1,7 +1,10 @@
 package com.cy.web.controller.front;
 
+import com.cy.common.Response;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.system.UserInfo;
+import com.cy.service.UserInfoService;
+import com.cy.web.controller.admin.base.BaseController;
 import com.cy.web.dto.param.system.UserInfoQueryDTO;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +23,13 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("userInfo")
-public class UserInfoController {
+public class UserInfoController extends BaseController {
 
     @Autowired
     private UserInfoDAO userInfoDAO;
+
+    @Autowired
+    private UserInfoService userInfoService;
 
     @RequestMapping("list")
     public String list() {
@@ -48,6 +54,13 @@ public class UserInfoController {
         map.put("count", list.size());
         map.put("data", list);
         return map;
+    }
+
+    @RequestMapping("changeLockState")
+    @ResponseBody
+    public Response changeLockState(Long userInfoId, Byte accountLocked) {
+        userInfoService.changeLockState(userInfoId, getCurrentUserId(), accountLocked);
+        return new Response(null);
     }
 
 }

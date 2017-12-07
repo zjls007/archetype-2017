@@ -11,12 +11,13 @@
     </style>
 </head>
 <body>
-<div class="layui-tab layui-tab-brief">
+<div class="layui-tab layui-tab-brief" lay-filter="reFulsh">
     <ul class="layui-tab-title">
         <li class="layui-this">用户管理<span class="layui-badge">1000</span></li>
         <li class=""><i class="layui-icon">&#x1002;</i>刷新</li>
     </ul>
-    <div class="layui-tab-content"></div>
+    <div class="layui-tab-content">
+    </div>
 </div>
 <blockquote class="layui-elem-quote layui-quote-nm">
     <button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon">&#xe608;</i>添加</button>
@@ -61,20 +62,25 @@
         </div>
     </form>
 </blockquote>
-<table class="layui-table" id="dg" lay-filter="data" lay-data="{height: 'full-300', cellMinWidth: 80, page: true, limit:30, url:'front/userInfo/data'}">
+<table class="layui-table" id="dg" lay-filter="data" lay-data="{height: 'full-300', page: true, limit:30, url:'front/userInfo/data'}">
     <thead>
     <tr>
-        <th lay-data="{type:'checkbox'}">ID</th>
-        <th lay-data="{field: 'userName', width:200}">用户名</th>
-        <th lay-data="{field:'fullName', width:100}">真实姓名</th>
-        <th lay-data="{field:'telNo', width:100, sort: true}">电话号码</th>
-        <th lay-data="{field:'mobileNo', minWidth: 150}">手机号码</th>
-        <th lay-data="{fixed: 'right', align:'left', toolbar: '#barDemo'}">操作</th>
+        <th lay-data="{type:'checkbox'}"></th>
+        <th lay-data="{field: 'userName', width:120}">用户名</th>
+        <th lay-data="{field:'mobilePhoneNumber', width: 120}">手机号码</th>
+        <th lay-data="{field:'email', width: 120}">邮箱</th>
+        <th lay-data="{field:'fullName', width:120}">真实姓名</th>
+        <th lay-data="{field:'telNo', width:120}">电话号码</th>
+        <th lay-data="{field:'accountLocked', width:120, sort: true, templet: '#accountLocked', unresize: true}">锁定状态</th>
+        <th lay-data="{minWidth:120,align:'left', toolbar: '#bar'}">操作</th>
     </tr>
     </thead>
 </table>
+<script type="text/html" id="accountLocked">
+    <input type="checkbox" name="lock" value="{{d.id}}" title="锁定" lay-filter="accountLocked" {{ d.accountLocked == 1 ? 'checked' : '' }}>
+</script>
 
-<script type="text/html" id="barDemo">
+<script type="text/html" id="bar">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -87,7 +93,31 @@
                 , table = layui.table //  表单
                 ,layer = layui.layer //弹层
                 ,laydate = layui.laydate
+                ,form = layui.form
+                ,$ = layui.$
                 ,element = layui.element; //元素操作
+
+        //监听Tab切换
+        element.on('tab(reFulsh)', function(data){
+            location.reload();
+        });
+
+        //监听锁定操作
+        form.on('checkbox(accountLocked)', function(obj){
+            $.ajax({
+                async: true,
+                type: 'POST',
+                url: 'front/userInfo/changeLockState',
+                data: {userInfoId:this.value, accountLocked:obj.elem.checked==true?"1":"0"},
+                dataType: 'json',
+                success: function (data) {
+                    if (data.code == 0) {
+                    } else {
+                        $.messager.alert('错误',data.message,'error');
+                    }
+                }
+            });
+        });
 
         //常规用法
         laydate.render({
@@ -98,7 +128,7 @@
             elem: '#createTimeEnd'
         });
 
-        var $ = layui.$, active = {
+        var active = {
             reload: function(){
                 var fullName = $('#fullName');
                 //执行重载
