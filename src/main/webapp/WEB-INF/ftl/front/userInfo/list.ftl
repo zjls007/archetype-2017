@@ -20,13 +20,13 @@
     </div>
 </div>
 <blockquote class="layui-elem-quote layui-quote-nm">
-    <button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon">&#xe608;</i>添加</button>
-    <button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon">&#xe640;</i>批量删除</button>
+    <button class="layui-btn layui-btn-primary layui-btn-sm add"><i class="layui-icon">&#xe608;</i>添加</button>
+    <button class="layui-btn layui-btn-primary layui-btn-sm batchDelete"><i class="layui-icon">&#xe640;</i>批量删除</button>
     <button class="layui-btn layui-btn-primary layui-btn-sm query"><i class="layui-icon">&#xe615;</i>搜索</button>
     <button class="layui-btn layui-btn-primary layui-btn-sm reset"><i class="layui-icon">&#xe633;</i>重置</button>
     <div style="height: 20px"></div>
     <form class="layui-form" action="" id="f-query">
-        <button class="layui-btn layui-btn-primary layui-btn-sm reset" style="display: none"><i class="layui-icon">&#xe633;</i>重置</button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm" type="reset" id="reset" style="display: none">重置</button>
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">用户名：</label>
@@ -140,6 +140,10 @@
             elem: '#createTimeEnd'
         });
 
+        $('.add').on('click', function () {
+            parent.newTab('添加用户', 'front/userInfo/edit');
+        });
+
         $('.query').on('click', function(){
             var param = {};
             var jsonArray = $('#f-query').serializeArray();
@@ -159,8 +163,39 @@
         });
 
         $('.reset').on('click', function () {
-            alert(1);
-            form.resetForm();
+            $('#reset').click();
+            layer.msg('搜索条件已重置!');
+        });
+
+        $('.batchDelete').on('click', function () {
+            var checkStatus = table.checkStatus('dg')
+                    ,data = checkStatus.data;
+            var idList=[];
+            for (var i = 0; i < data.length; i++) {
+                idList.push(data[i].id);
+            }
+            if (idList.length == 0) {
+                layer.msg('请选择数据!');
+            } else {
+                layer.confirm('确定要删除吗?', function(index){
+                    layer.close(index);
+                    $.ajax({
+                        async: true,
+                        type: 'POST',
+                        url: url,
+                        data: JSON.stringify(idList),
+                        dataType: 'json',
+                        contentType:"application/json",
+                        success: function (data) {
+                            if (data.code == 0) {
+                                $('#dg').datagrid('reload');
+                            } else {
+                                $.messager.alert('错误',data.message,'error');
+                            }
+                        }
+                    });
+                });
+            }
         });
 
         //监听工具条
