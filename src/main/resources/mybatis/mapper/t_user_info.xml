@@ -197,59 +197,61 @@
         <include refid="Base_Column_List"/>
         FROM t_user_info
         <where>
-            <if test="id != null" >
-                AND id = #{id}
+            <include refid="baseQueryWhere"/>
+            <if test="createTimeBegin != null" >
+                AND create_time >= #{createTimeBegin}
             </if>
-            <if test="userName != null and userName != ''" >
-                AND user_name = #{userName}
-            </if>
-            <if test="mobilePhoneNumber != null and mobilePhoneNumber != ''" >
-                AND mobile_phone_number = #{mobilePhoneNumber}
-            </if>
-            <if test="email != null and email != ''" >
-                AND email = #{email}
-            </if>
-            <if test="telNo != null and telNo != ''" >
-                AND tel_no = #{telNo}
-            </if>
-            <if test="password != null and password != ''" >
-                AND password = #{password}
-            </if>
-            <if test="salt != null and salt != ''" >
-                AND salt = #{salt}
-            </if>
-            <if test="fullName != null and fullName != ''" >
-                AND full_name = #{fullName}
-            </if>
-            <if test="sex != null and sex != ''" >
-                AND sex = #{sex}
-            </if>
-            <if test="signNo != null" >
-                AND sign_no = #{signNo}
-            </if>
-            <if test="birthday != null" >
-                AND birthday = #{birthday}
-            </if>
-            <if test="lastLoginIp != null and lastLoginIp != ''" >
-                AND last_login_ip = #{lastLoginIp}
-            </if>
-            <if test="lastLoginTime != null" >
-                AND last_login_time = #{lastLoginTime}
-            </if>
-            <if test="accountLocked != null" >
-                AND account_locked = #{accountLocked}
-            </if>
-            <if test="nativeState != null" >
-                AND native_state = #{nativeState}
-            </if>
-            <if test="createTime != null" >
-                AND create_time = #{createTime}
-            </if>
-            <if test="lstUpdTime != null" >
-                AND lst_upd_time = #{lstUpdTime}
+            <if test="createTimeEnd != null" >
+                AND DATE_ADD(#{createTimeEnd},interval '23:59:59' hour_second) >= create_time
             </if>
         </where>
+        ORDER BY lst_upd_time DESC
     </select>
+
+    <sql id="baseQueryWhere">
+        <if test="id != null" >
+            AND id = #{id}
+        </if>
+        <if test="userName != null and userName != ''" >
+            AND user_name like CONCAT('%',#{userName},'%')
+        </if>
+        <if test="mobilePhoneNumber != null and mobilePhoneNumber != ''" >
+            AND mobile_phone_number like CONCAT('%',#{mobilePhoneNumber},'%')
+        </if>
+        <if test="email != null and email != ''" >
+            AND email like CONCAT('%',#{email},'%')
+        </if>
+        <if test="telNo != null and telNo != ''" >
+            AND tel_no like CONCAT('%',#{telNo},'%')
+        </if>
+        <if test="fullName != null and fullName != ''" >
+            AND full_name like CONCAT('%',#{fullName},'%')
+        </if>
+        <if test="sex != null and sex != ''" >
+            AND sex = #{sex}
+        </if>
+        <if test="birthday != null" >
+            AND birthday = #{birthday}
+        </if>
+        <if test="lastLoginIp != null and lastLoginIp != ''" >
+            AND last_login_ip = #{lastLoginIp}
+        </if>
+        <if test="lastLoginTime != null" >
+            AND last_login_time = #{lastLoginTime}
+        </if>
+        <if test="accountLocked != null" >
+            AND account_locked = #{accountLocked}
+        </if>
+        <if test="nativeState != null" >
+            AND native_state = #{nativeState}
+        </if>
+        <if test="createTime != null" >
+            AND create_time = #{createTime}
+        </if>
+        <if test="lstUpdTime != null" >
+            AND lst_upd_time = #{lstUpdTime}
+        </if>
+    </sql>
 
     <select id="getByUserName" resultMap="BaseResultMap">
         SELECT

@@ -5,6 +5,7 @@ import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.system.UserInfo;
 import com.cy.service.UserInfoService;
 import com.cy.web.controller.admin.base.BaseController;
+import com.cy.web.dto.param.system.UserInfoFrontQueryDTO;
 import com.cy.web.dto.param.system.UserInfoQueryDTO;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +46,9 @@ public class UserInfoController extends BaseController {
 
     @RequestMapping("data")
     @ResponseBody
-    public Object data(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit, UserInfoQueryDTO userInfoQueryDTO) {
+    public Object data(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit, UserInfoFrontQueryDTO queryDTO) {
         PageHelper.startPage(page, limit);
-        List<UserInfo> list = userInfoDAO.listByDTO(userInfoQueryDTO);
+        List<UserInfo> list = userInfoDAO.list(queryDTO);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("code", 0);
         map.put("msg", "");

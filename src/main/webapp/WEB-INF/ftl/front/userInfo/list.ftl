@@ -13,7 +13,7 @@
 <body>
 <div class="layui-tab layui-tab-brief" lay-filter="reFulsh">
     <ul class="layui-tab-title">
-        <li class="layui-this">用户管理<span class="layui-badge">1000</span></li>
+        <li class="layui-this">用户管理</li>
         <li class=""><i class="layui-icon">&#x1002;</i>刷新</li>
     </ul>
     <div class="layui-tab-content">
@@ -22,10 +22,11 @@
 <blockquote class="layui-elem-quote layui-quote-nm">
     <button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon">&#xe608;</i>添加</button>
     <button class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon">&#xe640;</i>批量删除</button>
-    <button class="layui-btn layui-btn-primary layui-btn-sm query" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
-    <button class="layui-btn layui-btn-primary layui-btn-sm query" data-type="reload"><i class="layui-icon">&#xe633;</i>重置</button>
+    <button class="layui-btn layui-btn-primary layui-btn-sm query"><i class="layui-icon">&#xe615;</i>搜索</button>
+    <button class="layui-btn layui-btn-primary layui-btn-sm reset"><i class="layui-icon">&#xe633;</i>重置</button>
     <div style="height: 20px"></div>
-    <form class="layui-form" action="">
+    <form class="layui-form" action="" id="f-query">
+        <button class="layui-btn layui-btn-primary layui-btn-sm reset" style="display: none"><i class="layui-icon">&#xe633;</i>重置</button>
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">用户名：</label>
@@ -50,13 +51,23 @@
             <div class="layui-inline">
                 <label class="layui-form-label">注册时间：</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="createTimeBegin" placeholder="注册时间" autocomplete="off" class="layui-input">
+                    <input type="text" name="createTimeBegin" id="createTimeBegin" placeholder="注册时间范围开始" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">~</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="createTimeEnd" placeholder="注册时间" autocomplete="off" class="layui-input">
+                    <input type="text" name="createTimeEnd" id="createTimeEnd" placeholder="注册时间范围结束" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-inline">
+                    <select name="accountLocked" lay-verify="required" lay-search="">
+                        <option value="">---请选择---</option>
+                        <option value="0">未锁定</option>
+                        <option value="1">已锁定</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -71,6 +82,7 @@
         <th lay-data="{field:'email', width: 120}">邮箱</th>
         <th lay-data="{field:'fullName', width:120}">真实姓名</th>
         <th lay-data="{field:'telNo', width:120}">电话号码</th>
+        <th lay-data="{field:'createTime', width:180, align:'center'}">注册时间</th>
         <th lay-data="{field:'accountLocked', width:120, sort: true, templet: '#accountLocked', unresize: true}">锁定状态</th>
         <th lay-data="{minWidth:120,align:'left', toolbar: '#bar'}">操作</th>
     </tr>
@@ -128,24 +140,27 @@
             elem: '#createTimeEnd'
         });
 
-        var active = {
-            reload: function(){
-                var fullName = $('#fullName');
-                //执行重载
-                table.reload('dg', {
-                    page: {
-                        curr: 1 //重新从第 1 页开始
-                    }
-                    ,where: {
-                        fullName: fullName.val()
-                    }
-                });
-            }
-        };
-
         $('.query').on('click', function(){
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
+            var param = {};
+            var jsonArray = $('#f-query').serializeArray();
+            for (var i = 0; i < jsonArray.length; i++) {
+                var name = jsonArray[i].name;
+                var value = jsonArray[i].value;
+                param[name] = value;
+            }
+
+            //执行重载
+            table.reload('dg', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                ,where: param
+            });
+        });
+
+        $('.reset').on('click', function () {
+            alert(1);
+            form.resetForm();
         });
 
         //监听工具条
