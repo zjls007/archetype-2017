@@ -61,7 +61,7 @@
             $('#menu-list a[data-value="'+parentTab+'"]').addClass('active');
             $('div#page-content iframe[data-value="'+parentTab+'"]').addClass('active');
             if (reloadParentTab) {
-                $('div#page-content iframe[data-value="'+parentTab+'"]').contents().prop('outerHTML');
+                $(window.parent.document).contents().find('div#page-content iframe[data-value="'+parentTab+'"]')[0].contentWindow.reloadDG();
             }
         }
     }

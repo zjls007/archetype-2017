@@ -13,7 +13,7 @@
 <body>
 <div class="layui-tab layui-tab-brief" lay-filter="reFulsh">
     <ul class="layui-tab-title">
-        <li class="layui-this">用户管理</li>
+        <li class="layui-this">用户信息</li>
         <li class=""><i class="layui-icon">&#x1002;</i>刷新</li>
     </ul>
     <div class="layui-tab-content">
@@ -68,8 +68,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">性别：</label>
             <div class="layui-input-inline">
-                <input type="radio" name="sex" value="男" title="男" checked="">
-                <input type="radio" name="sex" value="女" title="女">
+                <input type="radio" name="sex" value="Man" title="男" ${((userInfo.sex=='Man')?string('checked', ''))!}>
+                <input type="radio" name="sex" value="Woman" title="女" ${((userInfo.sex=='Woman')?string('checked', ''))!}>
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
