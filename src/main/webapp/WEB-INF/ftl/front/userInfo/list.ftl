@@ -187,7 +187,7 @@
                         contentType:"application/json",
                         success: function (data) {
                             if (data.code == 0) {
-
+                                table.reload('dg');
                             } else {
                                 layer.msg(data.message);
                             }
