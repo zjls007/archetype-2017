@@ -76,7 +76,7 @@
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn layui-btn-primary layui-btn-sm add" lay-submit="" lay-filter="demo1"><i class="layui-icon">&#xe610;</i>提交</button>
+                <button class="layui-btn layui-btn-primary layui-btn-sm add" lay-submit="" lay-filter="submit"><i class="layui-icon">&#xe610;</i>提交</button>
                 <button class="layui-btn layui-btn-primary layui-btn-sm reset" type="reset"><i class="layui-icon">&#xe633;</i>重置</button>
             </div>
         </div>
@@ -116,6 +116,25 @@
             }
         });
 
+        //监听提交
+        form.on('submit(submit)', function(data){
+            $.ajax({
+                async: true,
+                type: 'POST',
+                url: 'admin/userInfo/saveOrUpdate',
+                data: data.field,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.code == 0) {
+                        layer.msg("保存成功!");
+                        parent.closeActive('用户管理', true);
+                    } else {
+                        layer.msg(data.message);
+                    }
+                }
+            });
+            return false;
+        });
     });
 </script>
 </body>

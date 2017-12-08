@@ -97,7 +97,7 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
-<script src="statics/ui/layui-2.2.4/layui.js"></script>
+<script src="statics/ui/layui-2.2.4/layui.all.js"></script>
 <script>
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
         var laydate = layui.laydate //日期
@@ -200,6 +200,10 @@
                     }
                 });
             });
+        };
+
+        window.reloadDG = function () {
+            table.reload('dg');
         };
 
         //监听工具条

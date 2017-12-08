@@ -54,6 +54,17 @@
         $('#menu-list a:not(.index, .active)').remove();
         $('div#page-content iframe:not(#index, .active)').remove();
     }
+    function closeActive(parentTab, reloadParentTab) {
+        $('#menu-list a.active').remove();
+        $('div#page-content iframe.active').remove();
+        if (parentTab) {
+            $('#menu-list a[data-value="'+parentTab+'"]').addClass('active');
+            $('div#page-content iframe[data-value="'+parentTab+'"]').addClass('active');
+            if (reloadParentTab) {
+                $('div#page-content iframe[data-value="'+parentTab+'"]').contents().prop('outerHTML');
+            }
+        }
+    }
     function closeAll() {
         $('#menu-list a:not(.index)').remove();
         $('div#page-content iframe:not(#index)').remove();
