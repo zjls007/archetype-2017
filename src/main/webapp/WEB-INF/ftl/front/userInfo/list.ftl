@@ -20,10 +20,13 @@
     </div>
 </div>
 <blockquote class="layui-elem-quote layui-quote-nm">
+    <!-- 图标地址：http://www.layui.com/doc/element/icon.html -->
     <button class="layui-btn layui-btn-primary layui-btn-sm add"><i class="layui-icon">&#xe608;</i>添加</button>
     <button class="layui-btn layui-btn-primary layui-btn-sm batchDelete"><i class="layui-icon">&#xe640;</i>批量删除</button>
     <button class="layui-btn layui-btn-primary layui-btn-sm query"><i class="layui-icon">&#xe615;</i>搜索</button>
     <button class="layui-btn layui-btn-primary layui-btn-sm reset"><i class="layui-icon">&#xe633;</i>重置</button>
+    <button class="layui-btn layui-btn-primary layui-btn-sm import"><i class="layui-icon">&#xe62f;</i>导入</button>
+    <button class="layui-btn layui-btn-primary layui-btn-sm export"><i class="layui-icon">&#xe601;</i>导出</button>
     <div style="height: 20px"></div>
     <form class="layui-form" action="" id="f-query">
         <button class="layui-btn layui-btn-primary layui-btn-sm" type="reset" id="reset" style="display: none">重置</button>
@@ -144,6 +147,14 @@
             parent.newTab('添加用户', 'front/userInfo/edit');
         });
 
+        $('.import').on('click', function () {
+           layer.msg("暂无功能!");
+        });
+
+        $('.export').on('click', function () {
+            layer.msg("暂无功能!");
+        });
+
         $('.query').on('click', function(){
             var param = {};
             var jsonArray = $('#f-query').serializeArray();
@@ -211,7 +222,7 @@
             var data = obj.data //获得当前行数据
                     ,layEvent = obj.event; //获得 lay-event 对应的值
             if(layEvent === 'detail'){
-                parent.newTab('用户查看', 'front/userInfo/add');
+                parent.newTab('用户查看', 'front/userInfo/edit/' + data.id);
             } else if(layEvent === 'del'){
                 delFn([data.id]);
             } else if(layEvent === 'edit'){

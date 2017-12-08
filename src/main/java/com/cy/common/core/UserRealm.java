@@ -67,6 +67,7 @@ public class UserRealm extends AuthorizingRealm {
                 user.getPassword(),
                 ByteSource.Util.bytes(user.getUserName() + user.getSalt()),
                 getName());
+        userInfoDAO.updateLastLoginTime(user.getId());
         SecurityUtils.getSubject().getSession().setAttribute(Constants.CURRENT_USER, user);
         SecurityUtils.getSubject().getSession().setAttribute(Constants.CURRENT_USER_ID, user.getId());
         return authenticationInfo;

@@ -170,6 +170,15 @@
         WHERE id = #{id}
     </update>
 
+    <update id="updateLastLoginTime">
+        UPDATE t_user_info
+        <set>
+            last_login_time = now(),
+            lst_upd_time = now()
+        </set>
+        WHERE id = #{id}
+    </update>
+
     <select id="getById" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>

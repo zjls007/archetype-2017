@@ -26,6 +26,8 @@ public interface UserInfoDAO {
 
     int updateById(UserInfo entity);
 
+    int updateLastLoginTime(Long id);
+
     UserInfo getById(Long id);
 
     List<UserInfo> getByIdList(List<Long> list);
