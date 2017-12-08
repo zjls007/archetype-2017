@@ -1,6 +1,7 @@
 package com.cy.web.controller.front;
 
 import com.cy.common.Response;
+import com.cy.common.constant.ResponseStatus;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.system.UserInfo;
 import com.cy.service.UserInfoService;
@@ -8,9 +9,11 @@ import com.cy.web.controller.admin.base.BaseController;
 import com.cy.web.dto.param.system.UserInfoFrontQueryDTO;
 import com.cy.web.dto.param.system.UserInfoQueryDTO;
 import com.github.pagehelper.PageHelper;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -61,6 +64,13 @@ public class UserInfoController extends BaseController {
     @ResponseBody
     public Response changeLockState(Long userInfoId, Byte accountLocked) {
         userInfoService.changeLockState(userInfoId, getCurrentUserId(), accountLocked);
+        return new Response(null);
+    }
+
+    @RequestMapping("delete")
+    @ResponseBody
+    public Response delete(@RequestBody List<Long> idList) {
+        userInfoDAO.batchDelete(idList);
         return new Response(null);
     }
 

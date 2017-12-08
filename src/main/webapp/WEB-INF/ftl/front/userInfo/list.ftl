@@ -49,18 +49,6 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">注册时间：</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="createTimeBegin" id="createTimeBegin" placeholder="注册时间范围开始" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">~</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="createTimeEnd" id="createTimeEnd" placeholder="注册时间范围结束" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
                 <label class="layui-form-label">状态</label>
                 <div class="layui-input-inline">
                     <select name="accountLocked" lay-verify="required" lay-search="">
@@ -68,6 +56,16 @@
                         <option value="0">未锁定</option>
                         <option value="1">已锁定</option>
                     </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">注册时间：</label>
+                <div class="layui-input-inline" >
+                    <input type="text" name="createTimeBegin" id="createTimeBegin" placeholder="注册时间范围开始" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid">~</div>
+                <div class="layui-input-inline">
+                    <input type="text" name="createTimeEnd" id="createTimeEnd" placeholder="注册时间范围结束" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
@@ -89,7 +87,7 @@
     </thead>
 </table>
 <script type="text/html" id="accountLocked">
-    <input type="checkbox" name="lock" value="{{d.id}}" title="锁定" lay-filter="accountLocked" {{ d.accountLocked == 1 ? 'checked' : '' }}>
+    <input type="checkbox" name="lock" value="{{d.id}}" title="锁定" lay-filter="accountLocked" {{ d.accountLocked == 1 ? 'checked' : '' }} {{ d.id == 1 ? 'disabled' : '' }}>
 </script>
 
 <script type="text/html" id="bar">
@@ -124,8 +122,9 @@
                 dataType: 'json',
                 success: function (data) {
                     if (data.code == 0) {
+                        layer.msg(obj.elem.checked ? "账号已锁定!" : "账号已取消锁定!");
                     } else {
-                        $.messager.alert('错误',data.message,'error');
+                        layer.msg("锁定失败!");
                     }
                 }
             });
@@ -182,15 +181,15 @@
                     $.ajax({
                         async: true,
                         type: 'POST',
-                        url: url,
+                        url: 'front/userInfo/delete',
                         data: JSON.stringify(idList),
                         dataType: 'json',
                         contentType:"application/json",
                         success: function (data) {
                             if (data.code == 0) {
-                                $('#dg').datagrid('reload');
+
                             } else {
-                                $.messager.alert('错误',data.message,'error');
+                                layer.msg(data.message);
                             }
                         }
                     });
