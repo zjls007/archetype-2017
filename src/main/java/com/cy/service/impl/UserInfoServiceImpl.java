@@ -70,11 +70,12 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public void saveOrUpdate(UserInfo userInfo) {
-        if (userInfo.getMobilePhoneNumber() == null) {
-            userInfo.setMobilePhoneNumber("");
+        // 唯一索引默认给null
+        if ("".equals(userInfo.getMobilePhoneNumber())) {
+            userInfo.setMobilePhoneNumber(null);
         }
-        if (userInfo.getEmail() == null) {
-            userInfo.setEmail("");
+        if ("".equals(userInfo.getEmail())) {
+            userInfo.setEmail(null);
         }
         if (userInfo.getId() == null) {
             // 初始密码为123

@@ -1,8 +1,8 @@
 CREATE TABLE `t_user_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(20) NOT NULL DEFAULT '' COMMENT '用户名',
-  `mobile_phone_number` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号',
-  `email` varchar(20) NOT NULL DEFAULT '' COMMENT '邮箱',
+  `mobile_phone_number` varchar(20) DEFAULT NULL COMMENT '手机号',
+  `email` varchar(20) DEFAULT NULL COMMENT '邮箱',
   `tel_no` varchar(20) DEFAULT NULL COMMENT '电话号码',
   `password` varchar(100) DEFAULT NULL COMMENT '密码',
   `salt` varchar(100) DEFAULT NULL COMMENT '盐',
@@ -18,11 +18,11 @@ CREATE TABLE `t_user_info` (
   `lst_upd_time` datetime NOT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uni_user_name` (`user_name`),
-  KEY `uni_mobile_phone_number` (`mobile_phone_number`),
-  KEY `uni_email` (`email`)
+  UNIQUE KEY `uni_mobile_phone_number` (`mobile_phone_number`),
+  UNIQUE KEY `uni_email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
 
-INSERT INTO `t_user_info` (`id`, `user_name`, `password`, `salt`, `full_name`, `tel_no`, `mobile_phone_number`, `sign_no`, `account_locked`, `native_state`, `create_time`, `lst_upd_time`) VALUES (1, 'sys_admin', '8d7ac5d7f2b7ef1a9d8535196e652033', '105e5b2e9ef4c4f423f84ad2ab06655b', '系统管理员', '', '', NULL, 0, 1, '2017-10-16 10:56:44', '2017-10-16 10:57:06');
+INSERT INTO `t_user_info` (`id`, `user_name`, `password`, `salt`, `full_name`, `tel_no`, `mobile_phone_number`, `sign_no`, `account_locked`, `native_state`, `create_time`, `lst_upd_time`) VALUES (1, 'sys_admin', '8d7ac5d7f2b7ef1a9d8535196e652033', '105e5b2e9ef4c4f423f84ad2ab06655b', '系统管理员', '', NULL, NULL, 0, 1, '2017-10-16 10:56:44', '2017-10-16 10:57:06');
 
 CREATE TABLE `t_role_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',

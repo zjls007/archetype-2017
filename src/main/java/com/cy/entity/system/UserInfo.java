@@ -1,7 +1,10 @@
 package com.cy.entity.system;
 
+import com.cy.common.annotation.ParamValid;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,6 +12,7 @@ import java.util.Date;
  * Created by zxj on 2017-12-06 14:19:19.
  * t_user_info-用户表
  */
+@ParamValid
 public class UserInfo implements Serializable {
 
     private static final long serialVersionUID = -549565203291010723L;
@@ -17,6 +21,8 @@ public class UserInfo implements Serializable {
     private Long id;
 
     /** 用户名,not null */
+    @NotNull(message="用户名不能为空")
+    @Length(min = 2, max = 15, message = "用户名长度必须在{min}-{max}位之间")
     private String userName;
 
     /** 手机号,not null */

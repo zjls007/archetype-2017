@@ -129,7 +129,7 @@
                         layer.msg("保存成功!");
                         parent.closeActive('用户管理', true);
                     } else {
-                        layer.msg(data.message);
+                        layer.msg(data.message, {time:0});
                     }
                 }
             });
