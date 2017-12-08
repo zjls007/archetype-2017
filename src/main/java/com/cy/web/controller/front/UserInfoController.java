@@ -23,8 +23,8 @@ import java.util.Map;
 /**
  * Created by zxj on 2017/11/30.
  */
-@Controller
-@RequestMapping("userInfo")
+//@Controller
+//@RequestMapping("userInfo")
 public class UserInfoController extends BaseController {
 
     @Autowired
