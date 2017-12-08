@@ -30,8 +30,7 @@
                 ${userInfo.fullName!}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
+                    <dd><a href="front/userInfo/list" class="tab">修改密码</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="admin/logout">退出</a></li>
