@@ -88,7 +88,7 @@
         <th lay-data="{field:'createTime', width:180, align:'center'}">注册时间</th>
         <th lay-data="{field:'lastLoginTime', width:180, align:'center'}">最后登录时间</th>
         <th lay-data="{field:'accountLocked', width:120, sort: true, templet: '#accountLocked', unresize: true}">锁定状态</th>
-        <th lay-data="{minWidth:120,align:'left', toolbar: '#bar'}">操作</th>
+        <th lay-data="{minWidth:180,align:'left', toolbar: '#bar'}">操作</th>
     </tr>
     </thead>
 </table>
