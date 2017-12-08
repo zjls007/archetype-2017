@@ -75,8 +75,8 @@
         (user_name, mobile_phone_number, email, tel_no, password, salt, full_name, sex, sign_no, 
         birthday, last_login_ip, last_login_time, account_locked, native_state, create_time, lst_upd_time)
         VALUES
-        (#{userName}, #{mobilePhoneNumber}, #{email}, #{telNo}, #{password}, #{salt}, #{fullName}, #{sex}, #{signNo}, 
-        #{birthday}, #{lastLoginIp}, #{lastLoginTime}, #{accountLocked}, #{nativeState}, #{createTime}, #{lstUpdTime})
+        (#{userName}, #{mobilePhoneNumber}, #{email}, #{telNo}, #{password}, #{salt}, #{fullName}, #{sex}, 0,
+        #{birthday}, #{lastLoginIp}, #{lastLoginTime}, 0, 0, now(), now())
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.system.UserInfo">
@@ -162,18 +162,10 @@
             mobile_phone_number = #{mobilePhoneNumber},
             email = #{email},
             tel_no = #{telNo},
-            password = #{password},
-            salt = #{salt},
             full_name = #{fullName},
             sex = #{sex},
-            sign_no = #{signNo},
             birthday = #{birthday},
-            last_login_ip = #{lastLoginIp},
-            last_login_time = #{lastLoginTime},
-            account_locked = #{accountLocked},
-            native_state = #{nativeState},
-            create_time = #{createTime},
-            lst_upd_time = #{lstUpdTime}
+            lst_upd_time = now()
         </set>
         WHERE id = #{id}
     </update>

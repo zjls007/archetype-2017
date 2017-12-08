@@ -49,7 +49,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">状态</label>
+                <label class="layui-form-label">状态：</label>
                 <div class="layui-input-inline">
                     <select name="accountLocked" lay-verify="required" lay-search="">
                         <option value="">---请选择---</option>
@@ -71,7 +71,7 @@
         </div>
     </form>
 </blockquote>
-<table class="layui-table" id="dg" lay-filter="data" lay-data="{height: 'full-300', page: true, limit:30, url:'front/userInfo/data'}">
+<table class="layui-table" id="dg" lay-filter="data" lay-data="{height: 'full-300', page: true, limit:10, url:'front/userInfo/data'}">
     <thead>
     <tr>
         <th lay-data="{type:'checkbox'}"></th>
@@ -81,6 +81,7 @@
         <th lay-data="{field:'fullName', width:120}">真实姓名</th>
         <th lay-data="{field:'telNo', width:120}">电话号码</th>
         <th lay-data="{field:'createTime', width:180, align:'center'}">注册时间</th>
+        <th lay-data="{field:'lastLoginTime', width:180, align:'center'}">最后登录时间</th>
         <th lay-data="{field:'accountLocked', width:120, sort: true, templet: '#accountLocked', unresize: true}">锁定状态</th>
         <th lay-data="{minWidth:120,align:'left', toolbar: '#bar'}">操作</th>
     </tr>
@@ -176,41 +177,41 @@
             if (idList.length == 0) {
                 layer.msg('请选择数据!');
             } else {
-                layer.confirm('确定要删除吗?', function(index){
-                    layer.close(index);
-                    $.ajax({
-                        async: true,
-                        type: 'POST',
-                        url: 'front/userInfo/delete',
-                        data: JSON.stringify(idList),
-                        dataType: 'json',
-                        contentType:"application/json",
-                        success: function (data) {
-                            if (data.code == 0) {
-                                table.reload('dg');
-                            } else {
-                                layer.msg(data.message);
-                            }
-                        }
-                    });
-                });
+                delFn(idList);
             }
         });
+
+        var delFn = function (idList) {
+            layer.confirm('确定要删除吗?', function(index){
+                layer.close(index);
+                $.ajax({
+                    async: true,
+                    type: 'POST',
+                    url: 'front/userInfo/delete',
+                    data: JSON.stringify(idList),
+                    dataType: 'json',
+                    contentType:"application/json",
+                    success: function (data) {
+                        if (data.code == 0) {
+                            table.reload('dg');
+                        } else {
+                            layer.msg(data.message);
+                        }
+                    }
+                });
+            });
+        };
 
         //监听工具条
         table.on('tool(data)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
                     ,layEvent = obj.event; //获得 lay-event 对应的值
             if(layEvent === 'detail'){
-                parent.newTab('用户查看', 'front/userInfo/edit');
+                parent.newTab('用户查看', 'front/userInfo/add');
             } else if(layEvent === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del(); //删除对应行（tr）的DOM结构
-                    layer.close(index);
-                    //向服务端发送删除指令
-                });
+                delFn([data.id]);
             } else if(layEvent === 'edit'){
-                layer.msg(data.id);
+                parent.newTab('用户查看', 'front/userInfo/edit/' + data.id);
             }
         });
     });

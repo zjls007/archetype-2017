@@ -8,15 +8,13 @@ import com.cy.service.UserInfoService;
 import com.cy.web.controller.admin.base.BaseController;
 import com.cy.web.dto.param.system.UserInfoFrontQueryDTO;
 import com.cy.web.dto.param.system.UserInfoQueryDTO;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,13 +38,6 @@ public class UserInfoController extends BaseController {
         return "userInfo/list";
     }
 
-    @RequestMapping("edit")
-    public String edit(Long id, ModelMap modelMap) {
-        UserInfo userInfo = userInfoDAO.getById(id);
-        modelMap.addAttribute("userInfo", userInfo);
-        return "userInfo/edit";
-    }
-
     @RequestMapping("data")
     @ResponseBody
     public Object data(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit, UserInfoFrontQueryDTO queryDTO) {
@@ -55,7 +46,7 @@ public class UserInfoController extends BaseController {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("code", 0);
         map.put("msg", "");
-        map.put("count", list.size());
+        map.put("count", ((Page) list).getTotal());
         map.put("data", list);
         return map;
     }
@@ -72,6 +63,13 @@ public class UserInfoController extends BaseController {
     public Response delete(@RequestBody List<Long> idList) {
         userInfoDAO.batchDelete(idList);
         return new Response(null);
+    }
+
+    @RequestMapping({"edit/{id}", "edit"})
+    public String edit(@PathVariable(required=false) Long id, ModelMap modelMap) {
+        UserInfo userInfo = userInfoDAO.getById(id);
+        modelMap.addAttribute("userInfo", userInfo);
+        return "userInfo/edit";
     }
 
 }

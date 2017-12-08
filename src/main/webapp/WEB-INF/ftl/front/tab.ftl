@@ -36,7 +36,7 @@
     <!--菜单HTML End-->
     <!--iframe Start (根据页面顶部占用高度，自行调整高度数值)-->
     <div id="page-content" style="height: calc(100% - 40px);">
-        <iframe id="index" class="iframe-content active" data-url="http://www.baidu.com/" data-value="首页" src="http://www.baidu.com/"></iframe>
+        <iframe id="index" class="iframe-content active" data-url="" data-value="首页" src=""></iframe>
     </div>
     <!--iframe End-->
 </div>

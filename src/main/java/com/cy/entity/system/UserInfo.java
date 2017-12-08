@@ -50,6 +50,7 @@ public class UserInfo implements Serializable {
     private String lastLoginIp;
 
     /** 最后登录时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastLoginTime;
 
     /** 账户是否锁定 0 未锁定 1锁定 */

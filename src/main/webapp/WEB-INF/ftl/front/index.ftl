@@ -5,7 +5,7 @@
     <base href="${basePath}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>牛X系统</title>
-    <link rel="stylesheet" href="statics/ui/layui-2.2.3/css/layui.css">
+    <link rel="stylesheet" href="statics/ui/layui-2.2.4/css/layui.css">
     <link rel="stylesheet" href="statics/ui/tab/css/tabstyle-min.css">
 </head>
 <body class="layui-layout-body">
@@ -52,15 +52,28 @@
 <#--<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>-->
 <script src="statics/js/jquery.min.js"></script>
 <script src="statics/ui/tab/tab-min.js"></script>
-<script src="statics/ui/layui-2.2.3/layui.js"></script>
+<script src="statics/ui/layui-2.2.4/layui.all.js"></script>
 <script>
     //初始化a标签链接到tab
     $("a.tab").tab();
     //JavaScript代码区域
     layui.use('element', function(){
         var $ = layui.jquery,
+                layer = layui.layer,
                 element = layui.element;
         $('.lay-tab-index i').remove();
+
+        window.reLogin = function(){
+            layer.open({
+                content: '请重新登录!'
+                ,closeBtn: 0
+                ,btnAlign: 'c'
+                ,btn: ['确定']
+                ,yes: function(index, layero){
+                    location.href = "";
+                }
+            });
+        }
     });
 </script>
 </body>

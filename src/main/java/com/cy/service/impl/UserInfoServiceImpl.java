@@ -70,6 +70,12 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public void saveOrUpdate(UserInfo userInfo) {
+        if (userInfo.getMobilePhoneNumber() == null) {
+            userInfo.setMobilePhoneNumber("");
+        }
+        if (userInfo.getEmail() == null) {
+            userInfo.setEmail("");
+        }
         if (userInfo.getId() == null) {
             // 初始密码为123
             userInfo.setPassword("123");
