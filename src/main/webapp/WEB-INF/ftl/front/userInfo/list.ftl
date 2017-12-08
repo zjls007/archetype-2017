@@ -5,7 +5,7 @@
     <base href="${basePath}">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>layui在线调试</title>
-    <link rel="stylesheet" href="statics/ui/layui-2.2.3/css/layui.css">
+    <link rel="stylesheet" href="statics/ui/layui-2.2.4/css/layui.css">
     <style>
         body{margin: 10px;}
     </style>
@@ -96,7 +96,7 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
-<script src="statics/ui/layui-2.2.3/layui.js"></script>
+<script src="statics/ui/layui-2.2.4/layui.js"></script>
 <script>
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
         var laydate = layui.laydate //日期
