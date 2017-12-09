@@ -56,7 +56,7 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
     @RequestMapping("list")
     public String list(ModelMap modelMap) {
         modelMap.addAttribute("modelName", entityClassName);
-        modelMap.addAttribute("editUrl", genPath("edit"));
+        modelMap.addAttribute("editUrl", genPath("edit1"));
         modelMap.addAttribute("delUrl", genPath("delete"));
         modelMap.addAttribute("dataUrl", genPath("data"));
         // 按钮权限
@@ -66,7 +66,7 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
         return genPath("list");
     }
 
-    @RequestMapping("edit")
+    @RequestMapping("edit1")
     public String tempFtl(ModelMap modelMap) {
         modelMap.addAttribute("actionUrl", genPath("saveOrUpdate"));
         return genPath("edit");
