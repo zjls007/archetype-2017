@@ -3,6 +3,7 @@ package com.cy.common.resolver;
 import com.cy.common.Response;
 import com.cy.common.constant.ResponseStatus;
 import com.cy.common.exception.SystemException;
+import com.cy.common.util.WebUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
@@ -33,13 +34,8 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver, Ordere
                                          HttpServletResponse httpServletResponse,
                                          Object handler, Exception e) {
         if (handler != null) {
-            // 通过controller方法上有没有@ResponseBody判断是否为ajax请求
-            HandlerMethod handlerMethod = (HandlerMethod) handler;
-            boolean responseBody = handlerMethod.getMethodAnnotation(ResponseBody.class) != null;
-            if (!responseBody) {
-                responseBody = handlerMethod.getBeanType().getAnnotation(RestController.class) != null;
-            }
-            if (responseBody) {
+            boolean ajaxRequest = WebUtil.isAjaxRequest((HandlerMethod) handler);
+            if (ajaxRequest) {
                 if (e instanceof ValidationException) {
                     new Response(ResponseStatus.PARAM_ERROR, e.getMessage()).send(httpServletResponse);
                 }

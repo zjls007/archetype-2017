@@ -1,3 +1,7 @@
 <script type="text/javascript">
-    parent.reLogin();
+    if (window.parent.length == 0) {
+        location.href = "/";
+    } else  {
+        parent.reLogin();
+    }
 </script>

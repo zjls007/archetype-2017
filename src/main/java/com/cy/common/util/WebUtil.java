@@ -1,5 +1,9 @@
 package com.cy.common.util;
 
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.method.HandlerMethod;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -17,6 +21,15 @@ public class WebUtil {
             basePath += "/";
         }
         return basePath;
+    }
+
+    public static boolean isAjaxRequest(HandlerMethod handlerMethod) {
+        // 通过controller方法上有没有@ResponseBody判断是否为ajax请求
+        boolean ajaxRequest = handlerMethod.getMethodAnnotation(ResponseBody.class) != null;
+        if (!ajaxRequest) {
+            ajaxRequest = handlerMethod.getBeanType().getAnnotation(RestController.class) != null;
+        }
+        return ajaxRequest;
     }
 
 }
