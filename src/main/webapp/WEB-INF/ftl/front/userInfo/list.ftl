@@ -54,4 +54,34 @@
     <th lay-data="{field:'accountLocked', width:120, sort: true, templet: '#accountLocked', unresize: true}">锁定状态</th>
     <th lay-data="{minWidth:180,align:'left', toolbar: '#bar'}">操作</th>
 </@override>
+<@override name="tableBar">
+    <script type="text/html" id="accountLocked">
+        <input type="checkbox" name="lock" value="{{d.id}}" title="锁定" lay-filter="accountLocked" {{ d.accountLocked == 1 ? 'checked' : '' }} {{ d.id == 1 ? 'disabled' : '' }}>
+    </script>
+
+    <script type="text/html" id="bar">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+</@override>
+<@override name="otherScript">
+    //监听锁定操作
+    form.on('checkbox(accountLocked)', function(obj){
+        $.ajax({
+            async: true,
+            type: 'POST',
+            url: 'userInfo/changeLockState',
+            data: {userInfoId:this.value, accountLocked:obj.elem.checked==true?"1":"0"},
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 0) {
+                    layer.msg(obj.elem.checked ? "账号已锁定!" : "账号已取消锁定!");
+                } else {
+                    layer.msg("锁定失败!");
+                }
+            }
+        });
+    });
+</@override>
 <@extends name="../templete/layTable.ftl"/>

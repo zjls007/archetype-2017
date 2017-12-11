@@ -1,7 +1,7 @@
 <@override name="body">
 <div class="layui-tab layui-tab-brief" lay-filter="reFulsh">
     <ul class="layui-tab-title">
-        <li class="layui-this">用户管理</li>
+        <li class="layui-this">${modelName!}</li>
         <li class=""><i class="layui-icon">&#x1002;</i>刷新</li>
     </ul>
     <div class="layui-tab-content">
@@ -24,7 +24,7 @@
         </@block>
     </form>
 </blockquote>
-<table class="layui-table" id="dg" lay-filter="data" lay-data="{height: 'full-300', page: true, limit:10, url:'front/userInfo/data'}">
+<table class="layui-table" id="dg" lay-filter="data" lay-data="{height: 'full-300', page: true, limit:10, url:'${dataUrl!}'}">
     <thead>
     <tr>
         <@block name="th">
@@ -32,15 +32,8 @@
     </tr>
     </thead>
 </table>
-<script type="text/html" id="accountLocked">
-    <input type="checkbox" name="lock" value="{{d.id}}" title="锁定" lay-filter="accountLocked" {{ d.accountLocked == 1 ? 'checked' : '' }} {{ d.id == 1 ? 'disabled' : '' }}>
-</script>
-
-<script type="text/html" id="bar">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</script>
+<@block name="tableBar">
+</@block>
 </@override>
 <@override name="script">
 <script>
@@ -92,24 +85,6 @@
             location.reload();
         });
 
-        //监听锁定操作
-        form.on('checkbox(accountLocked)', function(obj){
-            $.ajax({
-                async: true,
-                type: 'POST',
-                url: 'front/userInfo/changeLockState',
-                data: {userInfoId:this.value, accountLocked:obj.elem.checked==true?"1":"0"},
-                dataType: 'json',
-                success: function (data) {
-                    if (data.code == 0) {
-                        layer.msg(obj.elem.checked ? "账号已锁定!" : "账号已取消锁定!");
-                    } else {
-                        layer.msg("锁定失败!");
-                    }
-                }
-            });
-        });
-
         //常规用法
         laydate.render({
             elem: '#createTimeBegin'
@@ -120,7 +95,7 @@
         });
 
         $('.add').on('click', function () {
-            parent.newTab('添加用户', 'front/userInfo/edit');
+            parent.newTab('添加用户', '${basePath}front/${editUrl!}');
         });
 
         $('.import').on('click', function () {
@@ -174,7 +149,7 @@
                 $.ajax({
                     async: true,
                     type: 'POST',
-                    url: 'front/userInfo/delete',
+                    url: '${delUrl!}',
                     data: JSON.stringify(idList),
                     dataType: 'json',
                     contentType:"application/json",
@@ -205,6 +180,8 @@
                 parent.newTab('用户查看', 'front/userInfo/edit/' + data.id);
             }
         });
+        <@block name="otherScript">
+        </@block>
     });
 </script>
 </@override>

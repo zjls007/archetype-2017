@@ -28,6 +28,12 @@ public class UserInfoController extends LayerTableAdaptController<UserInfo, User
     private UserInfoService userInfoService;
 
     @Override
+    protected void doList(ModelMap modelMap) {
+        super.doList(modelMap);
+        modelMap.addAttribute("modelName", "用户管理");
+    }
+
+    @Override
     protected List<? extends UserInfo> getData(UserInfoFrontQueryDTO queryDTO) {
         return userInfoDAO.list(queryDTO);
     }

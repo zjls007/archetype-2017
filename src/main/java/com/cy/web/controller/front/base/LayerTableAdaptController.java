@@ -26,6 +26,11 @@ import java.util.Map;
  */
 public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptController<T, E> {
 
+    @Override
+    protected void doList(ModelMap modelMap) {
+        modelMap.addAttribute("editUrl", genPath("edit"));
+    }
+
     @RequestMapping("data")
     @ResponseBody
     public Object data(@RequestParam("page") Integer pageNum, @RequestParam("limit")Integer pageSize, E queryDTO) {

@@ -63,7 +63,12 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
         modelMap.addAttribute("addPerm", getSubject().isPermitted(genPerm("add")) || otherSuperPerm());
         modelMap.addAttribute("modifyPerm", getSubject().isPermitted(genPerm("modify")) || otherSuperPerm());
         modelMap.addAttribute("deletePerm", getSubject().isPermitted(genPerm("delete")) || otherSuperPerm());
+        doList(modelMap);
         return genPath("list");
+    }
+
+    protected void doList(ModelMap modelMap) {
+
     }
 
     @RequestMapping("edit1")
