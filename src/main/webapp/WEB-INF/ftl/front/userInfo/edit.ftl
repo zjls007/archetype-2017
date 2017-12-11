@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <base href="${basePath}">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>layui在线调试</title>
-    <link rel="stylesheet" href="statics/ui/layui-2.2.4/css/layui.css">
-    <style>
-        body{margin: 10px;}
-    </style>
-</head>
-<body>
+<@override name="body">
 <div class="layui-tab layui-tab-brief" lay-filter="reFulsh">
     <ul class="layui-tab-title">
         <li class="layui-this">用户信息</li>
@@ -20,7 +8,7 @@
     </div>
 </div>
 <blockquote class="layui-elem-quote layui-quote-nm">
-    <form class="layui-form" method="post" action="admin/userInfo/saveOrUpdate">
+    <form class="layui-form" method="post" action="userInfo/saveOrUpdate">
         <input type="hidden" name="id" value="${(userInfo.id)!}">
         <div class="layui-form-item">
             <label class="layui-form-label">用户名：</label>
@@ -82,7 +70,8 @@
         </div>
     </form>
 </blockquote>
-<script src="statics/ui/layui-2.2.4/layui.js"></script>
+</@override>
+<@override name="script">
 <script>
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
         var laydate = layui.laydate //日期
@@ -92,6 +81,8 @@
                 ,form = layui.form
                 ,$ = layui.$
                 ,element = layui.element; //元素操作
+
+        <#include "../templete/jqueryError.ftl"/>
 
         //监听Tab切换
         element.on('tab(reFulsh)', function(data){
@@ -106,8 +97,9 @@
         //自定义验证规则
         form.verify({
             userName: function(value){
-                if(value.length < 2){
-                    return '用户名至少2个字符!';
+                var errorMsg = $('form').data('errorMsg');
+                if (errorMsg) {
+                    return errorMsg;
                 }
             }
             ,pass: [/(.+){6,12}$/, '密码必须6到12位']
@@ -121,7 +113,7 @@
             $.ajax({
                 async: true,
                 type: 'POST',
-                url: 'admin/userInfo/saveOrUpdate',
+                url: 'userInfo/saveOrUpdate',
                 data: data.field,
                 dataType: 'json',
                 success: function (data) {
@@ -137,5 +129,5 @@
         });
     });
 </script>
-</body>
-</html>
+</@override>
+<@extends name="/base.ftl"/>

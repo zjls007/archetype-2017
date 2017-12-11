@@ -1,6 +1,7 @@
 package com.cy.web.controller.front;
 
 import com.cy.common.Response;
+import com.cy.common.constant.ResponseStatus;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.system.UserInfo;
 import com.cy.service.UserInfoService;
@@ -59,6 +60,15 @@ public class UserInfoController extends LayerTableAdaptController<UserInfo, User
     @ResponseBody
     public Response changeLockState(Long userInfoId, Byte accountLocked) {
         userInfoService.changeLockState(userInfoId, getCurrentUserId(), accountLocked);
+        return new Response(null);
+    }
+
+    @RequestMapping("uniUserName")
+    @ResponseBody
+    public Response uniUserName(String userName, Long id) {
+        if (userInfoDAO.uniUserName(userName, id) > 0) {
+            return new Response(ResponseStatus.VALID_ERROR, "用户名已存在!");
+        }
         return new Response(null);
     }
 

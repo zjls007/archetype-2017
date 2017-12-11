@@ -7,6 +7,7 @@ public enum ResponseStatus {
 
     SUCCESS(0, "成功"),
     PARAM_ERROR(1, "参数错误"),
+    VALID_ERROR(8, "验证错误"),
     EXCEPTION(2, "失败"),
     ACCESS_DENIED(3, "未登陆"),
     NO_PERMISSION(4, "无权限"),

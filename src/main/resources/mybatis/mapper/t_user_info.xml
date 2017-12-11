@@ -262,6 +262,15 @@
         WHERE user_name = #{userName}
     </select>
 
+    <select id="uniUserName" resultType="int">
+        SELECT COUNT(1)
+        FROM t_user_info
+        WHERE user_name = #{userName}
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+
     <select id="getByEmail" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>

@@ -36,6 +36,8 @@ public interface UserInfoDAO {
 
     UserInfo getByUserName(String userName);
 
+    int uniUserName(@Param("userName") String userName, @Param("id") Long id);
+
     UserInfo getByEmail(String email);
 
     UserInfo getByMobilePhoneNumber(String mobilePhoneNumber);
