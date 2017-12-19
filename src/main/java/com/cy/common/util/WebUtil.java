@@ -17,9 +17,6 @@ public class WebUtil {
         int port = request.getServerPort();
         String path = request.getContextPath();
         String basePath = scheme + "://" + serverName + ":" + port + path;
-        if (basePath.lastIndexOf("/") != (basePath.length() - 1)) {
-            basePath += "/";
-        }
         return basePath;
     }
 

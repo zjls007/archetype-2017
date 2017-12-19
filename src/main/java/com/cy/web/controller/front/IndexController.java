@@ -47,6 +47,11 @@ public class IndexController extends BaseController {
         return "index";
     }
 
+    @RequestMapping({"home"})
+    public String home(ModelMap modelMap) {
+        return "home";
+    }
+
     @RequestMapping("timeOut")
     public String timeOut() {
         return "timeOut";

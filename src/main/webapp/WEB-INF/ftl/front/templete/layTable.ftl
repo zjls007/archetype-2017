@@ -63,7 +63,7 @@
         });
 
         $('.add').on('click', function () {
-            parent.newTab('添加用户', '${basePath}front/${editUrl!}');
+            parent.newTab('添加用户', '${editUrl!}');
         });
 
         $('.import').on('click', function () {

@@ -17,7 +17,7 @@
         <button class="tab-btn" id="page-prev"></button>
         <nav id="page-tab-content">
             <div id="menu-list">
-                <a href="javascript:void(0);" onclick="goIndex(this)" data-url="" data-value="首页" class="active index" style="width: 40px">首页</a>
+                <a href="javascript:void(0);" onclick="goIndex(this)" data-url="home" data-value="首页" class="active index" style="width: 40px">首页</a>
             </div>
         </nav>
         <button class="tab-btn" id="page-next"></button>
@@ -36,7 +36,7 @@
     <!--菜单HTML End-->
     <!--iframe Start (根据页面顶部占用高度，自行调整高度数值)-->
     <div id="page-content" style="height: calc(100% - 40px);">
-        <iframe id="index" class="iframe-content active" data-url="" data-value="首页" src=""></iframe>
+        <iframe id="index" class="iframe-content active" data-url="" data-value="首页" src="home"></iframe>
     </div>
     <!--iframe End-->
 </div>
