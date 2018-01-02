@@ -1,8 +1,6 @@
 package com.cy.common.util;
 
 import org.apache.commons.codec.binary.Base64;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.crypto.Cipher;
 import java.io.ByteArrayOutputStream;
@@ -49,8 +47,6 @@ public class RSAUtil {
      * 获取私钥的key
      */
     private static final String PRIVATE_KEY = "RSAPrivateKey";
-
-    private static Logger logger = LoggerFactory.getLogger(RSAUtil.class);
 
     /**
      * <p>
