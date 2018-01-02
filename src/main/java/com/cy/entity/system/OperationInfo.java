@@ -24,7 +24,6 @@ public class OperationInfo implements Serializable {
     private String code;
 
     /** 是否为系统初始数据(0-否, 1-是) */
-    @JsonProperty("native")
     private Byte nativeState;
 
     /** ,not null */

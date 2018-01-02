@@ -2,7 +2,6 @@ package com.cy.entity.system;
 
 import com.cy.common.annotation.ParamValid;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -32,7 +31,6 @@ public class RoleInfo implements Serializable {
     private String code;
 
     /** 是否为系统初始数据(0-否, 1-是) */
-    @JsonProperty("native")
     private Byte nativeState;
 
     /** 创建时间,not null */

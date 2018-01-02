@@ -54,7 +54,7 @@
         return '';
     }
     function formatter(value,row,index){
-        return $('#mb').clone().attr("id", 'mb' + row.id).attr("dataId", row.id).attr("native", row.native).attr("_parentId", row._parentId).addClass("mb").prop("outerHTML");
+        return $('#mb').clone().attr("id", 'mb' + row.id).attr("dataId", row.id).attr("nativeState", row.nativeState).attr("_parentId", row._parentId).addClass("mb").prop("outerHTML");
     }
     function onLoadSuccess(data) {
         updateParentId();
@@ -102,7 +102,7 @@
             // 渲染过的不用再次渲染
             if ($(this).data('drawing') != 'true') {
                 var id = $(this).attr("dataId");
-                var native = $(this).attr("native");
+                var nativeState = $(this).attr("nativeState");
                 var _parentId = $(this).attr("_parentId");
                 var newId = 'mm' + id;
                 var div = $('#mm').clone().attr("id", newId);
@@ -121,7 +121,7 @@
                         editStr = "结束编辑";
                     }
                     div = div.children('div#mm-edit').attr('onclick',"edit('" + id + "')").html(editStr).parent();
-                    if (native && native == 1) {
+                    if (nativeState && nativeState == 1) {
                         div = div.children('div#mm-del').attr('data-options','disabled:true').parent();
                     } else {
                         div = div.children('div#mm-del').attr('onclick',"removeNode('" + id + "')").parent();

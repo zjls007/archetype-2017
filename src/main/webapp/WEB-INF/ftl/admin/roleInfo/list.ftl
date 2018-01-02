@@ -7,7 +7,7 @@
     <th data-options="field:'operater',align:'center',width:80,<@formatterMenuButton/>">操作</th>
     <th data-options="field:'hasSettingMenu',width:120,align:'center',<@formatterNative/>">是否设置过菜单权限</th>
     <th data-options="field:'getHasSettingPage',width:120,align:'center',<@formatterNative/>">是否设置过页面权限</th>
-    <th data-options="field:'native',width:120,align:'center',<@formatterNative/>">系统初始数据</th>
+    <th data-options="field:'nativeState',width:120,align:'center',<@formatterNative/>">系统初始数据</th>
     <th data-options="field:'name',width:200">角色名称</th>
     <th data-options="field:'code',width:200">角色编码</th>
     <th data-options="field:'createTime',width:200,align:'left'">创建时间</th>
