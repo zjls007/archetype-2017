@@ -41,12 +41,12 @@ public class RSAUtil {
     /**
      * 获取公钥的key
      */
-    private static final String PUBLIC_KEY = "RSAPublicKey";
+    public static final String PUBLIC_KEY = "RSAPublicKey";
 
     /**
      * 获取私钥的key
      */
-    private static final String PRIVATE_KEY = "RSAPrivateKey";
+    public static final String PRIVATE_KEY = "RSAPrivateKey";
 
     /**
      * <p>
@@ -56,16 +56,20 @@ public class RSAUtil {
      * @return
      * @throws Exception
      */
-    public static Map<String, String> genKeyPair() throws Exception {
-        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
-        keyPairGen.initialize(1024);
-        KeyPair keyPair = keyPairGen.generateKeyPair();
-        RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-        RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-        Map<String, String> keyMap = new HashMap<String, String>(2);
-        keyMap.put(PUBLIC_KEY, Base64.encodeBase64String(publicKey.getEncoded()));
-        keyMap.put(PRIVATE_KEY, Base64.encodeBase64String(privateKey.getEncoded()));
-        return keyMap;
+    public static Map<String, String> genKeyPair() {
+        try {
+            KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
+            keyPairGen.initialize(1024);
+            KeyPair keyPair = keyPairGen.generateKeyPair();
+            RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+            RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+            Map<String, String> keyMap = new HashMap<String, String>(2);
+            keyMap.put(PUBLIC_KEY, Base64.encodeBase64String(publicKey.getEncoded()));
+            keyMap.put(PRIVATE_KEY, Base64.encodeBase64String(privateKey.getEncoded()));
+            return keyMap;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
