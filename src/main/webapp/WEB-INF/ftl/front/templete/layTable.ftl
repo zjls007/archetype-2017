@@ -14,7 +14,7 @@
     <button class="layui-btn layui-btn-primary layui-btn-sm query"><i class="layui-icon">&#xe615;</i>搜索</button>
     <button class="layui-btn layui-btn-primary layui-btn-sm reset"><i class="layui-icon">&#xe633;</i>重置</button>
 
-    <button class="layui-btn layui-btn-primary layui-btn-sm import" style="margin-left: 50px"><i class="layui-icon">&#xe61e;</i>下载模板</button>
+    <button class="layui-btn layui-btn-primary layui-btn-sm download" style="margin-left: 50px"><i class="layui-icon">&#xe61e;</i>下载模板</button>
     <button class="layui-btn layui-btn-primary layui-btn-sm import"><i class="layui-icon">&#xe62f;</i>导入</button>
     <button class="layui-btn layui-btn-primary layui-btn-sm export"><i class="layui-icon">&#xe601;</i>导出</button>
     <div style="height: 20px"></div>
@@ -66,11 +66,7 @@
             parent.newTab('添加用户', '${editUrl!}');
         });
 
-        $('.import').on('click', function () {
-            layer.msg("暂无功能!");
-        });
-
-        $('.export').on('click', function () {
+        $('.download,.import,.export').on('click', function () {
             layer.msg("暂无功能!");
         });
 

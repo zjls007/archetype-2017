@@ -7,12 +7,20 @@ import com.cy.entity.system.UserInfo;
 import com.cy.service.UserInfoService;
 import com.cy.web.controller.front.base.LayerTableAdaptController;
 import com.cy.web.dto.param.system.UserInfoFrontQueryDTO;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -71,5 +79,21 @@ public class UserInfoController extends LayerTableAdaptController<UserInfo, User
         }
         return new Response(null);
     }
+
+    @RequestMapping("download")
+    public void download(HttpServletRequest request,
+                         HttpServletResponse response, String type) throws Exception {
+        String fileName = "用户导入模板.xls";
+        response.setContentType("application/vnd.ms-excel");
+        response.addHeader("Content-Disposition", new String(("filename=" + fileName).getBytes("GBK"), "ISO-8859-1"));
+
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet();
+        ServletOutputStream outputStream = response.getOutputStream();
+        workbook.write(outputStream);
+        outputStream.flush();
+        outputStream.close();
+    }
+
 
 }

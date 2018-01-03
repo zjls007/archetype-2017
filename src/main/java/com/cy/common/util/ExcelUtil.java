@@ -15,7 +15,6 @@ public class ExcelUtil {
         sheet.setColumnWidth(1, 10000);
         HSSFRow row = sheet.createRow(1);
         row.setHeightInPoints(23);
-
         return workbook;
     }
 
