@@ -9,6 +9,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.ValidationException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
@@ -32,7 +33,11 @@ public class ParamValidProxy {
         Object[] params = point.getArgs();
         for (Object param : params) {
             if (param.getClass().getAnnotation(ParamValid.class) != null) {
-                ValidateUtil.validate(param);
+                if (param == null) {
+                    throw new ValidationException("参数对象不能为空!");
+                } else {
+                    ValidateUtil.validate(param);
+                }
             }
         }
         return point.proceed();

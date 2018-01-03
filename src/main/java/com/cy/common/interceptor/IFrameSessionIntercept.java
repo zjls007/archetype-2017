@@ -26,7 +26,7 @@ public class IFrameSessionIntercept implements HandlerInterceptor {
         if (ajaxRequest) {
             httpServletResponse.setStatus(403);
         } else {
-            httpServletResponse.sendRedirect(WebUtil.getBasePath(httpServletRequest)+"front/timeOut");
+            httpServletResponse.sendRedirect(WebUtil.getBasePath(httpServletRequest)+"/front/timeOut");
         }
         return false;
     }

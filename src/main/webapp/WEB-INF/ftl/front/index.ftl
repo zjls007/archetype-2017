@@ -30,10 +30,10 @@
                 ${userInfo.fullName!}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="front/userInfo/list" class="tab">修改密码</a></dd>
+                    <dd><a href="modifyPwd" class="tab">修改密码</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="admin/logout">退出</a></li>
+            <li class="layui-nav-item"><a href="${basePath}/admin/logout">退出</a></li>
         </ul>
     </div>
 

@@ -7,11 +7,13 @@ import com.cy.dao.system.UserRoleRefDAO;
 import com.cy.entity.system.UserInfo;
 import com.cy.entity.system.UserRoleRef;
 import com.cy.service.UserInfoService;
+import com.cy.web.dto.param.system.ModifyPwdDTO;
 import com.cy.web.dto.param.system.RegistParamDTO;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -88,23 +90,45 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     private void encryptPassword(UserInfo userInfo) {
-        String algorithmName = "md5";
         String username = userInfo.getUserName();
         String password = userInfo.getPassword();
-        String salt1 = username;
-        String salt2 = new SecureRandomNumberGenerator().nextBytes().toHex();
+        String salt = new SecureRandomNumberGenerator().nextBytes().toHex();
+
+        userInfo.setPassword(genPasswod(username, password, salt));
+        userInfo.setSalt(salt);
+    }
+
+    private String genPasswod(String username, String password, String salt) {
+        String algorithmName = "md5";
         int hashIterations = 2;
-
+        String salt1 = username;
+        String salt2 = salt;
+        if (StringUtils.isEmpty(salt)) {
+            salt2 = new SecureRandomNumberGenerator().nextBytes().toHex();
+        }
         SimpleHash hash = new SimpleHash(algorithmName, password, salt1 + salt2, hashIterations);
-        String encodedPassword = hash.toHex();
-
-        userInfo.setPassword(encodedPassword);
-        userInfo.setSalt(salt2);
+        return hash.toHex();
     }
 
     @Override
     public void changeLockState(Long userInfoId, Long currentUserId, Byte accountLocked) {
         userInfoDAO.updateAccountLocked(userInfoId, accountLocked);
+    }
+
+    @Override
+    public void modifyPwd(ModifyPwdDTO dto, Long userId) {
+        UserInfo userInfo = userInfoDAO.getById(userId);
+        String oldPassword = genPasswod(userInfo.getUserName(), dto.getOldPassword(), userInfo.getSalt());
+        if (!oldPassword.equals(userInfo.getPassword())) {
+            throw new RuntimeException("原密码不正确!");
+        }
+        if (!dto.getPassword().equals(dto.getPasswordConfirm())) {
+            throw new RuntimeException("密码确认与密码不匹配!");
+        }
+        UserInfo update = new UserInfo();
+        update.setId(userId);
+        update.setPassword(genPasswod(userInfo.getUserName(), dto.getPassword(), userInfo.getSalt()));
+        userInfoDAO.updateByIdSelective(update);
     }
 
 }

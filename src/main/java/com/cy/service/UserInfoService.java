@@ -1,6 +1,7 @@
 package com.cy.service;
 
 import com.cy.entity.system.UserInfo;
+import com.cy.web.dto.param.system.ModifyPwdDTO;
 import com.cy.web.dto.param.system.RegistParamDTO;
 
 import java.util.List;
@@ -32,5 +33,12 @@ public interface UserInfoService {
      * @throws
      */
     void changeLockState(Long userInfoId, Long currentUserId, Byte accountLocked);
+
+    /**
+     * 修改密码
+     * @param dto
+     * @param userId
+     */
+    void modifyPwd(ModifyPwdDTO dto, Long userId);
 
 }
