@@ -13,7 +13,7 @@ public class ConfigGeneratorResolver {
         try {
             Configuration cfg = FreeMarkerUtil.getConfig();
             Map<String, Object> root = new HashMap<String, Object>();
-            root.put("map", genMap(op.keySet()));
+            root.put("MAP", genMap(op.keySet()));
             root.put("package", packageName);
             root.put("fileName", fileName);
             Template temp = cfg.getTemplate("config.ftl");

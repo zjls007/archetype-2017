@@ -17,7 +17,15 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
 
-    <mvc:annotation-driven conversion-service="conversionService" />
+    <mvc:annotation-driven conversion-service="conversionService">
+        <!-- RequestMappingHandlerAdapter的List<HttpMessageConverter<?>> messageConverters,register-defaults为true时在原来的list之前按顺序插入配置中的值，为fase时，直接替换原来的默认值 -->
+        <mvc:message-converters register-defaults="true">
+            <!-- 将StringHttpMessageConverter的默认编码设为UTF-8. -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
     <mvc:default-servlet-handler/>
 
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
@@ -27,6 +35,7 @@
             </set>
         </property>
     </bean>
+
     <mvc:interceptors>
         <bean class="com.cy.common.interceptor.AllIntercept"/>
         <mvc:interceptor>
