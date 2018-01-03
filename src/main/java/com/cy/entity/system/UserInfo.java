@@ -2,6 +2,7 @@ package com.cy.entity.system;
 
 import com.cy.common.annotation.ParamValid;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -21,14 +22,15 @@ public class UserInfo implements Serializable {
     private Long id;
 
     /** 用户名,not null */
-    @NotNull(message="用户名不能为空")
-    @Length(min = 2, max = 15, message = "用户名长度必须在{min}-{max}位之间")
+    @NotNull(message="用户名不能为空!")
+    @Length(min = 2, max = 15, message = "用户名长度必须在{min}-{max}位之间!")
     private String userName;
 
-    /** 手机号,not null */
+    /** 手机号 */
     private String mobilePhoneNumber;
 
-    /** 邮箱,not null */
+    /** 邮箱 */
+    @Email(message = "邮箱格式不正确!")
     private String email;
 
     /** 电话号码 */

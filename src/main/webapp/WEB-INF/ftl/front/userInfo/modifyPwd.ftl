@@ -14,7 +14,7 @@
             <div class="layui-input-inline">
                 <input type="password" name="oldPassword" value="" lay-verify="required" placeholder="请输旧密码" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-form-mid layui-word-aux"></div>
+            <div class="layui-form-mid layui-word-aux">初始密码为：123</div>
         </div>
 
         <div class="layui-form-item">
