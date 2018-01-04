@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.dao.TaskDAO">
+
+    <resultMap id="BaseResultMap" type="com.cy.entity.Task">
+        <id column="id" property="id" />
+        <result column="task_num" property="taskNum" />
+        <result column="title" property="title" />
+        <result column="content" property="content" />
+        <result column="type" property="type" />
+        <result column="state" property="state" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="create_user_name" property="createUserName" />
+        <result column="create_time" property="createTime" />
+        <result column="lst_upd_time" property="lstUpdTime" />
+    </resultMap>
+
+    <resultMap id="BaseResultMapAS" type="com.cy.entity.Task">
+        <id column="t_id" property="id" />
+        <result column="t_task_num" property="taskNum" />
+        <result column="t_title" property="title" />
+        <result column="t_content" property="content" />
+        <result column="t_type" property="type" />
+        <result column="t_state" property="state" />
+        <result column="t_create_user_id" property="createUserId" />
+        <result column="t_create_user_name" property="createUserName" />
+        <result column="t_create_time" property="createTime" />
+        <result column="t_lst_upd_time" property="lstUpdTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, task_num, title, content, type, state, create_user_id, create_user_name, create_time, lst_upd_time
+    </sql>
+
+    <sql id="Base_Alias_Column_List">
+        t.id, t.task_num, t.title, t.content, t.type, t.state, t.create_user_id, t.create_user_name, t.create_time, t.lst_upd_time
+    </sql>
+
+    <sql id="Base_Alias_Column_List_AS">
+        t.id AS t_id, t.task_num AS t_task_num, t.title AS t_title, t.content AS t_content, t.type AS t_type, t.state AS t_state, t.create_user_id AS t_create_user_id, t.create_user_name AS t_create_user_name, t.create_time AS t_create_time, t.lst_upd_time AS t_lst_upd_time
+    </sql>
+
+    <insert id="insert" parameterType="com.cy.entity.Task" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO task
+        (task_num, title, content, type, state, create_user_id, create_user_name, create_time, lst_upd_time)
+        VALUES
+        (#{taskNum}, #{title}, #{content}, #{type}, #{state}, #{createUserId}, #{createUserName}, now(), now())
+    </insert>
+
+    <insert id="batchInsert" parameterType="com.cy.entity.Task">
+        INSERT INTO task
+        (task_num, title, content, type, state, create_user_id, create_user_name, create_time, lst_upd_time)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+           (#{item.taskNum}, #{item.title}, #{item.content}, #{item.type}, #{item.state}, #{item.createUserId}, #{item.createUserName}, now(), now())
+        </foreach>
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM task WHERE id = #{id}
+    </delete>
+
+    <delete id="batchDelete">
+        DELETE FROM task WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByIdSelective">
+        UPDATE task
+        <set>
+            <if test="taskNum != null" >
+                task_num = #{taskNum},
+            </if>
+            <if test="title != null" >
+                title = #{title},
+            </if>
+            <if test="content != null" >
+                content = #{content},
+            </if>
+            <if test="type != null" >
+                type = #{type},
+            </if>
+            <if test="state != null" >
+                state = #{state},
+            </if>
+            <if test="createUserId != null" >
+                create_user_id = #{createUserId},
+            </if>
+            <if test="createUserName != null" >
+                create_user_name = #{createUserName},
+            </if>
+            lst_upd_time = now()
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateById">
+        UPDATE task
+        <set>
+            task_num = #{taskNum},
+            title = #{title},
+            content = #{content},
+            type = #{type},
+            state = #{state},
+            create_user_id = #{createUserId},
+            create_user_name = #{createUserName},
+            lst_upd_time = now()
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM task WHERE id = #{id}
+    </select>
+
+    <select id="getByIdList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM task WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="list" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM task
+        <where>
+            <if test="id != null" >
+                AND id = #{id}
+            </if>
+            <if test="taskNum != null and taskNum != ''" >
+                AND task_num = #{taskNum}
+            </if>
+            <if test="title != null and title != ''" >
+                AND title = #{title}
+            </if>
+            <if test="content != null and content != ''" >
+                AND content = #{content}
+            </if>
+            <if test="type != null and type != ''" >
+                AND type = #{type}
+            </if>
+            <if test="state != null and state != ''" >
+                AND state = #{state}
+            </if>
+            <if test="createUserId != null" >
+                AND create_user_id = #{createUserId}
+            </if>
+            <if test="createUserName != null and createUserName != ''" >
+                AND create_user_name = #{createUserName}
+            </if>
+            <if test="createTime != null" >
+                AND create_time = #{createTime}
+            </if>
+            <if test="lstUpdTime != null" >
+                AND lst_upd_time = #{lstUpdTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getByTaskNum" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM task
+        WHERE task_num = #{taskNum}
+    </select>
+
+    <select id="countByTaskNum" resultType="int">
+        SELECT COUNT(1)
+        FROM task
+        WHERE task_num = #{taskNum}
+    </select>
+
+    <select id="listByCreateUserId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM task
+        WHERE create_user_id = #{createUserId}
+    </select>
+
+</mapper>
+

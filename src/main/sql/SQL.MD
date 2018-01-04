@@ -143,5 +143,41 @@ INSERT INTO `t_operation_info` (`id`, `name`, `code`, `native`, `create_time`, `
 INSERT INTO `t_operation_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (3, '修改数据', 'modify', 1, '2017-10-18 14:08:40', '2017-10-18 14:08:40');
 INSERT INTO `t_operation_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (4, '删除数据', 'delete', 1, '2017-10-18 14:08:53', '2017-10-18 14:08:53');
 
+CREATE TABLE `task` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `task_num` varchar(20) NOT NULL COMMENT '任务编号',
+  `title` varchar(50) NOT NULL COMMENT '任务标题',
+  `content` text NOT NULL COMMENT '任务内容',
+  `type` varchar(20) NOT NULL COMMENT '类型（assign-指派、take-认领）',
+  `state` varchar(20) NOT NULL DEFAULT 'publish' COMMENT '任务状态（publish-发布、take-认领、begin-开始、wait-挂起、complete-完成）',
+  `create_user_id` bigint(20) NOT NULL COMMENT '创建用户id',
+  `create_user_name` varchar(20) NOT NULL COMMENT '创建用户名称',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `lst_upd_time` datetime NOT NULL COMMENT '最后更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uni_task_num` (`task_num`),
+  KEY `index_create_user_id` (`create_user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='任务表';
+
+CREATE TABLE `task_user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `task_id` bigint(20) NOT NULL COMMENT '任务id',
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `state` varchar(255) NOT NULL COMMENT '状态（read-已读、take-认领）',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uqi_user_task` (`user_id`,`task_id`),
+  KEY `index_task_id` (`task_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='任务关联用户表';
+
+CREATE TABLE `task_state_change` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `task_id` bigint(20) NOT NULL COMMENT '任务id',
+  `state` varchar(255) NOT NULL COMMENT '参考task表state字段',
+  `operate_user_id` bigint(20) NOT NULL COMMENT '操作用户id',
+  `create_time` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_task_id` (`task_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='状态变更记录表';
+
 
 

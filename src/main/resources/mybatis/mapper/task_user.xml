@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.dao.TaskUserDAO">
+
+    <resultMap id="BaseResultMap" type="com.cy.entity.TaskUser">
+        <id column="id" property="id" />
+        <result column="task_id" property="taskId" />
+        <result column="user_id" property="userId" />
+        <result column="state" property="state" />
+    </resultMap>
+
+    <resultMap id="BaseResultMapAS" type="com.cy.entity.TaskUser">
+        <id column="tu_id" property="id" />
+        <result column="tu_task_id" property="taskId" />
+        <result column="tu_user_id" property="userId" />
+        <result column="tu_state" property="state" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, task_id, user_id, state
+    </sql>
+
+    <sql id="Base_Alias_Column_List">
+        tu.id, tu.task_id, tu.user_id, tu.state
+    </sql>
+
+    <sql id="Base_Alias_Column_List_AS">
+        tu.id AS tu_id, tu.task_id AS tu_task_id, tu.user_id AS tu_user_id, tu.state AS tu_state
+    </sql>
+
+    <insert id="insert" parameterType="com.cy.entity.TaskUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO task_user
+        (task_id, user_id, state)
+        VALUES
+        (#{taskId}, #{userId}, #{state})
+    </insert>
+
+    <insert id="batchInsert" parameterType="com.cy.entity.TaskUser">
+        INSERT INTO task_user
+        (task_id, user_id, state)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+           (#{item.taskId}, #{item.userId}, #{item.state})
+        </foreach>
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM task_user WHERE id = #{id}
+    </delete>
+
+    <delete id="batchDelete">
+        DELETE FROM task_user WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByIdSelective">
+        UPDATE task_user
+        <set>
+            <if test="taskId != null" >
+                task_id = #{taskId},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId},
+            </if>
+            <if test="state != null" >
+                state = #{state},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateById">
+        UPDATE task_user
+        <set>
+            task_id = #{taskId},
+            user_id = #{userId},
+            state = #{state},
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM task_user WHERE id = #{id}
+    </select>
+
+    <select id="getByIdList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM task_user WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="list" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM task_user
+        <where>
+            <if test="id != null" >
+                AND id = #{id}
+            </if>
+            <if test="taskId != null" >
+                AND task_id = #{taskId}
+            </if>
+            <if test="userId != null" >
+                AND user_id = #{userId}
+            </if>
+            <if test="state != null and state != ''" >
+                AND state = #{state}
+            </if>
+        </where>
+    </select>
+
+    <select id="getByUserIdAndTaskId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM task_user
+        WHERE user_id = #{userId} AND task_id = #{taskId}
+    </select>
+
+    <select id="countByUserIdAndTaskId" resultType="int">
+        SELECT COUNT(1)
+        FROM task_user
+        WHERE user_id = #{userId} AND task_id = #{taskId}
+    </select>
+
+    <select id="listByTaskId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM task_user
+        WHERE task_id = #{taskId}
+    </select>
+
+</mapper>
+
