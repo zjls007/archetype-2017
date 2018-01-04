@@ -2,6 +2,7 @@
 <#assign daoPackage=config['dao.package']/>
 <#assign modelPackage=config['model.package']/>
 <#assign updateTime=(config['mapper.updateTime'])!/>
+<#assign createTime=(config['mapper.createTime'])!/>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="<@daoFullName/>">
@@ -58,8 +59,9 @@
         <set>
         <#list propertyList as item>
         <#if primaryKeyPropertyName?? && (item.propertyName == primaryKeyPropertyName)>
+        <#elseif createTime?? && (createTime?length gt 0) && (createTime == item.columnName)>
         <#elseif updateTime?? && (updateTime?length gt 0) && (updateTime == item.columnName)>
-            ${item.columnName!} = ${'#'}{${item.propertyName!}}<#if item_has_next>,</#if>
+            ${item.columnName!} = now()<#if item_has_next>,</#if>
         <#else>
             <if test="${item.propertyName!} != null" >
                 ${item.columnName!} = ${'#'}{${item.propertyName!}},
@@ -75,8 +77,9 @@
         <set>
         <#list propertyList as item>
             <#if primaryKeyPropertyName?? && (item.propertyName == primaryKeyPropertyName)>
+            <#elseif createTime?? && (createTime?length gt 0) && (createTime == item.columnName)>
             <#elseif updateTime?? && (updateTime?length gt 0) && (updateTime == item.columnName)>
-            ${item.columnName!} = ${'#'}{${item.propertyName!}}<#if item_has_next>,</#if>
+            ${item.columnName!} = now()<#if item_has_next>,</#if>
             <#else>
             ${item.columnName!} = ${'#'}{${item.propertyName!}},
             </#if>
@@ -181,7 +184,7 @@
 </#macro>
 <#macro noIdColunmListValue prefix=''>
     <#list propertyList?chunk(10) as row>
-        <#if prefix!=''>   </#if><#if row_index=0>(</#if><#list row as item><#if !item.primaryKey??>${'#'}{${prefix!}<@strExist source=prefix trueVal='.'/>${item.propertyName!}}<#if item_has_next || row_has_next>, </#if></#if></#list><#if !row_has_next>)</#if>
+        <#if prefix!=''>   </#if><#if row_index=0>(</#if><#list row as item><#if !item.primaryKey??><#if (updateTime?? && (updateTime?length gt 0) && (updateTime == item.columnName)) || (createTime?? && (createTime?length gt 0) && (createTime == item.columnName))>now()<#else>${'#'}{${prefix!}<@strExist source=prefix trueVal='.'/>${item.propertyName!}}</#if><#if item_has_next || row_has_next>, </#if></#if></#list><#if !row_has_next>)</#if>
     </#list>
 </#macro>
 <#macro idEqual>

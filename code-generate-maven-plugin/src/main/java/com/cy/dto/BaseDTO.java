@@ -18,7 +18,7 @@ public class BaseDTO  {
     private Properties config;
 
     /**
-     * 序列化id(用户替换页面)
+     * 序列化id(用于替换页面)
      */
     private String serialVersionUID = "1L";
 
