@@ -125,6 +125,8 @@ INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `cr
 INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('用户管理', 'userInfo/list', 8, 8, 0, '2017-12-6 09:39:10', '2017-12-6 09:39:10');
 INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('数据安全', '', 0, 9, 0, '2017-12-6 09:39:10', '2017-12-6 09:39:10');
 INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('数字签名', 'signature/index', 10, 10, 0, '2017-12-6 09:39:10', '2017-12-6 09:39:10');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('任务管理', '', 0, 11, 0, '2018-1-4 17:08:05', '2018-1-4 17:08:05');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('任务列表', 'task/list', 12, 12, 0, '2018-1-4 17:08:05', '2018-1-4 17:08:05');
 
 INSERT INTO `t_role_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (1, '系统管理员', 'sys_admin', 1, '2017-9-21 11:31:08', '2017-9-21 11:31:08');
 INSERT INTO `t_role_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (2, '开发人员', 'developer', 1, '2017-9-21 11:31:08', '2017-9-21 11:31:08');

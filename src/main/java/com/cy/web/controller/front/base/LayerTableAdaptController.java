@@ -47,7 +47,7 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
     @RequestMapping({"edit/{id}", "edit"})
     public String edit(@PathVariable(required=false) Long id, ModelMap modelMap) {
         doEdit(id, modelMap);
-        return "userInfo/edit";
+        return genPath("edit");
     }
 
     protected abstract void doEdit(Long id, ModelMap modelMap);
