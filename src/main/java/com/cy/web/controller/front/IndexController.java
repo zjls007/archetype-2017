@@ -73,7 +73,6 @@ public class IndexController extends BaseController {
 
     @GetMapping("modifyPwd")
     public String modifyPwd() {
-        int i = 1/0;
         return "userInfo/modifyPwd";
     }
 
@@ -81,7 +80,7 @@ public class IndexController extends BaseController {
     @ResponseBody
     public Response modifyPwd(ModifyPwdDTO dto) {
         userInfoService.modifyPwd(dto, getCurrentUserId());
-        return new Response(null);
+        return new Response();
     }
 
 }

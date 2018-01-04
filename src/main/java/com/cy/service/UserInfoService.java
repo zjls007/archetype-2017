@@ -17,6 +17,7 @@ public interface UserInfoService {
 
     /**
      * 注册
+     *
      * @param paramDTO
      * @return 用户id
      * @throws
@@ -26,7 +27,7 @@ public interface UserInfoService {
     /**
      * 变更用户锁定状态
      *
-     * @param userInfoId {@link UserInfo#id}
+     * @param userInfoId    {@link UserInfo#id}
      * @param currentUserId {@link UserInfo#id}
      * @param accountLocked {@link UserInfo#accountLocked}
      * @return
@@ -36,6 +37,7 @@ public interface UserInfoService {
 
     /**
      * 修改密码
+     *
      * @param dto
      * @param userId
      */

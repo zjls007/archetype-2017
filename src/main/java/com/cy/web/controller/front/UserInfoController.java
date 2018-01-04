@@ -1,7 +1,6 @@
 package com.cy.web.controller.front;
 
 import com.cy.common.Response;
-import com.cy.common.constant.ResponseStatus;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.system.UserInfo;
 import com.cy.service.UserInfoService;
@@ -18,9 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -50,7 +46,7 @@ public class UserInfoController extends LayerTableAdaptController<UserInfo, User
     @Override
     public Response doSaveOrUpdate(UserInfo userInfo) {
         userInfoService.saveOrUpdate(userInfo);
-        return new Response(null);
+        return new Response();
     }
 
     @Override
@@ -68,16 +64,7 @@ public class UserInfoController extends LayerTableAdaptController<UserInfo, User
     @ResponseBody
     public Response changeLockState(Long userInfoId, Byte accountLocked) {
         userInfoService.changeLockState(userInfoId, getCurrentUserId(), accountLocked);
-        return new Response(null);
-    }
-
-    @RequestMapping("uniUserName")
-    @ResponseBody
-    public Response uniUserName(String userName, Long id) {
-        if (userInfoDAO.uniUserName(userName, id) > 0) {
-            return new Response(ResponseStatus.VALID_ERROR, "用户名已存在!");
-        }
-        return new Response(null);
+        return new Response();
     }
 
     @RequestMapping("download")

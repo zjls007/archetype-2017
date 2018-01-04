@@ -37,7 +37,7 @@ public class UserGroupInfoController extends TreeGridAdaptController<UserGroupIn
             list.add(userGroupInfo);
         }
         userGroupInfoService.saveOrUpdate(list);
-        return new Response(null);
+        return new Response();
     }
 
 }

@@ -32,7 +32,7 @@ public class PermissionInfoController extends DataGridAdaptController<Permission
     @Override
     public Response doSaveOrUpdate(PermissionInfo permissionInfo) {
         permissionInfoService.saveOrUpdate(permissionInfo);
-        return new Response(null);
+        return new Response();
     }
 
     @Override

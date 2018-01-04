@@ -50,7 +50,7 @@ public class UserController {
         } catch (AuthenticationException e) {
             return new Response(ResponseStatus.PARAM_ERROR);
         }
-        return new Response(null);
+        return new Response();
     }
 
     /**

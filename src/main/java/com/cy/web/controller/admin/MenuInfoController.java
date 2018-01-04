@@ -37,7 +37,7 @@ public class MenuInfoController extends TreeGridAdaptController<MenuInfo> {
             list.add(menuInfo);
         }
         menuInfoService.saveOrUpdate(list);
-        return new Response(null);
+        return new Response();
     }
 
 }

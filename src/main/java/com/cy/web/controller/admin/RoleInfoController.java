@@ -97,7 +97,7 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
             }
         }
         roleInfoService.saveRefPermissionMenu(roleInfoId, menuInfoIdList);
-        return new Response(null);
+        return new Response();
     }
 
     /**
@@ -174,7 +174,7 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
             dto.setOperationInfoName(StringUtils.arrayToCommaDelimitedString(name.toArray()));
         }
         roleInfoService.saveRefPermissionPage(dto);
-        return new Response(null);
+        return new Response();
     }
 
     @RequestMapping("getPermissionData")
@@ -204,7 +204,7 @@ public class RoleInfoController extends DataGridAdaptController<RoleInfo, RoleIn
             return new Response(com.cy.common.constant.ResponseStatus.NO_PERMISSION);
         }
         rolePermissionRefDAO.batchDelete(idList);
-        return new Response(null);
+        return new Response();
     }
 
 }

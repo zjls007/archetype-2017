@@ -130,7 +130,7 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
             return new Response(ResponseStatus.NO_PERMISSION);
         }
         doDelete(idList);
-        return new Response(null);
+        return new Response();
     }
 
     protected abstract void doDelete(List<Long> idList);

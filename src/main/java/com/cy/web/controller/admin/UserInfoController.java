@@ -42,7 +42,7 @@ public class UserInfoController extends DataGridAdaptController<UserInfo, UserIn
     @Override
     public Response doSaveOrUpdate(UserInfo userInfo) {
         userInfoService.saveOrUpdate(userInfo);
-        return new Response(null);
+        return new Response();
     }
 
     @Override
@@ -81,7 +81,7 @@ public class UserInfoController extends DataGridAdaptController<UserInfo, UserIn
             }
         }
         userInfoService.saveRefRoleInfo(userInfoId, roleInfoIdList);
-        return new Response(null);
+        return new Response();
     }
 
 }
