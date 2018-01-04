@@ -48,7 +48,7 @@ public class UserController {
         } catch (LockedAccountException e) {
             return new Response(ResponseStatus.ACCOUNT_DENIED);
         } catch (AuthenticationException e) {
-            return new Response(ResponseStatus.PARAM_ERROR);
+            return new Response(ResponseStatus.EXCEPTION);
         }
         return new Response();
     }
