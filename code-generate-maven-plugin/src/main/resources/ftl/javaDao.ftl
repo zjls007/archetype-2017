@@ -37,9 +37,11 @@ public interface ${beanName!}DAO {
     <#list uniKeyList as list>
     ${beanName!} getBy<#list list as item>${item.propertyName?cap_first!}<#if item_has_next>And</#if></#list>(<#list list as item><#if (list?size>1)>@Param("${item.propertyName!}") </#if>${item.typeName!} ${item.propertyName!}<#if item_has_next>, </#if></#list>);
 
+    int countBy<#list list as item>${item.propertyName?cap_first!}<#if item_has_next>And</#if></#list>(<#list list as item><#if (list?size>1)>@Param("${item.propertyName!}") </#if>${item.typeName!} ${item.propertyName!}<#if item_has_next>, </#if></#list>);
+
     </#list>
     <#list indexKeyList as list>
-    List<${beanName!}> getBy<#list list as item>${item.propertyName?cap_first!}<#if item_has_next>And</#if></#list>(<#list list as item>${item.typeName!} ${item.propertyName!}<#if item_has_next>, </#if></#list>);
+    List<${beanName!}> listBy<#list list as item>${item.propertyName?cap_first!}<#if item_has_next>And</#if></#list>(<#list list as item>${item.typeName!} ${item.propertyName!}<#if item_has_next>, </#if></#list>);
 
     </#list>
 }

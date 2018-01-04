@@ -121,9 +121,15 @@
         WHERE <#list list as item>${item.columnName!} = ${'#'}{${item.propertyName!}}<#if item_has_next> AND </#if></#list>
     </select>
 
+    <select id="countBy<#list list as item>${item.propertyName?cap_first!}<#if item_has_next>And</#if></#list>" resultType="int">
+        SELECT COUNT(1)
+        FROM ${tableName!}
+        WHERE <#list list as item>${item.columnName!} = ${'#'}{${item.propertyName!}}<#if item_has_next> AND </#if></#list>
+    </select>
+
     </#list>
     <#list indexKeyList as list>
-    <select id="getBy<#list list as item>${item.propertyName?cap_first!}<#if item_has_next>And</#if></#list>" resultMap="BaseResultMap">
+    <select id="listBy<#list list as item>${item.propertyName?cap_first!}<#if item_has_next>And</#if></#list>" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM ${tableName!}
