@@ -66,8 +66,14 @@ public class IndexController extends BaseController {
         return "timeOut";
     }
 
+    @RequestMapping("exception")
+    public String exception() {
+        return "exception";
+    }
+
     @GetMapping("modifyPwd")
     public String modifyPwd() {
+        int i = 1/0;
         return "userInfo/modifyPwd";
     }
 

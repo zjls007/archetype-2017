@@ -11,10 +11,12 @@ public class ValidException extends RuntimeException {
     private Response response;
 
     public ValidException() {
+        super(ResponseStatus.VALID_ERROR.getMessage());
         this.response = new Response(ResponseStatus.VALID_ERROR);
     }
 
     public ValidException(String message) {
+        super(message);
         this.response = new Response(ResponseStatus.VALID_ERROR, message);
     }
 

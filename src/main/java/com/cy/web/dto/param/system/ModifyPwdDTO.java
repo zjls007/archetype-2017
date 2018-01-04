@@ -21,7 +21,7 @@ public class ModifyPwdDTO implements Serializable {
     private String oldPassword;
 
     @NotNull
-    @Length(min = 6, max = 20, message = "密码长度必须在{min}-{max}位之间")
+    @Length(min = 1, max = 20, message = "密码长度必须在{min}-{max}位之间")
     private String password;
 
     @NotNull

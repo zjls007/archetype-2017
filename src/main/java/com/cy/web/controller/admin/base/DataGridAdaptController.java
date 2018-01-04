@@ -3,7 +3,7 @@ package com.cy.web.controller.admin.base;
 import com.cy.common.Response;
 import com.cy.common.constant.Constants;
 import com.cy.common.constant.ResponseStatus;
-import com.cy.common.exception.SystemException;
+import com.cy.common.exception.ValidException;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.shiro.SecurityUtils;
@@ -107,7 +107,7 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
             Method m = t.getClass().getMethod("getId");
             id = (Long) m.invoke(t);
         } catch (Exception e) {
-            throw new SystemException("找不到id");
+            throw new ValidException("找不到id");
         }
         if (id == null) {
             if (!SecurityUtils.getSubject().isPermitted(genPerm("add")) && !otherSuperPerm()) {

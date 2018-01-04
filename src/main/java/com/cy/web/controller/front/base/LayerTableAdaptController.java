@@ -1,22 +1,17 @@
 package com.cy.web.controller.front.base;
 
 import com.cy.common.Response;
-import com.cy.common.constant.Constants;
 import com.cy.common.constant.ResponseStatus;
-import com.cy.common.exception.SystemException;
-import com.cy.entity.system.UserInfo;
-import com.cy.web.controller.admin.base.BaseController;
 import com.cy.web.controller.admin.base.DataGridAdaptController;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

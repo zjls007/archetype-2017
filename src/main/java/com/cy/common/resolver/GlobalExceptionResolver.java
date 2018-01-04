@@ -33,19 +33,24 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver, Ordere
                                          Object handler, Exception e) {
         LOG.error("出现异常:", e);
         if (handler != null) {
+            Response response = null;
+            if (e instanceof ParamException) {
+                response = ((ParamException) e).getResponse();
+            } else if (e instanceof ValidException) {
+                response = ((ValidException) e).getResponse();
+            } else {
+                response = new Response(ResponseStatus.EXCEPTION, e.getMessage());
+            }
+
             boolean ajaxRequest = WebUtil.isAjaxRequest((HandlerMethod) handler);
             if (ajaxRequest) {
-                Response response = null;
-                if (e instanceof ParamException) {
-                    response = ((ParamException) e).getResponse();
-                } else if (e instanceof ValidException) {
-                    response = ((ValidException) e).getResponse();
-                } else {
-                    response = new Response(ResponseStatus.EXCEPTION);
-                }
                 WebUtil.write(httpServletResponse, response);
             } else {
-
+                ModelAndView mav = new ModelAndView();
+                mav.setViewName("exception");
+                mav.addObject("code", response.getCode());
+                mav.addObject("message", response.getMessage());
+                return mav;
             }
         }
         return null;

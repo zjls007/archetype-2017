@@ -1,7 +1,6 @@
 package com.cy.common.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cy.common.exception.SystemException;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerMethod;
@@ -25,7 +24,7 @@ public class WebUtil {
             out.flush();
             out.close();
         } catch (IOException e) {
-            throw new SystemException("写json数据失败", e);
+            throw new RuntimeException("写json数据失败", e);
         }
     }
 

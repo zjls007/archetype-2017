@@ -11,10 +11,12 @@ public class ParamException extends RuntimeException {
     private Response response;
 
     public ParamException() {
+        super(ResponseStatus.PARAM_ERROR.getMessage());
         this.response = new Response(ResponseStatus.PARAM_ERROR);
     }
 
     public ParamException(String message) {
+        super(message);
         this.response = new Response(ResponseStatus.PARAM_ERROR, message);
     }
 
