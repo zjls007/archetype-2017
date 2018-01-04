@@ -49,7 +49,7 @@
             method: 'post',
             data: {roleInfoId:${roleInfoId!},values:values},
             success: function (data) {
-                if (data.code == 0) {
+                if (data.code == 'success') {
                     $('#w').window('close')
                 } else {
                     $.messager.alert('错误',data.message,'error');

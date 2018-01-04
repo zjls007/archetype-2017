@@ -2,34 +2,41 @@ package com.cy.common;
 
 
 import com.cy.common.constant.ResponseStatus;
-import com.cy.common.exception.SystemException;
-import com.cy.common.util.JsonUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * Created by zxj on 2017/5/8.
  */
 public class Response {
 
-    public Response(Object data) {
-        this.code = 0;
-        this.message = "成功";
-        this.data = data;
+    /**
+     * 参考: {@link ResponseStatus#code}
+     */
+    private String code;
+
+    /**
+     * 参考：{@link ResponseStatus#message}
+     */
+    private String message;
+
+    /**
+     * 返回的数据
+     */
+    private Object data;
+
+    public Response() {
+        this.code = ResponseStatus.SUCCESS.getCode();
+        this.message = ResponseStatus.SUCCESS.getMessage();
     }
 
-    public Response(ResponseStatus responseStatus) {
-        if (responseStatus == null) {
-            this.code = 0;
-            this.message = "成功";
-            this.data = data;
-        } else {
+    public Response(Object obj) {
+        if (obj instanceof ResponseStatus) {
+            ResponseStatus responseStatus = (ResponseStatus) obj;
             this.code = responseStatus.getCode();
             this.message = responseStatus.getMessage();
+        } else {
+            this.code = ResponseStatus.SUCCESS.getCode();
+            this.message = ResponseStatus.SUCCESS.getMessage();
+            this.data = obj;
         }
     }
 
@@ -38,33 +45,11 @@ public class Response {
         this.message = message;
     }
 
-    public void send(HttpServletResponse response) {
-        response.setCharacterEncoding("utf-8");
-        response.setHeader("Content-RolePermissionRefType", "application/json");
-        try {
-            PrintWriter out = response.getWriter();
-            out.write(JsonUtil.toJsonStr(this));
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-            throw new SystemException("写json数据失败", e);
-        }
-    }
-
-    /**
-     * 结果
-     */
-    private Integer code;
-
-    private String message;
-
-    private Object data;
-
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -83,4 +68,5 @@ public class Response {
     public void setData(Object data) {
         this.data = data;
     }
+
 }

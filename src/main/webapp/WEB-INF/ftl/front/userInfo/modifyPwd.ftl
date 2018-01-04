@@ -69,7 +69,7 @@
                 data: data.field,
                 dataType: 'json',
                 success: function (data) {
-                    if (data.code == 0) {
+                    if (data.code == 'success') {
                         layer.msg("修改成功!");
                     } else {
                         layer.msg(data.message, {time:0});

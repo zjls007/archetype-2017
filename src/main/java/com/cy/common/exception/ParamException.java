@@ -4,18 +4,18 @@ import com.cy.common.Response;
 import com.cy.common.constant.ResponseStatus;
 
 /**
- * Created by zxj on 2018/1/4.
+ * Created by hyl on 2017/3/5.
  */
-public class ValidException extends RuntimeException {
+public class ParamException extends RuntimeException {
 
     private Response response;
 
-    public ValidException() {
-        this.response = new Response(ResponseStatus.VALID_ERROR);
+    public ParamException() {
+        this.response = new Response(ResponseStatus.PARAM_ERROR);
     }
 
-    public ValidException(String message) {
-        this.response = new Response(ResponseStatus.VALID_ERROR, message);
+    public ParamException(String message) {
+        this.response = new Response(ResponseStatus.PARAM_ERROR, message);
     }
 
     public Response getResponse() {

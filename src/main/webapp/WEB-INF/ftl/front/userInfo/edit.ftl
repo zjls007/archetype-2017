@@ -117,7 +117,7 @@
                 data: data.field,
                 dataType: 'json',
                 success: function (data) {
-                    if (data.code == 0) {
+                    if (data.code == 'success') {
                         layer.msg("保存成功!");
                         parent.closeActive('用户管理', true);
                     } else {

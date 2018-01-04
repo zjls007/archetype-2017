@@ -47,7 +47,7 @@
         if (form.form('validate')) {
             form.ajaxSubmit({
                 success: function (data) {
-                    if (data.code == 0) {
+                    if (data.code == 'success') {
                         location.href = 'front/index';
                     } else {
                         $.messager.alert('错误',data.message,'error');

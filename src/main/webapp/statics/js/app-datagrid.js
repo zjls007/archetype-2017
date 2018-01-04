@@ -131,7 +131,7 @@ function delData() {
                 dataType: 'json',
                 contentType:"application/json",
                 success: function (data) {
-                    if (data.code == 0) {
+                    if (data.code == 'success') {
                         $('#dg').datagrid('reload');
                     } else {
                         $.messager.alert('错误',data.message,'error');

@@ -65,7 +65,7 @@
                     values:$('#w-operation').tagbox('getValues').toString()
                 },
                 success: function (data) {
-                    if (data.code == 0) {
+                    if (data.code == 'success') {
                         // $('#w').window('close');
                         $('#dg-ref').datagrid('load');
                     } else {
@@ -135,7 +135,7 @@
                     dataType: 'json',
                     contentType:"application/json",
                     success: function (data) {
-                        if (data.code == 0) {
+                        if (data.code == 'success') {
                             $('#dg-ref').datagrid('reload');
                         } else {
                             $.messager.alert('错误',data.message,'error');

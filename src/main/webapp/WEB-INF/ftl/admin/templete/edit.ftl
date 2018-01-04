@@ -15,7 +15,7 @@
         if (form.form('validate')) {
             form.ajaxSubmit({
                 success: function (data) {
-                    if (data.code == 0) {
+                    if (data.code == 'success') {
                         $('#w').window('close')
                         $('#dg').datagrid('reload');
                     } else {

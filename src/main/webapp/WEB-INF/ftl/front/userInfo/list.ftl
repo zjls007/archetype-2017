@@ -75,7 +75,7 @@
             data: {userInfoId:this.value, accountLocked:obj.elem.checked==true?"1":"0"},
             dataType: 'json',
             success: function (data) {
-                if (data.code == 0) {
+                if (data.code == 'success') {
                     layer.msg(obj.elem.checked ? "账号已锁定!" : "账号已取消锁定!");
                 } else {
                     layer.msg("锁定失败!");

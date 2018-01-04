@@ -2,20 +2,18 @@ package com.cy.common.resolver;
 
 import com.cy.common.Response;
 import com.cy.common.constant.ResponseStatus;
-import com.cy.common.exception.SystemException;
+import com.cy.common.exception.ParamException;
+import com.cy.common.exception.ValidException;
 import com.cy.common.util.WebUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.ValidationException;
 
 /**
  * Created by zxj on 2017/3/31.
@@ -33,18 +31,23 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver, Ordere
     public ModelAndView resolveException(HttpServletRequest httpServletRequest,
                                          HttpServletResponse httpServletResponse,
                                          Object handler, Exception e) {
+        LOG.error("出现异常:", e);
         if (handler != null) {
             boolean ajaxRequest = WebUtil.isAjaxRequest((HandlerMethod) handler);
             if (ajaxRequest) {
-                if (e instanceof ValidationException) {
-                    new Response(ResponseStatus.PARAM_ERROR, e.getMessage()).send(httpServletResponse);
+                Response response = null;
+                if (e instanceof ParamException) {
+                    response = ((ParamException) e).getResponse();
+                } else if (e instanceof ValidException) {
+                    response = ((ValidException) e).getResponse();
+                } else {
+                    response = new Response(ResponseStatus.EXCEPTION);
                 }
-                new Response(ResponseStatus.EXCEPTION, e.getMessage()).send(httpServletResponse);
+                WebUtil.write(httpServletResponse, response);
             } else {
 
             }
         }
-        LOG.error("", e);
         return null;
     }
 

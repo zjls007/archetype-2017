@@ -1,7 +1,7 @@
 package com.cy.service.impl;
 
 import com.cy.common.emun.ByteBooleanEnum;
-import com.cy.common.exception.SystemException;
+import com.cy.common.exception.ValidException;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.dao.system.UserRoleRefDAO;
 import com.cy.entity.system.UserInfo;
@@ -50,7 +50,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo regist(RegistParamDTO paramDTO) {
         if (userInfoDAO.getByUserName(paramDTO.getUserName()) != null) {
-            throw new SystemException("用户已存在") ;
+            throw new ValidException("用户已存在");
         }
         UserInfo userInfo = new UserInfo();
         userInfo.setUserName(paramDTO.getUserName());
@@ -63,10 +63,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfo.setCreateTime(now);
         userInfo.setLstUpdTime(now);
         userInfo.setAccountLocked(ByteBooleanEnum.FAILED.getCode());
-        int result = userInfoDAO.insert(userInfo);
-        if (result != 1) {
-            throw new RuntimeException("sql影响行数不正确!");
-        }
+        userInfoDAO.insert(userInfo);
         return userInfo;
     }
 
@@ -120,10 +117,10 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfo userInfo = userInfoDAO.getById(userId);
         String oldPassword = genPasswod(userInfo.getUserName(), dto.getOldPassword(), userInfo.getSalt());
         if (!oldPassword.equals(userInfo.getPassword())) {
-            throw new RuntimeException("原密码不正确!");
+            throw new ValidException("原密码不正确!");
         }
         if (!dto.getPassword().equals(dto.getPasswordConfirm())) {
-            throw new RuntimeException("密码确认与密码不匹配!");
+            throw new ValidException("密码确认与密码不匹配!");
         }
         UserInfo update = new UserInfo();
         update.setId(userId);

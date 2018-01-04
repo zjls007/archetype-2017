@@ -1,17 +1,17 @@
 package com.cy.common.proxy;
 
 import com.cy.common.annotation.ParamValid;
+import com.cy.common.exception.ParamException;
 import com.cy.common.util.ValidateUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
 
-import javax.validation.ValidationException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 
 /**
  * Created by zxj on 2017/5/8.
@@ -34,7 +34,7 @@ public class ParamValidProxy {
         for (Object param : params) {
             if (param.getClass().getAnnotation(ParamValid.class) != null) {
                 if (param == null) {
-                    throw new ValidationException("参数对象不能为空!");
+                    throw new ParamException("参数对象不能为空!");
                 } else {
                     ValidateUtil.validate(param);
                 }

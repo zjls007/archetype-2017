@@ -15,7 +15,7 @@
             method: 'post',
             data: {userInfoId:${userInfoId!},values:$('#w-role').tagbox('getValues').toString()},
             success: function (data) {
-                if (data.code == 0) {
+                if (data.code == 'success') {
                     $('#w').window('close')
                 } else {
                     $.messager.alert('错误',data.message,'error');
