@@ -1,12 +1,11 @@
 package com.cy.web.controller.front;
 
 import com.cy.common.Response;
+import com.cy.dao.TaskDAO;
 import com.cy.entity.Task;
-import com.cy.entity.system.UserInfo;
 import com.cy.web.controller.front.base.LayerTableAdaptController;
-import com.cy.web.dto.param.system.UserInfoFrontQueryDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -18,9 +17,17 @@ import java.util.List;
 @RequestMapping("task")
 public class TaskController extends LayerTableAdaptController<Task, Task> {
 
-    @Override
-    protected void doEdit(Long id, ModelMap modelMap) {
+    @Autowired
+    private TaskDAO taskDAO;
 
+    @Override
+    public String getModelNameCN() {
+        return "任务";
+    }
+
+    @Override
+    protected Task getModel(Long id) {
+        return taskDAO.getById(id);
     }
 
     @Override
@@ -30,7 +37,7 @@ public class TaskController extends LayerTableAdaptController<Task, Task> {
 
     @Override
     public Response doSaveOrUpdate(Task task) {
-        return null;
+        return new Response();
     }
 
     @Override

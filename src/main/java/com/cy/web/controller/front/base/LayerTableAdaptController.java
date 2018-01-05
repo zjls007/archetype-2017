@@ -24,7 +24,10 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
     @Override
     protected void doList(ModelMap modelMap) {
         modelMap.addAttribute("editUrl", genPath("edit"));
+        modelMap.addAttribute("modelNameCN", getModelNameCN());
     }
+
+    public abstract String getModelNameCN();
 
     @RequestMapping("data")
     @ResponseBody
@@ -46,10 +49,13 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
 
     @RequestMapping({"edit/{id}", "edit"})
     public String edit(@PathVariable(required=false) Long id, ModelMap modelMap) {
-        doEdit(id, modelMap);
+        modelMap.addAttribute("modelNameCN", getModelNameCN());
+        if (id != null) {
+            modelMap.addAttribute("entity", getModel(id));
+        }
         return genPath("edit");
     }
 
-    protected abstract void doEdit(Long id, ModelMap modelMap);
+    protected abstract T getModel(Long id);
 
 }

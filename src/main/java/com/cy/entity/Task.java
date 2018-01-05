@@ -1,5 +1,8 @@
 package com.cy.entity;
 
+import com.cy.common.annotation.ParamValid;
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,6 +10,7 @@ import java.util.Date;
  * Created by zxj on 2018-01-04 17:01:54.
  * task-任务表
  */
+@ParamValid
 public class Task implements Serializable {
 
     private static final long serialVersionUID = 747013178655742732L;
@@ -18,9 +22,11 @@ public class Task implements Serializable {
     private String taskNum;
 
     /** 任务标题,not null */
+    @NotBlank(message = "任务标题不能为空!")
     private String title;
 
     /** 任务内容,not null */
+    @NotBlank(message = "任务内容不能为空!")
     private String content;
 
     /** 类型 参考:{@link com.cy.entity.system.enums.TaskType},not null */

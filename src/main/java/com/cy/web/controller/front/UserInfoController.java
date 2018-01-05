@@ -33,9 +33,8 @@ public class UserInfoController extends LayerTableAdaptController<UserInfo, User
     private UserInfoService userInfoService;
 
     @Override
-    protected void doList(ModelMap modelMap) {
-        super.doList(modelMap);
-        modelMap.addAttribute("modelName", "用户管理");
+    public String getModelNameCN() {
+        return "用户";
     }
 
     @Override
@@ -55,9 +54,8 @@ public class UserInfoController extends LayerTableAdaptController<UserInfo, User
     }
 
     @Override
-    protected void doEdit(Long id, ModelMap modelMap) {
-        UserInfo userInfo = userInfoDAO.getById(id);
-        modelMap.addAttribute("userInfo", userInfo);
+    protected UserInfo getModel(Long id) {
+        return userInfoDAO.getById(id);
     }
 
     @RequestMapping("changeLockState")

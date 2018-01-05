@@ -1,7 +1,7 @@
 <@override name="body">
 <div class="layui-tab layui-tab-brief" lay-filter="reFulsh">
     <ul class="layui-tab-title">
-        <li class="layui-this">用户信息</li>
+        <li class="layui-this">${modelNameCN!}信息</li>
         <li class=""><i class="layui-icon">&#x1002;</i>刷新</li>
     </ul>
     <div class="layui-tab-content">
@@ -9,11 +9,11 @@
 </div>
 <blockquote class="layui-elem-quote layui-quote-nm">
     <form class="layui-form" method="post" action="userInfo/saveOrUpdate">
-        <input type="hidden" name="id" value="${(userInfo.id)!}">
+        <input type="hidden" name="id" value="${(entity.id)!}">
         <div class="layui-form-item">
             <label class="layui-form-label">用户名：</label>
             <div class="layui-input-inline">
-                <input type="text" name="userName" value="${(userInfo.userName)!}" lay-verify="userName" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                <input type="text" name="userName" value="${(entity.userName)!}" lay-verify="userName" placeholder="请输入用户名" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"><font color="red">*</font>必填</div>
         </div>
@@ -21,12 +21,12 @@
         <div class="layui-form-item">
             <label class="layui-form-label">手机号码：</label>
             <div class="layui-input-inline">
-                <input type="text" name="mobilePhoneNumber" value="${(userInfo.mobilePhoneNumber)!}" lay-verify="" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
+                <input type="text" name="mobilePhoneNumber" value="${(entity.mobilePhoneNumber)!}" lay-verify="" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
             <label class="layui-form-label">电话号码：</label>
             <div class="layui-input-inline">
-                <input type="text" name="telNo" value="${(userInfo.telNo)!}" lay-verify="" placeholder="请输电话号码" autocomplete="off" class="layui-input">
+                <input type="text" name="telNo" value="${(entity.telNo)!}" lay-verify="" placeholder="请输电话号码" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
@@ -34,7 +34,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">邮箱：</label>
             <div class="layui-input-inline">
-                <input type="text" name="email" value="${(userInfo.email)!}" lay-verify="" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+                <input type="text" name="email" value="${(entity.email)!}" lay-verify="" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
@@ -42,13 +42,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label">姓名：</label>
             <div class="layui-input-inline">
-                <input type="text" name="fullName" value="${(userInfo.fullName)!}" lay-verify="" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                <input type="text" name="fullName" value="${(entity.fullName)!}" lay-verify="" placeholder="请输入姓名" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
 
             <label class="layui-form-label">出生年月：</label>
             <div class="layui-input-inline">
-                <input type="text" name="birthday" value="${(userInfo.birthday?string("yyyy-MM-dd"))!}" id="birthday" placeholder="请输入出生年月" autocomplete="off" class="layui-input">
+                <input type="text" name="birthday" value="${(entity.birthday?string("yyyy-MM-dd"))!}" id="birthday" placeholder="请输入出生年月" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
@@ -56,8 +56,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">性别：</label>
             <div class="layui-input-inline">
-                <input type="radio" name="sex" value="Man" title="男" ${((userInfo.sex=='Man')?string('checked', ''))!}>
-                <input type="radio" name="sex" value="Woman" title="女" ${((userInfo.sex=='Woman')?string('checked', ''))!}>
+                <input type="radio" name="sex" value="Man" title="男" ${((entity.sex=='Man')?string('checked', ''))!}>
+                <input type="radio" name="sex" value="Woman" title="女" ${((entity.sex=='Woman')?string('checked', ''))!}>
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>

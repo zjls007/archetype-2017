@@ -1,7 +1,7 @@
 <@override name="body">
 <div class="layui-tab layui-tab-brief" lay-filter="reFulsh">
     <ul class="layui-tab-title">
-        <li class="layui-this">${modelName!}</li>
+        <li class="layui-this">${modelNameCN!}管理</li>
         <li class=""><i class="layui-icon">&#x1002;</i>刷新</li>
     </ul>
     <div class="layui-tab-content">
@@ -63,7 +63,7 @@
         });
 
         $('.add').on('click', function () {
-            parent.newTab('添加用户', '${editUrl!}');
+            parent.newTab('添加${modelNameCN!}', '${editUrl!}');
         });
 
         $('.download,.import,.export').on('click', function () {
