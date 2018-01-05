@@ -32,6 +32,7 @@ public class Task implements Serializable {
     private String content;
 
     /** 类型 参考:{@link com.cy.entity.system.enums.TaskType},not null */
+    @NotBlank
     @Pattern(regexp = "(assign|take)", message = "类型不合法!")
     private String type;
 

@@ -10,7 +10,7 @@
 <blockquote class="layui-elem-quote layui-quote-nm">
     <form class="layui-form" method="post" action="task/saveOrUpdate">
         <input type="hidden" name="id" value="${(entity.id)!}">
-
+        <input type="hidden" name="type" value="assign">
         <div class="layui-form-item">
             <label class="layui-form-label">任务标题</label>
             <div class="layui-input-block">
