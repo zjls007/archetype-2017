@@ -50,7 +50,6 @@
         <result column="mobile_phone_number" property="mobileNo" />
         <result column="sign_no" property="signNo" />
         <result column="account_locked" property="accountLocked" />
-        <result column="native_state" property="nativeState" />
         <result column="create_time" property="createTime" />
         <result column="lst_upd_time" property="modifyTime" />
     </resultMap>

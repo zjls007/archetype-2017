@@ -83,4 +83,9 @@ public class IndexController extends BaseController {
         return new Response();
     }
 
+    @GetMapping("test")
+    public String test() {
+        return "test";
+    }
+
 }
