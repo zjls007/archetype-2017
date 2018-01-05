@@ -2,7 +2,9 @@ package com.cy.entity;
 
 import com.cy.common.annotation.ParamValid;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -30,6 +32,7 @@ public class Task implements Serializable {
     private String content;
 
     /** 类型 参考:{@link com.cy.entity.system.enums.TaskType},not null */
+    @Pattern(regexp = "(assign|take)", message = "类型不合法!")
     private String type;
 
     /** 任务状态 参考:{@link com.cy.entity.system.enums.TaskState},not null */

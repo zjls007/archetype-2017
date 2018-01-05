@@ -3,6 +3,7 @@ package com.cy.web.controller.front;
 import com.cy.common.Response;
 import com.cy.dao.TaskDAO;
 import com.cy.entity.Task;
+import com.cy.service.TaskService;
 import com.cy.web.controller.front.base.LayerTableAdaptController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ public class TaskController extends LayerTableAdaptController<Task, Task> {
 
     @Autowired
     private TaskDAO taskDAO;
+
+    @Autowired
+    private TaskService taskService;
 
     @Override
     public String getModelNameCN() {
@@ -37,6 +41,7 @@ public class TaskController extends LayerTableAdaptController<Task, Task> {
 
     @Override
     public Response doSaveOrUpdate(Task task) {
+        taskService.saveOrUpdate(task, getCurrentUser());
         return new Response();
     }
 
@@ -44,6 +49,5 @@ public class TaskController extends LayerTableAdaptController<Task, Task> {
     protected void doDelete(List<Long> idList) {
 
     }
-
 
 }
