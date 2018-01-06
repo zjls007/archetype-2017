@@ -109,16 +109,20 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
         } catch (Exception e) {
             throw new ValidException("找不到id");
         }
+        saveOrUpdatePerm(id);
+        return doSaveOrUpdate(t);
+    }
+
+    protected void saveOrUpdatePerm(Long id) {
         if (id == null) {
             if (!SecurityUtils.getSubject().isPermitted(genPerm("add")) && !otherSuperPerm()) {
-                return new Response(ResponseStatus.NO_PERMISSION);
+                throw new ValidException(ResponseStatus.NO_PERMISSION.getMessage());
             }
         } else {
             if (!SecurityUtils.getSubject().isPermitted(genPerm("modify")) && !otherSuperPerm()) {
-                return new Response(ResponseStatus.NO_PERMISSION);
+                throw new ValidException(ResponseStatus.NO_PERMISSION.getMessage());
             }
         }
-        return doSaveOrUpdate(t);
     }
 
     public abstract Response doSaveOrUpdate(T t);

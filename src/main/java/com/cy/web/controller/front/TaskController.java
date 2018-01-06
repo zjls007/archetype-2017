@@ -5,9 +5,11 @@ import com.cy.dao.TaskDAO;
 import com.cy.entity.Task;
 import com.cy.service.TaskService;
 import com.cy.web.controller.front.base.LayerTableAdaptController;
+import com.cy.web.dto.param.system.TaskSaveDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -41,13 +43,20 @@ public class TaskController extends LayerTableAdaptController<Task, Task> {
 
     @Override
     public Response doSaveOrUpdate(Task task) {
-        taskService.saveOrUpdate(task, getCurrentUser());
         return new Response();
     }
 
     @Override
     protected void doDelete(List<Long> idList) {
 
+    }
+
+    @RequestMapping("saveOrUpdateDTO")
+    @ResponseBody
+    public Response saveOrUpdate(TaskSaveDTO dto) {
+        saveOrUpdatePerm(dto.getTask().getId());
+        taskService.saveOrUpdate(dto);
+        return new Response();
     }
 
 }

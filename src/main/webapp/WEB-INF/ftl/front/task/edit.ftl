@@ -1,7 +1,4 @@
 <@override name="body">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-
 <div class="layui-tab layui-tab-brief" lay-filter="reFulsh">
     <ul class="layui-tab-title">
         <li class="layui-this">${modelNameCN!}信息</li>
@@ -16,7 +13,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">任务标题</label>
             <div class="layui-input-inline">
-                <input type="text" name="title" value="${(entity.title)!}" lay-verify="required" autocomplete="off" placeholder="请输入任务标题" class="layui-input">
+                <input type="text" name="task.title" value="${(entity.title)!}" lay-verify="required" autocomplete="off" placeholder="请输入任务标题" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"><font color="red">*</font>必填</div>
         </div>
@@ -24,23 +21,22 @@
         <div class="layui-form-item">
             <label class="layui-form-label">任务类型</label>
             <div class="layui-input-block">
-                <input type="radio" name="type" value="assign" title="指派" <#if !entity??>checked</#if> ${((entity.sex=='assign')?string('checked', ''))!}>
-                <input type="radio" name="type" value="take" title="认领" ${((entity.sex=='take')?string('checked', ''))!}>
+                <input lay-filter="taskType" type="radio" name="task.type" value="assign" title="指派" <#if !entity??>checked</#if> ${((entity.sex=='assign')?string('checked', ''))!}>
+                <input lay-filter="taskType" type="radio" name="task.type" value="take" title="认领" ${((entity.sex=='take')?string('checked', ''))!}>
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">人员</label>
             <div class="layui-input-block">
-                <select type="hidden" class="select2" name="userList" lay-ignore></select>
+                <select type="hidden" class="select2" id="userIdList" name="userIdList[0]" lay-ignore></select>
             </div>
         </div>
-
 
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">任务描述</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea layui-hide" name="content" id="editor">${(entity.content)!}</textarea>
+                <textarea class="layui-textarea layui-hide" name="task.content" lay-verify="content" id="editor">${(entity.content)!}</textarea>
             </div>
         </div>
 
@@ -56,7 +52,7 @@
 <@override name="script">
 <script>
     $(document).ready(function() {
-        <@select2.init placeholder='请选择用户' url='userInfo/getUserList' multi='false'/>
+        <@select2.init id='userIdList' placeholder='请选择用户' url='userInfo/getUserList' multi='false'/>
     });
 
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
@@ -76,15 +72,38 @@
             location.reload();
         });
 
+        form.on('radio(taskType)', function(data){
+            if (data.value == 'assign') {
+                <@select2.init id='userIdList' placeholder='请选择用户' url='userInfo/getUserList' multi='false'/>
+            } else if (data.value == 'take') {
+                <@select2.init id='userIdList' placeholder='请选择用户' url='userInfo/getUserList' multi='true'/>
+            }
+        });
+
         //创建一个编辑器
         var editIndex = layedit.build('editor');
 
+        //自定义验证规则
+        form.verify({
+            content: function(value){
+                layedit.sync(editIndex);
+                var text = layedit.getText(editIndex);
+                if (text == null || text == '') {
+                    return '任务内容不能为空!';
+                }
+            }
+        });
+
         //监听提交
         form.on('submit(submit)', function(data){
+            // 认领时为多选
+            if (data.field["task.type"] == 'take') {
+                <@select2.setIndex id='userIdList' name='userIdList'/>
+            }
             $.ajax({
                 async: true,
                 type: 'POST',
-                url: 'task/saveOrUpdate',
+                url: 'task/saveOrUpdateDTO',
                 data: data.field,
                 dataType: 'json',
                 success: function (data) {
@@ -92,7 +111,7 @@
                         layer.msg("保存成功!");
                         parent.closeActive('用户管理', true);
                     } else {
-                        layer.msg(data.message, {time:0});
+                        layer.msg(data.message, {time:3000});
                     }
                 }
             });

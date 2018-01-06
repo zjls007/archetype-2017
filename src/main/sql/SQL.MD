@@ -165,7 +165,7 @@ CREATE TABLE `task_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `task_id` bigint(20) NOT NULL COMMENT '任务id',
   `user_id` bigint(20) NOT NULL COMMENT '用户id',
-  `state` varchar(255) NOT NULL COMMENT '状态（read-已读、take-认领）',
+  `state` varchar(255) NOT NULL COMMENT '状态（assign-指派、take-认领、forword-转发）',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uqi_user_task` (`user_id`,`task_id`),
   KEY `index_task_id` (`task_id`)

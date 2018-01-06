@@ -2,12 +2,13 @@ package com.cy.entity.system.enums;
 
 /**
  * Created by zxj on 2018-01-04 17:01:54.
- * task_user - state 状态（read-已读、take-认领）, not null
+ * task_user - state 状态（assign-指派、take-认领、forword-转发）, not null
  */
 public enum TaskUserState {
 
-    READ("read", "已读"),
+    READ("assign", "指派"),
     TAKE("take", "认领"),
+    FORWORD("forword", "转发"),
     ;
 
     private String code;

@@ -18,39 +18,7 @@
 <script src="${basePath}/statics/ui/select2/js/i18n/zh-CN.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('.select2').select2({
-            language : "zh-CN",
-            theme: "classic",
-            width: '400',
-            minimumInputLength : 1,
-            placeholder: {
-                id: '',
-                text: '请选择用户'
-            },
-            allowClear: true,
-            ajax: {
-                delay: 500,
-                url: 'userInfo/getUserList',
-                dataType: 'json',
-                data: function (params) {
-                    var query = {
-                        q: params.term,
-                        pageSize: 10,
-                        curPage: params.page || 1
-                    }
-                    return query;
-                },
-                processResults: function (data) {
-                    return {
-                        results: data.data.data,
-                        pagination: {
-                            more: data.data.hasNextPage
-                        }
-                    };
-                },
-                cache : false
-            }
-        });
+        <@select2.init placeholder='请选择用户' url='userInfo/getUserList' multi='true'/>
     });
 </script>
 </body>
