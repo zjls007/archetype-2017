@@ -95,6 +95,7 @@
                 <prop key="tag_syntax">auto_detect</prop>
                 <prop key="url_escaping_charset">UTF-8</prop>
                 <prop key="template_exception_handler">com.cy.common.resolver.FreemarkerExceptionHandler</prop>
+                <prop key="auto_import">common/select2.ftl as select2</prop>
             </props>
         </property>
     </bean>

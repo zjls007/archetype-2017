@@ -32,7 +32,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">人员</label>
             <div class="layui-input-block">
-                <select class="select2" name="userList"></select>
+                <select type="hidden" class="select2" name="userList" lay-ignore></select>
             </div>
         </div>
 
@@ -40,7 +40,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">任务描述</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea layui-hide" name="content" lay-verify="required" id="editor">${(entity.content)!}</textarea>
+                <textarea class="layui-textarea layui-hide" name="content" id="editor">${(entity.content)!}</textarea>
             </div>
         </div>
 
@@ -56,39 +56,7 @@
 <@override name="script">
 <script>
     $(document).ready(function() {
-        $('.select2').select2({
-            language : "zh-CN",
-            theme: "classic",
-            width: '400',
-            minimumInputLength : 1,
-            placeholder: {
-                id: '',
-                text: '请选择用户'
-            },
-            allowClear: true,
-            ajax: {
-                delay: 500,
-                url: 'userInfo/getUserList',
-                dataType: 'json',
-                data: function (params) {
-                    var query = {
-                        q: params.term,
-                        pageSize: 10,
-                        curPage: params.page || 1
-                    }
-                    return query;
-                },
-                processResults: function (data) {
-                    return {
-                        results: data.data.data,
-                        pagination: {
-                            more: data.data.hasNextPage
-                        }
-                    };
-                },
-                cache : false
-            }
-        });
+        <@select2.init placeholder='请选择用户' url='userInfo/getUserList' multi='false'/>
     });
 
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
@@ -108,27 +76,8 @@
             location.reload();
         });
 
-        //常规用法
-        laydate.render({
-            elem: '#birthday'
-        });
-
         //创建一个编辑器
         var editIndex = layedit.build('editor');
-
-        //自定义验证规则
-        form.verify({
-            userName: function(value){
-                var errorMsg = $('form').data('errorMsg');
-                if (errorMsg) {
-                    return errorMsg;
-                }
-            }
-            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
-            ,content: function(value){
-                layedit.sync(editIndex);
-            }
-        });
 
         //监听提交
         form.on('submit(submit)', function(data){
