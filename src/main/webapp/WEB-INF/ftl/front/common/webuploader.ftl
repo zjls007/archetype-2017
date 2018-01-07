@@ -37,11 +37,17 @@
     });
 
     uploader.on("uploadSuccess", function( file, data){
+        var div = $('#rt_' + file.source.ruid).parents('div.uploadImg');
         if ( data.code!="success") {
-            $('#rt_' + file.source.ruid).parents('div.uploadImg').find('img').attr( 'src', '');
+            div.find('img').attr( 'src', '');
             alert('上传失败');
         } else {
-            $('#rt_' + file.source.ruid).parents('div.uploadImg').find('input:hidden').val(data.data);
+            div.find('input:hidden').val(data.data);
+
+            var c = div.clone().css('margin-left', '40px');
+            c.find('img').attr( 'src', '');
+            c.find('input:hidden').val('');
+            div.after(c);
         }
     });
 

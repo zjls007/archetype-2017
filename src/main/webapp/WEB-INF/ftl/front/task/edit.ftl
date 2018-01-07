@@ -65,8 +65,14 @@
         </div>
     </blockquote>
 
-    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-        <div class="uploadImg" style="width: 140px;height: 160px;border: 1px #eee solid;">
+    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;height: 190px">
+        <div style="margin-bottom: 8px">上传图片:</div>
+        <div class="uploadImg" style="width: 140px;height: 160px;background-color: #fff;border: 1px #e6e6e6 solid;float: left;margin-left: 110px">
+            <img>
+            <input type="hidden">
+        </div>
+
+        <div class="uploadImg" style="width: 140px;height: 160px;background-color: #fff;border: 1px #e6e6e6 solid;float: left;margin-left: 110px">
             <img>
             <input type="hidden">
         </div>
