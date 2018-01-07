@@ -12,16 +12,8 @@ public interface TaskService {
     /**
      * 保存或更新任务
      *
-     * @param task 任务
-     * @param currentUser 当前用户
-     */
-    void saveOrUpdate(Task task, UserInfo currentUser);
-
-    /**
-     * 保存或更新任务
-     *
      * @param dto
      */
-    void saveOrUpdate(TaskSaveDTO dto);
+    void saveOrUpdate(TaskSaveDTO dto, UserInfo currentUser);
 
 }

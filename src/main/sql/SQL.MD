@@ -150,6 +150,8 @@ CREATE TABLE `task` (
   `task_num` varchar(20) NOT NULL COMMENT '任务编号',
   `title` varchar(50) NOT NULL COMMENT '任务标题',
   `content` text NOT NULL COMMENT '任务内容',
+  `due_date` datetime DEFAULT NULL COMMENT '截止日期',
+  `difficult` varchar(20) NOT NULL DEFAULT 'easy' COMMENT '任务状态（easy-简单、normal-一般、hard-困难）',
   `type` varchar(20) NOT NULL COMMENT '类型（assign-指派、take-认领）',
   `state` varchar(20) NOT NULL DEFAULT 'publish' COMMENT '任务状态（publish-发布、take-认领、begin-开始、wait-挂起、complete-完成）',
   `create_user_id` bigint(20) NOT NULL COMMENT '创建用户id',

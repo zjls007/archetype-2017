@@ -55,7 +55,7 @@ public class TaskController extends LayerTableAdaptController<Task, Task> {
     @ResponseBody
     public Response saveOrUpdate(TaskSaveDTO dto) {
         saveOrUpdatePerm(dto.getTask().getId());
-        taskService.saveOrUpdate(dto);
+        taskService.saveOrUpdate(dto, getCurrentUser());
         return new Response();
     }
 

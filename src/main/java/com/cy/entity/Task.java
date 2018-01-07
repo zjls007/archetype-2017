@@ -1,6 +1,5 @@
 package com.cy.entity;
 
-import com.cy.common.annotation.ParamValid;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Pattern;
@@ -8,13 +7,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by zxj on 2018-01-04 17:01:54.
+ * Created by zxj on 2018-01-07 08:58:36.
  * task-任务表
  */
-@ParamValid
 public class Task implements Serializable {
 
-    private static final long serialVersionUID = 747013178655742732L;
+    private static final long serialVersionUID = 873025102264243163L;
 
     /** 主键,not null */
     private Long id;
@@ -30,8 +28,16 @@ public class Task implements Serializable {
     @NotBlank(message = "任务内容不能为空!")
     private String content;
 
+    /** 截止日期 */
+    private Date dueDate;
+
+    /** 任务状态 参考:{@link com.cy.entity.system.enums.TaskDifficult},not null */
+    @NotBlank(message = "难度不能为空!")
+    @Pattern(regexp = "(easy|normal|hard)", message = "难度不合法!")
+    private String difficult;
+
     /** 类型 参考:{@link com.cy.entity.system.enums.TaskType},not null */
-    @NotBlank
+    @NotBlank(message = "类型不能为空!")
     @Pattern(regexp = "(assign|take)", message = "类型不合法!")
     private String type;
 
@@ -80,6 +86,22 @@ public class Task implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public String getDifficult() {
+        return difficult;
+    }
+
+    public void setDifficult(String difficult) {
+        this.difficult = difficult;
     }
 
     public String getType() {

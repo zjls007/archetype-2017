@@ -29,8 +29,25 @@
         <div class="layui-form-item">
             <label class="layui-form-label">人员</label>
             <div class="layui-input-block">
-                <select type="hidden" class="select2" id="userIdList" name="userIdList[0]" lay-ignore></select>
+                <select type="hidden" class="select2" id="userIdList" lay-ignore></select>
             </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">难度：</label>
+            <div class="layui-input-inline">
+                <select name="task.difficult">
+                    <option value="easy">简单</option>
+                    <option value="normal">一般</option>
+                    <option value="hard">困难</option>
+                </select>
+            </div>
+            <div class="layui-form-mid layui-word-aux"></div>
+            <label class="layui-form-label">截止日期：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="task.dueDate" id="dueDate" placeholder="截止日期" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux"></div>
         </div>
 
         <div class="layui-form-item layui-form-text">
@@ -72,6 +89,11 @@
             location.reload();
         });
 
+        //常规用法
+        laydate.render({
+            elem: '#dueDate'
+        });
+
         form.on('radio(taskType)', function(data){
             if (data.value == 'assign') {
                 <@select2.init id='userIdList' placeholder='请选择用户' url='userInfo/getUserList' multi='false'/>
@@ -96,10 +118,7 @@
 
         //监听提交
         form.on('submit(submit)', function(data){
-            // 认领时为多选
-            if (data.field["task.type"] == 'take') {
-                <@select2.setIndex id='userIdList' name='userIdList'/>
-            }
+            <@select2.setIndex id='userIdList' name='userIdList'/>
             $.ajax({
                 async: true,
                 type: 'POST',

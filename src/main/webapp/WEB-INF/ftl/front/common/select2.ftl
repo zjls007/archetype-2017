@@ -1,8 +1,14 @@
 <!-- 给后台list赋下标 -->
 <#macro setIndex id='' name=''>
     var val = $("#${id!}").select2("val");
-    for (var i = 0; i < val.length; i++) {
-        data.field["${name!}["+i+"]"]=val[i];
+    if (val != null) {
+        if (typeof val == 'string') {
+            data.field["${name!}[0]"]=val;
+        } else {
+            for (var i = 0; i < val.length; i++) {
+                data.field["${name!}["+i+"]"]=val[i];
+            }
+        }
     }
 </#macro>
 

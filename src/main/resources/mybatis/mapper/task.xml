@@ -7,6 +7,8 @@
         <result column="task_num" property="taskNum" />
         <result column="title" property="title" />
         <result column="content" property="content" />
+        <result column="due_date" property="dueDate" />
+        <result column="difficult" property="difficult" />
         <result column="type" property="type" />
         <result column="state" property="state" />
         <result column="create_user_id" property="createUserId" />
@@ -20,6 +22,8 @@
         <result column="t_task_num" property="taskNum" />
         <result column="t_title" property="title" />
         <result column="t_content" property="content" />
+        <result column="t_due_date" property="dueDate" />
+        <result column="t_difficult" property="difficult" />
         <result column="t_type" property="type" />
         <result column="t_state" property="state" />
         <result column="t_create_user_id" property="createUserId" />
@@ -29,30 +33,37 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, task_num, title, content, type, state, create_user_id, create_user_name, create_time, lst_upd_time
+        id, task_num, title, content, due_date, difficult, type, state, create_user_id, create_user_name, 
+        create_time, lst_upd_time
     </sql>
 
     <sql id="Base_Alias_Column_List">
-        t.id, t.task_num, t.title, t.content, t.type, t.state, t.create_user_id, t.create_user_name, t.create_time, t.lst_upd_time
+        t.id, t.task_num, t.title, t.content, t.due_date, t.difficult, t.type, t.state, t.create_user_id, t.create_user_name, 
+        t.create_time, t.lst_upd_time
     </sql>
 
     <sql id="Base_Alias_Column_List_AS">
-        t.id AS t_id, t.task_num AS t_task_num, t.title AS t_title, t.content AS t_content, t.type AS t_type, t.state AS t_state, t.create_user_id AS t_create_user_id, t.create_user_name AS t_create_user_name, t.create_time AS t_create_time, t.lst_upd_time AS t_lst_upd_time
+        t.id AS t_id, t.task_num AS t_task_num, t.title AS t_title, t.content AS t_content, t.due_date AS t_due_date, t.difficult AS t_difficult, t.type AS t_type, t.state AS t_state, t.create_user_id AS t_create_user_id, t.create_user_name AS t_create_user_name, 
+        t.create_time AS t_create_time, t.lst_upd_time AS t_lst_upd_time
     </sql>
 
     <insert id="insert" parameterType="com.cy.entity.Task" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO task
-        (task_num, title, content, type, state, create_user_id, create_user_name, create_time, lst_upd_time)
+        (task_num, title, content, due_date, difficult, type, state, create_user_id, create_user_name, 
+        create_time, lst_upd_time)
         VALUES
-        (#{taskNum}, #{title}, #{content}, #{type}, #{state}, #{createUserId}, #{createUserName}, now(), now())
+        (#{taskNum}, #{title}, #{content}, #{dueDate}, #{difficult}, #{type}, #{state}, #{createUserId}, #{createUserName}, 
+        now(), now())
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.Task">
         INSERT INTO task
-        (task_num, title, content, type, state, create_user_id, create_user_name, create_time, lst_upd_time)
+        (task_num, title, content, due_date, difficult, type, state, create_user_id, create_user_name, 
+        create_time, lst_upd_time)
         VALUES
         <foreach collection="list" item="item" separator=",">
-           (#{item.taskNum}, #{item.title}, #{item.content}, #{item.type}, #{item.state}, #{item.createUserId}, #{item.createUserName}, now(), now())
+           (#{item.taskNum}, #{item.title}, #{item.content}, #{item.dueDate}, #{item.difficult}, #{item.type}, #{item.state}, #{item.createUserId}, #{item.createUserName}, 
+           now(), now())
         </foreach>
     </insert>
 
@@ -79,6 +90,12 @@
             <if test="content != null" >
                 content = #{content},
             </if>
+            <if test="dueDate != null" >
+                due_date = #{dueDate},
+            </if>
+            <if test="difficult != null" >
+                difficult = #{difficult},
+            </if>
             <if test="type != null" >
                 type = #{type},
             </if>
@@ -99,13 +116,11 @@
     <update id="updateById">
         UPDATE task
         <set>
-            task_num = #{taskNum},
             title = #{title},
             content = #{content},
+            due_date = #{dueDate},
+            difficult = #{difficult},
             type = #{type},
-            state = #{state},
-            create_user_id = #{createUserId},
-            create_user_name = #{createUserName},
             lst_upd_time = now()
         </set>
         WHERE id = #{id}
@@ -142,6 +157,12 @@
             </if>
             <if test="content != null and content != ''" >
                 AND content = #{content}
+            </if>
+            <if test="dueDate != null" >
+                AND due_date = #{dueDate}
+            </if>
+            <if test="difficult != null and difficult != ''" >
+                AND difficult = #{difficult}
             </if>
             <if test="type != null and type != ''" >
                 AND type = #{type}

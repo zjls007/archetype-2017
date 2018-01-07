@@ -1,20 +1,20 @@
 package com.cy.entity.system.enums;
 
 /**
- * Created by zxj on 2018-01-04 17:01:54.
- * task_user - state 状态（assign-指派、take-认领、forword-转发）, not null
+ * Created by zxj on 2018-01-07 08:58:37.
+ * task - difficult 任务状态（easy-简单、normal-一般、hard-困难）, not null
  */
-public enum TaskUserState {
+public enum TaskDifficult {
 
-    ASSIGN("assign", "指派"),
-    TAKE("take", "认领"),
-    FORWORD("forword", "转发"),
+    EASY("easy", "简单"),
+    NORMAL("normal", "一般"),
+    HARD("hard", "困难"),
     ;
 
     private String code;
     private String name;
 
-    TaskUserState(String code, String name) {
+    TaskDifficult(String code, String name) {
         this.code = code;
         this.name = name;
     }
@@ -23,9 +23,9 @@ public enum TaskUserState {
         return convert(code) != null;
     }
 
-    public static TaskUserState convert(String code) {
+    public static TaskDifficult convert(String code) {
         if (code != null && !"".equals(code)) {
-            for (TaskUserState item : TaskUserState.values()) {
+            for (TaskDifficult item : TaskDifficult.values()) {
                 if (code.equals(item.getCode())) {
                      return item;
                 }
