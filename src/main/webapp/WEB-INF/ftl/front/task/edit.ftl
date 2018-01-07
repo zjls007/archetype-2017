@@ -7,8 +7,8 @@
     <div class="layui-tab-content">
     </div>
 </div>
-<blockquote class="layui-elem-quote layui-quote-nm">
-    <form class="layui-form" method="post" action="task/saveOrUpdate">
+<form class="layui-form" method="post" action="task/saveOrUpdate">
+    <blockquote class="layui-elem-quote layui-quote-nm">
         <input type="hidden" name="id" value="${(entity.id)!}">
         <div class="layui-form-item">
             <label class="layui-form-label">任务标题</label>
@@ -63,13 +63,21 @@
                 <button class="layui-btn layui-btn-primary layui-btn-sm reset" type="reset"><i class="layui-icon">&#xe633;</i>重置</button>
             </div>
         </div>
-    </form>
-</blockquote>
+    </blockquote>
+
+    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+        <div class="uploadImg" style="width: 140px;height: 160px;border: 1px #eee solid;">
+            <img>
+            <input type="hidden">
+        </div>
+    </blockquote>
+</form>
 </@override>
 <@override name="script">
 <script>
     $(document).ready(function() {
         <@select2.init id='userIdList' placeholder='请选择用户' url='userInfo/getUserList' multi='false'/>
+        <@webuploader.init/>
     });
 
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){

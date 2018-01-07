@@ -7,9 +7,11 @@
     <title>牛x系统</title>
     <link rel="stylesheet" href="${basePath}/statics/ui/layui-2.2.4/css/layui.css">
     <link rel="stylesheet" href="${basePath}/statics/ui/select2/css/select2.min.css">
+    <link href="${basePath}/statics/ui/webuploader-0.1.5/webuploader.css" rel="stylesheet" />
     <style>
         body{margin: 10px;}
     </style>
+    <#import "common/webuploader.ftl" as webuploader>
 </head>
 <body>
 <@block name="body">
@@ -18,6 +20,7 @@
 <script src="${basePath}/statics/js/jquery.min.js"></script>
 <script src="${basePath}/statics/ui/select2/js/select2.full.min.js"></script>
 <script src="${basePath}/statics/ui/select2/js/i18n/zh-CN.js"></script>
+<script src="${basePath}/statics/ui/webuploader-0.1.5/webuploader.min.js"></script>
 <@block name="script">
 </@block>
 </body>

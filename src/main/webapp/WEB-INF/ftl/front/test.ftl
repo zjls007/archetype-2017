@@ -6,19 +6,37 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>xxxx</title>
     <link href="${basePath}/statics/ui/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="${basePath}/statics/ui/webuploader-0.1.5/webuploader.css" rel="stylesheet" />
     <style>
         body{margin: 10px;}
     </style>
 </head>
 <body>
-<select class="select2" name="userList"></select>
+<#import "common/webuploader.ftl" as webuploader>
+<!--dom结构部分-->
+<div id="uploader-demo">
+    <!--用来存放item-->
+    <div id="fileList" class="uploader-list"></div>
+    <div id="filePicker">选择图片</div>
+</div>
+
+<div class="uploadImg" style="width: 140px;height: 160px;border: 1px #eee solid;">
+    <img>
+    <input type="hidden">
+</div>
+
+<div class="uploadImg" style="width: 140px;height: 160px;border: 1px #eee solid;">
+    <img>
+    <input type="hidden">
+</div>
 
 <script src="${basePath}/statics/js/jquery.min.js"></script>
 <script src="${basePath}/statics/ui/select2/js/select2.full.min.js"></script>
 <script src="${basePath}/statics/ui/select2/js/i18n/zh-CN.js"></script>
+<script src="${basePath}/statics/ui/webuploader-0.1.5/webuploader.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        <@select2.init placeholder='请选择用户' url='userInfo/getUserList' multi='true'/>
+        <@webuploader.init/>
     });
 </script>
 </body>

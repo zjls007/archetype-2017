@@ -1,7 +1,8 @@
 package com.cy.web.controller.front;
 
 import com.cy.common.Response;
-import com.cy.common.constant.Constants;
+import com.cy.common.constant.*;
+import com.cy.common.constant.ResponseStatus;
 import com.cy.dao.system.MenuInfoDAO;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.system.UserInfo;
@@ -14,10 +15,8 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.util.List;
 
@@ -86,6 +85,13 @@ public class IndexController extends BaseController {
     @GetMapping("test")
     public String test() {
         return "test";
+    }
+
+    @RequestMapping("upload")
+    @ResponseBody
+    public Response fileUpload(@RequestParam("file") CommonsMultipartFile file) {
+        System.out.println(file);
+        return new Response(System.currentTimeMillis());
     }
 
 }
