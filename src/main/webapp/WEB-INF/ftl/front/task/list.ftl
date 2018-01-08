@@ -44,14 +44,12 @@
 </@override>
 <@override name="th">
     <th lay-data="{type:'checkbox'}"></th>
-    <th lay-data="{field: 'userName', width:120}">用户名</th>
-    <th lay-data="{field:'mobilePhoneNumber', width: 120}">手机号码</th>
-    <th lay-data="{field:'email', width: 120}">邮箱</th>
-    <th lay-data="{field:'fullName', width:120}">真实姓名</th>
-    <th lay-data="{field:'telNo', width:120}">电话号码</th>
-    <th lay-data="{field:'createTime', width:180, align:'center'}">注册时间</th>
-    <th lay-data="{field:'lastLoginTime', width:180, align:'center'}">最后登录时间</th>
-    <th lay-data="{field:'accountLocked', width:120, sort: true, templet: '#accountLocked', unresize: true}">锁定状态</th>
+    <th lay-data="{field: 'taskNum', width:120}">编号</th>
+    <th lay-data="{field:'title', width: 200}">标题</th>
+    <th lay-data="{field:'difficult', width: 200}">难度</th>
+    <th lay-data="{field:'type', width: 200}">类型</th>
+    <th lay-data="{field:'dueDate', width:180, align:'center'}">截止日期</th>
+    <th lay-data="{field:'createTime', width:180, align:'center'}">创建日期</th>
     <th lay-data="{minWidth:180,align:'left', toolbar: '#bar'}">操作</th>
 </@override>
 <@override name="tableBar">

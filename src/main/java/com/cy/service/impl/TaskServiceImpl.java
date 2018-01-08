@@ -1,20 +1,22 @@
 package com.cy.service.impl;
 
 import com.cy.common.exception.ValidException;
+import com.cy.dao.AttachmentRefDAO;
 import com.cy.dao.TaskDAO;
 import com.cy.dao.TaskStateChangeDAO;
 import com.cy.dao.TaskUserDAO;
-import com.cy.entity.Task;
-import com.cy.entity.TaskStateChange;
-import com.cy.entity.TaskUser;
+import com.cy.entity.*;
 import com.cy.entity.system.UserInfo;
+import com.cy.entity.system.enums.AttachmentRefType;
 import com.cy.entity.system.enums.TaskState;
 import com.cy.entity.system.enums.TaskType;
 import com.cy.entity.system.enums.TaskUserState;
 import com.cy.service.TaskService;
 import com.cy.web.dto.param.system.TaskSaveDTO;
+import com.cy.web.dto.result.TaskResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +36,48 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private TaskStateChangeDAO taskStateChangeDAO;
 
+    @Autowired
+    private AttachmentRefDAO attachmentRefDAO;
+
+    @Override
+    public TaskResultDTO get(Long taskId) {
+        TaskResultDTO result = new TaskResultDTO();
+        result.setTask(taskDAO.getById(taskId));
+        result.setTaskUserList(taskUserDAO.listByTaskId(taskId));
+        result.setImgList(attachmentRefDAO.listByRefIdAndRefType(taskId, AttachmentRefType.TASK.getCode()));
+        return result;
+    }
+
     @Override
     public void saveOrUpdate(TaskSaveDTO dto, UserInfo currentUser) {
         Long taskId = doTask(dto, currentUser);
         doUser(taskId, dto.getUserIdList(), dto.getTask().getType());
         doStateChange(taskId, currentUser.getId());
+        doImg(dto.getImgList(), taskId, currentUser);
+    }
+
+    private void doImg(List<String> imgList, Long taskId, UserInfo currentUser) {
+        if (imgList == null || imgList.isEmpty()) {
+            return;
+        }
+        for (int i = imgList.size() - 1; i >= 0; i--) {
+            if (StringUtils.isEmpty(imgList.get(i))) {
+                imgList.remove(i);
+            }
+        }
+        if (imgList.isEmpty()) {
+            return;
+        }
+        List<AttachmentRef> list = new ArrayList<AttachmentRef>();
+        for (String item : imgList) {
+            AttachmentRef ref = new AttachmentRef();
+            ref.setFileId(item);
+            ref.setRefId(taskId);
+            ref.setRefType(AttachmentRefType.TASK.getCode());
+            ref.setCreateUserId(currentUser.getId());
+            list.add(ref);
+        }
+        attachmentRefDAO.batchInsert(list);
     }
 
     private void doStateChange(Long taskId, Long curUserId) {

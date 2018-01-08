@@ -56,6 +56,6 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
         return genPath("edit");
     }
 
-    protected abstract T getModel(Long id);
+    protected abstract Object getModel(Long id);
 
 }

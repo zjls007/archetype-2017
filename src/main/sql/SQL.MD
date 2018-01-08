@@ -191,3 +191,14 @@ CREATE TABLE `attachment` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='附件表';
 
+CREATE TABLE `attachment_ref` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `file_id` varchar(50) NOT NULL COMMENT '文件id',
+  `ref_id` bigint(20) NOT NULL COMMENT '关联id',
+  `ref_type` varchar(50) NOT NULL COMMENT '关联类型（task-任务、other-其他）',
+  `create_user_id` bigint(20) NOT NULL COMMENT '创建用户id',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `index_ref` (`ref_id`,`ref_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='附件关联表';
+

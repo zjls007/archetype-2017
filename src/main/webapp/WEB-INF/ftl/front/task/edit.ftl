@@ -9,11 +9,11 @@
 </div>
 <form class="layui-form" method="post" action="task/saveOrUpdate">
     <blockquote class="layui-elem-quote layui-quote-nm">
-        <input type="hidden" name="id" value="${(entity.id)!}">
+        <input type="hidden" name="id" value="${(entity.task.id)!}">
         <div class="layui-form-item">
             <label class="layui-form-label">任务标题</label>
             <div class="layui-input-inline">
-                <input type="text" name="task.title" value="${(entity.title)!}" lay-verify="required" autocomplete="off" placeholder="请输入任务标题" class="layui-input">
+                <input type="text" name="task.title" value="${(entity.task.title)!}" lay-verify="required" autocomplete="off" placeholder="请输入任务标题" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"><font color="red">*</font>必填</div>
         </div>
@@ -21,8 +21,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">任务类型</label>
             <div class="layui-input-block">
-                <input lay-filter="taskType" type="radio" name="task.type" value="assign" title="指派" <#if !entity??>checked</#if> ${((entity.sex=='assign')?string('checked', ''))!}>
-                <input lay-filter="taskType" type="radio" name="task.type" value="take" title="认领" ${((entity.sex=='take')?string('checked', ''))!}>
+                <input lay-filter="taskType" type="radio" name="task.type" value="assign" title="指派" <#if !entity??>checked</#if> ${((entity.task.type=='assign')?string('checked', ''))!}>
+                <input lay-filter="taskType" type="radio" name="task.type" value="take" title="认领" ${((entity.task.type=='take')?string('checked', ''))!}>
             </div>
         </div>
 
@@ -45,7 +45,7 @@
             <div class="layui-form-mid layui-word-aux"></div>
             <label class="layui-form-label">截止日期：</label>
             <div class="layui-input-inline">
-                <input type="text" name="task.dueDate" id="dueDate" placeholder="截止日期" autocomplete="off" class="layui-input">
+                <input type="text" name="task.dueDate" value="${(entity.task.dueDate?string("yyyy-MM-dd"))!}" id="dueDate" placeholder="截止日期" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
@@ -53,7 +53,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">任务描述</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea layui-hide" name="task.content" lay-verify="content" id="editor">${(entity.content)!}</textarea>
+                <textarea class="layui-textarea layui-hide" name="task.content" lay-verify="content" id="editor">${(entity.task.content)!}</textarea>
             </div>
         </div>
 

@@ -32,13 +32,13 @@ public class TaskController extends LayerTableAdaptController<Task, Task> {
     }
 
     @Override
-    protected Task getModel(Long id) {
-        return taskDAO.getById(id);
+    protected Object getModel(Long id) {
+        return taskService.get(id);
     }
 
     @Override
     protected List<? extends Task> getData(Task queryDTO) {
-        return null;
+        return taskDAO.list(queryDTO);
     }
 
     @Override

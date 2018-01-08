@@ -1,5 +1,6 @@
 package com.cy.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Pattern;
@@ -29,6 +30,7 @@ public class Task implements Serializable {
     private String content;
 
     /** 截止日期 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dueDate;
 
     /** 任务状态 参考:{@link com.cy.entity.system.enums.TaskDifficult},not null */
@@ -51,6 +53,7 @@ public class Task implements Serializable {
     private String createUserName;
 
     /** 创建时间,not null */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /** 最后更新时间,not null */
