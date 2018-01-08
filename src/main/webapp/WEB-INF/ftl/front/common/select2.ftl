@@ -1,3 +1,4 @@
+<script>
 <!-- 给后台list赋下标 -->
 <#macro setIndex id='' name=''>
     var val = $("#${id!}").select2("val");
@@ -62,3 +63,4 @@
     <!-- 解决占位符宽度不够 -->
     $('input.select2-search__field').width('120px');
 </#macro>
+</script>

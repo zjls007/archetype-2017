@@ -20,8 +20,12 @@ public class TaskSaveDTO implements Serializable {
     private Task task;
 
     @NotEmpty(message = "没有选择用户!")
-    @Valid
     private List<Long> userIdList;
+
+    /**
+     * 图片
+     */
+    private List<String> imgList;
 
     public Task getTask() {
         return task;
@@ -37,5 +41,13 @@ public class TaskSaveDTO implements Serializable {
 
     public void setUserIdList(List<Long> userIdList) {
         this.userIdList = userIdList;
+    }
+
+    public List<String> getImgList() {
+        return imgList;
+    }
+
+    public void setImgList(List<String> imgList) {
+        this.imgList = imgList;
     }
 }

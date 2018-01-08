@@ -19,12 +19,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by zxj on 2017/11/29.
@@ -98,15 +97,21 @@ public class IndexController extends BaseController {
 
     @RequestMapping("upload")
     @ResponseBody
-    public Response fileUpload(@RequestParam("file") CommonsMultipartFile file) {
-        String id = UUID.randomUUID().toString();
-
+    public Response fileUpload(@RequestParam("file") CommonsMultipartFile file) throws Exception {
         Attachment attachment = new Attachment();
-        attachment.setId(id);
         attachment.setData(file.getBytes());
         attachment.setCreateUserId(getCurrentUserId());
-        attachmentDAO.insert(attachment);
-        return new Response(id);
+
+        // 计算图片MD5
+        MessageDigest digest = MessageDigest.getInstance("MD5");
+        digest.update(attachment.getData());
+        BigInteger bigInt = new BigInteger(1, digest.digest());
+        String md5 = bigInt.toString(16);
+        if (attachmentDAO.getById(md5) == null) {
+            attachment.setId(md5);
+            attachmentDAO.insert(attachment);
+        }
+        return new Response(md5);
     }
 
     @RequestMapping("img/{id}")

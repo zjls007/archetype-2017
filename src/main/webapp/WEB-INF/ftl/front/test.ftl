@@ -7,6 +7,7 @@
     <title>xxxx</title>
     <link href="${basePath}/statics/ui/select2/css/select2.min.css" rel="stylesheet" />
     <link href="${basePath}/statics/ui/webuploader-0.1.5/webuploader.css" rel="stylesheet" />
+    <link href="${basePath}/statics/css/style.css" rel="stylesheet" />
     <style>
         body{margin: 10px;}
     </style>
@@ -20,15 +21,8 @@
     <div id="filePicker">选择图片</div>
 </div>
 
-<div class="uploadImg" style="width: 140px;height: 160px;border: 1px #eee solid;">
-    <img>
-    <input type="hidden">
-</div>
-
-<div class="uploadImg" style="width: 140px;height: 160px;border: 1px #eee solid;">
-    <img>
-    <input type="hidden">
-</div>
+<@webuploader.html size=5 name="a.b" marginLeft="110"/>
+<@webuploader.html size=5 name="b.c" marginLeft="50"/>
 
 <script src="${basePath}/statics/js/jquery.min.js"></script>
 <script src="${basePath}/statics/ui/select2/js/select2.full.min.js"></script>
