@@ -183,5 +183,11 @@ CREATE TABLE `task_state_change` (
   KEY `index_task_id` (`task_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='状态变更记录表';
 
-
+CREATE TABLE `attachment` (
+  `id` varchar(50) NOT NULL,
+  `data` blob NOT NULL,
+  `create_user_id` bigint(20) NOT NULL COMMENT '创建用户id',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='附件表';
 

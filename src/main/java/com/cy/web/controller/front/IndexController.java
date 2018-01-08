@@ -1,10 +1,11 @@
 package com.cy.web.controller.front;
 
 import com.cy.common.Response;
-import com.cy.common.constant.*;
-import com.cy.common.constant.ResponseStatus;
+import com.cy.common.constant.Constants;
+import com.cy.dao.AttachmentDAO;
 import com.cy.dao.system.MenuInfoDAO;
 import com.cy.dao.system.UserInfoDAO;
+import com.cy.entity.Attachment;
 import com.cy.entity.system.UserInfo;
 import com.cy.service.MenuInfoService;
 import com.cy.service.UserInfoService;
@@ -18,7 +19,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by zxj on 2017/11/29.
@@ -37,6 +43,9 @@ public class IndexController extends BaseController {
 
     @Autowired
     private UserInfoService userInfoService;
+
+    @Autowired
+    private AttachmentDAO attachmentDAO;
 
     @RequestMapping({"/", "index"})
     public String index(ModelMap modelMap) {
@@ -90,8 +99,24 @@ public class IndexController extends BaseController {
     @RequestMapping("upload")
     @ResponseBody
     public Response fileUpload(@RequestParam("file") CommonsMultipartFile file) {
-        System.out.println(file);
-        return new Response(System.currentTimeMillis());
+        String id = UUID.randomUUID().toString();
+
+        Attachment attachment = new Attachment();
+        attachment.setId(id);
+        attachment.setData(file.getBytes());
+        attachment.setCreateUserId(getCurrentUserId());
+        attachmentDAO.insert(attachment);
+        return new Response(id);
+    }
+
+    @RequestMapping("img/{id}")
+    public void getImg(@PathVariable String id, HttpServletResponse response) throws Exception {
+        Attachment attachment = attachmentDAO.getById(id);
+        byte[] data = attachment.getData();
+        ServletOutputStream outputStream = response.getOutputStream();
+        outputStream.write(data);
+        outputStream.flush();
+        outputStream.close();
     }
 
 }

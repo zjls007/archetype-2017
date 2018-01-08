@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.dao.AttachmentDAO">
+
+    <resultMap id="BaseResultMap" type="com.cy.entity.Attachment">
+        <id column="id" property="id" />
+        <result column="data" property="data" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <resultMap id="BaseResultMapAS" type="com.cy.entity.Attachment">
+        <id column="a_id" property="id" />
+        <result column="a_data" property="data" />
+        <result column="a_create_user_id" property="createUserId" />
+        <result column="a_create_time" property="createTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, data, create_user_id, create_time
+    </sql>
+
+    <sql id="Base_Alias_Column_List">
+        a.id, a.data, a.create_user_id, a.create_time
+    </sql>
+
+    <sql id="Base_Alias_Column_List_AS">
+        a.id AS a_id, a.data AS a_data, a.create_user_id AS a_create_user_id, a.create_time AS a_create_time
+    </sql>
+
+    <insert id="insert" parameterType="com.cy.entity.Attachment" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO attachment
+        (id, data, create_user_id, create_time)
+        VALUES
+        (#{id}, #{data}, #{createUserId}, now())
+    </insert>
+
+    <insert id="batchInsert" parameterType="com.cy.entity.Attachment">
+        INSERT INTO attachment
+        (data, create_user_id, create_time)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+           (#{item.data}, #{item.createUserId}, now())
+        </foreach>
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM attachment WHERE id = #{id}
+    </delete>
+
+    <delete id="batchDelete">
+        DELETE FROM attachment WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByIdSelective">
+        UPDATE attachment
+        <set>
+            <if test="data != null" >
+                data = #{data},
+            </if>
+            <if test="createUserId != null" >
+                create_user_id = #{createUserId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateById">
+        UPDATE attachment
+        <set>
+            data = #{data},
+            create_user_id = #{createUserId},
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM attachment WHERE id = #{id}
+    </select>
+
+    <select id="getByIdList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM attachment WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="list" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM attachment
+        <where>
+            <if test="id != null and id != ''" >
+                AND id = #{id}
+            </if>
+            <if test="data != null" >
+                AND data = #{data}
+            </if>
+            <if test="createUserId != null" >
+                AND create_user_id = #{createUserId}
+            </if>
+            <if test="createTime != null" >
+                AND create_time = #{createTime}
+            </if>
+        </where>
+    </select>
+
+</mapper>
+
