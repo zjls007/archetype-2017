@@ -48,6 +48,10 @@
         DELETE FROM task_user WHERE id = #{id}
     </delete>
 
+    <delete id="deleteByTaskId">
+        DELETE FROM task_user WHERE task_id = #{id}
+    </delete>
+
     <delete id="batchDelete">
         DELETE FROM task_user WHERE id IN
         <foreach collection="list" open="(" close=")" separator="," item="item">

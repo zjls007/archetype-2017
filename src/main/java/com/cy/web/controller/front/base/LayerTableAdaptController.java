@@ -51,11 +51,11 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
     public String edit(@PathVariable(required=false) Long id, ModelMap modelMap) {
         modelMap.addAttribute("modelNameCN", getModelNameCN());
         if (id != null) {
-            modelMap.addAttribute("entity", getModel(id));
+            modelMap.addAttribute("entity", getModel(id, modelMap));
         }
         return genPath("edit");
     }
 
-    protected abstract Object getModel(Long id);
+    protected abstract Object getModel(Long id, ModelMap modelMap);
 
 }

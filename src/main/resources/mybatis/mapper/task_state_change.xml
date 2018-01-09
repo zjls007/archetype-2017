@@ -50,6 +50,10 @@
         DELETE FROM task_state_change WHERE id = #{id}
     </delete>
 
+    <delete id="deleteByTaskId">
+        DELETE FROM task_state_change WHERE task_id = #{id}
+    </delete>
+
     <delete id="batchDelete">
         DELETE FROM task_state_change WHERE id IN
         <foreach collection="list" open="(" close=")" separator="," item="item">

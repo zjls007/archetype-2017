@@ -1,29 +1,42 @@
-<#macro html size=1 name='' marginLeft='110' p1='' p2=''>
+<#macro html imgList size=1 name='' marginLeft='110' p1='' p2=''>
     <#list 1..size as i>
-    <div class="uploadImg" style="<#if i != 1>display:none;margin-left: 40px;<#else>margin-left: ${marginLeft!}px;</#if>"
+        <#-- 定义变量开始 -->
+        <#local nameVal = name/>
+        <#if size gt 1>
+            <#local nameVal = name + "[" + (i-1) + "]"/>
+        </#if>
+        <#local p1Val = p1/>
+        <#if size gt 1 && p1 != ''>
+            <#local p1Val = p1 + "[" + (i-1) + "]"/>
+        </#if>
+        <#local p2Val = p2/>
+        <#if size gt 1 && p2 != ''>
+            <#local p2Val = p2 + "[" + (i-1) + "]"/>
+        </#if>
+        <#-- 定义变量结束 -->
+
+    <div class="uploadImg" style="<#if (i gt 1 && imgList?size == 0) || (i gt 1 && (i - 1) gt imgList?size)>display:none;</#if><#if i != 1>margin-left: 40px;<#else>margin-left: ${marginLeft!}px;</#if>"
          <#if i != 1>tag="hidden"</#if>
          <#if name!=''>group="${name!}"</#if>
         >
-        <i class="file_ico"></i>
-        <p class="add-img">添加图片</p>
-        <img class="add">
-        <i class="del_close"></i>
-        <#if size == 1>
-            <input type="hidden" name="${name!}"/>
-            <#if p1 != ''>
-                <input type="hidden" name="${p1!}"/>
-            </#if>
-            <#if p2 != ''>
-                <input type="hidden" name="${p2!}"/>
-            </#if>
+        <#if imgList??>
+        <#if i gt imgList?size>
+            <i class="file_ico"></i>
+            <p class="add-img">添加图片</p>
+            <img class="add" style="display: none">
+            <i class="del_close" style="display:none"></i>
+            <input type="hidden" class="imgMD5" name="${nameVal!}"/>
+            <input type="hidden" name="${p1Val!}"/>
+            <input type="hidden" name="${p2Val!}"/>
         <#else>
-            <input type="hidden" name="${name!}[${i-1}]"/>
-            <#if p1 != ''>
-                <input type="hidden" name="${p1!}[${i-1}]"/>
-            </#if>
-            <#if p2 != ''>
-                <input type="hidden" name="${p2!}[${i-1}]"/>
-            </#if>
+            <i class="file_ico" style="display: none"></i>
+            <p class="add-img" style="display: none">添加图片</p>
+            <img class="add" src="img/${(imgList[i-1].id)!}">
+            <i class="del_close"></i>
+            <input type="hidden" class="imgMD5" name="${nameVal!}" value="${(imgList[i-1].id)!}"/>
+            <input type="hidden" name="${p1Val!}" value="${(imgList[i-1].p1)!}"/>
+            <input type="hidden" name="${p2Val!}" value="${(imgList[i-1].p2)!}"/>
+        </#if>
         </#if>
     </div>
     </#list>
@@ -81,10 +94,11 @@
             div.find('img').attr( 'src', '');
             div.find("i.file_ico").show();
             div.find("p").show();
+            div.find("i.del_close").hide();
             alert('上传失败');
         } else {
-            div.find('input:hidden').val(data.data);
-
+            div.find('input:hidden.imgMD5').val(data.data);
+            div.find('img.add').show();
             var next = div.next('div.uploadImg[tag="hidden"][group=' + div.attr('group') +']');
             if (next.length > 0) {
                 next.show();
@@ -97,6 +111,7 @@
         $('#rt_' + file.source.ruid).parents('div.uploadImg').find('img').attr( 'src', '');
         div.find("i.file_ico").show();
         div.find("p").show();
+        div.find("i.del_close").hide();
          alert('上传失败');
     });
 

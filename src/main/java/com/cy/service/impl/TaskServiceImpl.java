@@ -56,6 +56,20 @@ public class TaskServiceImpl implements TaskService {
         doImg(dto.getImgList(), taskId, currentUser);
     }
 
+    @Override
+    public void batchDel(List<Long> list) {
+        for (Long id : list) {
+            Task task = taskDAO.getById(id);
+            if (task == null || !TaskState.PUBLISH.getCode().equals(task.getState())) {
+                continue;
+            }
+            taskDAO.deleteById(id);
+            taskUserDAO.deleteByTaskId(id);
+            taskStateChangeDAO.deleteByTaskId(id);
+            attachmentRefDAO.deleteByTaskId(id);
+        }
+    }
+
     private void doImg(List<String> imgList, Long taskId, UserInfo currentUser) {
         if (imgList == null || imgList.isEmpty()) {
             return;

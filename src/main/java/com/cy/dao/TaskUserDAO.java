@@ -18,6 +18,8 @@ public interface TaskUserDAO {
 
     int deleteById(Long id);
 
+    int deleteByTaskId(Long id);
+
     int batchDelete(List<Long> list);
 
     int updateByIdSelective(TaskUser entity);

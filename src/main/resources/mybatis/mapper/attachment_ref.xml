@@ -52,6 +52,10 @@
         DELETE FROM attachment_ref WHERE id = #{id}
     </delete>
 
+    <delete id="deleteByTaskId">
+        DELETE FROM attachment_ref WHERE ref_id = #{id} AND ref_type ='task'
+    </delete>
+
     <delete id="batchDelete">
         DELETE FROM attachment_ref WHERE id IN
         <foreach collection="list" open="(" close=")" separator="," item="item">

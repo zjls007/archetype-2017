@@ -11,6 +11,8 @@ import com.cy.service.MenuInfoService;
 import com.cy.service.UserInfoService;
 import com.cy.web.controller.admin.base.BaseController;
 import com.cy.web.dto.param.system.ModifyPwdDTO;
+import net.coobird.thumbnailator.Thumbnails;
+import org.apache.activemq.util.ByteArrayInputStream;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import javax.imageio.ImageIO;
+import javax.imageio.stream.MemoryCacheImageInputStream;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.List;
@@ -116,12 +121,15 @@ public class IndexController extends BaseController {
 
     @RequestMapping("img/{id}")
     public void getImg(@PathVariable String id, HttpServletResponse response) throws Exception {
+        // http://blog.csdn.net/linzhiqiang0316/article/details/51330372
         Attachment attachment = attachmentDAO.getById(id);
-        byte[] data = attachment.getData();
-        ServletOutputStream outputStream = response.getOutputStream();
-        outputStream.write(data);
-        outputStream.flush();
-        outputStream.close();
+        if (attachment != null && attachment.getData() != null) {
+            BufferedImage b = ImageIO.read(new MemoryCacheImageInputStream(new ByteArrayInputStream(attachment.getData())));
+            ServletOutputStream outputStream = response.getOutputStream();
+            Thumbnails.of(b).size(140, 160).keepAspectRatio(false).outputFormat("png").toOutputStream(outputStream);
+            outputStream.flush();
+            outputStream.close();
+        }
     }
 
 }
