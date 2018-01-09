@@ -1,4 +1,8 @@
 <@override name="body">
+<style type="text/css">
+    .layui-carousel a { display: block; width: 100%; height: 100%; }
+</style>
+
 <div class="layui-tab layui-tab-brief" lay-filter="reFulsh">
     <ul class="layui-tab-title">
         <li class="layui-this">${modelNameCN!}信息</li>
@@ -38,17 +42,17 @@
         <div class="layui-form-mid layui-word-aux">${(entity.content)!}</div>
     </div>
 </blockquote>
-
+<#--http://fly.layui.com/jie/15141/-->
 <#if (entity.imgList)?? && entity.imgList?size gt 0>
-    <#--<blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;height: 190px">-->
         <div class="layui-carousel" id="imgCarousel">
             <div carousel-item="">
                 <#list (entity.imgList)! as item>
-                    <div><img src="img/${item.id!}/0"></div>
+                    <div>
+                        <a href="javascript:void(0)" style="background:url(img/${item.id!}/0) center top no-repeat"></a>
+                    </div>
                 </#list>
             </div>
         </div>
-    <#--</blockquote>-->
 </#if>
 </@override>
 <@override name="script">
