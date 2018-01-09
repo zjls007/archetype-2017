@@ -24,7 +24,7 @@
         </@block>
     </form>
 </blockquote>
-<table class="layui-table" id="dg" lay-filter="data" lay-data="{height: 'full-300', page: true, limit:10, url:'${dataUrl!}'}">
+<table class="layui-table" id="dg" lay-filter="data" lay-data="{height: 'full-<@block name="fullHeight">300</@block>', page: true, limit:10, url:'${dataUrl!}'}">
     <thead>
     <tr>
         <@block name="th">

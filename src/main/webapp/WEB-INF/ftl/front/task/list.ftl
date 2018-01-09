@@ -13,12 +13,47 @@
             </div>
         </div>
         <div class="layui-inline">
+            <label class="layui-form-label">难度：</label>
+            <div class="layui-input-inline">
+                <select name="difficult" lay-search="">
+                    <option value="">---请选择---</option>
+                    <option value="easy">简单</option>
+                    <option value="normal">一般</option>
+                    <option value="hard">困难</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">类型：</label>
+            <div class="layui-input-inline">
+                <select name="type" lay-search="">
+                    <option value="">---请选择---</option>
+                    <option value="assign">指派</option>
+                    <option value="take">认领</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
             <label class="layui-form-label">状态：</label>
             <div class="layui-input-inline">
-                <select name="accountLocked" lay-verify="required" lay-search="">
+                <select name="state" lay-search="">
                     <option value="">---请选择---</option>
-                    <option value="0">未锁定</option>
-                    <option value="1">已锁定</option>
+                    <option value="publish">发布</option>
+                    <option value="take">认领</option>
+                    <option value="begin">开始</option>
+                    <option value="wait">挂起</option>
+                    <option value="complete">完成</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">来源：</label>
+            <div class="layui-input-inline">
+                <select name="source" lay-search="">
+                    <option value="1">我发布的</option>
+                    <option value="2">我认领的</option>
                 </select>
             </div>
         </div>
@@ -46,6 +81,7 @@
         </div>
     </div>
 </@override>
+<@override name="fullHeight">370</@override>
 <@override name="th">
     <th lay-data="{type:'checkbox'}"></th>
     <th lay-data="{field: 'taskNum', width:120}">编号</th>

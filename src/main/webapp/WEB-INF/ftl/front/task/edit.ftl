@@ -79,7 +79,7 @@
 <script>
     $(document).ready(function() {
         <#assign multi='false'/>
-        <#if entity.type='take'>
+        <#if ((entity.type)!)=='take'>
             <#assign multi='true'/>
         </#if>
         <@select2.init id='userIdList' placeholder='请选择用户' url='userInfo/getUserList' multi=multi/>

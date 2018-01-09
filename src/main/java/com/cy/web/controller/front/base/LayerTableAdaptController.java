@@ -56,7 +56,7 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
         return genPath("edit");
     }
 
-    @RequestMapping({"view/{id}", "edit"})
+    @RequestMapping("view/{id}")
     public String view(@PathVariable(required=false) Long id, ModelMap modelMap) {
         modelMap.addAttribute("modelNameCN", getModelNameCN());
         if (id != null) {
