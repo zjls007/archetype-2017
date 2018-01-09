@@ -122,6 +122,7 @@
         div.find("input:hidden").val("");
         div.find("i.file_ico").show();
         div.find("p").show();
+        div.find('img.add').hide();
     }});
 </#macro>
 </script>

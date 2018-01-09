@@ -2,14 +2,17 @@ package com.cy.web.controller.front;
 
 import com.cy.common.Response;
 import com.cy.dao.TaskDAO;
+import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.AttachmentRef;
 import com.cy.entity.Task;
 import com.cy.entity.TaskUser;
+import com.cy.entity.system.UserInfo;
 import com.cy.service.TaskService;
 import com.cy.web.controller.front.base.LayerTableAdaptController;
 import com.cy.web.dto.param.system.TaskSaveDTO;
-import com.cy.web.dto.result.ImgResultDTO;
 import com.cy.web.dto.result.TaskResultDTO;
+import com.cy.web.vo.ImgResultVO;
+import com.cy.web.vo.Select2ItemVO;
 import com.cy.web.vo.TaskDetailVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,9 @@ import java.util.List;
 public class TaskController extends LayerTableAdaptController<Task, Task> {
 
     @Autowired
+    private UserInfoDAO userInfoDAO;
+
+    @Autowired
     private TaskDAO taskDAO;
 
     @Autowired
@@ -44,12 +50,22 @@ public class TaskController extends LayerTableAdaptController<Task, Task> {
         TaskResultDTO taskResultDTO = taskService.get(id);
         TaskDetailVO vo = new TaskDetailVO();
         BeanUtils.copyProperties(taskResultDTO.getTask(), vo);
-        vo.setImgList(new ArrayList<ImgResultDTO>());
+        vo.setImgList(new ArrayList<ImgResultVO>());
         List<AttachmentRef> imgList = taskResultDTO.getImgList();
         for (AttachmentRef item : imgList) {
-            ImgResultDTO dto = new ImgResultDTO();
+            ImgResultVO dto = new ImgResultVO();
             dto.setId(item.getFileId());
             vo.getImgList().add(dto);
+        }
+
+        List<Select2ItemVO> userList = new ArrayList<Select2ItemVO>();
+        vo.setUserList(userList);
+        for (TaskUser item : taskResultDTO.getTaskUserList()) {
+            Select2ItemVO select2ItemVO = new Select2ItemVO();
+            UserInfo userInfo = userInfoDAO.getById(item.getUserId());
+            select2ItemVO.setId(Long.toString(item.getUserId()));
+            select2ItemVO.setText(userInfo.getUserName());
+            userList.add(select2ItemVO);
         }
         return vo;
     }

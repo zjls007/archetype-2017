@@ -1,11 +1,11 @@
-package com.cy.web.dto.result;
+package com.cy.web.vo;
 
 import java.io.Serializable;
 
 /**
  * Created by zxj on 2018/1/9.
  */
-public class ImgResultDTO implements Serializable {
+public class ImgResultVO implements Serializable {
 
     private static final long serialVersionUID = 7498903032166300841L;
 

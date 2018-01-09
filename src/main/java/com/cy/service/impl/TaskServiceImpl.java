@@ -52,7 +52,6 @@ public class TaskServiceImpl implements TaskService {
     public void saveOrUpdate(TaskSaveDTO dto, UserInfo currentUser) {
         Long taskId = doTask(dto, currentUser);
         doUser(taskId, dto.getUserIdList(), dto.getTask().getType());
-        doStateChange(taskId, currentUser.getId());
         doImg(dto.getImgList(), taskId, currentUser);
     }
 
@@ -71,6 +70,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     private void doImg(List<String> imgList, Long taskId, UserInfo currentUser) {
+        attachmentRefDAO.deleteByTaskId(taskId);
         if (imgList == null || imgList.isEmpty()) {
             return;
         }
@@ -103,6 +103,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     private void doUser(Long taskId, List<Long> userIdList, String type) {
+        taskUserDAO.deleteByTaskId(taskId);
         List<TaskUser> list = new ArrayList<TaskUser>();
         for (Long userId: userIdList) {
             TaskUser taskUser = new TaskUser();
@@ -129,6 +130,7 @@ public class TaskServiceImpl implements TaskService {
             task.setCreateUserName(currentUser.getUserName());
             taskDAO.insert(task);
             id = task.getId();
+            doStateChange(id, currentUser.getId());
         } else {
             Task db = taskDAO.getById(id);
             if (!TaskState.PUBLISH.getCode().equals(db.getState())) {

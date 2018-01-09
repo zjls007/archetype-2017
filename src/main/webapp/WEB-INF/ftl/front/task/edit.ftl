@@ -9,7 +9,7 @@
 </div>
 <form class="layui-form" method="post" action="task/saveOrUpdate">
     <blockquote class="layui-elem-quote layui-quote-nm">
-        <input type="hidden" name="id" value="${(entity.id)!}">
+        <input type="hidden" name="task.id" value="${(entity.id)!}">
         <div class="layui-form-item">
             <label class="layui-form-label">任务标题</label>
             <div class="layui-input-inline">
@@ -67,14 +67,23 @@
 
     <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;height: 190px">
         <div style="margin-bottom: 8px">上传图片:</div>
-        <@webuploader.html imgList=(entity.imgList)! size=5 name="imgList" marginLeft="110"/>
+        <ul>
+            <li>
+                <@webuploader.html imgList=(entity.imgList)! size=10 name="imgList" marginLeft="110"/>
+            </li>
+        </ul>
     </blockquote>
 </form>
 </@override>
 <@override name="script">
 <script>
     $(document).ready(function() {
-        <@select2.init id='userIdList' placeholder='请选择用户' url='userInfo/getUserList' multi='false'/>
+        <#assign multi='false'/>
+        <#if entity.type='take'>
+            <#assign multi='true'/>
+        </#if>
+        <@select2.init id='userIdList' placeholder='请选择用户' url='userInfo/getUserList' multi=multi/>
+        <@select2.setVal id='userIdList' list=(entity.userList)! />
         <@webuploader.init/>
     });
 
