@@ -143,7 +143,7 @@
                 success: function (data) {
                     if (data.code == 'success') {
                         layer.msg("保存成功!");
-                        parent.closeActive('用户管理', true);
+                        parent.closeActive('任务列表', true);
                     } else {
                         layer.msg(data.message, {time:3000});
                     }

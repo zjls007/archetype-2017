@@ -119,14 +119,17 @@ public class IndexController extends BaseController {
         return new Response(md5);
     }
 
-    @RequestMapping("img/{id}")
-    public void getImg(@PathVariable String id, HttpServletResponse response) throws Exception {
-        // http://blog.csdn.net/linzhiqiang0316/article/details/51330372
+    @RequestMapping("img/{id}/{type}")
+    public void getImg(@PathVariable String id, @PathVariable String type, HttpServletResponse response) throws Exception {
         Attachment attachment = attachmentDAO.getById(id);
         if (attachment != null && attachment.getData() != null) {
             BufferedImage b = ImageIO.read(new MemoryCacheImageInputStream(new ByteArrayInputStream(attachment.getData())));
             ServletOutputStream outputStream = response.getOutputStream();
-            Thumbnails.of(b).size(140, 160).keepAspectRatio(false).outputFormat("png").toOutputStream(outputStream);
+            if ("0".equals(type)) {
+                outputStream.write(attachment.getData());
+            } else {
+                Thumbnails.of(b).size(140, 160).keepAspectRatio(false).outputFormat("png").toOutputStream(outputStream);
+            }
             outputStream.flush();
             outputStream.close();
         }

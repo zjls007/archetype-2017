@@ -31,7 +31,7 @@
         <#else>
             <i class="file_ico" style="display: none"></i>
             <p class="add-img" style="display: none">添加图片</p>
-            <img class="add" src="img/${(imgList[i-1].id)!}">
+            <img class="add" src="img/${(imgList[i-1].id)!}/1">
             <i class="del_close"></i>
             <input type="hidden" class="imgMD5" name="${nameVal!}" value="${(imgList[i-1].id)!}"/>
             <input type="hidden" name="${p1Val!}" value="${(imgList[i-1].p1)!}"/>
