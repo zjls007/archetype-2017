@@ -141,49 +141,65 @@
         </foreach>
     </select>
 
+    <sql id="baseQueryWhere">
+        <if test="id != null" >
+            AND id = #{id}
+        </if>
+        <if test="taskNum != null and taskNum != ''" >
+            AND task_num = #{taskNum}
+        </if>
+        <if test="title != null and title != ''" >
+            AND title = #{title}
+        </if>
+        <if test="content != null and content != ''" >
+            AND content = #{content}
+        </if>
+        <if test="dueDate != null" >
+            AND due_date = #{dueDate}
+        </if>
+        <if test="difficult != null and difficult != ''" >
+            AND difficult = #{difficult}
+        </if>
+        <if test="type != null and type != ''" >
+            AND type = #{type}
+        </if>
+        <if test="state != null and state != ''" >
+            AND state = #{state}
+        </if>
+        <if test="createUserId != null" >
+            AND create_user_id = #{createUserId}
+        </if>
+        <if test="createUserName != null and createUserName != ''" >
+            AND create_user_name = #{createUserName}
+        </if>
+        <if test="createTime != null" >
+            AND create_time = #{createTime}
+        </if>
+        <if test="lstUpdTime != null" >
+            AND lst_upd_time = #{lstUpdTime}
+        </if>
+    </sql>
+
     <select id="list" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM task
         <where>
-            <if test="id != null" >
-                AND id = #{id}
+            <include refid="baseQueryWhere"/>
+            <if test="dueDateBegin != null" >
+                AND due_date >= #{dueDateBegin}
             </if>
-            <if test="taskNum != null and taskNum != ''" >
-                AND task_num = #{taskNum}
+            <if test="dueDateEnd != null" >
+                AND DATE_ADD(#{dueDateEnd},interval '23:59:59' hour_second) >= due_date
             </if>
-            <if test="title != null and title != ''" >
-                AND title = #{title}
+            <if test="createTimeBegin != null" >
+                AND create_time >= #{createTimeBegin}
             </if>
-            <if test="content != null and content != ''" >
-                AND content = #{content}
-            </if>
-            <if test="dueDate != null" >
-                AND due_date = #{dueDate}
-            </if>
-            <if test="difficult != null and difficult != ''" >
-                AND difficult = #{difficult}
-            </if>
-            <if test="type != null and type != ''" >
-                AND type = #{type}
-            </if>
-            <if test="state != null and state != ''" >
-                AND state = #{state}
-            </if>
-            <if test="createUserId != null" >
-                AND create_user_id = #{createUserId}
-            </if>
-            <if test="createUserName != null and createUserName != ''" >
-                AND create_user_name = #{createUserName}
-            </if>
-            <if test="createTime != null" >
-                AND create_time = #{createTime}
-            </if>
-            <if test="lstUpdTime != null" >
-                AND lst_upd_time = #{lstUpdTime}
+            <if test="createTimeEnd != null" >
+                AND DATE_ADD(#{createTimeEnd},interval '23:59:59' hour_second) >= create_time
             </if>
         </where>
-        ORDER BY create_time DESC
+        ORDER BY lst_upd_time DESC
     </select>
 
     <select id="getByTaskNum" resultMap="BaseResultMap">

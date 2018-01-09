@@ -1,25 +1,17 @@
 <@override name="form">
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">用户名：</label>
+            <label class="layui-form-label">编号：</label>
             <div class="layui-input-inline">
-                <input type="text" name="userName" placeholder="用户名" autocomplete="off" class="layui-input">
+                <input type="text" name="taskNum" placeholder="编号" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">真实姓名：</label>
+            <label class="layui-form-label">标题：</label>
             <div class="layui-input-inline">
-                <input type="text" name="fullName" placeholder="真实姓名" autocomplete="off" class="layui-input">
+                <input type="text" name="title" placeholder="标题" autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">手机号码：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="mobileNo" placeholder="手机号码" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">状态：</label>
             <div class="layui-input-inline">
@@ -30,14 +22,26 @@
                 </select>
             </div>
         </div>
+    </div>
+    <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">注册时间：</label>
+            <label class="layui-form-label">截止日期：</label>
             <div class="layui-input-inline" >
-                <input type="text" name="createTimeBegin" id="createTimeBegin" placeholder="注册时间范围开始" autocomplete="off" class="layui-input">
+                <input type="text" name="dueDateBegin" id="dueDateBegin" placeholder="截止日期范围开始" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid">~</div>
             <div class="layui-input-inline">
-                <input type="text" name="createTimeEnd" id="createTimeEnd" placeholder="注册时间范围结束" autocomplete="off" class="layui-input">
+                <input type="text" name="dueDateEnd" id="dueDateEnd" placeholder="截止日期范围结束" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">创建时间：</label>
+            <div class="layui-input-inline" >
+                <input type="text" name="createTimeBegin" id="createTimeBegin" placeholder="创建时间范围开始" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid">~</div>
+            <div class="layui-input-inline">
+                <input type="text" name="createTimeEnd" id="createTimeEnd" placeholder="创建时间范围结束" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
@@ -48,6 +52,7 @@
     <th lay-data="{field:'title', width: 200}">标题</th>
     <th lay-data="{field:'difficult', width: 200}">难度</th>
     <th lay-data="{field:'type', width: 200}">类型</th>
+    <th lay-data="{field:'state', width: 200}">状态</th>
     <th lay-data="{field:'dueDate', width:180, align:'center'}">截止日期</th>
     <th lay-data="{field:'createTime', width:180, align:'center'}">创建日期</th>
     <th lay-data="{minWidth:180,align:'left', toolbar: '#bar'}">操作</th>
@@ -64,6 +69,15 @@
     </script>
 </@override>
 <@override name="otherScript">
+    //常规用法
+    laydate.render({
+    elem: '#dueDateBegin'
+    });
+
+    laydate.render({
+    elem: '#dueDateEnd'
+    });
+
     //监听锁定操作
     form.on('checkbox(accountLocked)', function(obj){
         $.ajax({

@@ -9,6 +9,7 @@ import com.cy.entity.TaskUser;
 import com.cy.entity.system.UserInfo;
 import com.cy.service.TaskService;
 import com.cy.web.controller.front.base.LayerTableAdaptController;
+import com.cy.web.dto.param.system.TaskQueryDTO;
 import com.cy.web.dto.param.system.TaskSaveDTO;
 import com.cy.web.dto.result.TaskResultDTO;
 import com.cy.web.vo.ImgResultVO;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("task")
-public class TaskController extends LayerTableAdaptController<Task, Task> {
+public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO> {
 
     @Autowired
     private UserInfoDAO userInfoDAO;
@@ -71,7 +72,7 @@ public class TaskController extends LayerTableAdaptController<Task, Task> {
     }
 
     @Override
-    protected List<? extends Task> getData(Task queryDTO) {
+    protected List<? extends Task> getData(TaskQueryDTO queryDTO) {
         return taskDAO.list(queryDTO);
     }
 
