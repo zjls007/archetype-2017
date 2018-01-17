@@ -9,7 +9,7 @@
       <a><cite>编辑</cite></a>
     </span>
 </div>
-<div style="margin-top: 70px;">
+<div style="padding-top: 65px;padding-bottom: 50px;">
 <form class="layui-form" method="post" action="task/saveOrUpdate">
     <button class="layui-btn layui-btn-primary layui-btn-sm add" style="display: none" lay-submit="" lay-filter="submit" id="submit1"><i class="layui-icon">&#xe610;</i>提交</button>
     <blockquote class="layui-elem-quote layui-quote-nm">
