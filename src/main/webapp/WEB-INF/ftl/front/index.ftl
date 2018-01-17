@@ -7,6 +7,11 @@
     <title>牛X系统</title>
     <link rel="stylesheet" href="${basePath}/statics/ui/layui-2.2.4/css/layui.css">
     <link rel="stylesheet" href="${basePath}/statics/ui/tab/css/tabstyle-min.css">
+    <style type="text/css">
+        .layui-layout-admin .layui-body {
+            bottom: 0px;
+        }
+    </style>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -44,8 +49,7 @@
     <div class="layui-body">
         <#include "tab.ftl"/>
     </div>
-    <div class="layui-footer" style="text-align: center">
-        copyright@2017
+    <div class="layui-footer" style="display: none;height: 0px">
     </div>
 </div>
 <#--<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>-->

@@ -1,13 +1,17 @@
 <@override name="body">
-<div class="layui-tab layui-tab-brief" lay-filter="reFulsh">
-    <ul class="layui-tab-title">
-        <li class="layui-this">${modelNameCN!}信息</li>
-        <li class=""><i class="layui-icon">&#x1002;</i>刷新</li>
-    </ul>
-    <div class="layui-tab-content">
-    </div>
+<div class="box-refresh">
+    <a href="javascript:location.replace(location.href);" title="刷新"><i class="fa"></i></a>
 </div>
+
+<div style="position: fixed;top: 0px;left: 0px;z-index: 9999;background-color: #fff;height: 40px;border-bottom: 1px solid #e6e6e6;width: 100%">
+    <span class="layui-breadcrumb" lay-separator="/" style="margin-left: 40px;margin-top: 8px;display: block">
+      <a href="" >任务列表</a>
+      <a><cite>编辑</cite></a>
+    </span>
+</div>
+<div style="margin-top: 70px;">
 <form class="layui-form" method="post" action="task/saveOrUpdate">
+    <button class="layui-btn layui-btn-primary layui-btn-sm add" style="display: none" lay-submit="" lay-filter="submit" id="submit1"><i class="layui-icon">&#xe610;</i>提交</button>
     <blockquote class="layui-elem-quote layui-quote-nm">
         <input type="hidden" name="task.id" value="${(entity.id)!}">
         <div class="layui-form-item">
@@ -56,13 +60,6 @@
                 <textarea class="layui-textarea layui-hide" name="task.content" lay-verify="content" id="editor">${(entity.content)!}</textarea>
             </div>
         </div>
-
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn layui-btn-primary layui-btn-sm add" lay-submit="" lay-filter="submit"><i class="layui-icon">&#xe610;</i>提交</button>
-                <button class="layui-btn layui-btn-primary layui-btn-sm reset" type="reset"><i class="layui-icon">&#xe633;</i>重置</button>
-            </div>
-        </div>
     </blockquote>
 
     <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;height: 190px">
@@ -74,6 +71,13 @@
         </ul>
     </blockquote>
 </form>
+</div>
+    <div style="position: fixed; bottom: 0px; left: 0px;background-color: #fff;width: 100%;z-index: 9999;border-top: 1px solid #e6e6e6">
+        <div style="margin-left: 80px;margin-top: 8px" >
+            <button class="layui-btn layui-btn-primary layui-btn-sm add" id="submit"><i class="layui-icon">&#xe610;</i>提交</button>
+            <button class="layui-btn layui-btn-primary layui-btn-sm reset" type="reset"><i class="layui-icon">&#xe633;</i>重置</button>
+        </div>
+    </div>
 </@override>
 <@override name="script">
 <script>
@@ -85,6 +89,10 @@
         <@select2.init id='userIdList' placeholder='请选择用户' url='userInfo/getUserList' multi=multi/>
         <@select2.setVal id='userIdList' list=(entity.userList)! />
         <@webuploader.init/>
+
+        $('#submit').on({click: function () {
+            $('#submit1').click();
+        }});
     });
 
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
@@ -118,7 +126,9 @@
         });
 
         //创建一个编辑器
-        var editIndex = layedit.build('editor');
+        var editIndex = layedit.build('editor',  {
+            tool: ['strong','italic','underline','del','|','left', 'center', 'right', '|','link', 'unlink']
+        });
 
         //自定义验证规则
         form.verify({

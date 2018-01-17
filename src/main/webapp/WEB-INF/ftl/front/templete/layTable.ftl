@@ -1,12 +1,14 @@
 <@override name="body">
-<div class="layui-tab layui-tab-brief" lay-filter="reFulsh">
-    <ul class="layui-tab-title">
-        <li class="layui-this">${modelNameCN!}管理</li>
-        <li class=""><i class="layui-icon">&#x1002;</i>刷新</li>
-    </ul>
-    <div class="layui-tab-content">
-    </div>
+<div class="box-refresh">
+    <a href="javascript:location.replace(location.href);" title="刷新"><i class="fa"></i></a>
 </div>
+
+<div style="position: fixed;top: 0px;left: 0px;z-index: 9999;background-color: #fff;height: 40px;border-bottom: 1px solid #e6e6e6;width: 100%">
+    <span class="layui-breadcrumb" lay-separator="/" style="margin-left: 40px;margin-top: 8px;display: block">
+      <a><cite>${modelNameCN!}列表</cite></a>
+    </span>
+</div>
+<div style="margin-top: 70px;">
 <blockquote class="layui-elem-quote layui-quote-nm">
     <!-- 图标地址：http://www.layui.com/doc/element/icon.html -->
     <button class="layui-btn layui-btn-primary layui-btn-sm add"><i class="layui-icon">&#xe608;</i>添加</button>
@@ -34,6 +36,7 @@
 </table>
 <@block name="tableBar">
 </@block>
+</div>
 </@override>
 <@override name="script">
 <script>

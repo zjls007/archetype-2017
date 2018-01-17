@@ -32,6 +32,20 @@
     }
 </#macro>
 
+<!-- 给后台list赋下标 -->
+<#macro setIndex1 id='' name=''>
+var val = $("#${id!}").select2("val");
+if (val != null) {
+    if (typeof val == 'string') {
+        data.push({"name": "${name!}[0]", "value": val});
+    } else {
+        for (var i = 0; i < val.length; i++) {
+            data.push({"name": "${name!}["+i+"]", "value": val[i]});
+        }
+    }
+}
+</#macro>
+
 <!-- 初始化控件 -->
 <#macro init class='select2' id='' width='400' placeholder='请选择用户' url='userInfo/getUserList' multi="false">
     <!-- $('.select2').select2('destroy')-->

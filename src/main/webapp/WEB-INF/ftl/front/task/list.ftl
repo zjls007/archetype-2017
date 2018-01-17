@@ -81,7 +81,7 @@
         </div>
     </div>
 </@override>
-<@override name="fullHeight">370</@override>
+<@override name="fullHeight">365</@override>
 <@override name="th">
     <th lay-data="{type:'checkbox'}"></th>
     <th lay-data="{field: 'taskNum', width:120}">编号</th>
