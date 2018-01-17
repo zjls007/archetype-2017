@@ -62,14 +62,18 @@
         </div>
     </blockquote>
 
-    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;height: 190px">
-        <div style="margin-bottom: 8px">上传图片:</div>
-        <ul>
-            <li>
-                <@webuploader.html imgList=(entity.imgList)! size=10 name="imgList" marginLeft="110"/>
-            </li>
+    <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">图片</li>
+            <li>附件</li>
         </ul>
-    </blockquote>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <@webuploader.html imgList=(entity.imgList)! size=1 name="imgList" marginLeft="110"/>
+            </div>
+            <div class="layui-tab-item"></div>
+        </div>
+    </div>
 </form>
 </div>
     <div style="position: fixed; bottom: 0px; left: 0px;background-color: #fff;width: 100%;z-index: 9999;border-top: 1px solid #e6e6e6">
@@ -89,7 +93,6 @@
         <@select2.init id='userIdList' placeholder='请选择用户' url='userInfo/getUserList' multi=multi/>
         <@select2.setVal id='userIdList' list=(entity.userList)! />
         <@webuploader.init/>
-
         $('#submit').on({click: function () {
             $('#submit1').click();
         }});
