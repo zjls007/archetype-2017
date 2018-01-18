@@ -185,6 +185,7 @@ CREATE TABLE `task_state_change` (
 
 CREATE TABLE `attachment` (
   `id` varchar(50) NOT NULL,
+  `file_name` varchar(200) NOT NULL COMMENT '文件名',
   `data` mediumblob NOT NULL,
   `create_user_id` bigint(20) NOT NULL COMMENT '创建用户id',
   `create_time` datetime NOT NULL COMMENT '创建时间',

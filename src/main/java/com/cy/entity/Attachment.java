@@ -14,6 +14,9 @@ public class Attachment implements Serializable {
     /** ,not null */
     private String id;
 
+    /** 文件名 */
+    private String fileName;
+
     /** ,not null */
     private byte[] data;
 
@@ -55,4 +58,11 @@ public class Attachment implements Serializable {
         this.createTime = createTime;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 }

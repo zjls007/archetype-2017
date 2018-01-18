@@ -5,42 +5,44 @@
     <resultMap id="BaseResultMap" type="com.cy.entity.Attachment">
         <id column="id" property="id" />
         <result column="data" property="data" />
+        <result column="file_name" property="fileName" />
         <result column="create_user_id" property="createUserId" />
         <result column="create_time" property="createTime" />
     </resultMap>
 
     <resultMap id="BaseResultMapAS" type="com.cy.entity.Attachment">
         <id column="a_id" property="id" />
+        <result column="a_file_name" property="fileName" />
         <result column="a_data" property="data" />
         <result column="a_create_user_id" property="createUserId" />
         <result column="a_create_time" property="createTime" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, data, create_user_id, create_time
+        id, file_name, data, create_user_id, create_time
     </sql>
 
     <sql id="Base_Alias_Column_List">
-        a.id, a.data, a.create_user_id, a.create_time
+        a.id, a.file_name, a.data, a.create_user_id, a.create_time
     </sql>
 
     <sql id="Base_Alias_Column_List_AS">
-        a.id AS a_id, a.data AS a_data, a.create_user_id AS a_create_user_id, a.create_time AS a_create_time
+        a.id AS a_id, a.file_name as a_file_name, a.data AS a_data, a.create_user_id AS a_create_user_id, a.create_time AS a_create_time
     </sql>
 
     <insert id="insert" parameterType="com.cy.entity.Attachment" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO attachment
-        (id, data, create_user_id, create_time)
+        (id, file_name, data, create_user_id, create_time)
         VALUES
-        (#{id}, #{data}, #{createUserId}, now())
+        (#{id}, #{fileName}, #{data}, #{createUserId}, now())
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.Attachment">
         INSERT INTO attachment
-        (data, create_user_id, create_time)
+        (data, file_name, create_user_id, create_time)
         VALUES
         <foreach collection="list" item="item" separator=",">
-           (#{item.data}, #{item.createUserId}, now())
+           (#{item.data}, #{item.fileName} #{item.createUserId}, now())
         </foreach>
     </insert>
 

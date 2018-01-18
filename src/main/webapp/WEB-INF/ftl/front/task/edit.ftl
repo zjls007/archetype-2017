@@ -102,6 +102,15 @@
 
     });
 
+    function downloadFile(e) {
+        var fileMd5 = $(e).attr('fileMD5');
+        window.open("file/"+fileMd5);
+    }
+
+    function clearFile(e) {
+        $(e).parent('div').remove();
+    }
+
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
         var laydate = layui.laydate //日期
                 , table = layui.table //  表单

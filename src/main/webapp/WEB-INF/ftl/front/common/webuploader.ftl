@@ -53,7 +53,7 @@
             </div>
             <div id="fileShow" style="width: 400px;float: left;margin: 5px 20px;overflow: auto;height: 140px;">
                 <div style="padding: 5px 0px;display: none" id="fileTemplete">
-                    <a href="http://www.baidu.com">aaa</a><i class="layui-icon" style="margin-left: 20px;cursor:pointer">&#x1006;</i>
+                    <a href="javascript:void(0)" onclick="downloadFile(this)"></a><i class="layui-icon" style="margin-left: 20px;cursor:pointer" onclick="clearFile(this)">&#x1006;</i>
                 </div>
             </div>
         </li>
@@ -173,8 +173,7 @@
         } else {
             var div = $('#fileShow');
             var clone = $('#fileTemplete').clone().css('display','block');
-            // data.data
-            clone.find("a").text(file.name);
+            clone.find("a").text(file.name).attr('fileMD5', data.data);
             div.append(clone);
         }
     });

@@ -105,6 +105,7 @@ public class IndexController extends BaseController {
     public Response fileUpload(@RequestParam("file") CommonsMultipartFile file) throws Exception {
         Attachment attachment = new Attachment();
         attachment.setData(file.getBytes());
+        attachment.setFileName(file.getOriginalFilename());
         attachment.setCreateUserId(getCurrentUserId());
 
         // 计算图片MD5
@@ -139,6 +140,8 @@ public class IndexController extends BaseController {
     public void getFile(@PathVariable String id, HttpServletResponse response) throws Exception {
         Attachment attachment = attachmentDAO.getById(id);
         if (attachment != null && attachment.getData() != null) {
+            response.setContentType("application/x-download");
+            response.addHeader("Content-Disposition", new String(("filename=" + attachment.getFileName()).getBytes("GBK"), "ISO-8859-1"));
             ServletOutputStream outputStream = response.getOutputStream();
             outputStream.write(attachment.getData());
             outputStream.flush();
