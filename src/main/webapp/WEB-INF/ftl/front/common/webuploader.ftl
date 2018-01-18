@@ -45,10 +45,19 @@
     </ul>
 </#macro>
 <#macro htmlFile>
-    <div class="uploadFile" style="width: 140px;height: 160px;background-color: #fff;border: 1px #e6e6e6 solid;margin: 20px 120px;">
-        <i class="layui-icon" style="font-size: 50px;color: #009688;margin-top: 30px;display: block;"></i>
-        <p style="text-align: center; color: #cacaca; margin:8px 0 0 0;">点击上传文件</p>
-    </div>
+    <ul>
+        <li style="overflow: hidden;margin: 20px 0;">
+            <div class="uploadFile" style="float: left;width: 140px;height: 160px;background-color: #fff;border: 1px #e6e6e6 solid;margin: 0px 120px;">
+                <i class="layui-icon" style="font-size: 50px;color: #009688;margin-top: 30px;display: block;"></i>
+                <p style="text-align: center; color: #cacaca; margin:8px 0 0 0;">点击上传文件</p>
+            </div>
+            <div id="fileShow" style="width: 400px;float: left;margin: 5px 20px;overflow: auto;height: 140px;">
+                <div style="padding: 5px 0px;display: none" id="fileTemplete">
+                    <a href="http://www.baidu.com">aaa</a><i class="layui-icon" style="margin-left: 20px;cursor:pointer">&#x1006;</i>
+                </div>
+            </div>
+        </li>
+    </ul>
 </#macro>
 <script>
 <#macro init>
@@ -149,11 +158,11 @@
         pick: {
             id : '.uploadFile',
             // 一次只能传一个文件
-            multiple: false
+            multiple: true
         },
         // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
         resize: false,
-        // 同一图片可以重复上传
+        // 同一文件不能重复上传
         duplicate :true
     });
 
@@ -162,7 +171,11 @@
         if ( data.code!="success") {
             alert('上传失败');
         } else {
-            alert(data);
+            var div = $('#fileShow');
+            var clone = $('#fileTemplete').clone().css('display','block');
+            // data.data
+            clone.find("a").text(file.name);
+            div.append(clone);
         }
     });
 

@@ -64,15 +64,15 @@
 
     <div class="layui-tab layui-tab-brief">
         <ul class="layui-tab-title">
-            <li class="layui-this">图片</li>
-            <li>附件</li>
+            <li class="layui-this">附件</li>
+            <li>图片</li>
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <@webuploader.html imgList=(entity.imgList)! size=6 name="imgList" marginLeft="120"/>
-            </div>
-            <div class="layui-tab-item">
                 <@webuploader.htmlFile/>
+            </div>
+            <div class="layui-tab-item ">
+                <@webuploader.html imgList=(entity.imgList)! size=6 name="imgList" marginLeft="120"/>
             </div>
         </div>
     </div>
