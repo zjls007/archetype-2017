@@ -1,4 +1,5 @@
 <#macro html imgList size=1 name='' marginLeft='110' p1='' p2=''>
+    <ul><li style="overflow: hidden;margin: 20px 0;">
     <#list 1..size as i>
         <#-- 定义变量开始 -->
         <#local nameVal = name/>
@@ -40,6 +41,8 @@
         </#if>
     </div>
     </#list>
+    </li>
+    </ul>
 </#macro>
 <script>
 <#macro init>

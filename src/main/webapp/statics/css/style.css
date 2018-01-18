@@ -1,7 +1,7 @@
 .uploadImg .file_ico{width: 24px;height: 24px;background: url("../img/add.png") no-repeat;display: block;margin: 45px auto 0;}
 .uploadImg .add-img{text-align: center; color: #cacaca; margin:8px 0 0 0;}
 .uploadImg .add{width: 140px;height: 160px;}
-.uploadImg {width: 140px;height: 160px;background-color: #fff;border: 1px #e6e6e6 solid;}
+.uploadImg {width: 140px;height: 160px;background-color: #fff;border: 1px #e6e6e6 solid;float: left}
 .uploadImg .del_close {width: 25px;height: 25px;background: url("../img/icon_del.png") no-repeat;position: absolute;top:0;right: 0;z-index: 10;cursor: pointer; }
 
 .box-refresh{position: fixed;top: 45px;right: 30px;text-align: center;z-index: 9999;background: #fff;}
