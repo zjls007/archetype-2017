@@ -44,6 +44,12 @@
     </li>
     </ul>
 </#macro>
+<#macro htmlFile>
+    <div class="uploadFile" style="width: 140px;height: 160px;background-color: #fff;border: 1px #e6e6e6 solid;margin: 20px 120px;">
+        <i class="layui-icon" style="font-size: 50px;color: #009688;margin-top: 30px;display: block;"></i>
+        <p style="text-align: center; color: #cacaca; margin:8px 0 0 0;">点击上传文件</p>
+    </div>
+</#macro>
 <script>
 <#macro init>
     // 初始化Web Uploader
@@ -127,5 +133,43 @@
         div.find("p").show();
         div.find('img.add').hide();
     }});
+</#macro>
+
+<#macro initUploadFile>
+    // 初始化Web Uploader
+    var uFile = WebUploader.create({
+        // 选完文件后，是否自动上传。
+        auto: true,
+        // swf文件路径
+        swf: '${basePath}/statics/ui/webuploader-0.1.5/Uploader.swf',
+        // 文件接收服务端。
+        server: 'upload',
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: {
+            id : '.uploadFile',
+            // 一次只能传一个文件
+            multiple: false
+        },
+        // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+        resize: false,
+        // 同一图片可以重复上传
+        duplicate :true
+    });
+
+    uFile.on("uploadSuccess", function( file, data){
+        var div = $('#rt_' + file.source.ruid).parents('div.uploadImg');
+        if ( data.code!="success") {
+            alert('上传失败');
+        } else {
+            alert(data);
+        }
+    });
+
+    // 文件上传失败，显示上传出错。
+    uFile.on( 'uploadError', function( file ) {
+        alert('上传失败');
+    });
+
 </#macro>
 </script>

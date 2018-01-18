@@ -135,4 +135,15 @@ public class IndexController extends BaseController {
         }
     }
 
+    @RequestMapping("file/{id}")
+    public void getFile(@PathVariable String id, HttpServletResponse response) throws Exception {
+        Attachment attachment = attachmentDAO.getById(id);
+        if (attachment != null && attachment.getData() != null) {
+            ServletOutputStream outputStream = response.getOutputStream();
+            outputStream.write(attachment.getData());
+            outputStream.flush();
+            outputStream.close();
+        }
+    }
+
 }

@@ -71,7 +71,9 @@
             <div class="layui-tab-item layui-show">
                 <@webuploader.html imgList=(entity.imgList)! size=6 name="imgList" marginLeft="120"/>
             </div>
-            <div class="layui-tab-item"></div>
+            <div class="layui-tab-item">
+                <@webuploader.htmlFile/>
+            </div>
         </div>
     </div>
 </form>
@@ -93,9 +95,11 @@
         <@select2.init id='userIdList' placeholder='请选择用户' url='userInfo/getUserList' multi=multi/>
         <@select2.setVal id='userIdList' list=(entity.userList)! />
         <@webuploader.init/>
+        <@webuploader.initUploadFile/>
         $('#submit').on({click: function () {
             $('#submit1').click();
         }});
+
     });
 
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
