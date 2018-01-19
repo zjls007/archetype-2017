@@ -1,16 +1,4 @@
-<@override name="body">
-<div class="box-refresh">
-    <a href="javascript:location.replace(location.href);" title="刷新"><i class="fa"></i></a>
-</div>
-
-<div style="position: fixed;top: 0px;left: 0px;z-index: 9999;background-color: #fff;height: 40px;border-bottom: 1px solid #e6e6e6;width: 100%">
-    <span class="layui-breadcrumb" lay-separator="/" style="margin-left: 40px;margin-top: 8px;display: block">
-      <a href="javascript:void(0)" onclick="javascript:parent.activateTab('${modelNameCN!}列表');">${modelNameCN!}列表</a>
-      <a><cite>查看</cite></a>
-    </span>
-</div>
-
-<div style="padding-top: 65px;padding-bottom: 50px;">
+<@override name="baseEditBody">
 <blockquote class="layui-elem-quote layui-quote-nm">
     <input type="hidden" name="task.id" value="${(entity.id)!}">
     <div class="layui-form-item">
@@ -41,7 +29,6 @@
         <div class="layui-form-mid layui-word-aux">${(entity.content)!}</div>
     </div>
 </blockquote>
-</div>
 </@override>
 <@override name="script">
 <script>
@@ -80,4 +67,4 @@
     });
 </script>
 </@override>
-<@extends name="/base.ftl"/>
+<@extends name="../templete/baseEdit.ftl"/>
