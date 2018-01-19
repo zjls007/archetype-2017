@@ -1,17 +1,16 @@
 <@override name="body">
-<style type="text/css">
-    .layui-carousel a { display: block; width: 100%; height: 100%; }
-</style>
-
-<div class="layui-tab layui-tab-brief" lay-filter="reFulsh">
-    <ul class="layui-tab-title">
-        <li class="layui-this">${modelNameCN!}信息</li>
-        <li class=""><i class="layui-icon">&#x1002;</i>刷新</li>
-    </ul>
-    <div class="layui-tab-content">
-    </div>
+<div class="box-refresh">
+    <a href="javascript:location.replace(location.href);" title="刷新"><i class="fa"></i></a>
 </div>
 
+<div style="position: fixed;top: 0px;left: 0px;z-index: 9999;background-color: #fff;height: 40px;border-bottom: 1px solid #e6e6e6;width: 100%">
+    <span class="layui-breadcrumb" lay-separator="/" style="margin-left: 40px;margin-top: 8px;display: block">
+      <a href="javascript:void(0)" onclick="javascript:parent.activateTab('${modelNameCN!}列表');">${modelNameCN!}列表</a>
+      <a><cite>查看</cite></a>
+    </span>
+</div>
+
+<div style="padding-top: 65px;padding-bottom: 50px;">
 <blockquote class="layui-elem-quote layui-quote-nm">
     <input type="hidden" name="task.id" value="${(entity.id)!}">
     <div class="layui-form-item">
@@ -42,18 +41,7 @@
         <div class="layui-form-mid layui-word-aux">${(entity.content)!}</div>
     </div>
 </blockquote>
-<#--http://fly.layui.com/jie/15141/-->
-<#if (entity.imgList)?? && entity.imgList?size gt 0>
-        <div class="layui-carousel" id="imgCarousel">
-            <div carousel-item="">
-                <#list (entity.imgList)! as item>
-                    <div>
-                        <a href="javascript:void(0)" style="background:url(img/${item.id!}/0) center top no-repeat"></a>
-                    </div>
-                </#list>
-            </div>
-        </div>
-</#if>
+</div>
 </@override>
 <@override name="script">
 <script>
