@@ -1,6 +1,7 @@
 package com.cy.dao;
 
 import com.cy.entity.Attachment;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 
@@ -29,5 +30,7 @@ public interface AttachmentDAO {
     List<Attachment> getByIdList(List<String> list);
 
     List<Attachment> list(Attachment entity);
+
+    List<Attachment> listByTask(@Param("taskId") Long taskId, @Param("fileType") String fileType);
 
 }

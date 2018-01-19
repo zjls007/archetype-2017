@@ -5,7 +5,7 @@
     <base href="${basePath}/front/">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>牛X系统</title>
-    <link rel="stylesheet" href="${basePath}/statics/ui/layui-2.2.4/css/layui.css">
+    <link rel="stylesheet" href="${basePath}/statics/ui/layui-2.2.5/css/layui.css">
     <link rel="stylesheet" href="${basePath}/statics/ui/tab/css/tabstyle-min.css">
 </head>
 <body>
@@ -50,7 +50,7 @@
 <#--<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>-->
 <script src="${basePath}/statics/js/jquery.min.js"></script>
 <script src="${basePath}/statics/ui/tab/tab-min.js"></script>
-<script src="${basePath}/statics/ui/layui-2.2.4/layui.all.js"></script>
+<script src="${basePath}/statics/ui/layui-2.2.5/layui.all.js"></script>
 <script>
     //JavaScript代码区域
     layui.use(['carousel', 'form'], function(){

@@ -17,6 +17,9 @@ public class AttachmentRef implements Serializable {
     /** 文件id,not null */
     private String fileId;
 
+    /** 关联类型（img-图片、attachment-附件）,not null */
+    private String fileType;
+
     /** 关联id,not null */
     private Long refId;
 
@@ -77,4 +80,11 @@ public class AttachmentRef implements Serializable {
         this.createTime = createTime;
     }
 
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
 }

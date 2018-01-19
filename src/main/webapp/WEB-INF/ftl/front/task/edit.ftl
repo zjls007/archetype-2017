@@ -69,7 +69,7 @@
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <@webuploader.htmlFile/>
+                <@webuploader.htmlFile attachmentList=(entity.attachmentList)!/>
             </div>
             <div class="layui-tab-item ">
                 <@webuploader.html imgList=(entity.imgList)! size=6 name="imgList" marginLeft="120"/>

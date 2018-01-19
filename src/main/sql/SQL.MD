@@ -195,6 +195,7 @@ CREATE TABLE `attachment` (
 CREATE TABLE `attachment_ref` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `file_id` varchar(50) NOT NULL COMMENT '文件id',
+  `file_type` varchar(50) NOT NULL COMMENT '关联类型（img-图片、attachment-附件）',
   `ref_id` bigint(20) NOT NULL COMMENT '关联id',
   `ref_type` varchar(50) NOT NULL COMMENT '关联类型（task-任务、other-其他）',
   `create_user_id` bigint(20) NOT NULL COMMENT '创建用户id',

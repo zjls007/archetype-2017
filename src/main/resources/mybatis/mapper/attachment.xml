@@ -114,5 +114,19 @@
         </where>
     </select>
 
+    <select id="listByTask" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Alias_Column_List"/>
+        FROM attachment a, attachment_ref ar
+        <where>
+            ar.ref_id = #{taskId} AND ar.ref_type = 'task'
+            <if test="fileType != null and fileType != ''">
+                AND ar.file_type = #{fileType}
+            </if>
+            AND ar.file_id = a.id
+        </where>
+        ORDER by ar.create_time ASC
+    </select>
+
 </mapper>
 

@@ -44,7 +44,19 @@
     </li>
     </ul>
 </#macro>
-<#macro htmlFile>
+<#function getAttachment attachmentList>
+    <#local md5=''/>
+    <#if attachmentList??>
+        <#list attachmentList as item>
+            <#local md5=md5+item.id/>
+            <#if item_has_next>
+                <#local md5=md5+","/>
+            </#if>
+        </#list>
+    </#if>
+    <#return md5/>
+</#function>
+<#macro htmlFile attachmentList>
     <ul>
         <li style="overflow: hidden;margin: 20px 0;">
             <div class="uploadFile" style="float: left;width: 140px;height: 160px;background-color: #fff;border: 1px #e6e6e6 solid;margin: 0px 120px;">
@@ -52,9 +64,20 @@
                 <p style="text-align: center; color: #cacaca; margin:8px 0 0 0;">点击上传文件</p>
             </div>
             <div id="fileShow" style="width: 400px;float: left;margin: 5px 20px;overflow: auto;height: 140px;">
+
+                <input type="hidden" name="attachmentMD5List" value="${getAttachment(attachmentList)}"/>
                 <div style="padding: 5px 0px;display: none" id="fileTemplete">
                     <a href="javascript:void(0)" onclick="downloadFile(this)"></a><i class="layui-icon" style="margin-left: 20px;cursor:pointer" onclick="clearFile(this)">&#x1006;</i>
+                    <input type="hidden" ignore="true" name="attachmentMD5ListUIBug"/>
                 </div>
+                <#if attachmentList??>
+                    <#list attachmentList as item>
+                <div style="padding: 5px 0px;" id="fileTemplete">
+                    <a href="javascript:void(0)" onclick="downloadFile(this)" fileMD5="${item.id}">${item.fileName}</a><i class="layui-icon" style="margin-left: 20px;cursor:pointer" onclick="clearFile(this)">&#x1006;</i>
+                    <input type="hidden" name="attachmentMD5ListUIBug" value="${item.id}"/>
+                </div>
+                    </#list>
+                </#if>
             </div>
         </li>
     </ul>
@@ -169,18 +192,25 @@
     uFile.on("uploadSuccess", function( file, data){
         var div = $('#rt_' + file.source.ruid).parents('div.uploadImg');
         if ( data.code!="success") {
-            alert('上传失败');
+            layer.msg("上传失败", {time:3000});
         } else {
             var div = $('#fileShow');
             var clone = $('#fileTemplete').clone().css('display','block');
             clone.find("a").text(file.name).attr('fileMD5', data.data);
+            clone.find("input[name='attachmentMD5ListUIBug']").val(data.data);
             div.append(clone);
+
+            var arr = new Array();
+            $('input[name="attachmentMD5ListUIBug"]:not(:first)').each(function () {
+                arr.push($(this).val());
+            });
+            div.find("input[name='attachmentMD5List']").val(arr.join(","));
         }
     });
 
     // 文件上传失败，显示上传出错。
     uFile.on( 'uploadError', function( file ) {
-        alert('上传失败');
+        layer.msg("上传失败", {time:3000});
     });
 
 </#macro>

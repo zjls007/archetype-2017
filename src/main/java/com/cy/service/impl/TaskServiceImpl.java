@@ -1,16 +1,13 @@
 package com.cy.service.impl;
 
 import com.cy.common.exception.ValidException;
-import com.cy.dao.AttachmentRefDAO;
-import com.cy.dao.TaskDAO;
-import com.cy.dao.TaskStateChangeDAO;
-import com.cy.dao.TaskUserDAO;
-import com.cy.entity.*;
+import com.cy.dao.*;
+import com.cy.entity.AttachmentRef;
+import com.cy.entity.Task;
+import com.cy.entity.TaskStateChange;
+import com.cy.entity.TaskUser;
 import com.cy.entity.system.UserInfo;
-import com.cy.entity.system.enums.AttachmentRefType;
-import com.cy.entity.system.enums.TaskState;
-import com.cy.entity.system.enums.TaskType;
-import com.cy.entity.system.enums.TaskUserState;
+import com.cy.entity.system.enums.*;
 import com.cy.service.TaskService;
 import com.cy.web.dto.param.system.TaskSaveDTO;
 import com.cy.web.dto.result.TaskResultDTO;
@@ -39,12 +36,16 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private AttachmentRefDAO attachmentRefDAO;
 
+    @Autowired
+    private AttachmentDAO attachmentDAO;
+
     @Override
     public TaskResultDTO get(Long taskId) {
         TaskResultDTO result = new TaskResultDTO();
         result.setTask(taskDAO.getById(taskId));
         result.setTaskUserList(taskUserDAO.listByTaskId(taskId));
-        result.setImgList(attachmentRefDAO.listByRefIdAndRefType(taskId, AttachmentRefType.TASK.getCode()));
+        result.setImgList(attachmentDAO.listByTask(taskId, AttachmentRefFileType.IMG.getCode()));
+        result.setAttachmentList(attachmentDAO.listByTask(taskId, AttachmentRefFileType.ATTACHMENT.getCode()));
         return result;
     }
 
@@ -52,7 +53,25 @@ public class TaskServiceImpl implements TaskService {
     public void saveOrUpdate(TaskSaveDTO dto, UserInfo currentUser) {
         Long taskId = doTask(dto, currentUser);
         doUser(taskId, dto.getUserIdList(), dto.getTask().getType());
-        doImg(dto.getImgList(), taskId, currentUser);
+        doImg(dto.getImgList(), taskId, currentUser.getId());
+        doAttachment(dto.getAttachmentMD5List(), taskId, currentUser.getId(), AttachmentRefFileType.ATTACHMENT.getCode());
+    }
+
+    private void doAttachment(List<String> attachmentMD5List, Long taskId, Long currentUserId, String fileType) {
+        if (attachmentMD5List == null || attachmentMD5List.isEmpty()) {
+            return;
+        }
+        List<AttachmentRef> list = new ArrayList<AttachmentRef>();
+        for (String item : attachmentMD5List) {
+            AttachmentRef ref = new AttachmentRef();
+            ref.setFileId(item);
+            ref.setFileType(fileType);
+            ref.setRefId(taskId);
+            ref.setRefType(AttachmentRefType.TASK.getCode());
+            ref.setCreateUserId(currentUserId);
+            list.add(ref);
+        }
+        attachmentRefDAO.batchInsert(list);
     }
 
     @Override
@@ -69,7 +88,7 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
-    private void doImg(List<String> imgList, Long taskId, UserInfo currentUser) {
+    private void doImg(List<String> imgList, Long taskId, Long currentUserId) {
         attachmentRefDAO.deleteByTaskId(taskId);
         if (imgList == null || imgList.isEmpty()) {
             return;
@@ -82,16 +101,7 @@ public class TaskServiceImpl implements TaskService {
         if (imgList.isEmpty()) {
             return;
         }
-        List<AttachmentRef> list = new ArrayList<AttachmentRef>();
-        for (String item : imgList) {
-            AttachmentRef ref = new AttachmentRef();
-            ref.setFileId(item);
-            ref.setRefId(taskId);
-            ref.setRefType(AttachmentRefType.TASK.getCode());
-            ref.setCreateUserId(currentUser.getId());
-            list.add(ref);
-        }
-        attachmentRefDAO.batchInsert(list);
+        doAttachment(imgList, taskId, currentUserId, AttachmentRefFileType.IMG.getCode());
     }
 
     private void doStateChange(Long taskId, Long curUserId) {

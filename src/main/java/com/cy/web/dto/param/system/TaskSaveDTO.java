@@ -27,6 +27,11 @@ public class TaskSaveDTO implements Serializable {
      */
     private List<String> imgList;
 
+    /**
+     * 附件
+     */
+    private List<String> attachmentMD5List;
+
     public Task getTask() {
         return task;
     }
@@ -49,5 +54,13 @@ public class TaskSaveDTO implements Serializable {
 
     public void setImgList(List<String> imgList) {
         this.imgList = imgList;
+    }
+
+    public List<String> getAttachmentMD5List() {
+        return attachmentMD5List;
+    }
+
+    public void setAttachmentMD5List(List<String> attachmentMD5List) {
+        this.attachmentMD5List = attachmentMD5List;
     }
 }

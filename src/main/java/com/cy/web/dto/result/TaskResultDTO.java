@@ -1,5 +1,6 @@
 package com.cy.web.dto.result;
 
+import com.cy.entity.Attachment;
 import com.cy.entity.AttachmentRef;
 import com.cy.entity.Task;
 import com.cy.entity.TaskUser;
@@ -27,7 +28,12 @@ public class TaskResultDTO implements Serializable {
     /**
      * 图片
      */
-    private List<AttachmentRef> imgList;
+    private List<Attachment> imgList;
+
+    /**
+     * 附件
+     */
+    private List<Attachment> attachmentList;
 
     public Task getTask() {
         return task;
@@ -45,11 +51,19 @@ public class TaskResultDTO implements Serializable {
         this.taskUserList = taskUserList;
     }
 
-    public List<AttachmentRef> getImgList() {
+    public List<Attachment> getAttachmentList() {
+        return attachmentList;
+    }
+
+    public void setAttachmentList(List<Attachment> attachmentList) {
+        this.attachmentList = attachmentList;
+    }
+
+    public List<Attachment> getImgList() {
         return imgList;
     }
 
-    public void setImgList(List<AttachmentRef> imgList) {
+    public void setImgList(List<Attachment> imgList) {
         this.imgList = imgList;
     }
 }

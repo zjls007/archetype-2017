@@ -3,7 +3,7 @@ package com.cy.web.controller.front;
 import com.cy.common.Response;
 import com.cy.dao.TaskDAO;
 import com.cy.dao.system.UserInfoDAO;
-import com.cy.entity.AttachmentRef;
+import com.cy.entity.Attachment;
 import com.cy.entity.Task;
 import com.cy.entity.TaskUser;
 import com.cy.entity.system.UserInfo;
@@ -52,10 +52,10 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
         TaskDetailVO vo = new TaskDetailVO();
         BeanUtils.copyProperties(taskResultDTO.getTask(), vo);
         vo.setImgList(new ArrayList<ImgResultVO>());
-        List<AttachmentRef> imgList = taskResultDTO.getImgList();
-        for (AttachmentRef item : imgList) {
+        List<Attachment> imgList = taskResultDTO.getImgList();
+        for (Attachment item : imgList) {
             ImgResultVO dto = new ImgResultVO();
-            dto.setId(item.getFileId());
+            dto.setId(item.getId());
             vo.getImgList().add(dto);
         }
 
@@ -68,6 +68,7 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
             select2ItemVO.setText(userInfo.getUserName());
             userList.add(select2ItemVO);
         }
+        vo.setAttachmentList(taskResultDTO.getAttachmentList());
         return vo;
     }
 

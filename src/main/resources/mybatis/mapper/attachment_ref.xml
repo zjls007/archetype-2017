@@ -6,6 +6,7 @@
         <id column="id" property="id" />
         <result column="file_id" property="fileId" />
         <result column="ref_id" property="refId" />
+        <result column="file_type" property="fileType" />
         <result column="ref_type" property="refType" />
         <result column="create_user_id" property="createUserId" />
         <result column="create_time" property="createTime" />
@@ -14,6 +15,7 @@
     <resultMap id="BaseResultMapAS" type="com.cy.entity.AttachmentRef">
         <id column="ar_id" property="id" />
         <result column="ar_file_id" property="fileId" />
+        <result column="ar_file_type" property="fileType" />
         <result column="ar_ref_id" property="refId" />
         <result column="ar_ref_type" property="refType" />
         <result column="ar_create_user_id" property="createUserId" />
@@ -21,30 +23,30 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, file_id, ref_id, ref_type, create_user_id, create_time
+        id, file_id, file_type, ref_id, ref_type, create_user_id, create_time
     </sql>
 
     <sql id="Base_Alias_Column_List">
-        ar.id, ar.file_id, ar.ref_id, ar.ref_type, ar.create_user_id, ar.create_time
+        ar.id, ar.file_id, ar.file_type, ar.ref_id, ar.ref_type, ar.create_user_id, ar.create_time
     </sql>
 
     <sql id="Base_Alias_Column_List_AS">
-        ar.id AS ar_id, ar.file_id AS ar_file_id, ar.ref_id AS ar_ref_id, ar.ref_type AS ar_ref_type, ar.create_user_id AS ar_create_user_id, ar.create_time AS ar_create_time
+        ar.id AS ar_id, ar.file_id AS ar_file_id, ar.file_type AS ar_file_type, ar.ref_id AS ar_ref_id, ar.ref_type AS ar_ref_type, ar.create_user_id AS ar_create_user_id, ar.create_time AS ar_create_time
     </sql>
 
     <insert id="insert" parameterType="com.cy.entity.AttachmentRef" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO attachment_ref
-        (file_id, ref_id, ref_type, create_user_id, create_time)
+        (file_id, ref_id, file_type, ref_type, create_user_id, create_time)
         VALUES
-        (#{fileId}, #{refId}, #{refType}, #{createUserId}, now())
+        (#{fileId}, #{refId}, #{fileType}, #{refType}, #{createUserId}, now())
     </insert>
 
     <insert id="batchInsert" parameterType="com.cy.entity.AttachmentRef">
         INSERT INTO attachment_ref
-        (file_id, ref_id, ref_type, create_user_id, create_time)
+        (file_id, ref_id, file_type, ref_type, create_user_id, create_time)
         VALUES
         <foreach collection="list" item="item" separator=",">
-           (#{item.fileId}, #{item.refId}, #{item.refType}, #{item.createUserId}, now())
+           (#{item.fileId}, #{item.refId}, #{item.fileType}, #{item.refType}, #{item.createUserId}, now())
         </foreach>
     </insert>
 

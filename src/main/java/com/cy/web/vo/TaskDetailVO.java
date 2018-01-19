@@ -1,5 +1,6 @@
 package com.cy.web.vo;
 
+import com.cy.entity.Attachment;
 import com.cy.entity.Task;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public class TaskDetailVO extends Task {
 
     private List<ImgResultVO> imgList;
 
+    private List<Attachment> attachmentList;
+
     public List<ImgResultVO> getImgList() {
         return imgList;
     }
@@ -29,5 +32,13 @@ public class TaskDetailVO extends Task {
 
     public void setUserList(List<Select2ItemVO> userList) {
         this.userList = userList;
+    }
+
+    public List<Attachment> getAttachmentList() {
+        return attachmentList;
+    }
+
+    public void setAttachmentList(List<Attachment> attachmentList) {
+        this.attachmentList = attachmentList;
     }
 }
