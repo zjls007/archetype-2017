@@ -1,5 +1,10 @@
 package com.cy.entity.system.enums;
 
+import com.cy.web.vo.SelectOptionVO;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by zxj on 2018-01-04 17:01:54.
  * task - state 任务状态（publish-发布、take-认领、begin-开始、wait-挂起、complete-完成）, not null
@@ -12,6 +17,17 @@ public enum TaskState {
     WAIT("wait", "挂起"),
     COMPLETE("complete", "完成"),
     ;
+
+    public static List<SelectOptionVO> getSelectList(){
+        List<SelectOptionVO> list = new ArrayList<SelectOptionVO>();
+        for (TaskState item : values()) {
+            SelectOptionVO vo = new SelectOptionVO();
+            vo.setName(item.getName());
+            vo.setValue(item.getCode());
+            list.add(vo);
+        }
+        return list;
+    }
 
     private String code;
     private String name;

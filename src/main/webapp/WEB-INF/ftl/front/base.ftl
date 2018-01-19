@@ -13,6 +13,7 @@
         body{margin: 10px;}
     </style>
     <#import "common/webuploader.ftl" as webuploader>
+    <#import "common/select2.ftl" as select2>
 </head>
 <body>
 <@block name="body">

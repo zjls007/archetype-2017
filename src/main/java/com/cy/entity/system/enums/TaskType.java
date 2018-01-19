@@ -1,5 +1,10 @@
 package com.cy.entity.system.enums;
 
+import com.cy.web.vo.SelectOptionVO;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by zxj on 2018-01-04 17:01:54.
  * task - type 类型（assign-指派、take-认领）, not null
@@ -9,6 +14,17 @@ public enum TaskType {
     ASSIGN("assign", "指派"),
     TAKE("take", "认领"),
     ;
+
+    public static List<SelectOptionVO> getSelectList(){
+        List<SelectOptionVO> list = new ArrayList<SelectOptionVO>();
+        for (TaskType item : values()) {
+            SelectOptionVO vo = new SelectOptionVO();
+            vo.setName(item.getName());
+            vo.setValue(item.getCode());
+            list.add(vo);
+        }
+        return list;
+    }
 
     private String code;
     private String name;

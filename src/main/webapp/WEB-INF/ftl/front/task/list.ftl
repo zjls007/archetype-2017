@@ -17,9 +17,7 @@
             <div class="layui-input-inline">
                 <select name="difficult" lay-search="">
                     <option value="">---请选择---</option>
-                    <option value="easy">简单</option>
-                    <option value="normal">一般</option>
-                    <option value="hard">困难</option>
+                    <@util.select optionList=selectMap['task.difficult']/>
                 </select>
             </div>
         </div>
@@ -30,8 +28,7 @@
             <div class="layui-input-inline">
                 <select name="type" lay-search="">
                     <option value="">---请选择---</option>
-                    <option value="assign">指派</option>
-                    <option value="take">认领</option>
+                    <@util.select optionList=selectMap['task.type']/>
                 </select>
             </div>
         </div>
@@ -40,11 +37,7 @@
             <div class="layui-input-inline">
                 <select name="state" lay-search="">
                     <option value="">---请选择---</option>
-                    <option value="publish">发布</option>
-                    <option value="take">认领</option>
-                    <option value="begin">开始</option>
-                    <option value="wait">挂起</option>
-                    <option value="complete">完成</option>
+                    <@util.select optionList=selectMap['task.state']/>
                 </select>
             </div>
         </div>

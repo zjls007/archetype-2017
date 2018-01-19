@@ -30,9 +30,7 @@
             <label class="layui-form-label">难度：</label>
             <div class="layui-input-inline">
                 <select name="task.difficult">
-                    <option value="easy">简单</option>
-                    <option value="normal">一般</option>
-                    <option value="hard">困难</option>
+                    <@util.select optionList=selectMap['task.difficult'] value=(entity.difficult)!/>
                 </select>
             </div>
             <div class="layui-form-mid layui-word-aux"></div>

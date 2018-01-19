@@ -2,6 +2,7 @@ package com.cy.web.controller.front.base;
 
 import com.cy.common.Response;
 import com.cy.common.constant.ResponseStatus;
+import com.cy.common.util.SelectUtil;
 import com.cy.web.controller.admin.base.DataGridAdaptController;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -23,6 +24,7 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
 
     @Override
     protected void doList(ModelMap modelMap) {
+        modelMap.addAttribute("selectMap", SelectUtil.selectMap);
         modelMap.addAttribute("editUrl", genPath("edit"));
         modelMap.addAttribute("modelNameCN", getModelNameCN());
     }
@@ -49,6 +51,7 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
 
     @RequestMapping({"edit/{id}", "edit"})
     public String edit(@PathVariable(required=false) Long id, ModelMap modelMap) {
+        modelMap.addAttribute("selectMap", SelectUtil.selectMap);
         modelMap.addAttribute("modelNameCN", getModelNameCN());
         if (id != null) {
             modelMap.addAttribute("entity", getModel(id, modelMap));
@@ -58,6 +61,7 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
 
     @RequestMapping("view/{id}")
     public String view(@PathVariable(required=false) Long id, ModelMap modelMap) {
+        modelMap.addAttribute("selectMap", SelectUtil.selectMap);
         modelMap.addAttribute("modelNameCN", getModelNameCN());
         if (id != null) {
             modelMap.addAttribute("entity", getModel(id, modelMap));
