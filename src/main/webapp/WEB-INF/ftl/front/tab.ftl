@@ -65,6 +65,13 @@
             }
         }
     }
+    <!-- 跳转到指定窗口 -->
+    function activateTab(tabName) {
+        $('div#menu-list a.active').removeClass('active');
+        $('div#menu-list a[data-value="'+tabName+'"]').addClass('active');
+        $('div#page-content iframe.active').removeClass('active');
+        $('div#page-content iframe[data-value="'+tabName+'"]').addClass('active');
+    }
     function closeAll() {
         $('#menu-list a:not(.index)').remove();
         $('div#page-content iframe:not(#index)').remove();
