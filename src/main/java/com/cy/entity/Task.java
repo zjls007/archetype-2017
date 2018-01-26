@@ -1,5 +1,7 @@
 package com.cy.entity;
 
+import com.cy.common.annotation.SelectVal;
+import com.cy.common.util.SelectUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -36,14 +38,17 @@ public class Task implements Serializable {
     /** 任务状态 参考:{@link com.cy.entity.system.enums.TaskDifficult},not null */
     @NotBlank(message = "难度不能为空!")
     @Pattern(regexp = "(easy|normal|hard)", message = "难度不合法!")
+    @SelectVal(key = SelectUtil.TASK_DIFFICULT)
     private String difficult;
 
     /** 类型 参考:{@link com.cy.entity.system.enums.TaskType},not null */
     @NotBlank(message = "类型不能为空!")
     @Pattern(regexp = "(assign|take)", message = "类型不合法!")
+    @SelectVal(key = SelectUtil.TASK_TYPE)
     private String type;
 
     /** 任务状态 参考:{@link com.cy.entity.system.enums.TaskState},not null */
+    @SelectVal(key = SelectUtil.TASK_STATE)
     private String state;
 
     /** 创建用户id,not null */
