@@ -6,3 +6,12 @@
         </#list>
     </#if>
 </#macro>
+
+<#function listIsEmpty list>
+    <#if list??>
+        <#if (list?size > 0)>
+            <#return 0>
+        </#if>
+    </#if>
+    <#return 1>
+</#function>

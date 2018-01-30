@@ -45,7 +45,7 @@
     </ul>
 </#macro>
 <#macro htmlView imgList size=1 name='' marginLeft='110' p1='' p2=''>
-<#if imgList??>
+<#if util.listIsEmpty(imgList)==0>
     <ul>
         <li style="overflow: hidden;margin: 20px 0;">
         <#list imgList as item>
@@ -56,6 +56,8 @@
         </#list>
     </li>
     </ul>
+<#else>
+无图片!
 </#if>
 </#macro>
 <#function getAttachment attachmentList>
@@ -97,6 +99,7 @@
     </ul>
 </#macro>
 <#macro htmlFileView attachmentList>
+<#if util.listIsEmpty(attachmentList)==0>
 <ul>
     <li style="overflow: hidden;margin: 20px 0;">
         <div id="fileShow" style="width: 400px;float: left;margin: 5px 20px;overflow: auto;height: 140px;">
@@ -110,6 +113,9 @@
         </div>
     </li>
 </ul>
+<#else>
+无附件!
+</#if>
 </#macro>
 <script>
 <#macro init>

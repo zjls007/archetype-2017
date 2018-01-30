@@ -52,8 +52,8 @@
 
     <div class="layui-tab layui-tab-brief">
         <ul class="layui-tab-title">
-            <li class="layui-this">附件</li>
-            <li>图片</li>
+            <li class="layui-this">附件<#if util.listIsEmpty((entity.attachmentList)!)==0><span class="layui-badge-dot"></span></#if></li>
+            <li>图片<#if util.listIsEmpty((entity.imgList)!)==0><span class="layui-badge-dot"></span></#if></li>
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
