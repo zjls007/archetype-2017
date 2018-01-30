@@ -3,7 +3,7 @@
 </@override>
 <@override name="cite">查看</@override>
 <@override name="baseEditBody">
-<div class="ystep" style="height: 100px;margin-top: 40px;"></div>
+<div class="ystep" style="height: 100px;margin-top: 40px;margin-left: 40px;"></div>
 <blockquote class="layui-elem-quote layui-quote-nm">
     <input type="hidden" name="task.id" value="${(entity.id)!}">
     <div class="layui-form-item">
