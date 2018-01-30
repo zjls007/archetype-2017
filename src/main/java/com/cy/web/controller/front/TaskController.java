@@ -47,7 +47,7 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
     }
 
     @Override
-    protected Object getModel(Long id, ModelMap modelMap) {
+    public Object getModel(Long id, ModelMap modelMap) {
         TaskResultDTO taskResultDTO = taskService.get(id);
         TaskDetailVO vo = new TaskDetailVO();
         BeanUtils.copyProperties(taskResultDTO.getTask(), vo);

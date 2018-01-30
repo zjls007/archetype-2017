@@ -60,7 +60,7 @@ public class UserInfoController extends LayerTableAdaptController<UserInfo, User
     }
 
     @Override
-    protected Object getModel(Long id, ModelMap modelMap) {
+    public Object getModel(Long id, ModelMap modelMap) {
         return userInfoDAO.getById(id);
     }
 

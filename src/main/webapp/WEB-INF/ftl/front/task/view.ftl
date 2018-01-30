@@ -18,7 +18,7 @@
 
     <div class="layui-form-item">
         <label class="layui-form-label">难度：</label>
-        <div class="layui-form-mid layui-word-aux">${(entity.type)!}</div>
+        <div class="layui-form-mid layui-word-aux">${(entity.difficult)!}</div>
         <div class="layui-form-mid layui-word-aux"></div>
         <label class="layui-form-label">截止日期：</label>
         <div class="layui-form-mid layui-word-aux">${(entity.dueDate?string("yyyy-MM-dd"))!}</div>

@@ -7,6 +7,7 @@ import com.cy.web.controller.admin.base.DataGridAdaptController;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.shiro.subject.Subject;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,7 +65,7 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
         modelMap.addAttribute("selectMap", SelectUtil.selectMap);
         modelMap.addAttribute("modelNameCN", getModelNameCN());
         if (id != null) {
-            modelMap.addAttribute("entity", getModel(id, modelMap));
+            modelMap.addAttribute("entity", ((LayerTableAdaptController)AopContext.currentProxy()).getModel(id, modelMap));
         }
         return genPath("view");
     }

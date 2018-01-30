@@ -1,4 +1,4 @@
-package com.cy.common.proxy;
+package com.cy.common.aspect;
 
 import com.cy.common.annotation.ParamValid;
 import com.cy.common.exception.ParamException;
@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 @Component
 @Aspect
 @Order(1) // 这里的order要比 dao.xml中transactionManager的order要大
-public class ParamValidProxy {
+public class ParamValidAspect {
 
     @Pointcut("execution(* com.cy.service.*.*(..))")
     public void pointcut() {
