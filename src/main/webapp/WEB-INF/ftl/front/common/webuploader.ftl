@@ -44,6 +44,20 @@
     </li>
     </ul>
 </#macro>
+<#macro htmlView imgList size=1 name='' marginLeft='110' p1='' p2=''>
+<#if imgList??>
+    <ul>
+        <li style="overflow: hidden;margin: 20px 0;">
+        <#list imgList as item>
+            <div class="uploadImg" style="<#if item_index != 0>margin-left: 40px;<#else>margin-left: ${marginLeft!}px;</#if>">
+                <img class="add" src="img/${(item.id)!}/1">
+                <input type="hidden" class="imgMD5" name="${nameVal!}" value="${(item.id)!}"/>
+            </div>
+        </#list>
+    </li>
+    </ul>
+</#if>
+</#macro>
 <#function getAttachment attachmentList>
     <#local md5=''/>
     <#if attachmentList??>
@@ -81,6 +95,21 @@
             </div>
         </li>
     </ul>
+</#macro>
+<#macro htmlFileView attachmentList>
+<ul>
+    <li style="overflow: hidden;margin: 20px 0;">
+        <div id="fileShow" style="width: 400px;float: left;margin: 5px 20px;overflow: auto;height: 140px;">
+            <#if attachmentList??>
+                <#list attachmentList as item>
+                    <div style="padding: 5px 0px;" id="fileTemplete">
+                        <a href="javascript:void(0)" onclick="downloadFile(this)" fileMD5="${item.id}">${item.fileName}</a>
+                    </div>
+                </#list>
+            </#if>
+        </div>
+    </li>
+</ul>
 </#macro>
 <script>
 <#macro init>

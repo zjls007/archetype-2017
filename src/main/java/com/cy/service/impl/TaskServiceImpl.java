@@ -104,9 +104,9 @@ public class TaskServiceImpl implements TaskService {
         doAttachment(imgList, taskId, currentUserId, AttachmentRefFileType.IMG.getCode());
     }
 
-    private void doStateChange(Long taskId, Long curUserId) {
+    private void doStateChange(Long taskId, Long curUserId, String state) {
         TaskStateChange bean = new TaskStateChange();
-        bean.setState(TaskState.PUBLISH.getCode());
+        bean.setState(state);
         bean.setTaskId(taskId);
         bean.setOperateUserId(curUserId);
         taskStateChangeDAO.insert(bean);
@@ -140,7 +140,10 @@ public class TaskServiceImpl implements TaskService {
             task.setCreateUserName(currentUser.getUserName());
             taskDAO.insert(task);
             id = task.getId();
-            doStateChange(id, currentUser.getId());
+            doStateChange(id, currentUser.getId(), TaskState.PUBLISH.getCode());
+            if (TaskType.ASSIGN.getCode().equals(task.getType())) {
+                doStateChange(id, currentUser.getId(), TaskState.TAKE.getCode());
+            }
         } else {
             Task db = taskDAO.getById(id);
             if (!TaskState.PUBLISH.getCode().equals(db.getState())) {

@@ -1,4 +1,9 @@
+<@override name="link">
+<link href="${basePath}/statics/ui/ystep/css/ystep.css" rel="stylesheet" />
+</@override>
+<@override name="cite">查看</@override>
 <@override name="baseEditBody">
+<div class="ystep" style="height: 100px;margin-top: 40px;"></div>
 <blockquote class="layui-elem-quote layui-quote-nm">
     <input type="hidden" name="task.id" value="${(entity.id)!}">
     <div class="layui-form-item">
@@ -29,10 +34,52 @@
         <div class="layui-form-mid layui-word-aux">${(entity.content)!}</div>
     </div>
 </blockquote>
+<div class="layui-tab layui-tab-brief">
+    <ul class="layui-tab-title">
+        <li class="layui-this">附件</li>
+        <li>图片</li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <@webuploader.htmlFileView attachmentList=(entity.attachmentList)!/>
+        </div>
+        <div class="layui-tab-item ">
+            <@webuploader.htmlView imgList=(entity.imgList)! size=6 name="imgList" marginLeft="120"/>
+        </div>
+    </div>
+</div>
+</@override>
+<@override name="bottomBtn">
 </@override>
 <@override name="script">
+<script src="${basePath}/statics/ui/ystep/js/ystep.js"></script>
 <script>
+    function downloadFile(e) {
+        var fileMd5 = $(e).attr('fileMD5');
+        window.open("file/"+fileMd5);
+    }
     $(document).ready(function() {
+        $(".ystep").loadStep({
+            size: "large",
+            color: "green",
+            steps: [{
+                title: "发布",
+                content: ""
+            },{
+                title: "认领",
+                content: ""
+            },{
+                title: "开始",
+                content: ""
+            },{
+                title: "挂起",
+                content: ""
+            },{
+                title: "完成",
+                content: ""
+            }]
+        });
+        $(".ystep").setStep(3);
     });
 
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
