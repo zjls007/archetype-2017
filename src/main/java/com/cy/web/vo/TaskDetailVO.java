@@ -18,6 +18,11 @@ public class TaskDetailVO extends Task {
 
     private List<Attachment> attachmentList;
 
+    /**
+     * 查看页面是否显示开始按钮
+     */
+    private boolean showBeginBtn;
+
     public List<ImgResultVO> getImgList() {
         return imgList;
     }
@@ -40,5 +45,13 @@ public class TaskDetailVO extends Task {
 
     public void setAttachmentList(List<Attachment> attachmentList) {
         this.attachmentList = attachmentList;
+    }
+
+    public boolean isShowBeginBtn() {
+        return showBeginBtn;
+    }
+
+    public void setShowBeginBtn(boolean showBeginBtn) {
+        this.showBeginBtn = showBeginBtn;
     }
 }

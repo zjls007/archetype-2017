@@ -3,7 +3,9 @@
 </@override>
 <@override name="cite">查看</@override>
 <@override name="baseEditBody">
+<#if (entity.createUserId)! == userId>
 <div class="ystep" style="height: 100px;margin-top: 40px;margin-left: 40px;"></div>
+</#if>
 <blockquote class="layui-elem-quote layui-quote-nm">
     <input type="hidden" name="task.id" value="${(entity.id)!}">
     <div class="layui-form-item">
@@ -18,7 +20,7 @@
 
     <div class="layui-form-item">
         <label class="layui-form-label">人员</label>
-        <div class="layui-form-mid layui-word-aux">${(entity.type)!}</div>
+        <div class="layui-form-mid layui-word-aux"><@select2.showUserName list=(entity.userList)! /></div>
     </div>
 
     <div class="layui-form-item">
@@ -50,6 +52,9 @@
 </div>
 </@override>
 <@override name="bottomBtn">
+<#if (entity.showBeginBtn)!>
+<button class="layui-btn layui-btn-primary layui-btn-sm add" id="submit"><i class="layui-icon">&#xe623;</i>开始</button>
+</#if>
 </@override>
 <@override name="script">
 <script src="${basePath}/statics/ui/ystep/js/ystep.js"></script>

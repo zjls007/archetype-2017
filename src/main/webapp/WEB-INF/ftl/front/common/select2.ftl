@@ -1,4 +1,12 @@
 <script>
+<#macro showUserName list>
+    <#if list??>
+        <#list list as item>
+        ${item.text}<#if item_has_next> ,</#if>
+        </#list>
+    </#if>
+</#macro>
+
 <#macro setVal list id>
     <#if (!id??) || (!list??) || list?size == 0>
         <#return>

@@ -26,9 +26,8 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
 
     @Override
     protected void doList(ModelMap modelMap) {
-        modelMap.addAttribute("selectMap", SelectUtil.selectMap);
+        globalAttribute(modelMap);
         modelMap.addAttribute("editUrl", genPath("edit"));
-        modelMap.addAttribute("modelNameCN", getModelNameCN());
         modelMap.addAttribute("navigation", Navigation.convert(entityClassName).getCode());
     }
 
@@ -54,9 +53,8 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
 
     @RequestMapping({"edit/{navigation}/{id}", "edit"})
     public String edit(@PathVariable String navigation,@PathVariable(required=false) Long id, ModelMap modelMap) {
+        globalAttribute(modelMap);
         modelMap.addAttribute("navigation", Navigation.convert(navigation).getName());
-        modelMap.addAttribute("selectMap", SelectUtil.selectMap);
-        modelMap.addAttribute("modelNameCN", getModelNameCN());
         if (id != null) {
             modelMap.addAttribute("entity", getModel(id, modelMap));
         }
@@ -65,13 +63,18 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
 
     @RequestMapping("view/{navigation}/{id}")
     public String view(@PathVariable String navigation,@PathVariable(required=false) Long id, ModelMap modelMap) {
+        globalAttribute(modelMap);
         modelMap.addAttribute("navigation", Navigation.convert(navigation).getName());
-        modelMap.addAttribute("selectMap", SelectUtil.selectMap);
-        modelMap.addAttribute("modelNameCN", getModelNameCN());
         if (id != null) {
             modelMap.addAttribute("entity", ((LayerTableAdaptController)AopContext.currentProxy()).getModel(id, modelMap));
         }
         return genPath("view");
+    }
+
+    protected void globalAttribute(ModelMap modelMap) {
+        modelMap.addAttribute("userId", getCurrentUserId());
+        modelMap.addAttribute("selectMap", SelectUtil.selectMap);
+        modelMap.addAttribute("modelNameCN", getModelNameCN());
     }
 
     protected abstract Object getModel(Long id, ModelMap modelMap);

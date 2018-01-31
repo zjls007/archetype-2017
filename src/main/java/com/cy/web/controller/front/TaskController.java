@@ -8,6 +8,8 @@ import com.cy.entity.Attachment;
 import com.cy.entity.Task;
 import com.cy.entity.TaskUser;
 import com.cy.entity.system.UserInfo;
+import com.cy.entity.system.enums.TaskState;
+import com.cy.entity.system.enums.TaskType;
 import com.cy.service.TaskService;
 import com.cy.web.controller.front.base.LayerTableAdaptController;
 import com.cy.web.dto.param.system.TaskQueryDTO;
@@ -76,7 +78,28 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
             userList.add(select2ItemVO);
         }
         vo.setAttachmentList(taskResultDTO.getAttachmentList());
+        vo.setShowBeginBtn(beginBtn(taskResultDTO));
         return vo;
+    }
+
+    private boolean beginBtn(TaskResultDTO dto) {
+        Task task = dto.getTask();
+        List<TaskUser> taskUserList = dto.getTaskUserList();
+        if (TaskType.ASSIGN.getCode().equals(task.getType())
+                && TaskState.TAKE.getCode().equals(task.getState())
+                && con(taskUserList)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean con(List<TaskUser> taskUserList) {
+        for (TaskUser item : taskUserList) {
+            if (item.getUserId().longValue() == getCurrentUserId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
