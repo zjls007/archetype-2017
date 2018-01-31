@@ -130,6 +130,7 @@ INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `cr
 
 INSERT INTO `t_role_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (1, '系统管理员', 'sys_admin', 1, '2017-9-21 11:31:08', '2017-9-21 11:31:08');
 INSERT INTO `t_role_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (2, '开发人员', 'developer', 1, '2017-9-21 11:31:08', '2017-9-21 11:31:08');
+INSERT INTO `t_role_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (3, '任务管理角色', 'task', 1, '2017-9-21 11:31:08', '2017-9-21 11:31:08');
 
 INSERT INTO `t_user_role_ref` (`id`, `user_id`, `role_id`) VALUES (1, 1, 1);
 
@@ -139,11 +140,17 @@ INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, 
 INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (4, '权限管理', 'permissionInfo', 1, '2017-10-19 10:09:28', '2017-10-19 10:09:28');
 INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (5, '用户组管理', 'userGroupInfo', 1, '2017-10-19 10:09:40', '2017-10-19 10:09:40');
 INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (6, '权限操作', 'operationInfo', 1, '2017-10-19 10:09:53', '2017-10-19 10:09:53');
+INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (7, '任务管理', 'task', 1, '2017-10-19 10:09:53', '2017-10-19 10:09:53');
 
 INSERT INTO `t_operation_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (1, '查询数据', 'query', 1, '2017-10-18 14:08:23', '2017-10-18 14:08:23');
 INSERT INTO `t_operation_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (2, '添加数据', 'add', 1, '2017-10-18 14:08:30', '2017-10-18 14:08:30');
 INSERT INTO `t_operation_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (3, '修改数据', 'modify', 1, '2017-10-18 14:08:40', '2017-10-18 14:08:40');
 INSERT INTO `t_operation_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (4, '删除数据', 'delete', 1, '2017-10-18 14:08:53', '2017-10-18 14:08:53');
+
+INSERT INTO `t_role_permission_ref` (`id`, `role_id`, `permission_id`, `permission_code`, `permission_name`, `operation_info_id`, `operation_info_code`, `operation_info_name`, `type`, `create_time`, `lst_upd_time`) VALUES (1, 3, 0, NULL, NULL, NULL, NULL, NULL, 'menu', '2018-1-31 16:21:23', '2018-1-31 16:21:23');
+INSERT INTO `t_role_permission_ref` (`id`, `role_id`, `permission_id`, `permission_code`, `permission_name`, `operation_info_id`, `operation_info_code`, `operation_info_name`, `type`, `create_time`, `lst_upd_time`) VALUES (2, 3, 12, NULL, NULL, NULL, NULL, NULL, 'menu', '2018-1-31 16:21:23', '2018-1-31 16:21:23');
+INSERT INTO `t_role_permission_ref` (`id`, `role_id`, `permission_id`, `permission_code`, `permission_name`, `operation_info_id`, `operation_info_code`, `operation_info_name`, `type`, `create_time`, `lst_upd_time`) VALUES (3, 3, 13, NULL, NULL, NULL, NULL, NULL, 'menu', '2018-1-31 16:21:23', '2018-1-31 16:21:23');
+INSERT INTO `t_role_permission_ref` (`id`, `role_id`, `permission_id`, `permission_code`, `permission_name`, `operation_info_id`, `operation_info_code`, `operation_info_name`, `type`, `create_time`, `lst_upd_time`) VALUES (4, 3, 6, 'operationInfo', '权限操作', NULL, NULL, NULL, 'page', '2018-1-31 16:21:32', '2018-1-31 16:21:33');
 
 CREATE TABLE `task` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
