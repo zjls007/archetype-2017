@@ -1,6 +1,7 @@
 package com.cy.web.controller.front;
 
 import com.cy.common.Response;
+import com.cy.common.constant.ResponseStatus;
 import com.cy.dao.TaskDAO;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.Attachment;
@@ -15,15 +16,21 @@ import com.cy.web.dto.result.TaskResultDTO;
 import com.cy.web.vo.ImgResultVO;
 import com.cy.web.vo.Select2ItemVO;
 import com.cy.web.vo.TaskDetailVO;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zxj on 2018/1/4.
@@ -93,6 +100,26 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
         saveOrUpdatePerm(dto.getTask().getId());
         taskService.saveOrUpdate(dto, getCurrentUser());
         return new Response();
+    }
+
+    /**
+     * 首页-待处理任务列表
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("pending")
+    @ResponseBody
+    public Object pending(@RequestParam("page") Integer pageNum, @RequestParam("limit")Integer pageSize) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        PageHelper.startPage(pageNum, pageSize);
+        List list = taskDAO.getPendingTask(getCurrentUserId());
+        map.put("code", 0);
+        map.put("msg", "");
+        map.put("count", ((Page) list).getTotal());
+        map.put("data", list);
+        doDataOther(map);
+        return map;
     }
 
 }

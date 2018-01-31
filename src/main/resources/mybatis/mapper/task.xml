@@ -222,5 +222,14 @@
         WHERE create_user_id = #{createUserId}
     </select>
 
+    <select id="getPendingTask" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Alias_Column_List"/>
+        FROM task t, task_user tu
+        WHERE t.id = tu.task_id AND tu.user_id = #{pendingTaskUserId}
+        AND t.state = 'take'
+        ORDER BY t.create_time DESC
+    </select>
+
 </mapper>
 

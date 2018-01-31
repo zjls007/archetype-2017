@@ -36,4 +36,7 @@ public interface TaskDAO {
 
     List<Task> listByCreateUserId(Long createUserId);
 
+    /** 获取首页-待处理任务 */
+    List<Task> getPendingTask(Long pendingTaskUserId);
+
 }

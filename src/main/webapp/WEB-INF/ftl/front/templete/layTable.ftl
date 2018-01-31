@@ -140,11 +140,11 @@
             var data = obj.data //获得当前行数据
                     ,layEvent = obj.event; //获得 lay-event 对应的值
             if(layEvent === 'detail'){
-                parent.newTab('${modelNameCN!}查看', '${modelName!}/view/' + data.id);
+                parent.newTab('${modelNameCN!}查看', '${modelName!}/view/${navigation!}/' + data.id);
             } else if(layEvent === 'del'){
                 delFn([data.id]);
             } else if(layEvent === 'edit'){
-                parent.newTab('${modelNameCN!}编辑', '${modelName!}/edit/' + data.id);
+                parent.newTab('${modelNameCN!}编辑', '${modelName!}/edit/${navigation!}/' + data.id);
             }
         });
         <@block name="otherScript">

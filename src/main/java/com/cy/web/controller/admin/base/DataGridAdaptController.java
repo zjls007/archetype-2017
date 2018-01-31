@@ -25,7 +25,7 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
 
     private Class<T> entityClass;
 
-    private String entityClassName;
+    protected String entityClassName;
 
     protected DataGridAdaptController() {
         Type type = getClass().getGenericSuperclass();

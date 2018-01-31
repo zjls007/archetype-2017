@@ -2,6 +2,7 @@ package com.cy.web.controller.front.base;
 
 import com.cy.common.Response;
 import com.cy.common.constant.ResponseStatus;
+import com.cy.common.emun.Navigation;
 import com.cy.common.util.SelectUtil;
 import com.cy.web.controller.admin.base.DataGridAdaptController;
 import com.github.pagehelper.Page;
@@ -28,6 +29,7 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
         modelMap.addAttribute("selectMap", SelectUtil.selectMap);
         modelMap.addAttribute("editUrl", genPath("edit"));
         modelMap.addAttribute("modelNameCN", getModelNameCN());
+        modelMap.addAttribute("navigation", Navigation.convert(entityClassName).getCode());
     }
 
     public abstract String getModelNameCN();
@@ -50,8 +52,9 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
         return map;
     }
 
-    @RequestMapping({"edit/{id}", "edit"})
-    public String edit(@PathVariable(required=false) Long id, ModelMap modelMap) {
+    @RequestMapping({"edit/{navigation}/{id}", "edit"})
+    public String edit(@PathVariable String navigation,@PathVariable(required=false) Long id, ModelMap modelMap) {
+        modelMap.addAttribute("navigation", Navigation.convert(navigation).getName());
         modelMap.addAttribute("selectMap", SelectUtil.selectMap);
         modelMap.addAttribute("modelNameCN", getModelNameCN());
         if (id != null) {
@@ -60,8 +63,9 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
         return genPath("edit");
     }
 
-    @RequestMapping("view/{id}")
-    public String view(@PathVariable(required=false) Long id, ModelMap modelMap) {
+    @RequestMapping("view/{navigation}/{id}")
+    public String view(@PathVariable String navigation,@PathVariable(required=false) Long id, ModelMap modelMap) {
+        modelMap.addAttribute("navigation", Navigation.convert(navigation).getName());
         modelMap.addAttribute("selectMap", SelectUtil.selectMap);
         modelMap.addAttribute("modelNameCN", getModelNameCN());
         if (id != null) {

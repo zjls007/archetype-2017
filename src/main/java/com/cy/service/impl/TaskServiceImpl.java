@@ -136,6 +136,9 @@ public class TaskServiceImpl implements TaskService {
         if (id == null) {
             task.setTaskNum("T"+System.currentTimeMillis());
             task.setState(TaskState.PUBLISH.getCode());
+            if (TaskType.ASSIGN.getCode().equals(task.getType())) {
+                task.setState(TaskState.TAKE.getCode());
+            }
             task.setCreateUserId(currentUser.getId());
             task.setCreateUserName(currentUser.getUserName());
             taskDAO.insert(task);

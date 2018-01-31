@@ -5,7 +5,7 @@
 
 <div style="position: fixed;top: 0px;left: 0px;z-index: 9999;background-color: #fff;height: 40px;border-bottom: 1px solid #e6e6e6;width: 100%">
     <span class="layui-breadcrumb" lay-separator="/" style="margin-left: 40px;margin-top: 8px;display: block">
-      <a href="javascript:void(0)" onclick="javascript:parent.activateTab('${modelNameCN!}列表');">${modelNameCN!}列表</a>
+      <a href="javascript:void(0)" onclick="javascript:parent.activateTab('${navigation!}');">${navigation!}</a>
       <a><cite><@block name="cite"></@block></cite></a>
     </span>
 </div>
