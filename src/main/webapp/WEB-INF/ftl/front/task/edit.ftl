@@ -1,70 +1,67 @@
 <@override name="cite">编辑</@override>
 <@override name="baseEditBody">
-<form class="layui-form" method="post" action="task/saveOrUpdate">
-    <button class="layui-btn layui-btn-primary layui-btn-sm add" style="display: none" lay-submit="" lay-filter="submit" id="submit1"><i class="layui-icon">&#xe610;</i>提交</button>
-    <blockquote class="layui-elem-quote layui-quote-nm">
-        <input type="hidden" name="task.id" value="${(entity.id)!}">
-        <div class="layui-form-item">
-            <label class="layui-form-label">任务标题</label>
-            <div class="layui-input-inline">
-                <input type="text" name="task.title" value="${(entity.title)!}" lay-verify="required" autocomplete="off" placeholder="请输入任务标题" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux"><font color="red">*</font>必填</div>
+<blockquote class="layui-elem-quote layui-quote-nm">
+    <input type="hidden" name="task.id" value="${(entity.id)!}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">任务标题</label>
+        <div class="layui-input-inline">
+            <input type="text" name="task.title" value="${(entity.title)!}" lay-verify="required" autocomplete="off" placeholder="请输入任务标题" class="layui-input">
         </div>
+        <div class="layui-form-mid layui-word-aux"><font color="red">*</font>必填</div>
+    </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">任务类型</label>
-            <div class="layui-input-block">
-                <input lay-filter="taskType" type="radio" name="task.type" value="assign" title="指派" <#if !entity??>checked</#if> ${((entity.type=='assign')?string('checked', ''))!}>
-                <input lay-filter="taskType" type="radio" name="task.type" value="take" title="认领" ${((entity.type=='take')?string('checked', ''))!}>
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">人员</label>
-            <div class="layui-input-block">
-                <select type="hidden" class="select2" id="userIdList" lay-ignore></select>
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">难度：</label>
-            <div class="layui-input-inline">
-                <select name="task.difficult">
-                    <@util.select optionList=selectMap['task.difficult'] value=(entity.difficult)!/>
-                </select>
-            </div>
-            <div class="layui-form-mid layui-word-aux"></div>
-            <label class="layui-form-label">截止日期：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="task.dueDate" value="${(entity.dueDate?string("yyyy-MM-dd"))!}" id="dueDate" placeholder="截止日期" autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux"></div>
-        </div>
-
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">任务描述</label>
-            <div class="layui-input-block">
-                <textarea class="layui-textarea layui-hide" name="task.content" lay-verify="content" id="editor">${(entity.content)!}</textarea>
-            </div>
-        </div>
-    </blockquote>
-
-    <div class="layui-tab layui-tab-brief">
-        <ul class="layui-tab-title">
-            <li class="layui-this">附件<#if util.listIsEmpty((entity.attachmentList)!)==0><span class="layui-badge-dot"></span></#if></li>
-            <li>图片<#if util.listIsEmpty((entity.imgList)!)==0><span class="layui-badge-dot"></span></#if></li>
-        </ul>
-        <div class="layui-tab-content">
-            <div class="layui-tab-item layui-show">
-                <@webuploader.htmlFile attachmentList=(entity.attachmentList)!/>
-            </div>
-            <div class="layui-tab-item ">
-                <@webuploader.html imgList=(entity.imgList)! size=6 name="imgList" marginLeft="120"/>
-            </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">任务类型</label>
+        <div class="layui-input-block">
+            <input lay-filter="taskType" type="radio" name="task.type" value="assign" title="指派" <#if !entity??>checked</#if> ${((entity.type=='assign')?string('checked', ''))!}>
+            <input lay-filter="taskType" type="radio" name="task.type" value="take" title="认领" ${((entity.type=='take')?string('checked', ''))!}>
         </div>
     </div>
-</form>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">人员</label>
+        <div class="layui-input-block">
+            <select type="hidden" class="select2" id="userIdList" lay-ignore></select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">难度：</label>
+        <div class="layui-input-inline">
+            <select name="task.difficult">
+                <@util.select optionList=selectMap['task.difficult'] value=(entity.difficult)!/>
+            </select>
+        </div>
+        <div class="layui-form-mid layui-word-aux"></div>
+        <label class="layui-form-label">截止日期：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="task.dueDate" value="${(entity.dueDate?string("yyyy-MM-dd"))!}" id="dueDate" placeholder="截止日期" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux"></div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">任务描述</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea layui-hide" name="task.content" lay-verify="content" id="editor">${(entity.content)!}</textarea>
+        </div>
+    </div>
+</blockquote>
+
+<div class="layui-tab layui-tab-brief">
+    <ul class="layui-tab-title">
+        <li class="layui-this">附件<#if util.listIsEmpty((entity.attachmentList)!)==0><span class="layui-badge-dot"></span></#if></li>
+        <li>图片<#if util.listIsEmpty((entity.imgList)!)==0><span class="layui-badge-dot"></span></#if></li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <@webuploader.htmlFile attachmentList=(entity.attachmentList)!/>
+        </div>
+        <div class="layui-tab-item ">
+            <@webuploader.html imgList=(entity.imgList)! size=6 name="imgList" marginLeft="120"/>
+        </div>
+    </div>
+</div>
 </@override>
 <@override name="script">
 <script>
