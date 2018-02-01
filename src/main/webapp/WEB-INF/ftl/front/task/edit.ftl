@@ -20,9 +20,10 @@
 
     <div class="layui-form-item">
         <label class="layui-form-label">人员</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <select type="hidden" class="select2" id="userIdList" lay-ignore></select>
         </div>
+        <div class="layui-form-mid layui-word-aux" style="margin-left: 214px;"><font color="red">*</font>必填</div>
     </div>
 
     <div class="layui-form-item">
