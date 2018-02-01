@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,8 +33,16 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver, Ordere
                                          HttpServletResponse httpServletResponse,
                                          Object handler, Exception e) {
         LOG.error("出现异常:", e);
+        Response response = null;
+        if (e instanceof MaxUploadSizeExceededException) {
+            response = new Response(ResponseStatus.EXCEPTION, "文件太大!");
+            ModelAndView mav = new ModelAndView();
+            mav.setViewName("exception");
+            mav.addObject("code", response.getCode());
+            mav.addObject("message", response.getMessage());
+            return mav;
+        }
         if (handler != null) {
-            Response response = null;
             if (e instanceof ParamException) {
                 response = ((ParamException) e).getResponse();
             } else if (e instanceof ValidException) {
