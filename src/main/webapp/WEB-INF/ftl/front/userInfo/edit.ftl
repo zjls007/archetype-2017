@@ -98,7 +98,17 @@
                         layer.msg("保存成功!");
                         parent.closeActive('用户管理', true);
                     } else {
-                        layer.msg(data.message, {time:0});
+                        if (data.code == 'param_error') {
+                            var d = JSON.parse(data.message);
+                            var input = $('input[name="' + d.field + '"]');
+                            if (input) {
+                                input.addClass("layui-form-danger");
+                                input.focus();
+                            }
+                            layer.msg(d.msg, {icon: 5, shift: 6});
+                        } else {
+                            layer.msg(data.message, {time:3000});
+                        }
                     }
                 }
             });

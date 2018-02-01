@@ -4,6 +4,9 @@
     .layui-form-mid {
         width: 240px;
     }
+    .layui-layedit-focus {
+        border-color: #FF5722!important;
+    }
 </style>
 <div class="box-refresh">
     <a href="javascript:location.replace(location.href);" title="刷新"><i class="fa"></i></a>
