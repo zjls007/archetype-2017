@@ -63,6 +63,24 @@
         var fileMd5 = $(e).attr('fileMD5');
         window.open("file/"+fileMd5);
     }
+
+    function photos(index) {
+        $.ajax({
+            async: true,
+            type: 'POST',
+            url: 'task/photos',
+            data: {taskId: "${(entity.id)!}", index: index},
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 'success') {
+                    layer.photos(data.data);
+                } else {
+                    layer.msg(data.message, {time:3000});
+                }
+            }
+        });
+    }
+
     $(document).ready(function() {
         $(".ystep").loadStep({
             size: "large",

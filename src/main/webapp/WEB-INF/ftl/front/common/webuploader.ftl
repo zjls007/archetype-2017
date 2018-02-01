@@ -50,7 +50,7 @@
         <li style="overflow: hidden;margin: 20px 0;">
         <#list imgList as item>
             <div class="uploadImg" style="<#if item_index != 0>margin-left: 40px;<#else>margin-left: ${marginLeft!}px;</#if>">
-                <img class="add" src="img/${(item.id)!}/1">
+                <img class="add" src="img/${(item.id)!}/1" onclick="photos(${item_index})">
                 <input type="hidden" class="imgMD5" name="${nameVal!}" value="${(item.id)!}"/>
             </div>
         </#list>

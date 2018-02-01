@@ -1,13 +1,17 @@
 package com.cy.web.controller.front;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.cy.common.Response;
 import com.cy.common.util.UserNameUtil;
+import com.cy.dao.AttachmentDAO;
 import com.cy.dao.TaskDAO;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.Attachment;
 import com.cy.entity.Task;
 import com.cy.entity.TaskUser;
 import com.cy.entity.system.UserInfo;
+import com.cy.entity.system.enums.AttachmentRefFileType;
 import com.cy.entity.system.enums.TaskState;
 import com.cy.entity.system.enums.TaskType;
 import com.cy.service.TaskService;
@@ -48,6 +52,9 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private AttachmentDAO attachmentDAO;
 
     @Override
     public String getModelNameCN() {
@@ -142,6 +149,33 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
         map.put("data", list);
         doDataOther(map);
         return map;
+    }
+
+    @RequestMapping("photos")
+    @ResponseBody
+    public Response photos(Long taskId, Integer index) {
+        JSONObject setting = new JSONObject();
+        // 动画效果: 参数 0-6
+        setting.put("anim", 5);
+        JSONObject photos = new JSONObject();
+        setting.put("photos", photos);
+
+        photos.put("title", "");
+        photos.put("id", "1");
+        photos.put("start", index);
+
+        JSONArray datas = new JSONArray();
+        List<Attachment> attachments = attachmentDAO.listByTask(taskId, AttachmentRefFileType.IMG.getCode());
+        for (Attachment item : attachments) {
+            JSONObject data = new JSONObject();
+            data.put("alt", "");
+            data.put("pid", item.getId());
+            data.put("src", String.format("img/%s/0", item.getId()));
+            data.put("thumb", String.format("img/%s/1", item.getId()));
+            datas.add(data);
+        }
+        photos.put("data", datas);
+        return new Response(setting);
     }
 
 }
