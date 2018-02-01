@@ -1,14 +1,8 @@
-<@override name="body">
-<div class="layui-tab layui-tab-brief" lay-filter="reFulsh">
-    <ul class="layui-tab-title">
-        <li class="layui-this">${modelNameCN!}信息</li>
-        <li class=""><i class="layui-icon">&#x1002;</i>刷新</li>
-    </ul>
-    <div class="layui-tab-content">
-    </div>
-</div>
+<@override name="cite">编辑</@override>
+<@override name="baseEditBody">
 <blockquote class="layui-elem-quote layui-quote-nm">
     <form class="layui-form" method="post" action="userInfo/saveOrUpdate">
+        <button class="layui-btn layui-btn-primary layui-btn-sm add" style="display: none" lay-submit="" lay-filter="submit" id="submit1"><i class="layui-icon">&#xe610;</i>提交</button>
         <input type="hidden" name="id" value="${(entity.id)!}">
         <div class="layui-form-item">
             <label class="layui-form-label">用户名：</label>
@@ -61,18 +55,18 @@
             </div>
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
-
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn layui-btn-primary layui-btn-sm add" lay-submit="" lay-filter="submit"><i class="layui-icon">&#xe610;</i>提交</button>
-                <button class="layui-btn layui-btn-primary layui-btn-sm reset" type="reset"><i class="layui-icon">&#xe633;</i>重置</button>
-            </div>
-        </div>
     </form>
 </blockquote>
 </@override>
 <@override name="script">
 <script>
+    $(document).ready(function() {
+        $('#submit').on({click: function () {
+            $('#submit1').click();
+        }});
+    });
+
+
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
         var laydate = layui.laydate //日期
                 , table = layui.table //  表单
@@ -130,4 +124,4 @@
     });
 </script>
 </@override>
-<@extends name="/base.ftl"/>
+<@extends name="../templete/baseEdit.ftl"/>

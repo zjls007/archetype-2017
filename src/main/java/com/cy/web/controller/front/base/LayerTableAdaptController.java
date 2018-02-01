@@ -51,20 +51,28 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
         return map;
     }
 
-    @RequestMapping({"edit/{navigation}/{id}", "edit"})
-    public String edit(@PathVariable String navigation,@PathVariable(required=false) Long id, ModelMap modelMap) {
+    @RequestMapping({"edit/{navigation}/{id}", "edit", "edit/{id}"})
+    public String edit(@PathVariable(required=false) String navigation,@PathVariable(required=false) Long id, ModelMap modelMap) {
         globalAttribute(modelMap);
-        modelMap.addAttribute("navigation", Navigation.convert(navigation).getName());
+        if (navigation != null) {
+            modelMap.addAttribute("navigation", Navigation.convert(navigation).getName());
+        } else {
+            modelMap.addAttribute("navigation", Navigation.convert(entityClassName).getName());
+        }
         if (id != null) {
             modelMap.addAttribute("entity", getModel(id, modelMap));
         }
         return genPath("edit");
     }
 
-    @RequestMapping("view/{navigation}/{id}")
-    public String view(@PathVariable String navigation,@PathVariable(required=false) Long id, ModelMap modelMap) {
+    @RequestMapping({"view/{navigation}/{id}", "view/{id}"})
+    public String view(@PathVariable(required=false) String navigation,@PathVariable(required=false) Long id, ModelMap modelMap) {
         globalAttribute(modelMap);
-        modelMap.addAttribute("navigation", Navigation.convert(navigation).getName());
+        if (navigation != null) {
+            modelMap.addAttribute("navigation", Navigation.convert(navigation).getName());
+        } else {
+            modelMap.addAttribute("navigation", Navigation.convert(entityClassName).getName());
+        }
         if (id != null) {
             modelMap.addAttribute("entity", ((LayerTableAdaptController)AopContext.currentProxy()).getModel(id, modelMap));
         }

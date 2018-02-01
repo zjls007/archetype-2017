@@ -1,12 +1,5 @@
-<@override name="body">
-<div class="layui-tab layui-tab-brief" lay-filter="reFulsh">
-    <ul class="layui-tab-title">
-        <li class="layui-this">用户信息</li>
-        <li class=""><i class="layui-icon">&#x1002;</i>刷新</li>
-    </ul>
-    <div class="layui-tab-content">
-    </div>
-</div>
+<@override name="cite">修改密码</@override>
+<@override name="baseEditBody">
 <blockquote class="layui-elem-quote layui-quote-nm">
     <form class="layui-form" method="post" action="">
         <div class="layui-form-item">
@@ -42,6 +35,8 @@
     </form>
 </blockquote>
 </@override>
+<@override name="bottomBtn">
+</@override>
 <@override name="script">
 <script>
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
@@ -54,11 +49,6 @@
                 ,element = layui.element; //元素操作
 
         <#include "../templete/jqueryError.ftl"/>
-
-        //监听Tab切换
-        element.on('tab(reFulsh)', function(data){
-            location.reload();
-        });
 
         //监听提交
         form.on('submit(submit)', function(data){
@@ -81,4 +71,4 @@
     });
 </script>
 </@override>
-<@extends name="/base.ftl"/>
+<@extends name="../templete/baseEdit.ftl"/>
