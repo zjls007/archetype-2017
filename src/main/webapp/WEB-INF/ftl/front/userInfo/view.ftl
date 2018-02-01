@@ -33,9 +33,6 @@
 </blockquote>
 </@override>
 <@override name="bottomBtn">
-<#if (entity.showBeginBtn)!>
-<button class="layui-btn layui-btn-primary layui-btn-sm add" id="submit"><i class="layui-icon">&#xe623;</i>开始</button>
-</#if>
 </@override>
 <@override name="script">
 <script>

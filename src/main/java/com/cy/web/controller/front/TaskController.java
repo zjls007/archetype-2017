@@ -1,7 +1,7 @@
 package com.cy.web.controller.front;
 
 import com.cy.common.Response;
-import com.cy.common.constant.ResponseStatus;
+import com.cy.common.util.UserNameUtil;
 import com.cy.dao.TaskDAO;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.Attachment;
@@ -20,7 +20,6 @@ import com.cy.web.vo.Select2ItemVO;
 import com.cy.web.vo.TaskDetailVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -74,7 +73,7 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
             Select2ItemVO select2ItemVO = new Select2ItemVO();
             UserInfo userInfo = userInfoDAO.getById(item.getUserId());
             select2ItemVO.setId(Long.toString(item.getUserId()));
-            select2ItemVO.setText(userInfo.getUserName());
+            select2ItemVO.setText(UserNameUtil.getUserName(userInfo));
             userList.add(select2ItemVO);
         }
         vo.setAttachmentList(taskResultDTO.getAttachmentList());
@@ -114,7 +113,7 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
 
     @Override
     protected void doDelete(List<Long> idList) {
-        taskService.batchDel(idList);
+        taskService.batchDel(idList, getCurrentUserId());
     }
 
     @RequestMapping("saveOrUpdateDTO")

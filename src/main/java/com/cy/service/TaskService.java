@@ -32,6 +32,6 @@ public interface TaskService {
      *
      * @param list
      */
-    void batchDel(List<Long> list);
+    void batchDel(List<Long> list, Long currentUserId);
 
 }

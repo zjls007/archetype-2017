@@ -1,6 +1,7 @@
 package com.cy.web.controller.front;
 
 import com.cy.common.Response;
+import com.cy.common.util.UserNameUtil;
 import com.cy.dao.system.UserInfoDAO;
 import com.cy.entity.system.UserInfo;
 import com.cy.service.UserInfoService;
@@ -97,7 +98,7 @@ public class UserInfoController extends LayerTableAdaptController<UserInfo, User
         for (UserInfo item : list) {
             Map<String, String> map = new HashMap<String, String>();
             map.put("id", Long.toString(item.getId()));
-            map.put("text", item.getUserName());
+            map.put("text", UserNameUtil.getUserName(item));
             result.add(map);
         }
         Map<String, Object> map = new HashMap<String, Object>();

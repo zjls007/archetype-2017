@@ -43,6 +43,8 @@ public class UserInfo implements Serializable {
     private String salt;
 
     /** 登录系统显示的名称,not null */
+    @NotBlank(message="姓名不能为空!")
+    @Length(min = 2, max = 15, message = "用户名长度必须在{min}-{max}位之间!")
     private String fullName;
 
     /** 性别 参考:{@link com.cy.entity.system.enums.UserInfoSex} */

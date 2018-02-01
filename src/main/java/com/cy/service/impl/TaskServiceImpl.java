@@ -75,11 +75,34 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void batchDel(List<Long> list) {
+    public void batchDel(List<Long> list, Long currentUserId) {
+        if (list == null || list.isEmpty()) {
+            return;
+        }
+        // 批量删除时不给提示，单条删除会给出提示
+        boolean tip = list.size() == 1;
         for (Long id : list) {
             Task task = taskDAO.getById(id);
-            if (task == null || !TaskState.PUBLISH.getCode().equals(task.getState())) {
-                continue;
+            if (task == null) {
+                if (tip) {
+                    throw new ValidException("任务不存在,请刷新重试!");
+                } else {
+                    continue;
+                }
+            }
+            if (task.getCreateUserId().longValue() != currentUserId) {
+                if (tip) {
+                    throw new ValidException("无权限删除!");
+                } else {
+                    continue;
+                }
+            }
+            if (!TaskState.PUBLISH.getCode().equals(task.getState()) && !TaskState.TAKE.getCode().equals(task.getState())) {
+                if (tip) {
+                    throw new ValidException("当前状态不允许删除!");
+                } else {
+                    continue;
+                }
             }
             taskDAO.deleteById(id);
             taskUserDAO.deleteByTaskId(id);
