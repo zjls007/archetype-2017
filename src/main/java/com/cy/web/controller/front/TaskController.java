@@ -86,7 +86,7 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
         }
         vo.setAttachmentList(taskResultDTO.getAttachmentList());
         vo.setShowBeginBtn(beginBtn(taskResultDTO));
-        vo.setTaskNoteDTOList(taskService.initNote(taskResultDTO.getTask().getId(), taskResultDTO.getTask().getDueDate()));
+        vo.setTaskNoteDTOList(taskService.initNote(vo.getId(), vo.getDueDate(), vo.getCreateUserId().longValue() == getCurrentUserId()));
         return vo;
     }
 

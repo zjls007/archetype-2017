@@ -16,7 +16,11 @@
                 <i class="layui-icon layui-timeline-axis"></i>
                 <div class="layui-timeline-content layui-text">
                     <h3 class="layui-timeline-title">${(item.date)?string('MM月dd日')}</h3>
-                    <textarea class="layui-textarea layui-hide" name="task.content" lay-verify="content" id="editor"></textarea>
+                    <#if (item.type)! == 'edit'>
+                        <textarea class="layui-textarea layui-hide" name="task.content" lay-verify="content" id="${(item.md5)!}">${(item.remark)!}</textarea>
+                    <#else>
+                         ${(item.remark)!}
+                    </#if>
                 </div>
             </li>
         </#list>
@@ -104,6 +108,16 @@
             location.reload();
         });
 
+        <#if (entity.taskNoteDTOList)??>
+            <#list entity.taskNoteDTOList as item>
+                <#if (item.type)! == 'edit'>
+                    //创建一个编辑器
+                    var edit_${(item.md5)!} = layedit.build('${(item.md5)!}',  {
+                        tool: ['strong','italic','underline','del','|','left', 'center', 'right', '|','link', 'unlink']
+                    });
+                </#if>
+            </#list>
+        </#if>
     });
 </script>
 </@override>

@@ -13,11 +13,16 @@ public class TaskNoteDTO implements Serializable {
     /** 主键,not null */
     private Long id;
 
+    private String md5;
+
     /** 日期,not null */
     private Date date;
 
     /** 备注,not null */
     private String remark;
+
+    /** edit:显示文本框, text:显示文本内容 */
+    private String type;
 
     public Long getId() {
         return id;
@@ -41,5 +46,21 @@ public class TaskNoteDTO implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getMd5() {
+        return md5;
+    }
+
+    public void setMd5(String md5) {
+        this.md5 = md5;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

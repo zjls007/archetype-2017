@@ -3,6 +3,7 @@ package com.cy.service.impl;
 import com.cy.common.exception.ParamException;
 import com.cy.common.exception.ValidException;
 import com.cy.common.util.DateUtil;
+import com.cy.common.util.MD5Util;
 import com.cy.dao.*;
 import com.cy.entity.AttachmentRef;
 import com.cy.entity.Task;
@@ -145,7 +146,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskNoteDTO> initNote(Long taskId, Date dueDate) {
+    public List<TaskNoteDTO> initNote(Long taskId, Date dueDate, boolean isTaskCreater) {
         TaskStateChange taskStateChange = taskStateChangeDAO.getByState(taskId, TaskState.BEGIN.getCode());
         Date startDate = DateUtil.getDate(taskStateChange.getCreateTime());
         dueDate = DateUtil.getDate(dueDate);
@@ -153,7 +154,9 @@ public class TaskServiceImpl implements TaskService {
         List<TaskNoteDTO> list = new ArrayList<TaskNoteDTO>();
         do {
             TaskNoteDTO dto = new TaskNoteDTO();
+            dto.setMd5(MD5Util.MD5(String.format("%s-%s", DateUtil.getYMDStr(startDate), taskId)));
             dto.setDate(startDate);
+            dto.setType(isTaskCreater ? "text" : "edit");
             list.add(dto);
             startDate = DateUtil.addDay(startDate, 1);
         } while (startDate.compareTo(dueDate) == -1);
