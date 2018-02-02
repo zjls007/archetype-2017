@@ -7,6 +7,28 @@
 <div class="ystep" style="height: 100px;margin-top: 40px;margin-left: 40px;"></div>
 </#if>
 <#include "base/baseTaskView.ftl">
+<#if (entity.taskNoteDTOList)??>
+<blockquote class="layui-elem-quote">每日笔记</blockquote>
+<blockquote class="layui-elem-quote layui-quote-nm">
+    <ul class="layui-timeline">
+        <#list entity.taskNoteDTOList as item>
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis"></i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title">${(item.date)?string('MM月dd日')}</h3>
+                    <textarea class="layui-textarea layui-hide" name="task.content" lay-verify="content" id="editor"></textarea>
+                </div>
+            </li>
+        </#list>
+        <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis"></i>
+            <div class="layui-timeline-content layui-text">
+                <div class="layui-timeline-title">完成</div>
+            </div>
+        </li>
+    </ul>
+</blockquote>
+</#if>
 </@override>
 <@override name="bottomBtn">
 <#if (entity.showBeginBtn)!>

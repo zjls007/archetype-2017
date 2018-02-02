@@ -121,21 +121,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void begin(Long taskId, Long currentUserId) {
-        beginCallback(taskId, currentUserId, null);
-    }
-
-    @Override
-    public List<TaskNoteDTO> beginAndNote(Long taskId, Long currentUserId) {
-        return (List<TaskNoteDTO>) beginCallback(taskId, currentUserId, new GlobalCallback() {
-            @Override
-            public Object call(Object param) {
-                Task task = (Task) param;
-                return initNote(task.getId(), task.getDueDate());
-            }
-        });
-    }
-
-    private Object beginCallback(Long taskId, Long currentUserId, GlobalCallback callback) {
         if (taskId == null || currentUserId == null) {
             throw new ParamException("参数不能为空");
         }
@@ -157,12 +142,9 @@ public class TaskServiceImpl implements TaskService {
             throw new ValidException("任务状态不正确!");
         }
         doStateChange(taskId, currentUserId, TaskState.BEGIN.getCode());
-        if (callback != null) {
-            return callback.call(task);
-        }
-        return null;
     }
 
+    @Override
     public List<TaskNoteDTO> initNote(Long taskId, Date dueDate) {
         TaskStateChange taskStateChange = taskStateChangeDAO.getByState(taskId, TaskState.BEGIN.getCode());
         Date startDate = DateUtil.getDate(taskStateChange.getCreateTime());

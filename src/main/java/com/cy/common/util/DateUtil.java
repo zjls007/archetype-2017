@@ -46,7 +46,7 @@ public class DateUtil {
         }
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(d1);
-        calendar.set(Calendar.DAY_OF_YEAR, days);
+        calendar.add(Calendar.DAY_OF_YEAR, days);
         return calendar.getTime();
     }
 

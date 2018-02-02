@@ -6,6 +6,7 @@ import com.cy.web.dto.param.system.TaskSaveDTO;
 import com.cy.web.dto.result.TaskNoteDTO;
 import com.cy.web.dto.result.TaskResultDTO;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,11 +45,11 @@ public interface TaskService {
     void begin(Long taskId, Long currentUserId);
 
     /**
-     * 开始任务并且初始化笔记
+     * 初始化笔记
      *
      * @param taskId
-     * @param currentUserId
+     * @param dueDate
      */
-    List<TaskNoteDTO> beginAndNote(Long taskId, Long currentUserId);
+    List<TaskNoteDTO> initNote(Long taskId, Date dueDate);
 
 }

@@ -2,6 +2,7 @@ package com.cy.web.vo;
 
 import com.cy.entity.Attachment;
 import com.cy.entity.Task;
+import com.cy.web.dto.result.TaskNoteDTO;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public class TaskDetailVO extends Task {
     private List<ImgResultVO> imgList;
 
     private List<Attachment> attachmentList;
+
+    private List<TaskNoteDTO> taskNoteDTOList;
 
     /**
      * 查看页面是否显示开始按钮
@@ -53,5 +56,13 @@ public class TaskDetailVO extends Task {
 
     public void setShowBeginBtn(boolean showBeginBtn) {
         this.showBeginBtn = showBeginBtn;
+    }
+
+    public List<TaskNoteDTO> getTaskNoteDTOList() {
+        return taskNoteDTOList;
+    }
+
+    public void setTaskNoteDTOList(List<TaskNoteDTO> taskNoteDTOList) {
+        this.taskNoteDTOList = taskNoteDTOList;
     }
 }

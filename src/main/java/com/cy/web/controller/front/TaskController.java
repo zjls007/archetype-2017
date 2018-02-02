@@ -86,6 +86,7 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
         }
         vo.setAttachmentList(taskResultDTO.getAttachmentList());
         vo.setShowBeginBtn(beginBtn(taskResultDTO));
+        vo.setTaskNoteDTOList(taskService.initNote(taskResultDTO.getTask().getId(), taskResultDTO.getTask().getDueDate()));
         return vo;
     }
 
@@ -181,9 +182,9 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
 
     @RequestMapping({"begin/{navigation}/{id}"})
     public String operBegin(@PathVariable String navigation, @PathVariable Long id, ModelMap modelMap) {
-        view(navigation, id, modelMap);
         taskService.begin(id, getCurrentUserId());
-        return genPath("begin");
+        view(navigation, id, modelMap);
+        return genPath("view");
     }
 
 }
