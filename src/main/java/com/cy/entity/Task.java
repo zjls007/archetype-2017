@@ -5,6 +5,7 @@ import com.cy.common.util.SelectUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
@@ -33,6 +34,7 @@ public class Task implements Serializable {
 
     /** 截止日期 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @NotNull(message = "截止日期不能为空!")
     private Date dueDate;
 
     /** 任务状态 参考:{@link com.cy.entity.system.enums.TaskDifficult},not null */

@@ -126,6 +126,12 @@
         WHERE id = #{id}
     </update>
 
+    <update id="updateState">
+        UPDATE task
+        SET state = #{newState}
+        WHERE id = #{id} AND state = #{oldState}
+    </update>
+
     <select id="getById" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>

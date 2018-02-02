@@ -1,6 +1,8 @@
 package com.cy.service.impl;
 
+import com.cy.common.exception.ParamException;
 import com.cy.common.exception.ValidException;
+import com.cy.common.util.DateUtil;
 import com.cy.dao.*;
 import com.cy.entity.AttachmentRef;
 import com.cy.entity.Task;
@@ -8,14 +10,17 @@ import com.cy.entity.TaskStateChange;
 import com.cy.entity.TaskUser;
 import com.cy.entity.system.UserInfo;
 import com.cy.entity.system.enums.*;
+import com.cy.service.GlobalCallback;
 import com.cy.service.TaskService;
 import com.cy.web.dto.param.system.TaskSaveDTO;
+import com.cy.web.dto.result.TaskNoteDTO;
 import com.cy.web.dto.result.TaskResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,6 +43,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private AttachmentDAO attachmentDAO;
+
+    @Autowired
+    private TaskNoteDAO taskNoteDAO;
 
     @Override
     public TaskResultDTO get(Long taskId) {
@@ -109,6 +117,65 @@ public class TaskServiceImpl implements TaskService {
             taskStateChangeDAO.deleteByTaskId(id);
             attachmentRefDAO.deleteByTaskId(id);
         }
+    }
+
+    @Override
+    public void begin(Long taskId, Long currentUserId) {
+        beginCallback(taskId, currentUserId, null);
+    }
+
+    @Override
+    public List<TaskNoteDTO> beginAndNote(Long taskId, Long currentUserId) {
+        return (List<TaskNoteDTO>) beginCallback(taskId, currentUserId, new GlobalCallback() {
+            @Override
+            public Object call(Object param) {
+                Task task = (Task) param;
+                return initNote(task.getId(), task.getDueDate());
+            }
+        });
+    }
+
+    private Object beginCallback(Long taskId, Long currentUserId, GlobalCallback callback) {
+        if (taskId == null || currentUserId == null) {
+            throw new ParamException("参数不能为空");
+        }
+        Task task = taskDAO.getById(taskId);
+        if (task == null) {
+            throw new ValidException("任务不存在!");
+        } else if (!TaskState.TAKE.getCode().equals(task.getState())) {
+            throw new ValidException("任务必须为认领状态!");
+        } else if (DateUtil.getDate(new Date()).compareTo(DateUtil.getDate(task.getDueDate())) == 1) {
+            throw new ValidException("任务已经过期，请设置延期时间!");
+        }
+        int result = taskUserDAO.countByUserIdAndTaskId(currentUserId, taskId);
+        if (result == 0) {
+            throw new ValidException("当前用户不是任务的认领人!");
+        }
+        // 更新任务状态为开始
+        result = taskDAO.updateState(taskId, TaskState.BEGIN.getCode(), TaskState.TAKE.getCode());
+        if (result  != 1) {
+            throw new ValidException("任务状态不正确!");
+        }
+        doStateChange(taskId, currentUserId, TaskState.BEGIN.getCode());
+        if (callback != null) {
+            return callback.call(task);
+        }
+        return null;
+    }
+
+    public List<TaskNoteDTO> initNote(Long taskId, Date dueDate) {
+        TaskStateChange taskStateChange = taskStateChangeDAO.getByState(taskId, TaskState.BEGIN.getCode());
+        Date startDate = DateUtil.getDate(taskStateChange.getCreateTime());
+        dueDate = DateUtil.getDate(dueDate);
+        taskNoteDAO.listByTaskId(taskId);
+        List<TaskNoteDTO> list = new ArrayList<TaskNoteDTO>();
+        do {
+            TaskNoteDTO dto = new TaskNoteDTO();
+            dto.setDate(startDate);
+            list.add(dto);
+            startDate = DateUtil.addDay(startDate, 1);
+        } while (startDate.compareTo(dueDate) == -1);
+        return list;
     }
 
     private void doImg(List<String> imgList, Long taskId, Long currentUserId) {

@@ -180,8 +180,9 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
     }
 
     @RequestMapping({"begin/{navigation}/{id}"})
-    public String operBegin(@PathVariable(required=false) String navigation, @PathVariable(required=false) Long id, ModelMap modelMap) {
+    public String operBegin(@PathVariable String navigation, @PathVariable Long id, ModelMap modelMap) {
         view(navigation, id, modelMap);
+        taskService.begin(id, getCurrentUserId());
         return genPath("begin");
     }
 

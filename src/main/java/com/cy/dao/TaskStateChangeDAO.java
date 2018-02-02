@@ -1,6 +1,7 @@
 package com.cy.dao;
 
 import com.cy.entity.TaskStateChange;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 
@@ -33,5 +34,7 @@ public interface TaskStateChangeDAO {
     List<TaskStateChange> list(TaskStateChange entity);
 
     List<TaskStateChange> listByTaskId(Long taskId);
+
+    TaskStateChange getByState(@Param("taskId") Long taskId, @Param("state") String state);
 
 }

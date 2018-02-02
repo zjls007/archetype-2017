@@ -190,6 +190,17 @@ CREATE TABLE `task_state_change` (
   KEY `index_task_id` (`task_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='状态变更记录表';
 
+CREATE TABLE `task_note` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `task_id` bigint(20) NOT NULL COMMENT '任务id',
+  `date` date NOT NULL COMMENT '日期',
+  `remark` text NOT NULL COMMENT '备注',
+  `operate_user_id` bigint(20) NOT NULL COMMENT '操作用户id',
+  `create_time` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_task_id` (`task_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='任务笔记表';
+
 CREATE TABLE `attachment` (
   `id` varchar(50) NOT NULL,
   `file_name` varchar(200) NOT NULL COMMENT '文件名',

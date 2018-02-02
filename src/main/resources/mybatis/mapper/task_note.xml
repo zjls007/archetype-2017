@@ -1,74 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cy.dao.TaskStateChangeDAO">
+<mapper namespace="com.cy.dao.TaskNoteDAO">
 
-    <resultMap id="BaseResultMap" type="com.cy.entity.TaskStateChange">
+    <resultMap id="BaseResultMap" type="com.cy.entity.TaskNote">
         <id column="id" property="id" />
         <result column="task_id" property="taskId" />
-        <result column="state" property="state" />
+        <result column="date" property="date" />
+        <result column="remark" property="remark" />
         <result column="operate_user_id" property="operateUserId" />
         <result column="create_time" property="createTime" />
     </resultMap>
 
-    <resultMap id="BaseResultMapAS" type="com.cy.entity.TaskStateChange">
-        <id column="tsc_id" property="id" />
-        <result column="tsc_task_id" property="taskId" />
-        <result column="tsc_state" property="state" />
-        <result column="tsc_operate_user_id" property="operateUserId" />
-        <result column="tsc_create_time" property="createTime" />
+    <resultMap id="BaseResultMapAS" type="com.cy.entity.TaskNote">
+        <id column="tn_id" property="id" />
+        <result column="tn_task_id" property="taskId" />
+        <result column="tn_date" property="date" />
+        <result column="tn_remark" property="remark" />
+        <result column="tn_operate_user_id" property="operateUserId" />
+        <result column="tn_create_time" property="createTime" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, task_id, state, operate_user_id, create_time
+        id, task_id, date, remark, operate_user_id, create_time
     </sql>
 
     <sql id="Base_Alias_Column_List">
-        tsc.id, tsc.task_id, tsc.state, tsc.operate_user_id, tsc.create_time
+        tn.id, tn.task_id, tn.date, tn.remark, tn.operate_user_id, tn.create_time
     </sql>
 
     <sql id="Base_Alias_Column_List_AS">
-        tsc.id AS tsc_id, tsc.task_id AS tsc_task_id, tsc.state AS tsc_state, tsc.operate_user_id AS tsc_operate_user_id, tsc.create_time AS tsc_create_time
+        tn.id AS tn_id, tn.task_id AS tn_task_id, tn.date AS tn_date, tn.remark AS tn_remark, tn.operate_user_id AS tn_operate_user_id, tn.create_time AS tn_create_time
     </sql>
 
-    <insert id="insert" parameterType="com.cy.entity.TaskStateChange" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO task_state_change
-        (task_id, state, operate_user_id, create_time)
+    <insert id="insert" parameterType="com.cy.entity.TaskNote" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO task_note
+        (task_id, date, remark, operate_user_id, create_time)
         VALUES
-        (#{taskId}, #{state}, #{operateUserId}, now())
+        (#{taskId}, #{date}, #{remark}, #{operateUserId}, now())
     </insert>
 
-    <insert id="batchInsert" parameterType="com.cy.entity.TaskStateChange">
-        INSERT INTO task_state_change
-        (task_id, state, operate_user_id, create_time)
+    <insert id="batchInsert" parameterType="com.cy.entity.TaskNote">
+        INSERT INTO task_note
+        (task_id, date, remark, operate_user_id, create_time)
         VALUES
         <foreach collection="list" item="item" separator=",">
-           (#{item.taskId}, #{item.state}, #{item.operateUserId}, now())
+           (#{item.taskId}, #{item.date}, #{item.remark}, #{item.operateUserId}, now())
         </foreach>
     </insert>
 
     <delete id="deleteById">
-        DELETE FROM task_state_change WHERE id = #{id}
-    </delete>
-
-    <delete id="deleteByTaskId">
-        DELETE FROM task_state_change WHERE task_id = #{id}
+        DELETE FROM task_note WHERE id = #{id}
     </delete>
 
     <delete id="batchDelete">
-        DELETE FROM task_state_change WHERE id IN
+        DELETE FROM task_note WHERE id IN
         <foreach collection="list" open="(" close=")" separator="," item="item">
             #{item}
         </foreach>
     </delete>
 
     <update id="updateByIdSelective">
-        UPDATE task_state_change
+        UPDATE task_note
         <set>
             <if test="taskId != null" >
                 task_id = #{taskId},
             </if>
-            <if test="state != null" >
-                state = #{state},
+            <if test="date != null" >
+                date = #{date},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark},
             </if>
             <if test="operateUserId != null" >
                 operate_user_id = #{operateUserId},
@@ -78,10 +79,11 @@
     </update>
 
     <update id="updateById">
-        UPDATE task_state_change
+        UPDATE task_note
         <set>
             task_id = #{taskId},
-            state = #{state},
+            date = #{date},
+            remark = #{remark},
             operate_user_id = #{operateUserId},
         </set>
         WHERE id = #{id}
@@ -90,13 +92,13 @@
     <select id="getById" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM task_state_change WHERE id = #{id}
+        FROM task_note WHERE id = #{id}
     </select>
 
     <select id="getByIdList" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM task_state_change WHERE id IN
+        FROM task_note WHERE id IN
         <foreach collection="list" open="(" close=")" separator="," item="item">
             #{item}
         </foreach>
@@ -105,7 +107,7 @@
     <select id="list" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM task_state_change
+        FROM task_note
         <where>
             <if test="id != null" >
                 AND id = #{id}
@@ -113,8 +115,11 @@
             <if test="taskId != null" >
                 AND task_id = #{taskId}
             </if>
-            <if test="state != null and state != ''" >
-                AND state = #{state}
+            <if test="date != null" >
+                AND date = #{date}
+            </if>
+            <if test="remark != null and remark != ''" >
+                AND remark = #{remark}
             </if>
             <if test="operateUserId != null" >
                 AND operate_user_id = #{operateUserId}
@@ -128,15 +133,8 @@
     <select id="listByTaskId" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM task_state_change
-        WHERE task_id = #{taskId}
-    </select>
-
-    <select id="getByState" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM task_state_change
-        WHERE task_id = #{taskId} AND state = #{state}
+        FROM task_note
+        WHERE task_id = #{taskId} ORDER BY date ASC
     </select>
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.cy.dao;
 
 import com.cy.entity.Task;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 
@@ -23,6 +24,8 @@ public interface TaskDAO {
     int updateByIdSelective(Task entity);
 
     int updateById(Task entity);
+
+    int updateState( @Param("id") Long id, @Param("newState") String newState, @Param("oldState") String oldState);
 
     Task getById(Long id);
 

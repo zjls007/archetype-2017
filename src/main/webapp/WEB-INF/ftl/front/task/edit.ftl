@@ -36,9 +36,9 @@
         <div class="layui-form-mid layui-word-aux"></div>
         <label class="layui-form-label">截止日期：</label>
         <div class="layui-input-inline">
-            <input type="text" name="task.dueDate" value="${(entity.dueDate?string("yyyy-MM-dd"))!}" id="dueDate" placeholder="截止日期" autocomplete="off" class="layui-input">
+            <input type="text" name="task.dueDate" value="${(entity.dueDate?string("yyyy-MM-dd"))!}" id="dueDate" placeholder="截止日期" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
-        <div class="layui-form-mid layui-word-aux"></div>
+        <div class="layui-form-mid layui-word-aux"><font color="red">*</font>必填</div>
     </div>
 
     <div class="layui-form-item layui-form-text">

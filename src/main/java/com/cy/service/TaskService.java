@@ -3,6 +3,7 @@ package com.cy.service;
 import com.cy.entity.Task;
 import com.cy.entity.system.UserInfo;
 import com.cy.web.dto.param.system.TaskSaveDTO;
+import com.cy.web.dto.result.TaskNoteDTO;
 import com.cy.web.dto.result.TaskResultDTO;
 
 import java.util.List;
@@ -33,5 +34,21 @@ public interface TaskService {
      * @param list
      */
     void batchDel(List<Long> list, Long currentUserId);
+
+    /**
+     * 开始任务
+     *
+     * @param taskId
+     * @param currentUserId
+     */
+    void begin(Long taskId, Long currentUserId);
+
+    /**
+     * 开始任务并且初始化笔记
+     *
+     * @param taskId
+     * @param currentUserId
+     */
+    List<TaskNoteDTO> beginAndNote(Long taskId, Long currentUserId);
 
 }
