@@ -3,8 +3,8 @@ package com.cy.common.emun;
 public enum Navigation {
 
     HOME("home", "首页"),
-    TASK("task", "任务列表"),
-    USER_INFO("userInfo", "用户管理"),
+    TASK("task", "任务"),
+    USER_INFO("userInfo", "用户"),
     ;
 
     private String code;

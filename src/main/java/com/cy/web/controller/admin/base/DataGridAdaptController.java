@@ -54,7 +54,7 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
     }
 
     @RequestMapping("list")
-    public String list(ModelMap modelMap) {
+    public String list(ModelMap modelMap, String nav) {
         modelMap.addAttribute("modelName", entityClassName);
         modelMap.addAttribute("editUrl", genPath("edit1"));
         modelMap.addAttribute("delUrl", genPath("delete"));
@@ -63,11 +63,11 @@ public abstract class DataGridAdaptController<T, E> extends BaseController {
         modelMap.addAttribute("addPerm", getSubject().isPermitted(genPerm("add")) || otherSuperPerm());
         modelMap.addAttribute("modifyPerm", getSubject().isPermitted(genPerm("modify")) || otherSuperPerm());
         modelMap.addAttribute("deletePerm", getSubject().isPermitted(genPerm("delete")) || otherSuperPerm());
-        doList(modelMap);
+        doList(modelMap, nav);
         return genPath("list");
     }
 
-    protected void doList(ModelMap modelMap) {
+    protected void doList(ModelMap modelMap, String nav) {
 
     }
 

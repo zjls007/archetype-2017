@@ -10,6 +10,7 @@ import com.github.pagehelper.PageHelper;
 import org.apache.shiro.subject.Subject;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,10 +26,24 @@ import java.util.Map;
 public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptController<T, E> {
 
     @Override
-    protected void doList(ModelMap modelMap) {
+    protected void doList(ModelMap modelMap, String nav) {
         globalAttribute(modelMap);
         modelMap.addAttribute("editUrl", genPath("edit"));
-        modelMap.addAttribute("navigation", Navigation.convert(entityClassName).getCode());
+        modelMap.addAttribute("nav", nav(nav, navName("列表")));
+    }
+
+    private String navName(String name) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Navigation.convert(entityClassName).getName());
+        sb.append(name);
+        return sb.toString();
+    }
+
+    protected String nav(String parent, String current) {
+        if (StringUtils.isEmpty(parent)) {
+            return current;
+        }
+        return String.format("%s,%s", parent, current);
     }
 
     public abstract String getModelNameCN();
@@ -51,28 +66,20 @@ public abstract class LayerTableAdaptController<T, E> extends DataGridAdaptContr
         return map;
     }
 
-    @RequestMapping({"edit/{navigation}/{id}", "edit", "edit/{id}"})
-    public String edit(@PathVariable(required=false) String navigation,@PathVariable(required=false) Long id, ModelMap modelMap) {
+    @RequestMapping({"edit", "edit/{id}"})
+    public String edit(@PathVariable(required=false) Long id, ModelMap modelMap, String nav) {
         globalAttribute(modelMap);
-        if (navigation != null) {
-            modelMap.addAttribute("navigation", Navigation.convert(navigation).getName());
-        } else {
-            modelMap.addAttribute("navigation", Navigation.convert(entityClassName).getName());
-        }
+        modelMap.addAttribute("nav", nav(nav, navName("编辑")));
         if (id != null) {
             modelMap.addAttribute("entity", getModel(id, modelMap));
         }
         return genPath("edit");
     }
 
-    @RequestMapping({"view/{navigation}/{id}", "view/{id}"})
-    public String view(@PathVariable(required=false) String navigation,@PathVariable(required=false) Long id, ModelMap modelMap) {
+    @RequestMapping({"view/{id}"})
+    public String view(@PathVariable(required=false) Long id, ModelMap modelMap, String nav) {
         globalAttribute(modelMap);
-        if (navigation != null) {
-            modelMap.addAttribute("navigation", Navigation.convert(navigation).getName());
-        } else {
-            modelMap.addAttribute("navigation", Navigation.convert(entityClassName).getName());
-        }
+        modelMap.addAttribute("nav", nav(nav, navName("查看")));
         if (id != null) {
             modelMap.addAttribute("entity", ((LayerTableAdaptController)AopContext.currentProxy()).getModel(id, modelMap));
         }

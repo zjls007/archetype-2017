@@ -1,13 +1,4 @@
 <@override name="body">
-<div class="box-refresh">
-    <a href="javascript:location.replace(location.href);" title="刷新"><i class="fa"></i></a>
-</div>
-
-<div style="position: fixed;top: 0px;left: 0px;z-index: 9999;background-color: #fff;height: 40px;border-bottom: 1px solid #e6e6e6;width: 100%">
-    <span class="layui-breadcrumb" lay-separator="/" style="margin-left: 40px;margin-top: 8px;display: block">
-      <a><cite>${modelNameCN!}列表</cite></a>
-    </span>
-</div>
 <div style="margin-top: 70px;">
 <blockquote class="layui-elem-quote layui-quote-nm">
     <!-- 图标地址：http://www.layui.com/doc/element/icon.html -->

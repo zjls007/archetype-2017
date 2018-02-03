@@ -202,14 +202,14 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
     @RequestMapping({"begin/{navigation}/{id}"})
     public String operBegin(@PathVariable String navigation, @PathVariable Long id, ModelMap modelMap) {
         taskService.begin(id, getCurrentUserId());
-        view(navigation, id, modelMap);
+        view(id, modelMap, null);
         return genPath("view");
     }
 
     @RequestMapping({"complete/{navigation}/{id}"})
     public String operComplete(@PathVariable String navigation, @PathVariable Long id, ModelMap modelMap) {
         taskService.complete(id, getCurrentUserId());
-        view(navigation, id, modelMap);
+        view(id, modelMap, null);
         return genPath("view");
     }
 

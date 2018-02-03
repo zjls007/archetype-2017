@@ -18,6 +18,23 @@
     <#import "common/select2.ftl" as select2>
 </head>
 <body>
+<div class="box-refresh">
+    <a href="javascript:location.replace(location.href);" title="刷新"><i class="fa"></i></a>
+</div>
+
+<#if nav?? && !(nav == '')>
+<div style="position: fixed;top: 0px;left: 0px;z-index: 9999;background-color: #fff;height: 40px;border-bottom: 1px solid #e6e6e6;width: 100%">
+    <span class="layui-breadcrumb" lay-separator="/" style="margin-left: 40px;margin-top: 8px;display: block">
+        <#list nav?split(",") as item>
+            <#if item?has_next>
+                <a href="javascript:void(0)" onclick="javascript:parent.activateTab('${item!}');">${item!}</a>
+            <#else>
+                <a><cite>${item!}</cite></a>
+            </#if>
+        </#list>
+    </span>
+</div>
+</#if>
 <@block name="body">
 </@block>
 <script src="${basePath}/statics/ui/layui-2.2.5/layui.all.js"></script>
