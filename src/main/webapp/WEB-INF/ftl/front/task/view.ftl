@@ -75,9 +75,10 @@
 
         <@initEdit/>
 
+        <@syncEdit/>
+
         //监听提交
         form.on('submit(submit)', function(data){
-            <@syncEdit/>
             $.ajax({
                 async: true,
                 type: 'POST',

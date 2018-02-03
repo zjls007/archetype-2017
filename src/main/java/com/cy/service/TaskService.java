@@ -46,6 +46,14 @@ public interface TaskService {
     void begin(Long taskId, Long currentUserId);
 
     /**
+     * 完成任务
+     *
+     * @param taskId
+     * @param currentUserId
+     */
+    void complete(Long taskId, Long currentUserId);
+
+    /**
      * 初始化笔记
      *
      * @param taskId

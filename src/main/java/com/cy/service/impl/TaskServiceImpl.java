@@ -138,10 +138,33 @@ public class TaskServiceImpl implements TaskService {
         }
         // 更新任务状态为开始
         result = taskDAO.updateState(taskId, TaskState.BEGIN.getCode(), TaskState.TAKE.getCode());
-        if (result  != 1) {
+        if (result != 1) {
             throw new ValidException("任务状态不正确!");
         }
         doStateChange(taskId, currentUserId, TaskState.BEGIN.getCode());
+    }
+
+    @Override
+    public void complete(Long taskId, Long currentUserId) {
+        if (taskId == null || currentUserId == null) {
+            throw new ParamException("参数不能为空");
+        }
+        Task task = taskDAO.getById(taskId);
+        if (task == null) {
+            throw new ValidException("任务不存在!");
+        } else if (!TaskState.BEGIN.getCode().equals(task.getState())) {
+            throw new ValidException("任务必须为开始状态!");
+        }
+        int result = taskUserDAO.countByUserIdAndTaskId(currentUserId, taskId);
+        if (result == 0) {
+            throw new ValidException("当前用户不是任务的认领人!");
+        }
+        // 更新任务状态为开始
+        result = taskDAO.updateState(taskId, TaskState.COMPLETE.getCode(), TaskState.BEGIN.getCode());
+        if (result != 1) {
+            throw new ValidException("任务状态不正确!");
+        }
+        doStateChange(taskId, currentUserId, TaskState.COMPLETE.getCode());
     }
 
     @Override
@@ -159,7 +182,7 @@ public class TaskServiceImpl implements TaskService {
             TaskNoteDTO dto = new TaskNoteDTO();
             dto.setMd5(MD5Util.MD5(String.format("%s-%s", DateUtil.getYMDStr(startDate), taskId)));
             dto.setDate(startDate);
-            dto.setType(isTaskCreater ? "text" : "edit");
+            dto.setType((isTaskCreater || (!isTaskCreater && !TaskState.BEGIN.getCode().equals(state))) ? "text" : "edit");
             dto.setLessEqualNow(startDate.compareTo(now) == 1 ? false : true);
             for (TaskNote item : taskNoteList) {
                 if (DateUtil.getDate(item.getDate()).compareTo(startDate) == 0) {
@@ -169,6 +192,9 @@ public class TaskServiceImpl implements TaskService {
                 }
             }
             list.add(dto);
+            if (DateUtil.dateEqual(startDate, new Date())) {
+                break;
+            }
             startDate = DateUtil.addDay(startDate, 1);
         } while (startDate.compareTo(dueDate) == -1);
         return list;

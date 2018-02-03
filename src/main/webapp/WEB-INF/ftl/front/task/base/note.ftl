@@ -12,7 +12,7 @@
                         <#if item.lessEqualNow>
                         <input type="hidden" name="noteList[${item_index}].id" value="${(item.id)!}"/>
                         <input type="hidden" name="noteList[${item_index}].date" value="${(item.date)?string('yyyy-MM-dd')}"/>
-                        <textarea class="layui-textarea layui-hide" name="noteList[${item_index}].remark" lay-verify="content" id="${(item.md5)!}">${(item.remark)!}</textarea>
+                        <textarea class="layui-textarea layui-hide" name="noteList[${item_index}].remark" lay-verify="sync_${(item.md5)!}" id="${(item.md5)!}">${(item.remark)!}</textarea>
                         </#if>
                     <#else>
                         <#if item.lessEqualNow>
@@ -51,11 +51,16 @@
 </#macro>
 <#macro syncEdit>
     <#if (entity.taskNoteDTOList)??>
+    form.verify({
         <#list entity.taskNoteDTOList as item>
             <#if (item.type)! == 'edit' && (item.lessEqualNow)>
-            layedit.sync(edit_${(item.md5)!});
+                sync_${(item.md5)!}: function(value){
+                    layedit.sync(edit_${(item.md5)!});
+                },
             </#if>
         </#list>
+        'i': ''
+    });
     </#if>
 </#macro>
 <#if false>

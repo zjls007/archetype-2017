@@ -29,6 +29,24 @@
     </div>
 </div>
 
+<div class="layui-row">
+    <div class="layui-col-xs6">
+        <div style="padding: 40px 40px 20px 140px;">
+            <table class="layui-table" id="dg" lay-filter="data" lay-data="{height: '240', page: true, limit:10, url:'${dataUrl!}'}">
+                <thead>
+                <tr>
+                    <th lay-data="{field: 'taskNum', width:400}">已完成任务</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="layui-col-xs6">
+        <div style="padding: 40px 140px 20px 40px;">
+        </div>
+    </div>
+</div>
+
 
 
 <#--<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>-->
