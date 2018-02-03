@@ -5,7 +5,7 @@
 <button class="layui-btn layui-btn-sm" type="reset" onclick="javascript:parent.newTab('${modelNameCN!}开始', '${basePath}/front/task/begin/task/${(entity.id)!}')"><i class="layui-icon">&#xe623;</i>开始</button>
 </#if>
 <#if (entity.showSaveNoteBtn)?? && entity.showSaveNoteBtn>
-<button class="layui-btn layui-btn-sm view-save-note-btn" type="submit"><i class="layui-icon">&#xe60a;</i>保存笔记</button>
+<button class="layui-btn layui-btn-sm" lay-submit lay-filter="submit"><i class="layui-icon">&#xe60a;</i>保存笔记</button>
 </#if>
 <#if (entity.showCompleteBtn)?? && entity.showCompleteBtn>
 <button class="layui-btn layui-btn-sm view-complete-btn" type="reset"><i class="layui-icon">&#xe616;</i>完成</button>

@@ -16,6 +16,7 @@ import com.cy.entity.system.enums.TaskState;
 import com.cy.entity.system.enums.TaskType;
 import com.cy.service.TaskService;
 import com.cy.web.controller.front.base.LayerTableAdaptController;
+import com.cy.web.dto.param.system.TaskNoteSaveDTO;
 import com.cy.web.dto.param.system.TaskQueryDTO;
 import com.cy.web.dto.param.system.TaskSaveDTO;
 import com.cy.web.dto.result.TaskResultDTO;
@@ -141,6 +142,13 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
     public Response saveOrUpdate(TaskSaveDTO dto) {
         saveOrUpdatePerm(dto.getTask().getId());
         taskService.saveOrUpdate(dto, getCurrentUser());
+        return new Response();
+    }
+
+    @RequestMapping("saveOrUpdateNotes")
+    @ResponseBody
+    public Response saveOrUpdateNotes(TaskNoteSaveDTO dto) {
+        taskService.saveOrUpdateNotes(dto, getCurrentUserId());
         return new Response();
     }
 

@@ -5,14 +5,13 @@ import com.cy.common.exception.ValidException;
 import com.cy.common.util.DateUtil;
 import com.cy.common.util.MD5Util;
 import com.cy.dao.*;
-import com.cy.entity.AttachmentRef;
-import com.cy.entity.Task;
-import com.cy.entity.TaskStateChange;
-import com.cy.entity.TaskUser;
+import com.cy.entity.*;
 import com.cy.entity.system.UserInfo;
 import com.cy.entity.system.enums.*;
 import com.cy.service.GlobalCallback;
 import com.cy.service.TaskService;
+import com.cy.web.dto.param.system.TaskNoteItemDTO;
+import com.cy.web.dto.param.system.TaskNoteSaveDTO;
 import com.cy.web.dto.param.system.TaskSaveDTO;
 import com.cy.web.dto.result.TaskNoteDTO;
 import com.cy.web.dto.result.TaskResultDTO;
@@ -154,7 +153,7 @@ public class TaskServiceImpl implements TaskService {
         Date startDate = DateUtil.getDate(taskStateChange.getCreateTime());
         Date now = DateUtil.getDate(new Date());
         dueDate = DateUtil.getDate(dueDate);
-        taskNoteDAO.listByTaskId(taskId);
+        List<TaskNote> taskNoteList = taskNoteDAO.listByTaskId(taskId);
         List<TaskNoteDTO> list = new ArrayList<TaskNoteDTO>();
         do {
             TaskNoteDTO dto = new TaskNoteDTO();
@@ -162,10 +161,39 @@ public class TaskServiceImpl implements TaskService {
             dto.setDate(startDate);
             dto.setType(isTaskCreater ? "text" : "edit");
             dto.setLessEqualNow(startDate.compareTo(now) == 1 ? false : true);
+            for (TaskNote item : taskNoteList) {
+                if (DateUtil.getDate(item.getDate()).compareTo(startDate) == 0) {
+                    dto.setId(item.getId());
+                    dto.setRemark(item.getRemark());
+                    break;
+                }
+            }
             list.add(dto);
             startDate = DateUtil.addDay(startDate, 1);
         } while (startDate.compareTo(dueDate) == -1);
         return list;
+    }
+
+    @Override
+    public void saveOrUpdateNotes(TaskNoteSaveDTO dto, Long userId) {
+        Long taskId = dto.getTaskId();
+        List<TaskNoteItemDTO> noteList = dto.getNoteList();
+        if (noteList == null || noteList.isEmpty()) {
+            return;
+        }
+        for (TaskNoteItemDTO item : noteList) {
+            TaskNote note = new TaskNote();
+            note.setDate(item.getDate());
+            note.setRemark(item.getRemark());
+            note.setTaskId(taskId);
+            note.setOperateUserId(userId);
+            if (item.getId() == null) {
+                taskNoteDAO.insert(note);
+            } else {
+                note.setId(item.getId());
+                taskNoteDAO.updateById(note);
+            }
+        }
     }
 
     private void doImg(List<String> imgList, Long taskId, Long currentUserId) {

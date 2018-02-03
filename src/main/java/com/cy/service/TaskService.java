@@ -2,6 +2,7 @@ package com.cy.service;
 
 import com.cy.entity.Task;
 import com.cy.entity.system.UserInfo;
+import com.cy.web.dto.param.system.TaskNoteSaveDTO;
 import com.cy.web.dto.param.system.TaskSaveDTO;
 import com.cy.web.dto.result.TaskNoteDTO;
 import com.cy.web.dto.result.TaskResultDTO;
@@ -51,5 +52,11 @@ public interface TaskService {
      * @param dueDate
      */
     List<TaskNoteDTO> initNote(Long taskId, String state, Date dueDate, boolean isTaskCreater);
+
+    /**
+     * 保存笔记
+     * @param dto
+     */
+    void saveOrUpdateNotes(TaskNoteSaveDTO dto, Long userId);
 
 }

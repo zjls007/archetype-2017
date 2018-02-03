@@ -1,5 +1,5 @@
 <@override name="body">
-<form class="layui-form" method="post" action="${modelName!}/saveOrUpdate">
+<form class="layui-form" method="post">
 <style>
     .layui-form-mid {
         width: 240px;
