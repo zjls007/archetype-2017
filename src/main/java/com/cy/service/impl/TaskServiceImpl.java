@@ -146,9 +146,13 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskNoteDTO> initNote(Long taskId, Date dueDate, boolean isTaskCreater) {
+    public List<TaskNoteDTO> initNote(Long taskId, String state, Date dueDate, boolean isTaskCreater) {
+        if (TaskState.PUBLISH.getCode().equals(state) || TaskState.TAKE.getCode().equals(state)) {
+            return null;
+        }
         TaskStateChange taskStateChange = taskStateChangeDAO.getByState(taskId, TaskState.BEGIN.getCode());
         Date startDate = DateUtil.getDate(taskStateChange.getCreateTime());
+        Date now = DateUtil.getDate(new Date());
         dueDate = DateUtil.getDate(dueDate);
         taskNoteDAO.listByTaskId(taskId);
         List<TaskNoteDTO> list = new ArrayList<TaskNoteDTO>();
@@ -157,6 +161,7 @@ public class TaskServiceImpl implements TaskService {
             dto.setMd5(MD5Util.MD5(String.format("%s-%s", DateUtil.getYMDStr(startDate), taskId)));
             dto.setDate(startDate);
             dto.setType(isTaskCreater ? "text" : "edit");
+            dto.setLessEqualNow(startDate.compareTo(now) == 1 ? false : true);
             list.add(dto);
             startDate = DateUtil.addDay(startDate, 1);
         } while (startDate.compareTo(dueDate) == -1);
@@ -224,10 +229,14 @@ public class TaskServiceImpl implements TaskService {
             }
         } else {
             Task db = taskDAO.getById(id);
-            if (!TaskState.PUBLISH.getCode().equals(db.getState())) {
-                throw new ValidException("必须为发布状态才能修改!");
+            if (!TaskState.PUBLISH.getCode().equals(db.getState())
+                    && !TaskState.TAKE.getCode().equals(db.getState())) {
+                throw new ValidException("必须为发布或认领状态才能修改!");
             }
-            taskDAO.updateById(task);
+            int result = taskDAO.updateById(task);
+            if (result != 1) {
+                throw new ValidException("必须为发布或认领状态才能修改!");
+            }
         }
         return id;
     }

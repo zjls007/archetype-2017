@@ -85,20 +85,31 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
             userList.add(select2ItemVO);
         }
         vo.setAttachmentList(taskResultDTO.getAttachmentList());
-        vo.setShowBeginBtn(beginBtn(taskResultDTO));
-        vo.setTaskNoteDTOList(taskService.initNote(vo.getId(), vo.getDueDate(), vo.getCreateUserId().longValue() == getCurrentUserId()));
+        vo.setTaskNoteDTOList(taskService.initNote(vo.getId(), vo.getState(), vo.getDueDate(), vo.getCreateUserId().longValue() == getCurrentUserId()));
+        setBtn(taskResultDTO, vo);
         return vo;
     }
 
-    private boolean beginBtn(TaskResultDTO dto) {
+    private void setBtn(TaskResultDTO dto, TaskDetailVO vo) {
         Task task = dto.getTask();
         List<TaskUser> taskUserList = dto.getTaskUserList();
+        // 指派任务在认领状态下的任务接受人才能开始任务
         if (TaskType.ASSIGN.getCode().equals(task.getType())
                 && TaskState.TAKE.getCode().equals(task.getState())
                 && con(taskUserList)) {
-            return true;
+            vo.setShowBeginBtn(true);
         }
-        return false;
+        //  发布和认领状态下的任务创建者可以编辑任务
+        if ((TaskState.PUBLISH.getCode().equals(task.getState()) || TaskState.TAKE.getCode().equals(task.getState()))
+                && task.getCreateUserId().longValue() == getCurrentUserId()) {
+            vo.setShowEditBtn(true);
+        }
+        // 任务的开始人可以保存笔记 和完成按钮
+        if (TaskState.BEGIN.getCode().equals(task.getState())
+                && con(taskUserList)) {
+            vo.setShowSaveNoteBtn(true);
+            vo.setShowCompleteBtn(true);
+        }
     }
 
     private boolean con(List<TaskUser> taskUserList) {

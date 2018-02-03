@@ -26,6 +26,21 @@ public class TaskDetailVO extends Task {
      */
     private boolean showBeginBtn;
 
+    /**
+     * 查看页面是否显示编辑按钮
+     */
+    private boolean showEditBtn;
+
+    /**
+     * 查看页面是否显示保存笔记按钮
+     */
+    private boolean showSaveNoteBtn;
+
+    /**
+     * 查看页面是否显示完成按钮
+     */
+    private boolean showCompleteBtn;
+
     public List<ImgResultVO> getImgList() {
         return imgList;
     }
@@ -64,5 +79,29 @@ public class TaskDetailVO extends Task {
 
     public void setTaskNoteDTOList(List<TaskNoteDTO> taskNoteDTOList) {
         this.taskNoteDTOList = taskNoteDTOList;
+    }
+
+    public boolean isShowEditBtn() {
+        return showEditBtn;
+    }
+
+    public void setShowEditBtn(boolean showEditBtn) {
+        this.showEditBtn = showEditBtn;
+    }
+
+    public boolean isShowSaveNoteBtn() {
+        return showSaveNoteBtn;
+    }
+
+    public void setShowSaveNoteBtn(boolean showSaveNoteBtn) {
+        this.showSaveNoteBtn = showSaveNoteBtn;
+    }
+
+    public boolean isShowCompleteBtn() {
+        return showCompleteBtn;
+    }
+
+    public void setShowCompleteBtn(boolean showCompleteBtn) {
+        this.showCompleteBtn = showCompleteBtn;
     }
 }

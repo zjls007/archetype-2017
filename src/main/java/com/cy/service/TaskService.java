@@ -50,6 +50,6 @@ public interface TaskService {
      * @param taskId
      * @param dueDate
      */
-    List<TaskNoteDTO> initNote(Long taskId, Date dueDate, boolean isTaskCreater);
+    List<TaskNoteDTO> initNote(Long taskId, String state, Date dueDate, boolean isTaskCreater);
 
 }

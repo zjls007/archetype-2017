@@ -7,37 +7,10 @@
 <div class="ystep" style="height: 100px;margin-top: 40px;margin-left: 40px;"></div>
 </#if>
 <#include "base/baseTaskView.ftl">
-<#if (entity.taskNoteDTOList)??>
-<blockquote class="layui-elem-quote">每日笔记</blockquote>
-<blockquote class="layui-elem-quote layui-quote-nm">
-    <ul class="layui-timeline">
-        <#list entity.taskNoteDTOList as item>
-            <li class="layui-timeline-item">
-                <i class="layui-icon layui-timeline-axis"></i>
-                <div class="layui-timeline-content layui-text">
-                    <h3 class="layui-timeline-title">${(item.date)?string('MM月dd日')}</h3>
-                    <#if (item.type)! == 'edit'>
-                        <textarea class="layui-textarea layui-hide" name="task.content" lay-verify="content" id="${(item.md5)!}">${(item.remark)!}</textarea>
-                    <#else>
-                         ${(item.remark)!}
-                    </#if>
-                </div>
-            </li>
-        </#list>
-        <li class="layui-timeline-item">
-            <i class="layui-icon layui-timeline-axis"></i>
-            <div class="layui-timeline-content layui-text">
-                <div class="layui-timeline-title">完成</div>
-            </div>
-        </li>
-    </ul>
-</blockquote>
-</#if>
+<#include "base/note.ftl">
 </@override>
 <@override name="bottomBtn">
-<#if (entity.showBeginBtn)!>
-<button class="layui-btn layui-btn-sm" type="reset" onclick="javascript:parent.newTab('${modelNameCN!}开始', '${basePath}/front/task/begin/task/${(entity.id)!}')"><i class="layui-icon">&#xe623;</i>开始</button>
-</#if>
+    <#include "base/viewButton.ftl">
 </@override>
 <@override name="script">
 <script src="${basePath}/statics/ui/ystep/js/ystep.js"></script>
@@ -65,6 +38,7 @@
     }
 
     $(document).ready(function() {
+        <@btn/>
         $(".ystep").loadStep({
             size: "large",
             color: "green",
@@ -89,35 +63,17 @@
     });
 
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
-        var laydate = layui.laydate //日期
-                , table = layui.table //  表单
-                ,layer = layui.layer //弹层
-                ,laydate = layui.laydate
+        var laydate = layui.laydate
+                , table = layui.table
+                ,layer = layui.layer
                 ,layedit = layui.layedit
                 ,form = layui.form
-                <#if (entity.imgList)?? && entity.imgList?size gt 0>
-                ,carousel = layui.carousel
-                </#if>
                 ,$ = layui.$
-                ,element = layui.element; //元素操作
+                ,element = layui.element;
 
         <#include "../templete/jqueryError.ftl"/>
 
-        //监听Tab切换
-        element.on('tab(reFulsh)', function(data){
-            location.reload();
-        });
-
-        <#if (entity.taskNoteDTOList)??>
-            <#list entity.taskNoteDTOList as item>
-                <#if (item.type)! == 'edit'>
-                    //创建一个编辑器
-                    var edit_${(item.md5)!} = layedit.build('${(item.md5)!}',  {
-                        tool: ['strong','italic','underline','del','|','left', 'center', 'right', '|','link', 'unlink']
-                    });
-                </#if>
-            </#list>
-        </#if>
+        <@initEdit/>
     });
 </script>
 </@override>

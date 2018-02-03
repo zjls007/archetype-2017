@@ -24,6 +24,9 @@ public class TaskNoteDTO implements Serializable {
     /** edit:显示文本框, text:显示文本内容 */
     private String type;
 
+    /** 小于等于今天 */
+    private Boolean lessEqualNow = false;
+
     public Long getId() {
         return id;
     }
@@ -62,5 +65,13 @@ public class TaskNoteDTO implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Boolean getLessEqualNow() {
+        return lessEqualNow;
+    }
+
+    public void setLessEqualNow(Boolean lessEqualNow) {
+        this.lessEqualNow = lessEqualNow;
     }
 }
