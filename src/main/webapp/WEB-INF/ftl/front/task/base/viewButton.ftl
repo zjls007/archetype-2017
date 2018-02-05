@@ -15,7 +15,7 @@
 </#if>
     <#macro btn>
     $('.view-edit-btn').on({click:function () {
-        parent.openTab('${modelNameCN!}编辑', '${basePath}/front/task/edit/task/${(entity.id)!}');
+        parent.replaceCurrentTab('${modelNameCN!}编辑', '${basePath}/front/task/edit/${(entity.id)!}?nav=任务列表');
     }});
     $('.view-save-note-btn').on({click:function () {
     }});

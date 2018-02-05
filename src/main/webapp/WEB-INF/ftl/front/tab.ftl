@@ -91,6 +91,17 @@
         }
     }
 
+    function replaceCurrentTab(title, url) {
+        $('div#page-tab div#menu-list a.active').attr('data-value', title).text(title).append($('<i class="menu-close"></i>'));
+
+        $('div#page-tab div#menu-list i.menu-close').unbind('click');
+        $('div#page-tab div#menu-list i.menu-close').on({click: tabClose});
+        $('div#page-tab div#menu-list a').unbind('click');
+        $('div#page-tab div#menu-list a').on({click: tabActive});
+
+        $('div#page-content iframe.active').attr('data-value', title).attr('src', url);
+    }
+
     function findTabByTitle(title) {
         return $('div#page-tab div#menu-list a[data-value="'+title+'"]');
     }
@@ -141,17 +152,19 @@
         $('#menu-list a:not(.index, .active)').remove();
         $('div#page-content iframe:not(#index, .active)').remove();
     }
-    function closeActive(parentTab, reloadParentTab) {
+
+    function refreshParentTab(title, url) {
         $('#menu-list a.active').remove();
         $('div#page-content iframe.active').remove();
-        if (parentTab) {
-            $('#menu-list a[data-value="'+parentTab+'"]').addClass('active');
-            $('div#page-content iframe[data-value="'+parentTab+'"]').addClass('active');
-            if (reloadParentTab) {
-                $(window.parent.document).contents().find('div#page-content iframe[data-value="'+parentTab+'"]')[0].contentWindow.reloadDG();
-            }
+        var parentTab = findTabByTitle(title);
+        if (parentTab.length == 0) {
+            openTab(title, url, true);
+        } else {
+            activateTab(title);
+            $(window.parent.document).contents().find('div#page-content iframe[data-value="'+title+'"]')[0].contentWindow.reloadDG();
         }
     }
+
     <!-- 跳转到指定窗口 -->
     function activateTab(tabName) {
         var tab = findTabByTitle(tabName);

@@ -1,3 +1,7 @@
+<#if false>
+    <script>
+</#if>
+
 <!-- 下拉框option  optionList为List<SelectOptionVO> value 为下拉框值-->
 <#macro select optionList value=''>
     <#if optionList??>
@@ -15,3 +19,37 @@
     </#if>
     <#return 1>
 </#function>
+
+<#macro ajaxSubmit url='' data=''>
+    $.ajax({
+        async: true,
+        type: 'POST',
+        url: '${url!}',
+        data: ${data!},
+        dataType: 'json',
+        success: function (data) {
+            if (data.code == 'success') {
+                layer.msg('保存成功!', {icon: 1, shift: 6});
+                if (refreshParentTab) {
+                    setTimeout(refreshParentTab, 1000);
+                }
+            } else {
+                if (data.code == 'param_error') {
+                    var d = JSON.parse(data.message);
+                    var input = $('input[name="' + d.field + '"]');
+                    if (input) {
+                        input.addClass("layui-form-danger");
+                        input.focus();
+                    }
+                    layer.msg(d.msg, {icon: 5, shift: 6});
+                } else {
+                    layer.msg(data.message, {icon: 2, shift: 6});
+                }
+            }
+        }
+    });
+</#macro>
+
+<#if false>
+    </script>
+</#if>

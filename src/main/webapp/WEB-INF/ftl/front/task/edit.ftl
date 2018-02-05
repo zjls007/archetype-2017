@@ -141,34 +141,14 @@
             }
         });
 
+        function refreshParentTab() {
+            parent.refreshParentTab('任务列表', 'task/list');
+        }
+
         //监听提交
         form.on('submit(submit)', function(data){
             <@select2.setIndex id='userIdList' name='userIdList'/>
-            $.ajax({
-                async: true,
-                type: 'POST',
-                url: 'task/saveOrUpdateDTO',
-                data: data.field,
-                dataType: 'json',
-                success: function (data) {
-                    if (data.code == 'success') {
-                        layer.msg("保存成功!");
-                        parent.closeActive('任务列表', true);
-                    } else {
-                        if (data.code == 'param_error') {
-                            var d = JSON.parse(data.message);
-                            var input = $('input[name="' + d.field + '"]');
-                            if (input) {
-                                input.addClass("layui-form-danger");
-                                input.focus();
-                            }
-                            layer.msg(d.msg, {icon: 5, shift: 6});
-                        } else {
-                            layer.msg(data.message, {time:3000});
-                        }
-                    }
-                }
-            });
+            <@util.ajaxSubmit url='task/saveOrUpdateDTO' data='data.field'/>
             return false;
         });
     });

@@ -85,33 +85,13 @@
             }
         });
 
+        function refreshParentTab() {
+            parent.refreshParentTab('用户列表', 'userInfo/list');
+        }
+
         //监听提交
         form.on('submit(submit)', function(data){
-            $.ajax({
-                async: true,
-                type: 'POST',
-                url: 'userInfo/saveOrUpdate',
-                data: data.field,
-                dataType: 'json',
-                success: function (data) {
-                    if (data.code == 'success') {
-                        layer.msg("保存成功!");
-                        parent.closeActive('用户管理', true);
-                    } else {
-                        if (data.code == 'param_error') {
-                            var d = JSON.parse(data.message);
-                            var input = $('input[name="' + d.field + '"]');
-                            if (input) {
-                                input.addClass("layui-form-danger");
-                                input.focus();
-                            }
-                            layer.msg(d.msg, {icon: 5, shift: 6});
-                        } else {
-                            layer.msg(data.message, {time:3000});
-                        }
-                    }
-                }
-            });
+            <@util.ajaxSubmit url='userInfo/saveOrUpdate' data='data.field'/>
             return false;
         });
     });
