@@ -122,7 +122,7 @@ INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `cr
 INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('用户组管理', 'userGroupInfo/list', 1, 3, 1, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
 INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('权限操作', 'operationInfo/list', 1, 6, 1, '2017-10-16 10:36:02', '2017-10-16 10:36:02');
 INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('系统管理', '', 0, 7, 0, '2017-12-6 09:39:10', '2017-12-6 09:39:10');
-INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('用户管理', 'userInfo/list', 8, 8, 0, '2017-12-6 09:39:10', '2017-12-6 09:39:10');
+INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('用户列表', 'userInfo/list', 8, 8, 0, '2017-12-6 09:39:10', '2017-12-6 09:39:10');
 INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('数据安全', '', 0, 9, 0, '2017-12-6 09:39:10', '2017-12-6 09:39:10');
 INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('数字签名', 'signature/index', 10, 10, 0, '2017-12-6 09:39:10', '2017-12-6 09:39:10');
 INSERT INTO `t_menu_info` (`name`, `url`, `parent_id`, `sort_num`, `native`, `create_time`, `lst_upd_time`) VALUES ('任务管理', '', 0, 11, 0, '2018-1-4 17:08:05', '2018-1-4 17:08:05');
@@ -135,7 +135,7 @@ INSERT INTO `t_role_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_u
 INSERT INTO `t_user_role_ref` (`id`, `user_id`, `role_id`) VALUES (1, 1, 1);
 
 INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (1, '菜单管理', 'menuInfo', 1, '2017-10-19 10:08:42', '2017-10-19 10:08:42');
-INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (2, '用户管理', 'userInfo', 1, '2017-10-19 10:08:58', '2017-10-19 10:08:58');
+INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (2, '用户列表', 'userInfo', 1, '2017-10-19 10:08:58', '2017-10-19 10:08:58');
 INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (3, '角色管理', 'roleInfo', 1, '2017-10-19 10:09:13', '2017-10-19 10:09:13');
 INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (4, '权限管理', 'permissionInfo', 1, '2017-10-19 10:09:28', '2017-10-19 10:09:28');
 INSERT INTO `t_permission_info` (`id`, `name`, `code`, `native`, `create_time`, `lst_upd_time`) VALUES (5, '用户组管理', 'userGroupInfo', 1, '2017-10-19 10:09:40', '2017-10-19 10:09:40');

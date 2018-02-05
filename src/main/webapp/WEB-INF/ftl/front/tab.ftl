@@ -154,6 +154,11 @@
     }
     <!-- 跳转到指定窗口 -->
     function activateTab(tabName) {
+        var tab = findTabByTitle(tabName);
+        if (tab.length == 0) {
+            layer.msg('窗口已关闭!', {icon: 5, shift: 6});
+            return;
+        }
         removeActiveTab();
         $('div#menu-list a[data-value="'+tabName+'"]').addClass('active');
         $('div#page-content iframe[data-value="'+tabName+'"]').addClass('active');
