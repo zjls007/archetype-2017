@@ -57,7 +57,7 @@
         });
 
         $('.add').on('click', function () {
-            parent.newTab('添加${modelNameCN!}', '${editUrl!}');
+            parent.openTab('添加${modelNameCN!}', '${editUrl!}');
         });
 
         $('.download,.import,.export').on('click', function () {
@@ -131,11 +131,11 @@
             var data = obj.data //获得当前行数据
                     ,layEvent = obj.event; //获得 lay-event 对应的值
             if(layEvent === 'detail'){
-                parent.newTab('${modelNameCN!}查看', '${modelName!}/view/${navigation!}/' + data.id);
+                parent.openTab('${modelNameCN!}查看', '${modelName!}/view/${navigation!}/' + data.id, true);
             } else if(layEvent === 'del'){
                 delFn([data.id]);
             } else if(layEvent === 'edit'){
-                parent.newTab('${modelNameCN!}编辑', '${modelName!}/edit/${navigation!}/' + data.id);
+                parent.openTab('${modelNameCN!}编辑', '${modelName!}/edit/${navigation!}/' + data.id, true);
             }
         });
         <@block name="otherScript">

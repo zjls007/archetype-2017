@@ -48,7 +48,7 @@
         $('div#page-tab div#menu-list i.menu-close').on({click: tabClose});
         $('div#page-tab div#menu-list a').on({click: tabActive});
         $('a.easy-tab').on({click: function () {
-            newTab($(this).attr('href'), $(this).text());
+            openTab($(this).attr('href'), $(this).text());
             return false;
         }});
     })
@@ -87,7 +87,7 @@
         return next;
     }
 
-    function newTab(url, title) {
+    function openTab(url, title) {
         $('div#page-tab div#menu-list a.active').removeClass('active');
         var a = $('<a href="javascript:void(0);" data-url=""></a>').attr('data-value', title).addClass('active').text(title);
         $('<i class="menu-close"></i>').appendTo(a);

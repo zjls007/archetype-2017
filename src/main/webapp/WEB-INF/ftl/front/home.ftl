@@ -61,7 +61,7 @@
         table.on('tool(pendingTask)', function(obj){
             var data = obj.data;
             if(obj.event === 'taskView'){
-                parent.newTab('任务查看', 'task/view/home/'+data.id);
+                parent.openTab('任务查看', 'task/view/home/'+data.id);
             }
         });
     });

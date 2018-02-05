@@ -44,7 +44,6 @@
 <script>
 </#if>
 <#macro easyTab>
-    var refresh = true;
     $(function () {
         $('div#page-tab div#menu-list i.menu-close').on({click: tabClose});
         $('div#page-tab div#menu-list a').on({click: tabActive});
@@ -57,7 +56,7 @@
     function initLink() {
         var title = $(this).text();
         var url = $(this).attr('href');
-        newTab(title, url);
+        openTab(title, url);
         return false;
     }
 
@@ -75,7 +74,7 @@
         $('div#page-content').append(iframe);
     }
 
-    function newTab(title, url) {
+    function openTab(title, url, refresh) {
         var tab = findTabByTitle(title);
         if (tab.length == 0) {
             removeActiveTab();
@@ -84,10 +83,10 @@
             if (!tab.hasClass('active')) {
                 removeActiveTab();
                 activateTab(title);
-                if (refresh) {
-                    var iframe = findIframeByTitle(title);
-                    iframe.attr('src', iframe.attr('src'));
-                }
+            }
+            if (refresh) {
+                var iframe = findIframeByTitle(title);
+                iframe.attr('src', url);
             }
         }
     }
