@@ -12,44 +12,132 @@
     }
 </style>
 <div style="width: 100%; height: 100%;">
-    <!--菜单HTML Start-->
     <div id="page-tab">
         <button class="tab-btn" id="page-prev"></button>
         <nav id="page-tab-content">
             <div id="menu-list">
-                <a href="javascript:void(0);" onclick="goIndex(this)" data-url="home" data-value="首页" class="active index" style="width: 40px">首页</a>
+                <a href="javascript:void(0);" data-url="" data-value="首页" class="active index" style="width: 40px">首页</a>
+                <#if false>
+                    <a href="javascript:void(0);" data-url="" data-value="任务列表" class="">任务列表<i class="menu-close"></i></a>
+                </#if>
             </div>
         </nav>
         <button class="tab-btn" id="page-next"></button>
         <div id="page-operation">
-            <div id="menu-all">
+            <div id="menu-all" style="display: none;">
                 <ul id="menu-btn">
                     <li onmousedown="closeOther()">关闭其他</li>
                     <li onmousedown="closeAll()">关闭全部</li>
                 </ul>
-                <!-- 放开会有纵向菜单导航（有bug） -->
-                <#--<ul id="menu-all-ul">-->
-                <#--</ul>-->
             </div>
         </div>
     </div>
-    <!--菜单HTML End-->
-    <!--iframe Start (根据页面顶部占用高度，自行调整高度数值)-->
+
     <div id="page-content" style="height: calc(100% - 40px);">
-        <iframe id="index" class="iframe-content active" data-url="" data-value="首页" src="home"></iframe>
+        <iframe class="iframe-content active index" data-url="" data-value="首页" src="home"></iframe>
+        <#if false>
+            <iframe class="iframe-content" data-url="" data-value="任务列表" src="http://localhost/front/task/list"></iframe>
+        </#if>
     </div>
-    <!--iframe End-->
 </div>
-<script type="text/javascript">
+<#if false>
+<script>
+</#if>
+<#macro easyTab>
+    var refresh = true;
+    $(function () {
+        $('div#page-tab div#menu-list i.menu-close').on({click: tabClose});
+        $('div#page-tab div#menu-list a').on({click: tabActive});
+        $('a.easy-tab').on({click: initLink});
+        $('div#page-operation').on({click: function () {
+            $('div#menu-all').show();
+        }});
+    })
+
+    function initLink() {
+        var title = $(this).text();
+        var url = $(this).attr('href');
+        newTab(title, url);
+        return false;
+    }
+
+    function addTab(title, url) {
+        var a = $('<a href="javascript:void(0);" data-url=""></a>').attr('data-value', title).addClass('active').text(title);
+        $('<i class="menu-close"></i>').appendTo(a);
+        $('div#page-tab div#menu-list').append(a);
+
+        $('div#page-tab div#menu-list i.menu-close').unbind('click');
+        $('div#page-tab div#menu-list i.menu-close').on({click: tabClose});
+        $('div#page-tab div#menu-list a').unbind('click');
+        $('div#page-tab div#menu-list a').on({click: tabActive});
+
+        var iframe = $('<iframe class="iframe-content active" data-url=""></iframe>').attr('data-value', title).attr('src', url);
+        $('div#page-content').append(iframe);
+    }
+
     function newTab(title, url) {
-        $('#tabTemp').attr('href', url).html(title).click();
+        var tab = findTabByTitle(title);
+        if (tab.length == 0) {
+            removeActiveTab();
+            addTab(title, url);
+        } else {
+            if (!tab.hasClass('active')) {
+                removeActiveTab();
+                activateTab(title);
+                if (refresh) {
+                    var iframe = findIframeByTitle(title);
+                    iframe.attr('src', iframe.attr('src'));
+                }
+            }
+        }
     }
-    function goIndex(athis) {
-        $('div#menu-list a.active').removeClass('active');
-        $(athis).addClass('active');
+
+    function findTabByTitle(title) {
+        return $('div#page-tab div#menu-list a[data-value="'+title+'"]');
+    }
+
+    function findIframeByTitle(title) {
+        return $('div#page-content iframe[data-value="'+title+'"]');
+    }
+
+    function tabActive() {
+        var a = $(this);
+        if (!a.hasClass('active')) {
+            removeActiveTab();
+            a.addClass('active');
+            $('div#page-content iframe[data-value='+a.attr('data-value')+']').addClass('active');
+        }
+    }
+
+    function removeActiveTab() {
+        $('div#page-tab div#menu-list a.active').removeClass('active');
         $('div#page-content iframe.active').removeClass('active');
-        $('div#page-content iframe#index').addClass('active');
     }
+
+    function tabClose() {
+        var a = $(this).parent('a');
+        if (a.hasClass('active')) {
+            var next = nextE(a);
+            next.addClass('active');
+            a.remove();
+            var iframe = $('div#page-content iframe.active');
+            next = nextE(iframe);
+            next.addClass('active');
+            iframe.remove();
+        } else {
+            a.remove();
+            $('div#page-content iframe[data-value='+a.attr('data-value')+']').remove();
+        }
+    }
+
+    function nextE(a) {
+        var next = a.next();
+        if (next.length == 0) {
+            next = a.prev();
+        }
+        return next;
+    }
+
     function closeOther() {
         $('#menu-list a:not(.index, .active)').remove();
         $('div#page-content iframe:not(#index, .active)').remove();
@@ -67,14 +155,16 @@
     }
     <!-- 跳转到指定窗口 -->
     function activateTab(tabName) {
-        $('div#menu-list a.active').removeClass('active');
+        removeActiveTab();
         $('div#menu-list a[data-value="'+tabName+'"]').addClass('active');
-        $('div#page-content iframe.active').removeClass('active');
         $('div#page-content iframe[data-value="'+tabName+'"]').addClass('active');
     }
     function closeAll() {
         $('#menu-list a:not(.index)').remove();
-        $('div#page-content iframe:not(#index)').remove();
-        $('div#page-content iframe#index').addClass('active');
+        $('div#page-content iframe:not(.index)').remove();
+        $('div#page-content iframe.index').addClass('active');
     }
+</#macro>
+<#if false>
 </script>
+</#if>

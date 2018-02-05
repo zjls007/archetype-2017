@@ -35,7 +35,7 @@
                 ${userInfo.fullName!}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="modifyPwd" class="tab">修改密码</a></dd>
+                    <dd><a href="modifyPwd" class="easy-tab">修改密码</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="${basePath}/admin/logout">退出</a></li>
@@ -52,13 +52,11 @@
     <div class="layui-footer" style="display: none;height: 0px">
     </div>
 </div>
-<#--<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>-->
 <script src="${basePath}/statics/js/jquery.min.js"></script>
-<script src="${basePath}/statics/ui/tab/tab-min.js"></script>
 <script src="${basePath}/statics/ui/layui-2.2.5/layui.all.js"></script>
-<script>
-    //初始化a标签链接到tab
-    $("a.tab").tab();
+<script type="text/javascript">
+    <@easyTab/>
+
     //JavaScript代码区域
     layui.use('element', function(){
         var $ = layui.jquery,

@@ -97,6 +97,9 @@
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     </script>
 </@override>
+<#if false>
+    <script>
+</#if>
 <@override name="otherScript">
     //常规用法
     laydate.render({
@@ -125,4 +128,7 @@
         });
     });
 </@override>
+<#if false>
+    </script>
+</#if>
 <@extends name="../templete/layTable.ftl"/>

@@ -1,7 +1,6 @@
 <div class="layui-side-scroll">
     <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
     <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-        <a class="tab" id="tabTemp" href="front/userInfo/list" style="display: none;">用户管理</a>
         <!-- 动态获取 -->
         <#if (menuInfoList?size > 1)>
             <@showNode/>
@@ -24,7 +23,7 @@
             <#if pId==0>
             <li class="layui-nav-item"><a href="${item.url}">${item.name}</a></li>
             <#else>
-            <dd><a class="tab" href="${item.url}">${item.name}</a></dd>
+            <dd><a class="easy-tab" href="${item.url}">${item.name}</a></dd>
             </#if>
             </#if>
         </#if>
