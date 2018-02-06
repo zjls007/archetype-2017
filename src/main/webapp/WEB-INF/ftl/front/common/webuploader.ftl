@@ -121,6 +121,7 @@
 <#macro init>
     // 初始化Web Uploader
     var uploader = WebUploader.create({
+        fileSizeLimit:1024*500,
         // 选完文件后，是否自动上传。
         auto: true,
         // swf文件路径
@@ -171,7 +172,7 @@
             div.find("i.file_ico").show();
             div.find("p").show();
             div.find("i.del_close").hide();
-            alert('上传失败');
+            layer.msg("上传失败", {icon: 2, shift: 6});
         } else {
             div.find('input:hidden.imgMD5').val(data.data);
             div.find('img.add').show();
@@ -188,7 +189,7 @@
         div.find("i.file_ico").show();
         div.find("p").show();
         div.find("i.del_close").hide();
-         alert('上传失败');
+        layer.msg("上传失败", {icon: 2, shift: 6});
     });
 
     $("div.uploadImg i.del_close").on({click: function () {
@@ -205,6 +206,7 @@
 <#macro initUploadFile>
     // 初始化Web Uploader
     var uFile = WebUploader.create({
+        fileSizeLimit:1024*500,
         // 选完文件后，是否自动上传。
         auto: true,
         // swf文件路径

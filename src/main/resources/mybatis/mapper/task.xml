@@ -121,6 +121,7 @@
             due_date = #{dueDate},
             difficult = #{difficult},
             type = #{type},
+            state = #{state},
             lst_upd_time = now()
         </set>
         WHERE id = #{id} AND state IN ('publish', 'take')

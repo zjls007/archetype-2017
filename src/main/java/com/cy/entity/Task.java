@@ -3,6 +3,7 @@ package com.cy.entity;
 import com.cy.common.annotation.SelectVal;
 import com.cy.common.util.SelectUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
@@ -26,10 +27,12 @@ public class Task implements Serializable {
 
     /** 任务标题,not null */
     @NotBlank(message = "任务标题不能为空!")
+    @Length(min = 2, max = 50, message = "任务标题长度必须在{min}-{max}位之间!")
     private String title;
 
     /** 任务内容,not null */
     @NotBlank(message = "任务内容不能为空!")
+    @Length(min = 1, max = 500, message = "任务内容长度必须在{min}-{max}位之间!")
     private String content;
 
     /** 截止日期 */

@@ -1,5 +1,6 @@
 package com.cy.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cy.common.exception.ParamException;
 import com.cy.common.exception.ValidException;
 import com.cy.common.util.DateUtil;
@@ -59,6 +60,12 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void saveOrUpdate(TaskSaveDTO dto, UserInfo currentUser) {
+        if (DateUtil.getDate(dto.getTask().getDueDate()).compareTo(DateUtil.getDate(new Date())) == -1) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("field", "task.dueDate");
+            jsonObject.put("msg", "截止日期已过期!");
+            throw new ParamException(jsonObject.toJSONString());
+        }
         Long taskId = doTask(dto, currentUser);
         doUser(taskId, dto.getUserIdList(), dto.getTask().getType());
         doImg(dto.getImgList(), taskId, currentUser.getId());
@@ -286,6 +293,10 @@ public class TaskServiceImpl implements TaskService {
             if (!TaskState.PUBLISH.getCode().equals(db.getState())
                     && !TaskState.TAKE.getCode().equals(db.getState())) {
                 throw new ValidException("必须为发布或认领状态才能修改!");
+            }
+            task.setState(TaskState.PUBLISH.getCode());
+            if (TaskType.ASSIGN.getCode().equals(task.getType())) {
+                task.setState(TaskState.TAKE.getCode());
             }
             int result = taskDAO.updateById(task);
             if (result != 1) {

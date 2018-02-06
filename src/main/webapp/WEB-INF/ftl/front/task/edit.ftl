@@ -19,7 +19,7 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">人员</label>
+        <label class="layui-form-label">人员<input type="text" id="userTip" style="width: 1px;border: 0px"/></label>
         <div class="layui-input-inline">
             <select type="hidden" class="select2" id="userIdList" lay-ignore></select>
         </div>
@@ -42,7 +42,7 @@
     </div>
 
     <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">任务描述</label>
+        <label class="layui-form-label">任务描述<input type="text" id="contentTip" style="width: 1px;border: 0px"/></label>
         <div class="layui-input-block">
             <textarea class="layui-textarea layui-hide" name="task.content" lay-verify="content" id="editor">${(entity.content)!}</textarea>
         </div>
@@ -79,9 +79,9 @@
             $('#submit1').click();
         }});
         $('body').on({click: function () {
-            $('.layui-layedit-focus').each(function () {
-                $(this).removeClass('layui-layedit-focus');
-            });
+            $('.layui-layedit-focus').removeClass('layui-layedit-focus');
+            $('.select2-container--classic .select2-selection--single').css('border-color', '#aaa');
+            $('.select2-container--classic .select2-selection--multiple').css('border-color', '#aaa');
         }});
     });
 
@@ -136,6 +136,8 @@
                 var text = layedit.getText(editIndex);
                 if (text == null || text == '') {
                     $('.layui-layedit').addClass('layui-layedit-focus');
+                    $('#contentTip').focus();
+                    $('#contentTip').blur();
                     return '任务内容不能为空!';
                 }
             }
@@ -148,6 +150,12 @@
         //监听提交
         form.on('submit(submit)', function(data){
             <@select2.setIndex id='userIdList' name='userIdList'/>
+            if (typeof data.field["userIdList[0]"] == 'undefined') {
+                $('.select2-container--classic .select2-selection--single').css('border-color', 'red');
+                $('.select2-container--classic .select2-selection--multiple').css('border-color', 'red');
+                $('#userTip').focus();
+                $('#userTip').blur();
+            }
             <@util.ajaxSubmit url='task/saveOrUpdateDTO' data='data.field'/>
             return false;
         });

@@ -8,7 +8,7 @@
 <button class="layui-btn layui-btn-sm" lay-submit lay-filter="submit"><i class="layui-icon">&#xe60a;</i>保存笔记</button>
 </#if>
 <#if (entity.showCompleteBtn)?? && entity.showCompleteBtn>
-<button class="layui-btn layui-btn-sm" type="reset" onclick="javascript:parent.openTab('${modelNameCN!}查看', '${basePath}/front/task/complete/task/${(entity.id)!}')"><i class="layui-icon">&#xe616;</i>完成</button>
+<button class="layui-btn layui-btn-sm view-complete-btn" type="reset"><i class="layui-icon">&#xe616;</i>完成</button>
 </#if>
 <#if false>
 <script>

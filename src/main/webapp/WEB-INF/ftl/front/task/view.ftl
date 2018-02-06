@@ -79,30 +79,7 @@
 
         //监听提交
         form.on('submit(submit)', function(data){
-            $.ajax({
-                async: true,
-                type: 'POST',
-                url: 'task/saveOrUpdateNotes',
-                data: data.field,
-                dataType: 'json',
-                success: function (data) {
-                    if (data.code == 'success') {
-                        layer.msg("保存成功!");
-                    } else {
-                        if (data.code == 'param_error') {
-                            var d = JSON.parse(data.message);
-                            var input = $('input[name="' + d.field + '"]');
-                            if (input) {
-                                input.addClass("layui-form-danger");
-                                input.focus();
-                            }
-                            layer.msg(d.msg, {icon: 5, shift: 6});
-                        } else {
-                            layer.msg(data.message, {icon: 5, shift: 6});
-                        }
-                    }
-                }
-            });
+            <@util.ajaxSubmit url='task/saveOrUpdateNotes' data='data.field'/>
             return false;
         });
     });
