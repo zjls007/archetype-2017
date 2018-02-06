@@ -163,7 +163,54 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
     public Object pending(@RequestParam("page") Integer pageNum, @RequestParam("limit")Integer pageSize) {
         Map<String, Object> map = new HashMap<String, Object>();
         PageHelper.startPage(pageNum, pageSize);
-        List list = taskDAO.getPendingTask(getCurrentUserId());
+        List<String> stateList = new ArrayList<String>();
+        stateList.add(TaskState.TAKE.getCode());
+        stateList.add(TaskState.BEGIN.getCode());
+        List list = taskDAO.getHomeTask(getCurrentUserId(), stateList);
+        map.put("code", 0);
+        map.put("msg", "");
+        map.put("count", ((Page) list).getTotal());
+        map.put("data", list);
+        doDataOther(map);
+        return map;
+    }
+
+    /**
+     * 首页-待认领任务列表
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("take")
+    @ResponseBody
+    public Object take(@RequestParam("page") Integer pageNum, @RequestParam("limit")Integer pageSize) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        PageHelper.startPage(pageNum, pageSize);
+        List<String> stateList = new ArrayList<String>();
+        stateList.add(TaskState.PUBLISH.getCode());
+        List list = taskDAO.getHomeTask(getCurrentUserId(), stateList);
+        map.put("code", 0);
+        map.put("msg", "");
+        map.put("count", ((Page) list).getTotal());
+        map.put("data", list);
+        doDataOther(map);
+        return map;
+    }
+
+    /**
+     * 首页-已完成任务列表
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("complete")
+    @ResponseBody
+    public Object complete(@RequestParam("page") Integer pageNum, @RequestParam("limit")Integer pageSize) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        PageHelper.startPage(pageNum, pageSize);
+        List<String> stateList = new ArrayList<String>();
+        stateList.add(TaskState.COMPLETE.getCode());
+        List list = taskDAO.getHomeTask(getCurrentUserId(), stateList);
         map.put("code", 0);
         map.put("msg", "");
         map.put("count", ((Page) list).getTotal());
@@ -207,10 +254,10 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
     }
 
     @RequestMapping({"complete/{id}"})
-    public String operComplete(@PathVariable Long id, ModelMap modelMap) {
+    @ResponseBody
+    public Response operComplete(@PathVariable Long id, ModelMap modelMap) {
         taskService.complete(id, getCurrentUserId());
-        view(id, modelMap, null);
-        return genPath("view");
+        return new Response(null);
     }
 
 }

@@ -18,13 +18,7 @@
     </div>
     <div class="layui-col-xs6">
         <div style="padding: 40px 140px 20px 40px;">
-            <table class="layui-table" id="dg" lay-filter="data" lay-data="{height: '240', page: true, limit:10, url:'${dataUrl!}'}">
-                <thead>
-                <tr>
-                    <th lay-data="{field: 'taskNum', width:400}">待认领任务</th>
-                </tr>
-                </thead>
-            </table>
+        <#include "home/takeTask.ftl"/>
         </div>
     </div>
 </div>
@@ -32,13 +26,7 @@
 <div class="layui-row">
     <div class="layui-col-xs6">
         <div style="padding: 40px 40px 20px 140px;">
-            <table class="layui-table" id="dg" lay-filter="data" lay-data="{height: '240', page: true, limit:10, url:'${dataUrl!}'}">
-                <thead>
-                <tr>
-                    <th lay-data="{field: 'taskNum', width:400}">已完成任务</th>
-                </tr>
-                </thead>
-            </table>
+        <#include "home/completeTask.ftl"/>
         </div>
     </div>
     <div class="layui-col-xs6">
@@ -64,6 +52,22 @@
                 parent.openTab('任务查看', 'task/view/'+data.id+'?nav=首页');
             }
         });
+
+        table.on('tool(takeTask)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'taskView'){
+                parent.openTab('任务查看', 'task/view/'+data.id+'?nav=首页');
+            }
+        });
+
+        table.on('tool(completeTask)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'taskView'){
+                parent.openTab('任务查看', 'task/view/'+data.id+'?nav=首页');
+            }
+        });
+
+
     });
 </script>
 </body>

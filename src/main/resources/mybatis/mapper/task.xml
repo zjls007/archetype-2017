@@ -229,12 +229,17 @@
         WHERE create_user_id = #{createUserId}
     </select>
 
-    <select id="getPendingTask" resultMap="BaseResultMap">
+    <select id="getHomeTask" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Alias_Column_List"/>
         FROM task t, task_user tu
-        WHERE t.id = tu.task_id AND tu.user_id = #{pendingTaskUserId}
-        AND t.state in ('take', 'begin', 'wait')
+        WHERE t.id = tu.task_id AND tu.user_id = #{userId}
+        <if test="stateList != null and !stateList.isEmpty()">
+            AND t.state in
+            <foreach collection="stateList" open="(" close=")" separator="," item="item">
+                #{item}
+            </foreach>
+        </if>
         ORDER BY t.create_time DESC
     </select>
 

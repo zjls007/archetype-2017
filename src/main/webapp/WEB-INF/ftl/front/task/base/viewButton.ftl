@@ -20,6 +20,7 @@
     $('.view-save-note-btn').on({click:function () {
     }});
     $('.view-complete-btn').on({click:function () {
+        <@util.ajax url='${basePath}/front/task/complete/${(entity.id)!}'/>
     }});
     </#macro>
 <#if false>

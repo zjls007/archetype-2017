@@ -39,7 +39,7 @@ public interface TaskDAO {
 
     List<Task> listByCreateUserId(Long createUserId);
 
-    /** 获取首页-待处理任务 */
-    List<Task> getPendingTask(Long pendingTaskUserId);
+    /** 获取首页-处理任务 */
+    List<Task> getHomeTask(@Param("userId") Long userId, @Param("stateList") List<String> stateList);
 
 }
