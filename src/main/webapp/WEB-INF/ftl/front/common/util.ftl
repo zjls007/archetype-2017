@@ -51,22 +51,22 @@
 </#macro>
 
 <#macro ajax url='' data=''>
-$.ajax({
-    async: true,
-    type: 'POST',
-    url: '${url!}',
-    <#if data?? && data != ''>
-        data: ${data!},
-    </#if>
-    dataType: 'json',
-    success: function (data) {
-        if (data.code == 'success') {
-            layer.msg('成功!', {icon: 1, shift: 6});
-        } else {
-            layer.msg(data.message, {icon: 2, shift: 6});
+    $.ajax({
+        async: true,
+        type: 'POST',
+        url: '${url!}',
+        <#if data?? && data != ''>
+            data: ${data!},
+        </#if>
+        dataType: 'json',
+        success: function (data) {
+            if (data.code == 'success') {
+                layer.msg('成功!', {icon: 1, shift: 6});
+            } else {
+                layer.msg(data.message, {icon: 2, shift: 6});
+            }
         }
-    }
-});
+    });
 </#macro>
 
 <#if false>

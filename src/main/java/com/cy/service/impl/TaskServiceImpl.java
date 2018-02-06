@@ -16,13 +16,12 @@ import com.cy.web.dto.param.system.TaskNoteSaveDTO;
 import com.cy.web.dto.param.system.TaskSaveDTO;
 import com.cy.web.dto.result.TaskNoteDTO;
 import com.cy.web.dto.result.TaskResultDTO;
+import com.cy.web.vo.SetpItemVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by zxj on 2018/1/5.
@@ -47,6 +46,46 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private TaskNoteDAO taskNoteDAO;
+
+    @Override
+    public Map<String, Object> getStep(Long taskId) {
+        Task task = taskDAO.getById(taskId);
+        if (task == null) {
+            throw new ValidException("任务不存在!");
+        }
+        String state = task.getState();
+        int step = 1;
+        if (TaskState.TAKE.getCode().equals(state)) {
+            step = 2;
+        } else if (TaskState.BEGIN.getCode().equals(state)) {
+            step = 3;
+        } else if (TaskState.WAIT.getCode().equals(state)) {
+            step = 4;
+        } else if (TaskState.COMPLETE.getCode().equals(state)) {
+            step = 5;
+        }
+        List<SetpItemVO> list = new ArrayList<>();
+        list.add(getVo(taskId, TaskState.PUBLISH));
+        list.add(getVo(taskId, TaskState.TAKE));
+        list.add(getVo(taskId, TaskState.BEGIN));
+        list.add(getVo(taskId, TaskState.WAIT));
+        list.add(getVo(taskId, TaskState.COMPLETE));
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("step", step);
+        map.put("steps", list);
+        return map;
+    }
+
+    private SetpItemVO getVo(Long taskId, TaskState state) {
+        SetpItemVO vo = new SetpItemVO();
+        vo.setTitle(state.getName());
+        TaskStateChange change = taskStateChangeDAO.getByState(taskId, state.getCode());
+        if (change != null) {
+            vo.setContent(DateUtil.getYMDHMSStr(change.getCreateTime()));
+        }
+        return vo;
+    }
 
     @Override
     public TaskResultDTO get(Long taskId) {

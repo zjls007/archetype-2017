@@ -34,6 +34,14 @@ public class DateUtil {
         return df.format(date);
     }
 
+    public static String getYMDHMSStr(Date date) {
+        if (date == null) {
+            return null;
+        }
+        DateFormat df = new SimpleDateFormat(YMD_HMS);
+        return df.format(date);
+    }
+
     public static boolean dateTimeEqual(Date d1 , Date d2) {
         d1 = d1 == null ? getYMDDate("1970-01-01 00:00:00") : d1;
         d2 = d2 == null ? getYMDDate("1970-01-01 00:00:00") : d2;

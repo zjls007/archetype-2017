@@ -260,4 +260,10 @@ public class TaskController extends LayerTableAdaptController<Task, TaskQueryDTO
         return new Response(null);
     }
 
+    @RequestMapping({"step/{id}"})
+    @ResponseBody
+    public Response step(@PathVariable Long id) {
+        return new Response(taskService.getStep(id));
+    }
+
 }

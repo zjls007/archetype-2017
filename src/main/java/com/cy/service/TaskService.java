@@ -9,11 +9,14 @@ import com.cy.web.dto.result.TaskResultDTO;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zxj on 2018/1/5.
  */
 public interface TaskService {
+
+    Map<String, Object> getStep(Long taskId);
 
     /**
      * 获取任务详情

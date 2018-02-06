@@ -39,27 +39,25 @@
 
     $(document).ready(function() {
         <@btn/>
-        $(".ystep").loadStep({
-            size: "large",
-            color: "green",
-            steps: [{
-                title: "发布",
-                content: ""
-            },{
-                title: "认领",
-                content: ""
-            },{
-                title: "开始",
-                content: ""
-            },{
-                title: "挂起",
-                content: ""
-            },{
-                title: "完成",
-                content: ""
-            }]
+
+        $.ajax({
+            async: true,
+            type: 'POST',
+            url: 'task/step/${(entity.id)!}',
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 'success') {
+                    $(".ystep").loadStep({
+                        size: "large",
+                        color: "green",
+                        steps: data.data.steps
+                    });
+                    $(".ystep").setStep(data.data.step);
+                } else {
+                    layer.msg(data.message, {icon: 2, shift: 6});
+                }
+            }
         });
-        $(".ystep").setStep(3);
     });
 
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
