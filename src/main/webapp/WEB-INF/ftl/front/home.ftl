@@ -7,8 +7,12 @@
     <title>牛X系统</title>
     <link rel="stylesheet" href="${basePath}/statics/ui/layui-2.2.5/css/layui.css">
     <link rel="stylesheet" href="${basePath}/statics/ui/tab/css/tabstyle-min.css">
+    <link href="${basePath}/statics/css/style.css" rel="stylesheet" />
 </head>
 <body>
+<div class="box-refresh">
+    <a href="javascript:location.replace(location.href);" title="刷新"><i class="fa"></i></a>
+</div>
 
 <div class="layui-row">
     <div class="layui-col-xs6">

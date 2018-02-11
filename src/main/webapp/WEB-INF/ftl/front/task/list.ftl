@@ -77,11 +77,11 @@
 <@override name="fullHeight">365</@override>
 <@override name="th">
     <th lay-data="{type:'checkbox'}"></th>
-    <th lay-data="{field: 'taskNum', width:120}">编号</th>
+    <th lay-data="{field: 'taskNum', width:140}">编号</th>
     <th lay-data="{field:'title', width: 200}">标题</th>
-    <th lay-data="{field:'difficult', width: 200}">难度</th>
-    <th lay-data="{field:'type', width: 200}">类型</th>
-    <th lay-data="{field:'state', width: 80,templet: '#stateTpl', align:'center'}">状态</th>
+    <th lay-data="{field:'difficult', width: 80, align:'center'}">难度</th>
+    <th lay-data="{field:'type', width: 80, align:'center'}">类型</th>
+    <th lay-data="{field:'state', width: 80, templet: '#stateTpl', align:'center'}">状态</th>
     <th lay-data="{field:'dueDate', width:180, align:'center'}">截止日期</th>
     <th lay-data="{field:'createTime', width:180, align:'center'}">创建日期</th>
     <th lay-data="{minWidth:180,align:'left', toolbar: '#bar'}">操作</th>
