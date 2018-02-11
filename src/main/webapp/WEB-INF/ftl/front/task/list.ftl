@@ -81,20 +81,19 @@
     <th lay-data="{field:'title', width: 200}">标题</th>
     <th lay-data="{field:'difficult', width: 200}">难度</th>
     <th lay-data="{field:'type', width: 200}">类型</th>
-    <th lay-data="{field:'state', width: 200}">状态</th>
+    <th lay-data="{field:'state', width: 80,templet: '#stateTpl', align:'center'}">状态</th>
     <th lay-data="{field:'dueDate', width:180, align:'center'}">截止日期</th>
     <th lay-data="{field:'createTime', width:180, align:'center'}">创建日期</th>
     <th lay-data="{minWidth:180,align:'left', toolbar: '#bar'}">操作</th>
 </@override>
 <@override name="tableBar">
-    <script type="text/html" id="accountLocked">
-        <input type="checkbox" name="lock" value="{{d.id}}" title="锁定" lay-filter="accountLocked" {{ d.accountLocked == 1 ? 'checked' : '' }} {{ d.id == 1 ? 'disabled' : '' }}>
-    </script>
-
     <script type="text/html" id="bar">
         <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        {{d.state == '发布' || d.state == '认领' ? '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>' : ''}}
+        {{d.state == '发布' || d.state == '认领' ? '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>' : ''}}
+    </script>
+    <script type="text/html" id="stateTpl">
+        {{d.state == '发布' || d.state == '认领' ? '<span class="layui-badge layui-bg-blue">'+d.state+'</span>' : '<span class="layui-badge layui-bg-green">'+d.state+'</span>'}}
     </script>
 </@override>
 <#if false>
