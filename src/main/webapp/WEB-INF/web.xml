@@ -20,7 +20,7 @@
     <listener-class>org.springframework.web.context.request.RequestContextListener </listener-class>
   </listener>
 
-  <!-- 关闭spring session 使用redis功能
+  <!-- 关闭spring session 使用redis功能 -->
   <filter>
     <filter-name>springSessionRepositoryFilter</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -31,7 +31,7 @@
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>ERROR</dispatcher>
   </filter-mapping>
-  -->
+
 
   <!-- filter-name的名称要和spring-application-shiro.xml中id对应 -->
   <filter>

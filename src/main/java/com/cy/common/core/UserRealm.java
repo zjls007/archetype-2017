@@ -12,8 +12,11 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.annotation.Resource;
+import java.util.Set;
 
 /**
  * Created by zxj on 2017/2/17.
@@ -29,6 +32,9 @@ public class UserRealm extends AuthorizingRealm {
     @Resource
     private RoleInfoDAO roleInfoDAO;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
     /**
      * 授权方法
      * @param principalCollection
@@ -37,8 +43,24 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         Long currentUserId = (Long) SecurityUtils.getSubject().getSession().getAttribute(Constants.CURRENT_USER_ID);
-        authorizationInfo.setRoles(roleInfoDAO.getRoleCodeList(currentUserId));
-        authorizationInfo.setStringPermissions(roleInfoDAO.getPermByUser(currentUserId));
+
+        Set<String> roles = stringRedisTemplate.opsForSet().members(String.format("roles-%s", currentUserId));
+        if (roles == null || roles.isEmpty()) {
+            roles = roleInfoDAO.getRoleCodeList(currentUserId);
+            if (roles != null && !roles.isEmpty()) {
+                stringRedisTemplate.opsForSet().add(String.format("roles-%s", currentUserId), roles.toArray(new String[roles.size()]));
+            }
+        }
+        authorizationInfo.setRoles(roles);
+
+        Set<String> perms = stringRedisTemplate.opsForSet().members(String.format("perms-%s", currentUserId));
+        if (perms == null || perms.isEmpty()) {
+            perms = roleInfoDAO.getPermByUser(currentUserId);
+            if (perms != null && !perms.isEmpty()) {
+                stringRedisTemplate.opsForSet().add(String.format("perms-%s", currentUserId), perms.toArray(new String[perms.size()]));
+            }
+        }
+        authorizationInfo.setStringPermissions(perms);
         return authorizationInfo;
     }
 
