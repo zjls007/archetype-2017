@@ -120,6 +120,18 @@
       如果精确匹配不成功，那么会使用第二个原则“最长路径匹配”，如Servlet1为/foo/*，Servlet2为/*，这时请求的URL为http://localhost/foo/foo.htm，那么Servlet1匹配成功；
       最后根据后缀进行匹配；
       但是一次请求只会成功匹配到一个Servlet；
+
+      误区1：
+          springmvc DispatcherServlet url-pattern 很容易被新手误配为 /* 导致找不到jsp页面
+          分析：/* 为路径匹配，已经能匹配到任意路径了， 而jsp的 url-pattern 为 *.jsp（在tomcat的conf/web.xml中能找到）为后缀匹配
+          根据原则 路径匹配优先于后缀匹配，所以最终要跳转的页面如 index.jsp 也会重新进入 springmvc 的 DispatcherServlet 中导致最终永远不会找到jsp页面
+
+      误区2：
+         springmvc DispatcherServlet url-pattern 官方默认推荐配置为 /
+         而使用/会导致覆盖掉tomcat默认的servlet(在tomcat的conf/web.xml中能找到)
+         而默认的servlet是有实现去找静态文件的功能的，所以导致这样的配置是找不到静态文件的
+         官方解决方案:
+              使用 <mvc:default-servlet-handler/> 解决
     -->
   </servlet-mapping>
 
