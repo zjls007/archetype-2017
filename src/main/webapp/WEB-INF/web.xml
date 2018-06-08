@@ -110,6 +110,8 @@
         后缀匹配 —— 如*.htm，会匹配所有以.htm为后缀的URL
         <url-pattern>的其他写法，如/foo/ ，/*.htm ，*/foo 都是不对的。
 
+        /        ——  "/" 的设置将会将当前指定的 servlet 设为web应用的默认servlet，原来web容器的默认servlet将被覆盖。
+
     Servlet的匹配原则
 
       Servlet的匹配规则在prg.apache.tomcat.util.http.mapper.Mapper.internalMapWrapper中定义。
